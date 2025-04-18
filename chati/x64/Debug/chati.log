@@ -1,0 +1,30 @@
+﻿  GuiForm.cpp
+C:\Programms\chati\chati\SaveLoadFiles.cpp(23,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file 'GuiForm.cpp')
+  
+C:\Programms\chati\chati\SaveLoadFiles.cpp(49,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file 'GuiForm.cpp')
+  
+C:\Programms\chati\chati\SaveLoadFiles.cpp(55,18): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file 'GuiForm.cpp')
+  
+C:\Programms\chati\chati\SaveLoadFiles.cpp(61,22): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file 'GuiForm.cpp')
+  
+C:\Programms\chati\chati\SaveLoadFiles.cpp(13,6): warning C4996: 'freopen': This function or variable may be unsafe. Consider using freopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file 'GuiForm.cpp')
+  
+C:\Programms\chati\chati\SaveLoadFiles.cpp(74,2): warning C4996: 'freopen': This function or variable may be unsafe. Consider using freopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file 'GuiForm.cpp')
+  
+  SaveLoadFiles.cpp
+C:\Programms\chati\chati\SaveLoadFiles.cpp(23,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Programms\chati\chati\SaveLoadFiles.cpp(49,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Programms\chati\chati\SaveLoadFiles.cpp(55,18): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Programms\chati\chati\SaveLoadFiles.cpp(61,22): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Programms\chati\chati\SaveLoadFiles.cpp(13,6): warning C4996: 'freopen': This function or variable may be unsafe. Consider using freopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Programms\chati\chati\SaveLoadFiles.cpp(74,2): warning C4996: 'freopen': This function or variable may be unsafe. Consider using freopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  Signing.cpp
+  Generating Code...
+  chat.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
+  chati.vcxproj -> C:\Programms\chati\x64\Debug\chati.exe
