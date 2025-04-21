@@ -975,6 +975,7 @@ namespace chati {
 
 			currentChatRoom = &chatRooms[1];
 
+
 			//for(auto c: chatRooms){
 			//	for(auto m: c.second.getMessagesID()){
 			//		cout << "messageID from chat: " << m << endl;

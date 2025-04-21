@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <string>
-#include <list>
+#include <set>
 #include "Message.h"
 #include "User.h"
 
@@ -11,7 +11,7 @@ class ChatRoom {
 	static int chatRoomCounter; // Static variable to keep track of chat room IDs
     int chatRoomID;
     vector<int> usersID;
-    list<int> messagesID;
+    set<int> messagesID;
     bool isDual;
 
 public:
@@ -23,13 +23,13 @@ public:
     // Getters
     int getChatRoomID() const;
     vector<int> getUsersID() const;
-    list<int> getMessagesID() const;
+    set<int> getMessagesID() const;
     bool getIsDual() const;
 
     // Setters
     void setChatRoomID(int id);
     void setUsersID(const vector<int>& users);
-    void setMessagesID(const list<int>& messages);
+    void setMessagesID(const set<int>& messages);
     void setIsDual(bool dual);
 
 	// Add Delete Methods

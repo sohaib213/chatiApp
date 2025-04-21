@@ -61,7 +61,8 @@ public:
 
            // Fix: Pass the dereferenced map to the createMessage function  
            createMessage(messagesContainer, (*globalMessages)[messageID], *globalMessages);  
-           textBox1->Text = "";  
+           textBox1->Clear();
+		   textBox1->Focus();
        }  
    }
 
@@ -124,9 +125,11 @@ public:
                 {
                     // Fix: Explicitly cast Parent->Parent to FlowLayoutPanel^
                     FlowLayoutPanel^ messagesContainer = dynamic_cast<FlowLayoutPanel^>(label->Parent->Parent);
+                    Panel^ panel = dynamic_cast<Panel^>(label->Parent);
+
                     if (messagesContainer != nullptr)
                     {
-                        deleteMessage(messagesContainer, Convert::ToInt32(label->Name));
+                        deleteMessage(messagesContainer, Convert::ToInt32(label->Name), panel);
                     }
                 }
             }
@@ -141,9 +144,10 @@ public:
                     if (label != nullptr)
                     {
                         FlowLayoutPanel^ messagesContainer = dynamic_cast<FlowLayoutPanel^>(label->Parent->Parent);
+
                         if (messagesContainer != nullptr)
                         {
-                            deleteMessage(messagesContainer, Convert::ToInt32(label->Name));
+                            deleteMessage(messagesContainer, Convert::ToInt32(label->Name), panel);
                         }
                     }
                 }
@@ -151,20 +155,10 @@ public:
         }
     }
 
-     void deleteMessage(FlowLayoutPanel^ messagesContainer, int messageID) {  
-         for (int i = 0; i < messagesContainer->Controls->Count; i++) {  
-             Panel^ panel = dynamic_cast<Panel^>(messagesContainer->Controls[i]);  
-             Label^ label = dynamic_cast<Label^>(panel->Controls[0]);  
-             if (label != nullptr && label->Name == messageID.ToString()) {  
-                 messagesContainer->Controls->Remove(panel);  
+     void deleteMessage(FlowLayoutPanel^ messagesContainer, int messageID, Panel^ panel) {
 
-                 globalMessages->erase(messageID);  
-                 
-				 globalChatRoom->deleteMessageID(i);
-
-                 
-                 break;  
-             }  
-         }  
+		 globalChatRoom->deleteMessageID(messageID);
+		 globalMessages->erase(messageID);
+		 messagesContainer->Controls->Remove(panel);
      }
 };
