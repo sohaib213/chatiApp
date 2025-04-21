@@ -1,10 +1,10 @@
 #include "ChatRoom.h"
+int ChatRoom::chatRoomCounter = 0;
+ChatRoom::ChatRoom() : chatRoomID(0), isDual(false) { chatRoomID = ++chatRoomCounter; }
 
-ChatRoom::ChatRoom() : chatRoomID(0), isDual(false) {}
+ChatRoom::ChatRoom(int id) : chatRoomID(id), isDual(false) { chatRoomID = ++chatRoomCounter; }
 
-ChatRoom::ChatRoom(int id) : chatRoomID(id), isDual(false) {}
-
-ChatRoom::ChatRoom(int id, bool isDual) : chatRoomID(id), isDual(isDual) {}
+ChatRoom::ChatRoom(int id, bool isDual) : chatRoomID(id), isDual(isDual) { chatRoomID = ++chatRoomCounter; }
 
 int ChatRoom::getChatRoomID() const { return chatRoomID; }
 void ChatRoom::setChatRoomID(int chatRoomID) { this->chatRoomID = chatRoomID; }

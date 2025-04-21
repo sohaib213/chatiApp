@@ -9,7 +9,7 @@ using namespace std;
 
 class ChatRoom {
 public:
-    
+	static int chatRoomCounter; // Static variable to keep track of chat room IDs
     int chatRoomID;
     vector<int> usersID;
     list<int> messagesID;

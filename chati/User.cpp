@@ -1,10 +1,13 @@
 #include "User.h"
-
+int User::userCounter = 0; // Initialize the static user counter
 User::User(string mobileNumber, string password, string firstName, string lastName)
     : mobileNumber(mobileNumber), password(password), firstName(firstName), lastName(lastName), visible(true) {
+	userID = ++userCounter; // Increment the static user counter to assign a unique ID
 }
 
-User::User() : userID(0), mobileNumber(""), password(""), firstName(""), lastName(""), visible(true) {}
+User::User() : userID(0), mobileNumber(""), password(""), firstName(""), lastName(""), visible(true) {
+	userID = ++userCounter; // Increment the static user counter to assign a unique ID
+}
 
 int User::getUserID() const { return userID; }
 void User::setUserID(int userID) { this->userID = userID; }

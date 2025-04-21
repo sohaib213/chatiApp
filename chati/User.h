@@ -11,6 +11,7 @@ class ChatRoom;
 
 class User {
 public:
+	static int userCounter; // Static variable to keep track of user IDs
     int userID;
     string mobileNumber;
     string password;

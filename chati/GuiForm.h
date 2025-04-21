@@ -259,12 +259,12 @@ namespace chati {
 			this->profileButton = (gcnew System::Windows::Forms::Button());
 			this->chatButton = (gcnew System::Windows::Forms::Button());
 			this->addStoryPanel = (gcnew System::Windows::Forms::Panel());
+			this->button6 = (gcnew System::Windows::Forms::Button());
 			this->button5 = (gcnew System::Windows::Forms::Button());
 			this->button4 = (gcnew System::Windows::Forms::Button());
 			this->textStory = (gcnew System::Windows::Forms::TextBox());
 			this->button3 = (gcnew System::Windows::Forms::Button());
 			this->colorDialog1 = (gcnew System::Windows::Forms::ColorDialog());
-			this->button6 = (gcnew System::Windows::Forms::Button());
 			this->signUp_pnl->SuspendLayout();
 			this->First_pnl->SuspendLayout();
 			this->signIn_pnl->SuspendLayout();
@@ -828,6 +828,20 @@ namespace chati {
 			this->addStoryPanel->Size = System::Drawing::Size(1324, 720);
 			this->addStoryPanel->TabIndex = 13;
 			// 
+			// button6
+			// 
+			this->button6->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->button6->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button6.BackgroundImage")));
+			this->button6->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+			this->button6->FlatAppearance->BorderSize = 0;
+			this->button6->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->button6->Location = System::Drawing::Point(1167, 12);
+			this->button6->Name = L"button6";
+			this->button6->Size = System::Drawing::Size(56, 50);
+			this->button6->TabIndex = 4;
+			this->button6->UseVisualStyleBackColor = true;
+			this->button6->Click += gcnew System::EventHandler(this, &GuiForm::button6_Click);
+			// 
 			// button5
 			// 
 			this->button5->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
@@ -885,26 +899,12 @@ namespace chati {
 			// 
 			this->colorDialog1->FullOpen = true;
 			// 
-			// button6
-			// 
-			this->button6->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->button6->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button6.BackgroundImage")));
-			this->button6->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
-			this->button6->FlatAppearance->BorderSize = 0;
-			this->button6->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->button6->Location = System::Drawing::Point(1167, 12);
-			this->button6->Name = L"button6";
-			this->button6->Size = System::Drawing::Size(56, 50);
-			this->button6->TabIndex = 4;
-			this->button6->UseVisualStyleBackColor = true;
-			this->button6->Click += gcnew System::EventHandler(this, &GuiForm::button6_Click);
-			// 
 			// GuiForm
 			// 
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
 			this->ClientSize = System::Drawing::Size(1324, 720);
-			this->Controls->Add(this->addStoryPanel);
 			this->Controls->Add(this->chatPanel);
+			this->Controls->Add(this->addStoryPanel);
 			this->Controls->Add(this->signUp_pnl);
 			this->Controls->Add(this->signIn_pnl);
 			this->Controls->Add(this->First_pnl);

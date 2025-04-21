@@ -1,7 +1,8 @@
 #include "Story.h"
-
+int Story::storyCounter = 0; // Initialize the static story counter
 Story::Story(string userID, string publishTime, string storyText, string storyPhoto)
     : userID(userID), publishTime(publishTime), storyText(storyText), storyPhoto(storyPhoto) {
+	storyId = ++storyCounter; // Increment the static story counter to assign a unique ID
 }
 
 string Story::getUserID() const { return userID; }

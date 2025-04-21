@@ -5,6 +5,7 @@ using namespace std;
 
 class Story {
 public:
+	static int storyCounter; // Static variable to keep track of story IDs
     string storyId;
     string userID;
     string publishTime;
