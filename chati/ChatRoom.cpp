@@ -17,3 +17,25 @@ void ChatRoom::setMessagesID(const list<int>& messagesID) { this->messagesID = m
 
 bool ChatRoom::getIsDual() const { return isDual; }
 void ChatRoom::setIsDual(bool isDual) { this->isDual = isDual; }
+
+void ChatRoom::addUserID(int userID) {
+	this->usersID.push_back(userID);
+}
+void ChatRoom::deleteUserID(int userID) {
+	auto it = find(usersID.begin(), usersID.end(), userID);
+	if (it != usersID.end()) {
+		usersID.erase(it);
+	}
+}
+
+void ChatRoom::addMessageID(int messageID) {
+	this->messagesID.push_back(messageID);
+}
+void ChatRoom::deleteMessageID(int i) {
+	int index = this->messagesID.size() - i - 1;
+
+	auto it = this->messagesID.begin();
+	std::advance(it, index); // Use advance for non-random access iterators
+	this->messagesID.erase(it);
+
+}

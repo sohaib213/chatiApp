@@ -23,7 +23,7 @@ map<string, User> users;
 unordered_map<int, ChatRoom> chatRooms;
 // Use the namespace explicitly to resolve ambiguity
 unordered_map<int, chati::Message> messages;
-User currentUser;
+User *currentUser;
 ChatRoom *currentChatRoom;
 
 
@@ -115,7 +115,7 @@ namespace chati {
 	private: System::Windows::Forms::PictureBox^ pictureBox1;
 	private: System::Windows::Forms::Panel^ panel1;
 	private: System::Windows::Forms::Button^ sendButton;
-	private: System::Windows::Forms::TextBox^ textBox1;
+
 
 
 	private: System::Windows::Forms::Label^ label1;
@@ -135,6 +135,9 @@ namespace chati {
 	private: System::Windows::Forms::Button^ button4;
 	private: System::Windows::Forms::Button^ button5;
 	private: System::Windows::Forms::Button^ button6;
+	private: System::Windows::Forms::RichTextBox^ textBox1;
+
+
 
 
 
@@ -244,8 +247,8 @@ namespace chati {
 			this->messagesContainer = (gcnew System::Windows::Forms::FlowLayoutPanel());
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->textBox1 = (gcnew System::Windows::Forms::RichTextBox());
 			this->sendButton = (gcnew System::Windows::Forms::Button());
-			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->chatRoomsPanel = (gcnew System::Windows::Forms::FlowLayoutPanel());
 			this->profilePanel = (gcnew System::Windows::Forms::Panel());
 			this->label1 = (gcnew System::Windows::Forms::Label());
@@ -600,7 +603,7 @@ namespace chati {
 			this->panel2->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->panel2->Location = System::Drawing::Point(0, 0);
 			this->panel2->Name = L"panel2";
-			this->panel2->Size = System::Drawing::Size(899, 662);
+			this->panel2->Size = System::Drawing::Size(899, 674);
 			this->panel2->TabIndex = 14;
 			// 
 			// messagesContainer
@@ -614,7 +617,7 @@ namespace chati {
 			this->messagesContainer->Name = L"messagesContainer";
 			this->messagesContainer->Padding = System::Windows::Forms::Padding(2);
 			this->messagesContainer->RightToLeft = System::Windows::Forms::RightToLeft::Yes;
-			this->messagesContainer->Size = System::Drawing::Size(899, 662);
+			this->messagesContainer->Size = System::Drawing::Size(899, 674);
 			this->messagesContainer->TabIndex = 2;
 			this->messagesContainer->WrapContents = false;
 			// 
@@ -627,7 +630,7 @@ namespace chati {
 			this->pictureBox1->InitialImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.InitialImage")));
 			this->pictureBox1->Location = System::Drawing::Point(0, 0);
 			this->pictureBox1->Name = L"pictureBox1";
-			this->pictureBox1->Size = System::Drawing::Size(899, 662);
+			this->pictureBox1->Size = System::Drawing::Size(899, 674);
 			this->pictureBox1->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
 			this->pictureBox1->TabIndex = 12;
 			this->pictureBox1->TabStop = false;
@@ -636,38 +639,39 @@ namespace chati {
 			// 
 			this->panel1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(50)), static_cast<System::Int32>(static_cast<System::Byte>(50)),
 				static_cast<System::Int32>(static_cast<System::Byte>(50)));
-			this->panel1->Controls->Add(this->sendButton);
 			this->panel1->Controls->Add(this->textBox1);
+			this->panel1->Controls->Add(this->sendButton);
 			this->panel1->Dock = System::Windows::Forms::DockStyle::Bottom;
-			this->panel1->Location = System::Drawing::Point(0, 662);
+			this->panel1->Location = System::Drawing::Point(0, 674);
 			this->panel1->Name = L"panel1";
-			this->panel1->Size = System::Drawing::Size(899, 58);
+			this->panel1->Size = System::Drawing::Size(899, 46);
 			this->panel1->TabIndex = 13;
-			// 
-			// sendButton
-			// 
-			this->sendButton->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
-			this->sendButton->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"sendButton.BackgroundImage")));
-			this->sendButton->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
-			this->sendButton->FlatAppearance->BorderSize = 0;
-			this->sendButton->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->sendButton->Location = System::Drawing::Point(797, 3);
-			this->sendButton->Name = L"sendButton";
-			this->sendButton->Size = System::Drawing::Size(90, 46);
-			this->sendButton->TabIndex = 3;
-			this->sendButton->UseVisualStyleBackColor = true;
-			this->sendButton->Click += gcnew System::EventHandler(this, &GuiForm::sendButton_Click);
 			// 
 			// textBox1
 			// 
-			this->textBox1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
-				| System::Windows::Forms::AnchorStyles::Right));
-			this->textBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 18, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->textBox1->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->textBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->textBox1->Location = System::Drawing::Point(93, 8);
+			this->textBox1->Location = System::Drawing::Point(0, 0);
 			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(650, 35);
-			this->textBox1->TabIndex = 2;
+			this->textBox1->Size = System::Drawing::Size(817, 46);
+			this->textBox1->TabIndex = 0;
+			this->textBox1->Text = L"";
+			// 
+			// sendButton
+			// 
+			this->sendButton->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"sendButton.BackgroundImage")));
+			this->sendButton->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+			this->sendButton->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->sendButton->Dock = System::Windows::Forms::DockStyle::Right;
+			this->sendButton->FlatAppearance->BorderSize = 0;
+			this->sendButton->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->sendButton->Location = System::Drawing::Point(817, 0);
+			this->sendButton->Name = L"sendButton";
+			this->sendButton->Size = System::Drawing::Size(82, 46);
+			this->sendButton->TabIndex = 3;
+			this->sendButton->UseVisualStyleBackColor = true;
+			this->sendButton->Click += gcnew System::EventHandler(this, &GuiForm::sendButton_Click);
 			// 
 			// chatRoomsPanel
 			// 
@@ -778,6 +782,7 @@ namespace chati {
 			// 
 			this->statusButton->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"statusButton.BackgroundImage")));
 			this->statusButton->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+			this->statusButton->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->statusButton->FlatAppearance->BorderSize = 0;
 			this->statusButton->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->statusButton->Location = System::Drawing::Point(11, 150);
@@ -789,8 +794,10 @@ namespace chati {
 			// 
 			// profileButton
 			// 
+			this->profileButton->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left));
 			this->profileButton->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"profileButton.BackgroundImage")));
 			this->profileButton->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+			this->profileButton->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->profileButton->FlatAppearance->BorderSize = 0;
 			this->profileButton->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->profileButton->Location = System::Drawing::Point(5, 630);
@@ -804,11 +811,12 @@ namespace chati {
 			// 
 			this->chatButton->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"chatButton.BackgroundImage")));
 			this->chatButton->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+			this->chatButton->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->chatButton->FlatAppearance->BorderSize = 0;
 			this->chatButton->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->chatButton->Location = System::Drawing::Point(12, 38);
 			this->chatButton->Name = L"chatButton";
-			this->chatButton->Size = System::Drawing::Size(69, 63);
+			this->chatButton->Size = System::Drawing::Size(61, 62);
 			this->chatButton->TabIndex = 0;
 			this->chatButton->UseVisualStyleBackColor = true;
 			this->chatButton->Click += gcnew System::EventHandler(this, &GuiForm::chatButton_Click_1);
@@ -904,9 +912,9 @@ namespace chati {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
 			this->ClientSize = System::Drawing::Size(1324, 720);
 			this->Controls->Add(this->chatPanel);
-			this->Controls->Add(this->addStoryPanel);
 			this->Controls->Add(this->signUp_pnl);
 			this->Controls->Add(this->signIn_pnl);
+			this->Controls->Add(this->addStoryPanel);
 			this->Controls->Add(this->First_pnl);
 			this->Margin = System::Windows::Forms::Padding(4);
 			this->Name = L"GuiForm";
@@ -926,7 +934,6 @@ namespace chati {
 			this->panel2->ResumeLayout(false);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			this->panel1->ResumeLayout(false);
-			this->panel1->PerformLayout();
 			this->profilePanel->ResumeLayout(false);
 			this->profilePanel->PerformLayout();
 			this->storyPanel->ResumeLayout(false);
@@ -958,36 +965,38 @@ namespace chati {
 			//}
 
 			// will remove this later
-			currentUser = users["01067700658"];
+			currentUser = &users["01067700658"];
 
 
-			//currentChatRoom = new ChatRoom(2, true);
+	/*		currentChatRoom = new ChatRoom(1, true);
+			currentChatRoom->addUserID(currentUser->getUserID());
+			chatRooms[1] = *currentChatRoom;*/
 
-			//currentChatRoom->usersID.push_back(currentUser.userID);
 
-			//chatRooms[2] = *currentChatRoom;
-
-			//cout << '3' << endl;
-
-			currentChatRoom = &chatRooms[2];
+			currentChatRoom = &chatRooms[1];
 
 			//for(auto c: chatRooms){
-			//	cout << c.second.messagesID.size() << endl;
+			//	for(auto m: c.second.getMessagesID()){
+			//		cout << "messageID from chat: " << m << endl;
+			//	}
 			//}
 
+			//for(auto m: currentChatRoom->getMessagesID()){
+			//	cout << "messageID from current chat: " << m << endl;
+			//}
+
+			//for (auto m : messages) {
+
+			//	cout << "messageID: " << m.first << " : " << m.second.getIsRead() << endl;
+			//	cout << "Text : " << m.second.getText() << endl;
+			//	cout << "Sender ID: " << m.second.getSenderID() << endl;
+			//	cout << "date Sent: " << m.second.getDateSent() << endl;
+			//	cout << "Time Sent: " << m.second.getTimeSent() << endl << endl;
+			//}
 
 
 			handler.initializeChat(currentChatRoom, messagesContainer, messages, currentUser);
-			//cout << '4' << endl;
 
-
-			//for (auto m : messages) {
-			//	cout << "messageID: " << m.first << " : " << m.second.isRead << endl;
-			//	cout << "Text : " << m.second.text << endl;
-			//	cout << "Sender ID: " << m.second.senderID << endl;
-			//	cout << "date Sent: " << m.second.dateSent << endl;
-			//	cout << "Time Sent: " << m.second.timeSent << endl << endl;
-			//}
 
 			//for (auto u : users) {
 			//	cout << u.first << " : " << u.second.userID << endl;
@@ -1064,7 +1073,7 @@ namespace chati {
 				return;
 			}
 			else {
-				currentUser = users[mobileNumber];
+				currentUser = &users[mobileNumber];
 				chatPanel->BringToFront();
 			}
 	
@@ -1072,11 +1081,11 @@ namespace chati {
 
 
 		private: System::Void sendButton_Click(System::Object^ sender, System::EventArgs^ e) {
-				handler.createMessageEvent(textBox1, messagesContainer, currentUser);
+				handler.createMessageEvent(textBox1, messagesContainer, *currentUser);
 		}
 		private: System::Void textBox1_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
 			if (e->KeyCode == Keys::Enter) 
-				handler.createMessageEvent(textBox1, messagesContainer, currentUser);
+				handler.createMessageEvent(textBox1, messagesContainer, *currentUser);
 		}
 			   
 		private: System::Void GuiForm_FormClosed(System::Object^ sender, System::Windows::Forms::FormClosedEventArgs^ e) {

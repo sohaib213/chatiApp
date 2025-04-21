@@ -7,10 +7,8 @@
 
 using namespace std;
 
-class ChatRoom;
 
 class User {
-public:
 	static int userCounter; // Static variable to keep track of user IDs
     int userID;
     string mobileNumber;
@@ -21,9 +19,10 @@ public:
     string about;
     bool visible; //? for the user profile description
 	vector<int> contactsID; //?   (unorder_set+trie for autocomplete) refer to (uesrs) set because the id is unique for searching
-    vector<int> stories; //? (queue) but less functionlaties
+    vector<int> storiesID; //? (queue) but less functionlaties
     vector<int> chatRoomsID; //? unique for both all users ()
 
+public:
 
 	// Constructors
     User(string mobileNumber, string password, string firstName, string lastName);
@@ -39,7 +38,7 @@ public:
     string getAbout() const;
     bool getVisible() const;
     vector<int> getContactsID() const;
-    vector<int> getStories() const;
+    vector<int> getStoriesID() const;
     vector<int> getChatRoomsID() const;
 
     // Setters
@@ -52,9 +51,19 @@ public:
     void setAbout(const string& about);
     void setVisible(bool vis);
     void setContactsID(const vector<int>& contacts);
-    void setStories(const vector<int>& stories);
+    void setStoriesID(const vector<int>& stories);
     void setChatRoomsID(const vector<int>& chatRooms);
+
+
+	// Add Remove methods
+	void addContactID(int contactID);
+	void addStoryID(int storyID);
+	void addChatRoomID(int chatRoomID);
+	void removeContactID(int contactID);
+	void removeStory(int storyID);
+	void removeChatRoomID(int chatRoomID);
+	bool isUserVisible();
        
 	// Destructor
-	//~User();
+	~User();
 };

@@ -4,7 +4,6 @@ using namespace std;
 
 namespace chati {
     class Message {
-    public:
         static int messageCounter; // Static variable to keep track of message IDs
         int messageID;
         int senderID;
@@ -13,6 +12,8 @@ namespace chati {
         string dateSent;
         string timeSent;
         bool isRead = false;
+
+    public:
 
         // constructors
         Message();

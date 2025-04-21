@@ -8,13 +8,13 @@
 using namespace std;
 
 class ChatRoom {
-public:
 	static int chatRoomCounter; // Static variable to keep track of chat room IDs
     int chatRoomID;
     vector<int> usersID;
     list<int> messagesID;
     bool isDual;
 
+public:
     // constructors
     ChatRoom();
     ChatRoom(int id);
@@ -31,6 +31,12 @@ public:
     void setUsersID(const vector<int>& users);
     void setMessagesID(const list<int>& messages);
     void setIsDual(bool dual);
+
+	// Add Delete Methods
+	void addUserID(int userID);
+	void addMessageID(int messageID);
+	void deleteUserID(int userID);
+	void deleteMessageID(int messageID);
 
 	//~ChatRoom();
 };

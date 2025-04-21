@@ -24,8 +24,8 @@ static int generateID(map<string, User> users) {
     if (users.empty()) return 1;  
     int maxID = 0;  
     for (const auto& pair : users) {  
-        if (pair.second.userID > maxID) {
-            maxID = pair.second.userID;
+        if (pair.second.getUserID() > maxID) {
+            maxID = pair.second.getUserID();
         }  
     }  
     return maxID + 1;  
@@ -36,7 +36,7 @@ static void signUp(string mob_num, string pass, string firstName, string lastNam
 	User u(mob_num, pass, firstName, lastName);
 
 
-	u.userID = generateID(users);
+	u.setUserID(generateID(users));
 	users[mob_num] = u;
 	//users.push_back(u);
 
@@ -45,7 +45,7 @@ static void signUp(string mob_num, string pass, string firstName, string lastNam
 static bool checkSignIn(string mobileNumber, string password, map<string, User>& users) {
 
 	if (users.find(mobileNumber) != users.end()) {
-		if (users[mobileNumber].password == password) {
+		if (users[mobileNumber].getPassword() == password) {
 			return true;
 		}
 	}

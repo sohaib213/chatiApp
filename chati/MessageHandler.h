@@ -20,16 +20,17 @@ public:
     ChatRoom* globalChatRoom;
 
     void initializeChat(ChatRoom *chatRoom, FlowLayoutPanel^ messagesContainer, 
-                               unordered_map<int, chati::Message>& messages, User currentUser) {
+                               unordered_map<int, chati::Message>& messages, User *currentUser) {
 
-        for(auto& messageID : chatRoom->messagesID) {
+		cout << "Initializing chat..." << endl;
+        for(auto& messageID : chatRoom->getMessagesID()) {
             createMessage(messagesContainer, messages[messageID], messages);
 		}
 		globalMessages = &messages;
 		globalChatRoom = chatRoom;
     }
 
-   void createMessageEvent(TextBox^ textBox1, FlowLayoutPanel^ messagesContainer, User currentUser) {  
+   void createMessageEvent(RichTextBox^ textBox1, FlowLayoutPanel^ messagesContainer, User currentUser) {  
        if (textBox1->Text != "") {  
            string s = msclr::interop::marshal_as<string>(textBox1->Text);  
 
@@ -39,8 +40,8 @@ public:
 
            // Fix: Use a pointer dereference to iterate over the managed heap object  
            for (const auto& pair : *globalMessages) {  
-               if (pair.second.messageID > maxID) {  
-                   maxID = pair.second.messageID;  
+               if (pair.second.getMessageID() > maxID) {
+                   maxID = pair.second.getMessageID();  
                }  
            }  
            messageID = maxID + 1;  
@@ -54,9 +55,9 @@ public:
            time << std::put_time(now_tm, "%H:%M");  // Format: HH:MM  
 
            // Fix: Use pointer dereference to access the map  
-           (*globalMessages)[messageID] = chati::Message(s, messageID, currentUser.userID, 1, day.str(), time.str(), false);  
+           (*globalMessages)[messageID] = chati::Message(s, messageID, currentUser.getUserID(), globalChatRoom->getChatRoomID(), day.str(), time.str(), false);
 
-           globalChatRoom->messagesID.push_back(messageID);  
+           globalChatRoom->addMessageID(messageID);
 
            // Fix: Pass the dereferenced map to the createMessage function  
            createMessage(messagesContainer, (*globalMessages)[messageID], *globalMessages);  
@@ -69,18 +70,19 @@ public:
         Label^ newLabel = gcnew Label();  
         Panel^ messagePanel = gcnew Panel();
 
-        newLabel->Text = gcnew String(m.text.c_str());
+        newLabel->Text = gcnew String(m.getText().c_str());
         newLabel->Font = gcnew Font("Arial", 15, FontStyle::Bold);
         newLabel->ForeColor = Color::White;  
         newLabel->BackColor = Color::Transparent;
         newLabel->AutoSize = true;
-        newLabel->Name = m.messageID.ToString();
+        newLabel->Name = m.getMessageID().ToString();
         newLabel->Location = Point(10, 10);
         newLabel->MouseDown += gcnew MouseEventHandler(this, &MessageHandler::Label_RightClick); // Fix: Use 'this' to bind the delegate to the managed class
+        newLabel->Cursor = Cursors::IBeam;
 
         Label^ timeLabel = gcnew Label();  
-        timeLabel->Text = gcnew String(m.timeSent.c_str());
-        timeLabel->Font = gcnew Font("Arial", 7, FontStyle::Bold);
+        timeLabel->Text = gcnew String(m.getTimeSent().c_str());
+        timeLabel->Font = gcnew Font("Arial", 9, FontStyle::Bold);
         timeLabel->BackColor = Color::Transparent;
         timeLabel->ForeColor = Color::White;
         timeLabel->Anchor = static_cast<AnchorStyles>(AnchorStyles::Bottom | AnchorStyles::Left);
@@ -93,7 +95,7 @@ public:
         messagePanel->Margin = Padding(5);        
         messagePanel->BorderStyle = BorderStyle::FixedSingle;
         messagePanel->MouseDown += gcnew MouseEventHandler(this, &MessageHandler::Label_RightClick); // Fix: Use 'this' to bind the delegate to the managed class
-        messagePanel->Name = m.messageID.ToString();
+        messagePanel->Name = m.getMessageID().ToString();
         messagePanel->AutoSize = true;
 
         messagePanel->Controls->Add(newLabel);
@@ -150,29 +152,19 @@ public:
     }
 
      void deleteMessage(FlowLayoutPanel^ messagesContainer, int messageID) {  
-        for (int i = 0; i < messagesContainer->Controls->Count; i++) {  
-            Panel^ panel = dynamic_cast<Panel^>(messagesContainer->Controls[i]);  
-            Label^ label = dynamic_cast<Label^>(panel->Controls[0]);  
-            if (label != nullptr && label->Name == messageID.ToString()) {  
-                messagesContainer->Controls->Remove(panel);  
+         for (int i = 0; i < messagesContainer->Controls->Count; i++) {  
+             Panel^ panel = dynamic_cast<Panel^>(messagesContainer->Controls[i]);  
+             Label^ label = dynamic_cast<Label^>(panel->Controls[0]);  
+             if (label != nullptr && label->Name == messageID.ToString()) {  
+                 messagesContainer->Controls->Remove(panel);  
 
-                globalMessages->erase(messageID);  
+                 globalMessages->erase(messageID);  
+                 
+				 globalChatRoom->deleteMessageID(i);
 
-                //// Fix: Use std::list::iterator to erase the element from the list
-                int i = 0;
-                for (auto it = globalChatRoom->messagesID.begin(); it != globalChatRoom->messagesID.end(); ++it) {  
-                   
-                    cout << i << endl;
-                    i++;
-                    if (*it == messageID) {
-                        globalChatRoom->messagesID.erase(it);
-                        break;  
-                    }  
-                }
-
-
-                break;  
-            }  
-        }  
-    }
+                 
+                 break;  
+             }  
+         }  
+     }
 };
