@@ -36,5 +36,7 @@ namespace chati {
         void setTimeSent(const string& time);
         void setIsRead(bool read);
     };
+
+    //~Message();
 }
 

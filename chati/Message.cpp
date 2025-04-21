@@ -1,19 +1,28 @@
 #include "Message.h"
 
+namespace chati {
 
-chati::Message::Message() {
-	this->text = "";
-	this->dateSent = "";
-	this->timeSent = "";
-	this->isRead = false;
-}
+    Message::Message() : messageID(0), senderID(0), chatID(0), isRead(false) {}
 
-chati::Message::Message(string text, int messageID, int senderID, int chatID, string dateSent, string timeSent, bool isRead) {
-	this->text = text;
-	this->messageID = messageID;
-	this->senderID = senderID;
-	this->chatID = chatID;
-	this->dateSent = dateSent;
-	this->timeSent = timeSent;
-	this->isRead = false;
+    Message::Message(string text, int messageID, int userID, int chatID, string dateSent, string timeSent, bool isRead)
+        : text(text), messageID(messageID), senderID(userID), chatID(chatID), dateSent(dateSent), timeSent(timeSent), isRead(isRead) {
+    }
+
+    // Getters
+    int Message::getMessageID() const { return messageID; }
+    int Message::getSenderID() const { return senderID; }
+    int Message::getChatID() const { return chatID; }
+    string Message::getText() const { return text; }
+    string Message::getDateSent() const { return dateSent; }
+    string Message::getTimeSent() const { return timeSent; }
+    bool Message::getIsRead() const { return isRead; }
+
+    // Setters
+    void Message::setMessageID(int messageID) { this->messageID = messageID; }
+    void Message::setSenderID(int senderID) { this->senderID = senderID; }
+    void Message::setChatID(int chatID) { this->chatID = chatID; }
+    void Message::setText(const string& text) { this->text = text; }
+    void Message::setDateSent(const string& dateSent) { this->dateSent = dateSent; }
+    void Message::setTimeSent(const string& timeSent) { this->timeSent = timeSent; }
+    void Message::setIsRead(bool isRead) { this->isRead = isRead; }
 }

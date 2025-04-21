@@ -27,6 +27,8 @@ public:
     void setPublishTime(const string& time);
     void setStoryPhoto(const string& photo);
     void setStoryText(const string& text);
+
+    //~Story();
 };
 
 
