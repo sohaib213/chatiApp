@@ -24,7 +24,7 @@ unordered_map<int, ChatRoom> chatRooms;
 // Use the namespace explicitly to resolve ambiguity
 unordered_map<int, chati::Message> messages;
 User currentUser;
-ChatRoom currentChatRoom;
+ChatRoom *currentChatRoom;
 
 
 namespace chati {
@@ -45,6 +45,8 @@ namespace chati {
 	public ref class GuiForm : public System::Windows::Forms::Form
 	{
 		private: System::Windows::Forms::FlowLayoutPanel^ messagesContainer;
+	    MessageHandler handler;
+
 
 		public:
 		GuiForm(void)
@@ -219,7 +221,7 @@ namespace chati {
 			this->FN_textbox->Location = System::Drawing::Point(559, 225);
 			this->FN_textbox->Margin = System::Windows::Forms::Padding(4);
 			this->FN_textbox->Name = L"FN_textbox";
-			this->FN_textbox->Size = System::Drawing::Size(184, 22);
+			this->FN_textbox->Size = System::Drawing::Size(184, 20);
 			this->FN_textbox->TabIndex = 16;
 			// 
 			// LN_lbl
@@ -251,7 +253,7 @@ namespace chati {
 			this->LN_textbox->Location = System::Drawing::Point(559, 290);
 			this->LN_textbox->Margin = System::Windows::Forms::Padding(4);
 			this->LN_textbox->Name = L"LN_textbox";
-			this->LN_textbox->Size = System::Drawing::Size(184, 22);
+			this->LN_textbox->Size = System::Drawing::Size(184, 20);
 			this->LN_textbox->TabIndex = 13;
 			// 
 			// Pass_textbox
@@ -259,7 +261,7 @@ namespace chati {
 			this->Pass_textbox->Location = System::Drawing::Point(559, 369);
 			this->Pass_textbox->Margin = System::Windows::Forms::Padding(4);
 			this->Pass_textbox->Name = L"Pass_textbox";
-			this->Pass_textbox->Size = System::Drawing::Size(184, 22);
+			this->Pass_textbox->Size = System::Drawing::Size(184, 20);
 			this->Pass_textbox->TabIndex = 12;
 			// 
 			// submit_but
@@ -293,7 +295,7 @@ namespace chati {
 			this->MN_textbox->Location = System::Drawing::Point(559, 453);
 			this->MN_textbox->Margin = System::Windows::Forms::Padding(4);
 			this->MN_textbox->Name = L"MN_textbox";
-			this->MN_textbox->Size = System::Drawing::Size(184, 22);
+			this->MN_textbox->Size = System::Drawing::Size(184, 20);
 			this->MN_textbox->TabIndex = 9;
 			// 
 			// First_pnl
@@ -394,7 +396,7 @@ namespace chati {
 			this->Pass_txt->Location = System::Drawing::Point(650, 282);
 			this->Pass_txt->Margin = System::Windows::Forms::Padding(4);
 			this->Pass_txt->Name = L"Pass_txt";
-			this->Pass_txt->Size = System::Drawing::Size(347, 22);
+			this->Pass_txt->Size = System::Drawing::Size(347, 20);
 			this->Pass_txt->TabIndex = 3;
 			// 
 			// MN_txt
@@ -402,7 +404,7 @@ namespace chati {
 			this->MN_txt->Location = System::Drawing::Point(650, 191);
 			this->MN_txt->Margin = System::Windows::Forms::Padding(4);
 			this->MN_txt->Name = L"MN_txt";
-			this->MN_txt->Size = System::Drawing::Size(347, 22);
+			this->MN_txt->Size = System::Drawing::Size(347, 20);
 			this->MN_txt->TabIndex = 2;
 			// 
 			// Pass_lbl2
@@ -544,9 +546,9 @@ namespace chati {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
 			this->ClientSize = System::Drawing::Size(1280, 720);
 			this->Controls->Add(this->chatPanel);
+			this->Controls->Add(this->signUp_pnl);
 			this->Controls->Add(this->signIn_pnl);
 			this->Controls->Add(this->First_pnl);
-			this->Controls->Add(this->signUp_pnl);
 			this->Margin = System::Windows::Forms::Padding(4);
 			this->Name = L"GuiForm";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
@@ -572,8 +574,14 @@ namespace chati {
 
 		private: System::Void GuiForm_Load(System::Object^ sender, System::EventArgs^ e) {
 			loadFromFile(users, chatRooms, messages);
-
-
+			cout << '1' << endl;
+			//for(auto u : users) {
+			//	cout << u.first << " : " << u.second.userID << endl;
+			//	cout << u.second.firstName << endl;
+			//	cout << u.second.lastName << endl;
+			//	cout << u.second.password << endl;
+			//	cout << u.second.mobileNumber << endl;
+			//}
 
 			//cout << "messages size: " << chatRooms[1].messagesID.size() << endl;
 			//for (int i : chatRooms[1].messagesID) {
@@ -583,20 +591,26 @@ namespace chati {
 			// will remove this later
 			currentUser = users["01067700658"];
 
-			//currentChatRoom.chatRoomID = 2;
-			//currentChatRoom.isDual = true;
 
-			//currentChatRoom.usersID.push_back(currentUser.userID);
+			//currentChatRoom = new ChatRoom(2, true);
 
-			//chatRooms[2] = currentChatRoom;
+			//currentChatRoom->usersID.push_back(currentUser.userID);
 
-			currentChatRoom = chatRooms[1];
+			//chatRooms[2] = *currentChatRoom;
+
+			//cout << '3' << endl;
+
+			currentChatRoom = &chatRooms[2];
 
 			//for(auto c: chatRooms){
 			//	cout << c.second.messagesID.size() << endl;
 			//}
 
-			MessageHandler::initializeChat(currentChatRoom, messagesContainer, messages, currentUser);
+
+
+			handler.initializeChat(currentChatRoom, messagesContainer, messages, currentUser);
+			//cout << '4' << endl;
+
 
 			//for (auto m : messages) {
 			//	cout << "messageID: " << m.first << " : " << m.second.isRead << endl;
@@ -689,11 +703,11 @@ namespace chati {
 
 
 		private: System::Void sendButton_Click(System::Object^ sender, System::EventArgs^ e) {
-			MessageHandler::createMessageEvent(textBox1, messagesContainer, messages, currentUser, chatRooms[currentChatRoom.chatRoomID]);
+				handler.createMessageEvent(textBox1, messagesContainer, currentUser);
 		}
 		private: System::Void textBox1_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
 			if (e->KeyCode == Keys::Enter) 
-				MessageHandler::createMessageEvent(textBox1, messagesContainer, messages, currentUser, chatRooms[currentChatRoom.chatRoomID]);
+				handler.createMessageEvent(textBox1, messagesContainer, currentUser);
 		}
 			   
 		private: System::Void GuiForm_FormClosed(System::Object^ sender, System::Windows::Forms::FormClosedEventArgs^ e) {
