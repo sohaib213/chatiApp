@@ -135,9 +135,12 @@ namespace chati {
 	private: System::Windows::Forms::TextBox^ textStory;
 	private: System::Windows::Forms::Button^ button3;
 
+<<<<<<< HEAD
 
 
 	private: System::Windows::Forms::ColorDialog^ colorDialog1;
+=======
+>>>>>>> 35785956bab27e6bd4c4eff7a04705da200b3422
 	private: System::Windows::Forms::Button^ button4;
 
 	private: System::Windows::Forms::Button^ button5;
@@ -148,6 +151,7 @@ namespace chati {
 
 
 	private: System::Windows::Forms::RichTextBox^ textBox1;
+	private: System::Windows::Forms::ColorDialog^ colorDialog1;
 
 
 
