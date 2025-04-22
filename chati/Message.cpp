@@ -4,7 +4,7 @@ namespace chati {
 
     Message::Message() : messageID(0), senderID(0), chatID(0), isRead(false) { messageID = ++messageCounter; }
 
-    Message::Message(string text, int messageID, int userID, int chatID, string dateSent, string timeSent, bool isRead)
+    Message::Message(string text, int userID, int chatID, string dateSent, string timeSent, bool isRead)
         : text(text), messageID(messageID), senderID(userID), chatID(chatID), dateSent(dateSent), timeSent(timeSent), isRead(isRead) {
         messageID = ++messageCounter;
     }

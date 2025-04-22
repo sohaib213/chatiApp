@@ -17,7 +17,7 @@ namespace chati {
 
         // constructors
         Message();
-        Message(string text, int messageID, int userID, int chatID, string dateSent, string timeSent, bool isRead);
+        Message(string text, int userID, int chatID, string dateSent, string timeSent, bool isRead);
 
         // Getters
         int getMessageID() const;

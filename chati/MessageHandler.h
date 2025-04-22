@@ -1,11 +1,11 @@
 #pragma once  
 #include <string>
 #include "Message.h"
+#include "ChatRoom.h"
 #include <chrono>
 #include <ctime>
 #include <sstream>
 #include <iomanip>
-#include "ChatRoom.h"
 
 using namespace System;  
 using namespace System::Windows::Forms;  
@@ -29,22 +29,26 @@ public:
 		globalMessages = &messages;
 		globalChatRoom = chatRoom;
     }
+    //ContextMenuStrip^ BuildStandardContextMenu()
+    //{
+    //    ContextMenuStrip^ menu = gcnew ContextMenuStrip();
+
+    //    ToolStripMenuItem^ deleteItem = gcnew ToolStripMenuItem("Delete");
+    //    ToolStripMenuItem^ infoItem = gcnew ToolStripMenuItem("Info");
+
+    //    //deleteItem->Click += gcnew EventHandler(this, &YourForm::DeleteMessage_Click);
+    //    //infoItem->Click += gcnew EventHandler(this, &YourForm::InfoMessage_Click);
+
+    //    menu->Items->Add(deleteItem);
+    //    menu->Items->Add(infoItem);
+
+    //    return menu;
+    //}
 
    void createMessageEvent(RichTextBox^ textBox1, FlowLayoutPanel^ messagesContainer, User currentUser) {  
        if (textBox1->Text != "") {  
            string s = msclr::interop::marshal_as<string>(textBox1->Text);  
 
-           int messageID;  
-           if (globalMessages->empty()) messageID = 1;  
-           int maxID = 0;  
-
-           // Fix: Use a pointer dereference to iterate over the managed heap object  
-           for (const auto& pair : *globalMessages) {  
-               if (pair.second.getMessageID() > maxID) {
-                   maxID = pair.second.getMessageID();  
-               }  
-           }  
-           messageID = maxID + 1;  
 
            auto now = chrono::system_clock::now();  
            time_t now_time_t = chrono::system_clock::to_time_t(now);  
@@ -54,13 +58,14 @@ public:
            day << std::put_time(now_tm, "%d-%m-%y"); // Format: DD-MM-YYYY  
            time << std::put_time(now_tm, "%H:%M");  // Format: HH:MM  
 
+           //? create the message to get the id directly (is better)
+		   chati::Message msg =  chati::Message(s,currentUser.getUserID(), globalChatRoom->getChatRoomID(), day.str(), time.str(), false);
            // Fix: Use pointer dereference to access the map  
-           (*globalMessages)[messageID] = chati::Message(s, messageID, currentUser.getUserID(), globalChatRoom->getChatRoomID(), day.str(), time.str(), false);
-
-           globalChatRoom->addMessageID(messageID);
+		   (*globalMessages)[msg.getMessageID()] = msg; 
+           globalChatRoom->addMessageID(msg.getMessageID());
 
            // Fix: Pass the dereferenced map to the createMessage function  
-           createMessage(messagesContainer, (*globalMessages)[messageID], *globalMessages);  
+           createMessage(messagesContainer, (*globalMessages)[msg.getMessageID()], *globalMessages);
            textBox1->Clear();
 		   textBox1->Focus();
        }  
@@ -68,6 +73,9 @@ public:
 
     void createMessage(FlowLayoutPanel^ messagesContainer, chati::Message m, unordered_map<int, chati::Message>& messages)
     {  
+		//? picture box for the profile photo 
+		//? Label for the sender name
+        //? Label for the status of icon
         Label^ newLabel = gcnew Label();  
         Panel^ messagePanel = gcnew Panel();
 
@@ -98,6 +106,7 @@ public:
         messagePanel->MouseDown += gcnew MouseEventHandler(this, &MessageHandler::Label_RightClick); // Fix: Use 'this' to bind the delegate to the managed class
         messagePanel->Name = m.getMessageID().ToString();
         messagePanel->AutoSize = true;
+		//?messagePanel->ContextMenuStrip 
 
         messagePanel->Controls->Add(newLabel);
         messagePanel->Controls->Add(timeLabel);

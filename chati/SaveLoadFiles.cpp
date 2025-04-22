@@ -18,7 +18,7 @@ static void writeString(ofstream& out, string word) {
 	out.write(word.c_str(), len);
 }
 
-static string readString(ifstream &in) {
+static string readString(ifstream& in) {
 	string temp;
 	size_t len;
 
@@ -28,7 +28,7 @@ static string readString(ifstream &in) {
 	return temp;
 }
 
-static void writeStringVector(ofstream &out, int count, const vector<string> vec) {
+static void writeStringVector(ofstream& out, int count, const vector<string> vec) {
 	size_t len;
 	out.write(reinterpret_cast<char*>(&count), sizeof(count));
 	for (const string& s : vec) {
@@ -44,7 +44,7 @@ static void writeIntVector(ofstream& out, int count, const vector<int> vec) {
 		out.write(reinterpret_cast<const char*>(&i), sizeof(i));
 }
 
-static void readStringVector(ifstream &in, vector<string> &vec) {
+static void readStringVector(ifstream& in, vector<string>& vec) {
 
 	string temp;
 	int contactCount;
@@ -72,7 +72,7 @@ static vector<int> readIntVector(ifstream& in) {
 }
 
 
-static void saveToFile(map<string,User> users, unordered_map<int, ChatRoom> chatRooms, unordered_map<int, chati::Message> messages) {
+static void saveToFile(map<string, User> users, unordered_map<int, ChatRoom> chatRooms, unordered_map<int, chati::Message> messages) {
 	AllocConsole();
 	if (freopen("CONOUT$", "w", stdout) == nullptr) {
 		cerr << "Failed to redirect stdout to console." << endl;
@@ -99,7 +99,7 @@ static void saveToFile(map<string,User> users, unordered_map<int, ChatRoom> chat
 		//len = u.firstName.size();
 		//out.write(reinterpret_cast<char*>(&len), sizeof(len));
 		//out.write(u.firstName.c_str(), len);
-		
+
 		writeString(out, u.getLastName());
 		//len = u.lastName.size();
 		//out.write(reinterpret_cast<char*>(&len), sizeof(len));
@@ -170,16 +170,16 @@ static void saveToFile(map<string,User> users, unordered_map<int, ChatRoom> chat
 		out.write(reinterpret_cast<const char*>(&x), sizeof(x));
 
 		x = c.getIsDual();
-        out.write(reinterpret_cast<const char*>(&x), sizeof(x));
+		out.write(reinterpret_cast<const char*>(&x), sizeof(x));
 
 		int usersIDCount = c.getUsersID().size();
 		writeIntVector(out, usersIDCount, c.getUsersID());
 
 		int messagedCount = c.getMessagesID().size();
 		out.write(reinterpret_cast<char*>(&messagedCount), sizeof(messagedCount));
-		for (const int& i : c.getMessagesID()) 
+		for (const int& i : c.getMessagesID())
 			out.write(reinterpret_cast<const char*>(&i), sizeof(i));
-		
+
 	}
 	out.close();
 
@@ -207,7 +207,7 @@ static void saveToFile(map<string,User> users, unordered_map<int, ChatRoom> chat
 	out.close();
 }
 
-static void loadFromFile(map<string,User>& users, unordered_map<int, ChatRoom> &chatRooms, unordered_map<int, chati::Message> &messages) {
+static void loadFromFile(map<string, User>& users, unordered_map<int, ChatRoom>& chatRooms, unordered_map<int, chati::Message>& messages) {
 
 	AllocConsole();
 	freopen("CONOUT$", "w", stdout);
@@ -285,7 +285,7 @@ static void loadFromFile(map<string,User>& users, unordered_map<int, ChatRoom> &
 		//	u.chatRoomsID.push_back(temp);
 		//}
 		users[u.getMobileNumber()] = u;
-		
+
 	}
 
 	in.close();
@@ -311,7 +311,7 @@ static void loadFromFile(map<string,User>& users, unordered_map<int, ChatRoom> &
 
 		in.read(reinterpret_cast<char*>(&x), sizeof(x));
 		c.setIsDual(x);
-		
+
 		int usesrsIDCount = c.getUsersID().size();
 		c.setUsersID(readIntVector(in));
 
@@ -323,9 +323,9 @@ static void loadFromFile(map<string,User>& users, unordered_map<int, ChatRoom> &
 			c.addMessageID(temp);
 
 		}
-		
+
 		chatRooms[c.getChatRoomID()] = c;
-		
+
 	}
 	in.close();
 
@@ -358,7 +358,7 @@ static void loadFromFile(map<string,User>& users, unordered_map<int, ChatRoom> &
 
 
 		messages[m.getMessageID()] = m;
-		
+
 	}
 	in.close();
 }

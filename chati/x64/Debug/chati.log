@@ -1,75 +1,284 @@
-﻿  chat.cpp
-  ChatRoom.cpp
-  GuiForm.cpp
-C:\Programms\chati\chati\SaveLoadFiles.cpp(87,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+﻿  GuiForm.cpp
+D:\chatApp\chati\SaveLoadFiles.cpp(87,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'GuiForm.cpp')
   
-C:\Programms\chati\chati\SaveLoadFiles.cpp(121,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\chatApp\chati\SaveLoadFiles.cpp(121,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'GuiForm.cpp')
   
-C:\Programms\chati\chati\SaveLoadFiles.cpp(131,18): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\chatApp\chati\SaveLoadFiles.cpp(122,3): error C2664: 'void writeIntVector(std::ofstream &,int,const std::vector<int,std::allocator<_Kty>>)': cannot convert argument 3 from 'std::unordered_set<int,std::hash<_Kty>,std::equal_to<_Kty>,std::allocator<_Kty>>' to 'const std::vector<int,std::allocator<_Kty>>'
+D:\chatApp\chati\SaveLoadFiles.cpp(122,3): error C2664:         with
+D:\chatApp\chati\SaveLoadFiles.cpp(122,3): error C2664:         [
+D:\chatApp\chati\SaveLoadFiles.cpp(122,3): error C2664:             _Kty=int
+D:\chatApp\chati\SaveLoadFiles.cpp(122,3): error C2664:         ]
+  (compiling source file 'GuiForm.cpp')
+      D:\chatApp\chati\SaveLoadFiles.cpp(122,52):
+      No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+      D:\chatApp\chati\SaveLoadFiles.cpp(41,13):
+      see declaration of 'writeIntVector'
+      D:\chatApp\chati\SaveLoadFiles.cpp(122,3):
+      while trying to match the argument list '(std::ofstream, int, std::unordered_set<int,std::hash<_Kty>,std::equal_to<_Kty>,std::allocator<_Kty>>)'
+          with
+          [
+              _Kty=int
+          ]
+  
+D:\chatApp\chati\SaveLoadFiles.cpp(131,18): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'GuiForm.cpp')
   
-C:\Programms\chati\chati\SaveLoadFiles.cpp(144,22): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\chatApp\chati\SaveLoadFiles.cpp(132,3): error C2664: 'void writeIntVector(std::ofstream &,int,const std::vector<int,std::allocator<_Kty>>)': cannot convert argument 3 from 'std::set<int,std::less<int>,std::allocator<_Kty>>' to 'const std::vector<int,std::allocator<_Kty>>'
+D:\chatApp\chati\SaveLoadFiles.cpp(132,3): error C2664:         with
+D:\chatApp\chati\SaveLoadFiles.cpp(132,3): error C2664:         [
+D:\chatApp\chati\SaveLoadFiles.cpp(132,3): error C2664:             _Kty=int
+D:\chatApp\chati\SaveLoadFiles.cpp(132,3): error C2664:         ]
+  (compiling source file 'GuiForm.cpp')
+      D:\chatApp\chati\SaveLoadFiles.cpp(132,49):
+      No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+      D:\chatApp\chati\SaveLoadFiles.cpp(41,13):
+      see declaration of 'writeIntVector'
+      D:\chatApp\chati\SaveLoadFiles.cpp(132,3):
+      while trying to match the argument list '(std::ofstream, int, std::set<int,std::less<int>,std::allocator<_Kty>>)'
+          with
+          [
+              _Kty=int
+          ]
+  
+D:\chatApp\chati\SaveLoadFiles.cpp(144,22): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'GuiForm.cpp')
   
-C:\Programms\chati\chati\SaveLoadFiles.cpp(163,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\chatApp\chati\SaveLoadFiles.cpp(145,3): error C2664: 'void writeIntVector(std::ofstream &,int,const std::vector<int,std::allocator<_Kty>>)': cannot convert argument 3 from 'std::set<int,std::less<int>,std::allocator<_Kty>>' to 'const std::vector<int,std::allocator<_Kty>>'
+D:\chatApp\chati\SaveLoadFiles.cpp(145,3): error C2664:         with
+D:\chatApp\chati\SaveLoadFiles.cpp(145,3): error C2664:         [
+D:\chatApp\chati\SaveLoadFiles.cpp(145,3): error C2664:             _Kty=int
+D:\chatApp\chati\SaveLoadFiles.cpp(145,3): error C2664:         ]
+  (compiling source file 'GuiForm.cpp')
+      D:\chatApp\chati\SaveLoadFiles.cpp(145,55):
+      No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+      D:\chatApp\chati\SaveLoadFiles.cpp(41,13):
+      see declaration of 'writeIntVector'
+      D:\chatApp\chati\SaveLoadFiles.cpp(145,3):
+      while trying to match the argument list '(std::ofstream, int, std::set<int,std::less<int>,std::allocator<_Kty>>)'
+          with
+          [
+              _Kty=int
+          ]
+  
+D:\chatApp\chati\SaveLoadFiles.cpp(163,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'GuiForm.cpp')
   
-C:\Programms\chati\chati\SaveLoadFiles.cpp(175,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\chatApp\chati\SaveLoadFiles.cpp(175,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'GuiForm.cpp')
   
-C:\Programms\chati\chati\SaveLoadFiles.cpp(178,21): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\chatApp\chati\SaveLoadFiles.cpp(178,21): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'GuiForm.cpp')
   
-C:\Programms\chati\chati\SaveLoadFiles.cpp(189,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\chatApp\chati\SaveLoadFiles.cpp(189,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'GuiForm.cpp')
   
-C:\Programms\chati\chati\SaveLoadFiles.cpp(77,6): warning C4996: 'freopen': This function or variable may be unsafe. Consider using freopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\chatApp\chati\SaveLoadFiles.cpp(77,6): warning C4996: 'freopen': This function or variable may be unsafe. Consider using freopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   (compiling source file 'GuiForm.cpp')
   
-C:\Programms\chati\chati\SaveLoadFiles.cpp(92,10): warning C4101: 'len': unreferenced local variable
+D:\chatApp\chati\SaveLoadFiles.cpp(258,5): error C2664: 'void User::setContactsID(const std::unordered_set<int,std::hash<_Kty>,std::equal_to<_Kty>,std::allocator<_Kty>> &)': cannot convert argument 1 from 'std::vector<int,std::allocator<_Kty>>' to 'const std::unordered_set<int,std::hash<_Kty>,std::equal_to<_Kty>,std::allocator<_Kty>> &'
+D:\chatApp\chati\SaveLoadFiles.cpp(258,5): error C2664:         with
+D:\chatApp\chati\SaveLoadFiles.cpp(258,5): error C2664:         [
+D:\chatApp\chati\SaveLoadFiles.cpp(258,5): error C2664:             _Kty=int
+D:\chatApp\chati\SaveLoadFiles.cpp(258,5): error C2664:         ]
+  (compiling source file 'GuiForm.cpp')
+      D:\chatApp\chati\SaveLoadFiles.cpp(258,32):
+      Reason: cannot convert from 'std::vector<int,std::allocator<_Kty>>' to 'const std::unordered_set<int,std::hash<_Kty>,std::equal_to<_Kty>,std::allocator<_Kty>>'
+          with
+          [
+              _Kty=int
+          ]
+      D:\chatApp\chati\SaveLoadFiles.cpp(258,32):
+      No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+      D:\chatApp\chati\User.h(50,10):
+      see declaration of 'User::setContactsID'
+      D:\chatApp\chati\SaveLoadFiles.cpp(258,5):
+      while trying to match the argument list '(std::vector<int,std::allocator<_Kty>>)'
+          with
+          [
+              _Kty=int
+          ]
+  
+D:\chatApp\chati\SaveLoadFiles.cpp(268,5): error C2664: 'void User::setStoriesID(const std::set<int,std::less<int>,std::allocator<_Kty>> &)': cannot convert argument 1 from 'std::vector<int,std::allocator<_Kty>>' to 'const std::set<int,std::less<int>,std::allocator<_Kty>> &'
+D:\chatApp\chati\SaveLoadFiles.cpp(268,5): error C2664:         with
+D:\chatApp\chati\SaveLoadFiles.cpp(268,5): error C2664:         [
+D:\chatApp\chati\SaveLoadFiles.cpp(268,5): error C2664:             _Kty=int
+D:\chatApp\chati\SaveLoadFiles.cpp(268,5): error C2664:         ]
+  (compiling source file 'GuiForm.cpp')
+      D:\chatApp\chati\SaveLoadFiles.cpp(268,31):
+      Reason: cannot convert from 'std::vector<int,std::allocator<_Kty>>' to 'const std::set<int,std::less<int>,std::allocator<_Kty>>'
+          with
+          [
+              _Kty=int
+          ]
+      D:\chatApp\chati\SaveLoadFiles.cpp(268,31):
+      No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+      D:\chatApp\chati\User.h(51,10):
+      see declaration of 'User::setStoriesID'
+      D:\chatApp\chati\SaveLoadFiles.cpp(268,5):
+      while trying to match the argument list '(std::vector<int,std::allocator<_Kty>>)'
+          with
+          [
+              _Kty=int
+          ]
+  
+D:\chatApp\chati\SaveLoadFiles.cpp(278,5): error C2664: 'void User::setChatRoomsID(const std::set<int,std::less<int>,std::allocator<_Kty>> &)': cannot convert argument 1 from 'std::vector<int,std::allocator<_Kty>>' to 'const std::set<int,std::less<int>,std::allocator<_Kty>> &'
+D:\chatApp\chati\SaveLoadFiles.cpp(278,5): error C2664:         with
+D:\chatApp\chati\SaveLoadFiles.cpp(278,5): error C2664:         [
+D:\chatApp\chati\SaveLoadFiles.cpp(278,5): error C2664:             _Kty=int
+D:\chatApp\chati\SaveLoadFiles.cpp(278,5): error C2664:         ]
+  (compiling source file 'GuiForm.cpp')
+      D:\chatApp\chati\SaveLoadFiles.cpp(278,33):
+      Reason: cannot convert from 'std::vector<int,std::allocator<_Kty>>' to 'const std::set<int,std::less<int>,std::allocator<_Kty>>'
+          with
+          [
+              _Kty=int
+          ]
+      D:\chatApp\chati\SaveLoadFiles.cpp(278,33):
+      No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+      D:\chatApp\chati\User.h(52,10):
+      see declaration of 'User::setChatRoomsID'
+      D:\chatApp\chati\SaveLoadFiles.cpp(278,5):
+      while trying to match the argument list '(std::vector<int,std::allocator<_Kty>>)'
+          with
+          [
+              _Kty=int
+          ]
+  
+D:\chatApp\chati\SaveLoadFiles.cpp(315,21): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'GuiForm.cpp')
   
-C:\Programms\chati\chati\SaveLoadFiles.cpp(167,10): warning C4101: 'len': unreferenced local variable
+D:\chatApp\chati\SaveLoadFiles.cpp(213,2): warning C4996: 'freopen': This function or variable may be unsafe. Consider using freopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   (compiling source file 'GuiForm.cpp')
   
-C:\Programms\chati\chati\SaveLoadFiles.cpp(193,10): warning C4101: 'len': unreferenced local variable
+D:\chatApp\chati\MessageHandler.h(55,25): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   (compiling source file 'GuiForm.cpp')
   
-C:\Programms\chati\chati\SaveLoadFiles.cpp(315,21): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  (compiling source file 'GuiForm.cpp')
-  
-C:\Programms\chati\chati\SaveLoadFiles.cpp(213,2): warning C4996: 'freopen': This function or variable may be unsafe. Consider using freopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  (compiling source file 'GuiForm.cpp')
-  
-C:\Programms\chati\chati\SaveLoadFiles.cpp(343,10): warning C4101: 'len': unreferenced local variable
-  (compiling source file 'GuiForm.cpp')
-  
-C:\Programms\chati\chati\MessageHandler.h(51,25): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  (compiling source file 'GuiForm.cpp')
-  
-  Message.cpp
   SaveLoadFiles.cpp
-C:\Programms\chati\chati\SaveLoadFiles.cpp(87,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Programms\chati\chati\SaveLoadFiles.cpp(121,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Programms\chati\chati\SaveLoadFiles.cpp(131,18): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Programms\chati\chati\SaveLoadFiles.cpp(144,22): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Programms\chati\chati\SaveLoadFiles.cpp(163,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Programms\chati\chati\SaveLoadFiles.cpp(175,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Programms\chati\chati\SaveLoadFiles.cpp(178,21): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Programms\chati\chati\SaveLoadFiles.cpp(189,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Programms\chati\chati\SaveLoadFiles.cpp(77,6): warning C4996: 'freopen': This function or variable may be unsafe. Consider using freopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Programms\chati\chati\SaveLoadFiles.cpp(92,10): warning C4101: 'len': unreferenced local variable
-C:\Programms\chati\chati\SaveLoadFiles.cpp(167,10): warning C4101: 'len': unreferenced local variable
-C:\Programms\chati\chati\SaveLoadFiles.cpp(193,10): warning C4101: 'len': unreferenced local variable
-C:\Programms\chati\chati\SaveLoadFiles.cpp(315,21): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Programms\chati\chati\SaveLoadFiles.cpp(213,2): warning C4996: 'freopen': This function or variable may be unsafe. Consider using freopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Programms\chati\chati\SaveLoadFiles.cpp(343,10): warning C4101: 'len': unreferenced local variable
-  Signing.cpp
-  Story.cpp
-  User.cpp
-  .NETFramework,Version=v4.7.2.AssemblyAttributes.cpp
+D:\chatApp\chati\SaveLoadFiles.cpp(87,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\chatApp\chati\SaveLoadFiles.cpp(121,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\chatApp\chati\SaveLoadFiles.cpp(122,3): error C2664: 'void writeIntVector(std::ofstream &,int,const std::vector<int,std::allocator<_Kty>>)': cannot convert argument 3 from 'std::unordered_set<int,std::hash<int>,std::equal_to<_Kty>,std::allocator<_Kty>>' to 'const std::vector<int,std::allocator<_Kty>>'
+D:\chatApp\chati\SaveLoadFiles.cpp(122,3): error C2664:         with
+D:\chatApp\chati\SaveLoadFiles.cpp(122,3): error C2664:         [
+D:\chatApp\chati\SaveLoadFiles.cpp(122,3): error C2664:             _Kty=int
+D:\chatApp\chati\SaveLoadFiles.cpp(122,3): error C2664:         ]
+      D:\chatApp\chati\SaveLoadFiles.cpp(122,52):
+      No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+      D:\chatApp\chati\SaveLoadFiles.cpp(41,13):
+      see declaration of 'writeIntVector'
+      D:\chatApp\chati\SaveLoadFiles.cpp(122,3):
+      while trying to match the argument list '(std::ofstream, int, std::unordered_set<int,std::hash<int>,std::equal_to<_Kty>,std::allocator<_Kty>>)'
+          with
+          [
+              _Kty=int
+          ]
+  
+D:\chatApp\chati\SaveLoadFiles.cpp(131,18): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\chatApp\chati\SaveLoadFiles.cpp(132,3): error C2664: 'void writeIntVector(std::ofstream &,int,const std::vector<int,std::allocator<_Kty>>)': cannot convert argument 3 from 'std::set<int,std::less<int>,std::allocator<_Kty>>' to 'const std::vector<int,std::allocator<_Kty>>'
+D:\chatApp\chati\SaveLoadFiles.cpp(132,3): error C2664:         with
+D:\chatApp\chati\SaveLoadFiles.cpp(132,3): error C2664:         [
+D:\chatApp\chati\SaveLoadFiles.cpp(132,3): error C2664:             _Kty=int
+D:\chatApp\chati\SaveLoadFiles.cpp(132,3): error C2664:         ]
+      D:\chatApp\chati\SaveLoadFiles.cpp(132,49):
+      No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+      D:\chatApp\chati\SaveLoadFiles.cpp(41,13):
+      see declaration of 'writeIntVector'
+      D:\chatApp\chati\SaveLoadFiles.cpp(132,3):
+      while trying to match the argument list '(std::ofstream, int, std::set<int,std::less<int>,std::allocator<_Kty>>)'
+          with
+          [
+              _Kty=int
+          ]
+  
+D:\chatApp\chati\SaveLoadFiles.cpp(144,22): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\chatApp\chati\SaveLoadFiles.cpp(145,3): error C2664: 'void writeIntVector(std::ofstream &,int,const std::vector<int,std::allocator<_Kty>>)': cannot convert argument 3 from 'std::set<int,std::less<int>,std::allocator<_Kty>>' to 'const std::vector<int,std::allocator<_Kty>>'
+D:\chatApp\chati\SaveLoadFiles.cpp(145,3): error C2664:         with
+D:\chatApp\chati\SaveLoadFiles.cpp(145,3): error C2664:         [
+D:\chatApp\chati\SaveLoadFiles.cpp(145,3): error C2664:             _Kty=int
+D:\chatApp\chati\SaveLoadFiles.cpp(145,3): error C2664:         ]
+      D:\chatApp\chati\SaveLoadFiles.cpp(145,55):
+      No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+      D:\chatApp\chati\SaveLoadFiles.cpp(41,13):
+      see declaration of 'writeIntVector'
+      D:\chatApp\chati\SaveLoadFiles.cpp(145,3):
+      while trying to match the argument list '(std::ofstream, int, std::set<int,std::less<int>,std::allocator<_Kty>>)'
+          with
+          [
+              _Kty=int
+          ]
+  
+D:\chatApp\chati\SaveLoadFiles.cpp(163,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\chatApp\chati\SaveLoadFiles.cpp(175,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\chatApp\chati\SaveLoadFiles.cpp(178,21): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\chatApp\chati\SaveLoadFiles.cpp(189,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\chatApp\chati\SaveLoadFiles.cpp(77,6): warning C4996: 'freopen': This function or variable may be unsafe. Consider using freopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\chatApp\chati\SaveLoadFiles.cpp(258,5): error C2664: 'void User::setContactsID(const std::unordered_set<int,std::hash<int>,std::equal_to<_Kty>,std::allocator<_Kty>> &)': cannot convert argument 1 from 'std::vector<int,std::allocator<_Kty>>' to 'const std::unordered_set<int,std::hash<int>,std::equal_to<_Kty>,std::allocator<_Kty>> &'
+D:\chatApp\chati\SaveLoadFiles.cpp(258,5): error C2664:         with
+D:\chatApp\chati\SaveLoadFiles.cpp(258,5): error C2664:         [
+D:\chatApp\chati\SaveLoadFiles.cpp(258,5): error C2664:             _Kty=int
+D:\chatApp\chati\SaveLoadFiles.cpp(258,5): error C2664:         ]
+      D:\chatApp\chati\SaveLoadFiles.cpp(258,32):
+      Reason: cannot convert from 'std::vector<int,std::allocator<_Kty>>' to 'const std::unordered_set<int,std::hash<int>,std::equal_to<_Kty>,std::allocator<_Kty>>'
+          with
+          [
+              _Kty=int
+          ]
+      D:\chatApp\chati\SaveLoadFiles.cpp(258,32):
+      No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+      D:\chatApp\chati\User.h(50,10):
+      see declaration of 'User::setContactsID'
+      D:\chatApp\chati\SaveLoadFiles.cpp(258,5):
+      while trying to match the argument list '(std::vector<int,std::allocator<_Kty>>)'
+          with
+          [
+              _Kty=int
+          ]
+  
+D:\chatApp\chati\SaveLoadFiles.cpp(268,5): error C2664: 'void User::setStoriesID(const std::set<int,std::less<int>,std::allocator<_Kty>> &)': cannot convert argument 1 from 'std::vector<int,std::allocator<_Kty>>' to 'const std::set<int,std::less<int>,std::allocator<_Kty>> &'
+D:\chatApp\chati\SaveLoadFiles.cpp(268,5): error C2664:         with
+D:\chatApp\chati\SaveLoadFiles.cpp(268,5): error C2664:         [
+D:\chatApp\chati\SaveLoadFiles.cpp(268,5): error C2664:             _Kty=int
+D:\chatApp\chati\SaveLoadFiles.cpp(268,5): error C2664:         ]
+      D:\chatApp\chati\SaveLoadFiles.cpp(268,31):
+      Reason: cannot convert from 'std::vector<int,std::allocator<_Kty>>' to 'const std::set<int,std::less<int>,std::allocator<_Kty>>'
+          with
+          [
+              _Kty=int
+          ]
+      D:\chatApp\chati\SaveLoadFiles.cpp(268,31):
+      No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+      D:\chatApp\chati\User.h(51,10):
+      see declaration of 'User::setStoriesID'
+      D:\chatApp\chati\SaveLoadFiles.cpp(268,5):
+      while trying to match the argument list '(std::vector<int,std::allocator<_Kty>>)'
+          with
+          [
+              _Kty=int
+          ]
+  
+D:\chatApp\chati\SaveLoadFiles.cpp(278,5): error C2664: 'void User::setChatRoomsID(const std::set<int,std::less<int>,std::allocator<_Kty>> &)': cannot convert argument 1 from 'std::vector<int,std::allocator<_Kty>>' to 'const std::set<int,std::less<int>,std::allocator<_Kty>> &'
+D:\chatApp\chati\SaveLoadFiles.cpp(278,5): error C2664:         with
+D:\chatApp\chati\SaveLoadFiles.cpp(278,5): error C2664:         [
+D:\chatApp\chati\SaveLoadFiles.cpp(278,5): error C2664:             _Kty=int
+D:\chatApp\chati\SaveLoadFiles.cpp(278,5): error C2664:         ]
+      D:\chatApp\chati\SaveLoadFiles.cpp(278,33):
+      Reason: cannot convert from 'std::vector<int,std::allocator<_Kty>>' to 'const std::set<int,std::less<int>,std::allocator<_Kty>>'
+          with
+          [
+              _Kty=int
+          ]
+      D:\chatApp\chati\SaveLoadFiles.cpp(278,33):
+      No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+      D:\chatApp\chati\User.h(52,10):
+      see declaration of 'User::setChatRoomsID'
+      D:\chatApp\chati\SaveLoadFiles.cpp(278,5):
+      while trying to match the argument list '(std::vector<int,std::allocator<_Kty>>)'
+          with
+          [
+              _Kty=int
+          ]
+  
+D:\chatApp\chati\SaveLoadFiles.cpp(315,21): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\chatApp\chati\SaveLoadFiles.cpp(213,2): warning C4996: 'freopen': This function or variable may be unsafe. Consider using freopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   Generating Code...
-  chat.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
-  chati.vcxproj -> C:\Programms\chati\x64\Debug\chati.exe

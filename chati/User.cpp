@@ -1,81 +1,74 @@
 #include "User.h"
-int User::userCounter = 0; // Initialize the static user counter
+#include <iostream>
+
+// Initialize the static counter
+int User::userCounter = 0;
+
+// Default Constructor
 User::User(string mobileNumber, string password, string firstName, string lastName)
-	: mobileNumber(mobileNumber), password(password), firstName(firstName), lastName(lastName), visible(true) {
-	userID = ++userCounter; // Increment the static user counter to assign a unique ID
+    : mobileNumber(mobileNumber), password(password), firstName(firstName), lastName(lastName), userID(++userCounter) {
+    visible = true;  // Assuming users are visible by default
 }
 
-User::User() : userID(0), mobileNumber(""), password(""), firstName(""), lastName(""), visible(true) {
-	userID = ++userCounter; // Increment the static user counter to assign a unique ID
-}
+// Default Constructor
+User::User() : userID(++userCounter), visible(true) {}
 
+// Getters
 int User::getUserID() const { return userID; }
-void User::setUserID(int userID) { this->userID = userID; }
-
 string User::getMobileNumber() const { return mobileNumber; }
-void User::setMobileNumber(const string& mobileNumber) { this->mobileNumber = mobileNumber; }
-
 string User::getPassword() const { return password; }
-void User::setPassword(const string& password) { this->password = password; }
-
 string User::getFirstName() const { return firstName; }
-void User::setFirstName(const string& firstName) { this->firstName = firstName; }
-
 string User::getLastName() const { return lastName; }
-void User::setLastName(const string& lastName) { this->lastName = lastName; }
-
 string User::getProfilePhoto() const { return profilePhoto; }
-void User::setProfilePhoto(const string& profilePhoto) { this->profilePhoto = profilePhoto; }
-
 string User::getAbout() const { return about; }
-void User::setAbout(const string& about) { this->about = about; }
-
 bool User::getVisible() const { return visible; }
-void User::setVisible(bool visible) { this->visible = visible; }
+unordered_set<int> User::getContactsID() const { return contactsID; }
+set<int> User::getStoriesID() const { return storiesID; }
+set<int> User::getChatRoomsID() const { return chatRoomsID; }
 
-bool User::isUserVisible(){ 
-	return visible; 
+// Setters
+void User::setUserID(int id) { userID = id; }
+void User::setMobileNumber(const string& mobile) { mobileNumber = mobile; }
+void User::setPassword(const string& pass) { password = pass; }
+void User::setFirstName(const string& fname) { firstName = fname; }
+void User::setLastName(const string& lname) { lastName = lname; }
+void User::setProfilePhoto(const string& photo) { profilePhoto = photo; }
+void User::setAbout(const string& about) { this->about = about; }
+void User::setVisible(bool vis) { visible = vis; }
+void User::setContactsID(const unordered_set<int>& contacts) { contactsID = contacts; }
+void User::setStoriesID(const set<int>& stories) { storiesID = stories; }
+void User::setChatRoomsID(const set<int>& chatRooms) { chatRoomsID = chatRooms; }
+
+// Add/Remove Methods
+bool User::addContactID(int contactID) {
+    return contactsID.insert(contactID).second; // Directly modify contactsID
 }
 
-vector<int> User::getContactsID() const { return contactsID; }
-vector<int> User::getStoriesID() const {return storiesID;}
-vector<int> User::getChatRoomsID() const { return chatRoomsID; }
-
-void User::setContactsID(const vector<int>& contactsID) { this->contactsID = contactsID; }
-void User::setStoriesID(const vector<int>& storiesID) { this->storiesID = storiesID; }
-void User::setChatRoomsID(const vector<int>& chatRoomsID) { this->chatRoomsID = chatRoomsID; }
-
-
-void User::addContactID(int contactID) {  
-    this->contactsID.push_back(contactID);  
+bool User::addStoryID(int storyID) {
+    return storiesID.insert(storyID).second; // Directly modify storiesID
 }
-void User::addStoryID(int storyID) {  
-	this->storiesID.push_back(storyID);  
-}
-void User::addChatRoomID(int chatRoomID) {  
-	this->chatRoomsID.push_back(chatRoomID);  
+
+bool User::addChatRoomID(int chatRoomID) {
+    return chatRoomsID.insert(chatRoomID).second; // Directly modify chatRoomsID
 }
 
 void User::removeContactID(int contactID) {
-	auto it = find(contactsID.begin(), contactsID.end(), contactID);
-	if (it != contactsID.end()) {
-		contactsID.erase(it);
-	}
+    contactsID.erase(contactID); // Directly modify contactsID
 }
+
 void User::removeStory(int storyID) {
-	auto it = find(storiesID.begin(), storiesID.end(), storyID);
-	if (it != storiesID.end()) {
-		storiesID.erase(it);
-	}
+    storiesID.erase(storyID); // Directly modify storiesID
 }
+
 void User::removeChatRoomID(int chatRoomID) {
-	auto it = find(chatRoomsID.begin(), chatRoomsID.end(), chatRoomID);
-	if (it != chatRoomsID.end()) {
-		chatRoomsID.erase(it);
-	}
+    chatRoomsID.erase(chatRoomID); // Directly modify chatRoomsID
 }
 
+bool User::isUserVisible() {
+    return visible;
+}
 
+// Destructor
 User::~User() {
-	
+    // Any necessary cleanup (if needed)
 }

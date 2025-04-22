@@ -1,30 +1,27 @@
 #pragma once
 #include <string>
-#include<list>
-#include<queue>
 #include <unordered_set>
+#include <set>
 #include <vector>
 
 using namespace std;
 
-
 class User {
-	static int userCounter; // Static variable to keep track of user IDs
+    static int userCounter; // Static variable to keep track of user IDs
     int userID;
     string mobileNumber;
     string password;
     string firstName;
     string lastName;
-	string profilePhoto;
+    string profilePhoto;
     string about;
-    bool visible; //? for the user profile description
-	vector<int> contactsID; //?   (unorder_set+trie for autocomplete) refer to (uesrs) set because the id is unique for searching
-    vector<int> storiesID; //? (queue) but less functionlaties
-    vector<int> chatRoomsID; //? unique for both all users ()
+    bool visible; // for the user profile description
+    unordered_set<int> contactsID; // unordered_set for fast lookups, unique for each user
+    set<int> storiesID; // set to store story IDs
+    set<int> chatRoomsID; // set to store chat room IDs
 
 public:
-
-	// Constructors
+    // Constructors
     User(string mobileNumber, string password, string firstName, string lastName);
     User();
 
@@ -37,9 +34,9 @@ public:
     string getProfilePhoto() const;
     string getAbout() const;
     bool getVisible() const;
-    vector<int> getContactsID() const;
-    vector<int> getStoriesID() const;
-    vector<int> getChatRoomsID() const;
+    unordered_set<int> getContactsID() const;
+    set<int> getStoriesID() const;
+    set<int> getChatRoomsID() const;
 
     // Setters
     void setUserID(int id);
@@ -50,20 +47,20 @@ public:
     void setProfilePhoto(const string& photo);
     void setAbout(const string& about);
     void setVisible(bool vis);
-    void setContactsID(const vector<int>& contacts);
-    void setStoriesID(const vector<int>& stories);
-    void setChatRoomsID(const vector<int>& chatRooms);
+    void setContactsID(const unordered_set<int>& contacts);
+    void setStoriesID(const set<int>& stories);
+    void setChatRoomsID(const set<int>& chatRooms);
 
+    // Add/Remove methods
+    bool addContactID(int contactID);
+    bool addStoryID(int storyID);
+    bool addChatRoomID(int chatRoomID);
+    void removeContactID(int contactID);
+    void removeStory(int storyID);
+    void removeChatRoomID(int chatRoomID);
 
-	// Add Remove methods
-	void addContactID(int contactID);
-	void addStoryID(int storyID);
-	void addChatRoomID(int chatRoomID);
-	void removeContactID(int contactID);
-	void removeStory(int storyID);
-	void removeChatRoomID(int chatRoomID);
-	bool isUserVisible();
-       
-	// Destructor
-	~User();
+    bool isUserVisible();
+
+    // Destructor
+    ~User();
 };

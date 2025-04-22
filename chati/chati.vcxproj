@@ -120,6 +120,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ChatRoom.h" />
+    <ClInclude Include="Contact.h" />
     <ClInclude Include="GuiForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>

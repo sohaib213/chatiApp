@@ -1,18 +1,55 @@
-#include "Story.h"
-int Story::storyCounter = 0; // Initialize the static story counter
-Story::Story(string userID, string publishTime, string storyText, string storyPhoto)
+﻿#include "Story.h"
+
+// Initialize static member
+int Story::storyCounter = 0;
+
+// Default constructor
+Story::Story() : storyId(++storyCounter), userID(0), publishTime(time(nullptr)), storyPhoto(""), storyText("") {}
+
+// Parameterized constructor
+Story::Story(int userID, time_t publishTime, string storyText, string storyPhoto)
     : userID(userID), publishTime(publishTime), storyText(storyText), storyPhoto(storyPhoto) {
-	storyId = ++storyCounter; // Increment the static story counter to assign a unique ID
+    storyId = ++storyCounter;
 }
 
-string Story::getUserID() const { return userID; }
-void Story::setUserID(const string& userID) { this->userID = userID; }
+// Getters
+int Story::getStoryID() const {
+    return storyId;
+}
 
-string Story::getPublishTime() const { return publishTime; }
-void Story::setPublishTime(const string& publishTime) { this->publishTime = publishTime; }
+int Story::getUserID() const {
+    return userID;
+}
 
-string Story::getStoryPhoto() const { return storyPhoto; }
-void Story::setStoryPhoto(const string& storyPhoto) { this->storyPhoto = storyPhoto; }
+time_t Story::getPublishTime() const {
+    return publishTime;
+}
 
-string Story::getStoryText() const { return storyText; }
-void Story::setStoryText(const string& storyText) { this->storyText = storyText; }
+string Story::getStoryPhoto() const {
+    return storyPhoto;
+}
+
+string Story::getStoryText() const {
+    return storyText;
+}
+
+// Setters
+void Story::setStoryID(const int& id) {
+    storyId = id;
+}
+
+void Story::setUserID(const int& id) {
+    userID = id;
+}
+
+void Story::setPublishTime(const time_t& time) {
+    publishTime = time;
+}
+
+void Story::setStoryPhoto(const string& photo) {
+    storyPhoto = photo;
+}
+
+void Story::setStoryText(const string& text) {
+    storyText = text;
+}

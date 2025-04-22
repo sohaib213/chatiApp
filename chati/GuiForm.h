@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "User.h"
 #include <msclr/marshal_cppstd.h>
 #include <stack>
@@ -14,15 +14,19 @@
 #include "MessageHandler.h"
 #include <unordered_map>
 #include "Message.h"
+#include "ChatRoom.h"
+#include "Contact.h"
+#include "Story.h"
 
 
 using namespace std;
-
-
+using namespace System::IO;
+//? Global maps for save and load from the files
 map<string, User> users;
 unordered_map<int, ChatRoom> chatRooms;
-// Use the namespace explicitly to resolve ambiguity
 unordered_map<int, chati::Message> messages;
+unordered_map<int, Contact> contacts;
+unordered_map<int, Story> stories;
 User *currentUser;
 ChatRoom *currentChatRoom;
 
@@ -129,12 +133,20 @@ namespace chati {
 	private: System::Windows::Forms::Label^ label2;
 	private: System::Windows::Forms::Panel^ addStoryPanel;
 	private: System::Windows::Forms::TextBox^ textStory;
-
 	private: System::Windows::Forms::Button^ button3;
+
+
+
 	private: System::Windows::Forms::ColorDialog^ colorDialog1;
 	private: System::Windows::Forms::Button^ button4;
+
 	private: System::Windows::Forms::Button^ button5;
+
 	private: System::Windows::Forms::Button^ button6;
+
+
+
+
 	private: System::Windows::Forms::RichTextBox^ textBox1;
 
 
@@ -146,63 +158,7 @@ namespace chati {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	//private: System::Windows::Forms::Button^ button2;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 		private:
 		/// <summary>
 		/// Required designer variable.
@@ -241,6 +197,11 @@ namespace chati {
 			this->Pass_lbl2 = (gcnew System::Windows::Forms::Label());
 			this->MN_lbl2 = (gcnew System::Windows::Forms::Label());
 			this->chatPanel = (gcnew System::Windows::Forms::Panel());
+			this->storyPanel = (gcnew System::Windows::Forms::Panel());
+			this->allStoriesPanel = (gcnew System::Windows::Forms::FlowLayoutPanel());
+			this->stotyHeaderPanel = (gcnew System::Windows::Forms::Panel());
+			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->chatPnl = (gcnew System::Windows::Forms::Panel());
 			this->currentCahtPanel = (gcnew System::Windows::Forms::Panel());
 			this->panel2 = (gcnew System::Windows::Forms::Panel());
@@ -252,11 +213,6 @@ namespace chati {
 			this->chatRoomsPanel = (gcnew System::Windows::Forms::FlowLayoutPanel());
 			this->profilePanel = (gcnew System::Windows::Forms::Panel());
 			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->storyPanel = (gcnew System::Windows::Forms::Panel());
-			this->allStoriesPanel = (gcnew System::Windows::Forms::FlowLayoutPanel());
-			this->stotyHeaderPanel = (gcnew System::Windows::Forms::Panel());
-			this->label2 = (gcnew System::Windows::Forms::Label());
-			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->navPanel = (gcnew System::Windows::Forms::Panel());
 			this->statusButton = (gcnew System::Windows::Forms::Button());
 			this->profileButton = (gcnew System::Windows::Forms::Button());
@@ -272,14 +228,14 @@ namespace chati {
 			this->First_pnl->SuspendLayout();
 			this->signIn_pnl->SuspendLayout();
 			this->chatPanel->SuspendLayout();
+			this->storyPanel->SuspendLayout();
+			this->stotyHeaderPanel->SuspendLayout();
 			this->chatPnl->SuspendLayout();
 			this->currentCahtPanel->SuspendLayout();
 			this->panel2->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->panel1->SuspendLayout();
 			this->profilePanel->SuspendLayout();
-			this->storyPanel->SuspendLayout();
-			this->stotyHeaderPanel->SuspendLayout();
 			this->navPanel->SuspendLayout();
 			this->addStoryPanel->SuspendLayout();
 			this->SuspendLayout();
@@ -301,7 +257,7 @@ namespace chati {
 			this->signUp_pnl->Location = System::Drawing::Point(0, 0);
 			this->signUp_pnl->Margin = System::Windows::Forms::Padding(4);
 			this->signUp_pnl->Name = L"signUp_pnl";
-			this->signUp_pnl->Size = System::Drawing::Size(1324, 720);
+			this->signUp_pnl->Size = System::Drawing::Size(1351, 720);
 			this->signUp_pnl->TabIndex = 9;
 			// 
 			// signUp_done
@@ -313,7 +269,7 @@ namespace chati {
 			this->signUp_done->Location = System::Drawing::Point(633, 76);
 			this->signUp_done->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->signUp_done->Name = L"signUp_done";
-			this->signUp_done->Size = System::Drawing::Size(331, 39);
+			this->signUp_done->Size = System::Drawing::Size(417, 52);
 			this->signUp_done->TabIndex = 19;
 			this->signUp_done->Text = L"Signed up Correctly!";
 			this->signUp_done->Visible = false;
@@ -341,7 +297,7 @@ namespace chati {
 			this->FN_lbl->Location = System::Drawing::Point(335, 219);
 			this->FN_lbl->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->FN_lbl->Name = L"FN_lbl";
-			this->FN_lbl->Size = System::Drawing::Size(104, 24);
+			this->FN_lbl->Size = System::Drawing::Size(135, 29);
 			this->FN_lbl->TabIndex = 17;
 			this->FN_lbl->Text = L"Fitst Name:";
 			// 
@@ -350,7 +306,7 @@ namespace chati {
 			this->FN_textbox->Location = System::Drawing::Point(559, 225);
 			this->FN_textbox->Margin = System::Windows::Forms::Padding(4);
 			this->FN_textbox->Name = L"FN_textbox";
-			this->FN_textbox->Size = System::Drawing::Size(184, 20);
+			this->FN_textbox->Size = System::Drawing::Size(184, 22);
 			this->FN_textbox->TabIndex = 16;
 			// 
 			// LN_lbl
@@ -361,7 +317,7 @@ namespace chati {
 			this->LN_lbl->Location = System::Drawing::Point(335, 284);
 			this->LN_lbl->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->LN_lbl->Name = L"LN_lbl";
-			this->LN_lbl->Size = System::Drawing::Size(104, 24);
+			this->LN_lbl->Size = System::Drawing::Size(134, 29);
 			this->LN_lbl->TabIndex = 15;
 			this->LN_lbl->Text = L"Last Name:";
 			// 
@@ -373,7 +329,7 @@ namespace chati {
 			this->Pass_lbl->Location = System::Drawing::Point(335, 364);
 			this->Pass_lbl->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->Pass_lbl->Name = L"Pass_lbl";
-			this->Pass_lbl->Size = System::Drawing::Size(97, 24);
+			this->Pass_lbl->Size = System::Drawing::Size(126, 29);
 			this->Pass_lbl->TabIndex = 14;
 			this->Pass_lbl->Text = L"Password:";
 			// 
@@ -382,7 +338,7 @@ namespace chati {
 			this->LN_textbox->Location = System::Drawing::Point(559, 290);
 			this->LN_textbox->Margin = System::Windows::Forms::Padding(4);
 			this->LN_textbox->Name = L"LN_textbox";
-			this->LN_textbox->Size = System::Drawing::Size(184, 20);
+			this->LN_textbox->Size = System::Drawing::Size(184, 22);
 			this->LN_textbox->TabIndex = 13;
 			// 
 			// Pass_textbox
@@ -390,7 +346,7 @@ namespace chati {
 			this->Pass_textbox->Location = System::Drawing::Point(559, 369);
 			this->Pass_textbox->Margin = System::Windows::Forms::Padding(4);
 			this->Pass_textbox->Name = L"Pass_textbox";
-			this->Pass_textbox->Size = System::Drawing::Size(184, 20);
+			this->Pass_textbox->Size = System::Drawing::Size(184, 22);
 			this->Pass_textbox->TabIndex = 12;
 			// 
 			// submit_but
@@ -415,7 +371,7 @@ namespace chati {
 			this->MN_lbl->Location = System::Drawing::Point(335, 447);
 			this->MN_lbl->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->MN_lbl->Name = L"MN_lbl";
-			this->MN_lbl->Size = System::Drawing::Size(148, 24);
+			this->MN_lbl->Size = System::Drawing::Size(187, 29);
 			this->MN_lbl->TabIndex = 10;
 			this->MN_lbl->Text = L"Mobile number: ";
 			// 
@@ -424,7 +380,7 @@ namespace chati {
 			this->MN_textbox->Location = System::Drawing::Point(559, 453);
 			this->MN_textbox->Margin = System::Windows::Forms::Padding(4);
 			this->MN_textbox->Name = L"MN_textbox";
-			this->MN_textbox->Size = System::Drawing::Size(184, 20);
+			this->MN_textbox->Size = System::Drawing::Size(184, 22);
 			this->MN_textbox->TabIndex = 9;
 			// 
 			// First_pnl
@@ -436,7 +392,7 @@ namespace chati {
 			this->First_pnl->Location = System::Drawing::Point(0, 0);
 			this->First_pnl->Margin = System::Windows::Forms::Padding(4);
 			this->First_pnl->Name = L"First_pnl";
-			this->First_pnl->Size = System::Drawing::Size(1324, 720);
+			this->First_pnl->Size = System::Drawing::Size(1351, 720);
 			this->First_pnl->TabIndex = 10;
 			// 
 			// signin_btn
@@ -473,7 +429,7 @@ namespace chati {
 			this->letsChat->Location = System::Drawing::Point(514, 129);
 			this->letsChat->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->letsChat->Name = L"letsChat";
-			this->letsChat->Size = System::Drawing::Size(283, 55);
+			this->letsChat->Size = System::Drawing::Size(352, 69);
 			this->letsChat->TabIndex = 0;
 			this->letsChat->Text = L"Let\'s chat : )";
 			// 
@@ -489,7 +445,7 @@ namespace chati {
 			this->signIn_pnl->Location = System::Drawing::Point(0, 0);
 			this->signIn_pnl->Margin = System::Windows::Forms::Padding(4);
 			this->signIn_pnl->Name = L"signIn_pnl";
-			this->signIn_pnl->Size = System::Drawing::Size(1324, 720);
+			this->signIn_pnl->Size = System::Drawing::Size(1351, 720);
 			this->signIn_pnl->TabIndex = 11;
 			// 
 			// back
@@ -525,7 +481,7 @@ namespace chati {
 			this->Pass_txt->Location = System::Drawing::Point(650, 282);
 			this->Pass_txt->Margin = System::Windows::Forms::Padding(4);
 			this->Pass_txt->Name = L"Pass_txt";
-			this->Pass_txt->Size = System::Drawing::Size(347, 20);
+			this->Pass_txt->Size = System::Drawing::Size(347, 22);
 			this->Pass_txt->TabIndex = 3;
 			// 
 			// MN_txt
@@ -533,7 +489,7 @@ namespace chati {
 			this->MN_txt->Location = System::Drawing::Point(650, 191);
 			this->MN_txt->Margin = System::Windows::Forms::Padding(4);
 			this->MN_txt->Name = L"MN_txt";
-			this->MN_txt->Size = System::Drawing::Size(347, 20);
+			this->MN_txt->Size = System::Drawing::Size(347, 22);
 			this->MN_txt->TabIndex = 2;
 			// 
 			// Pass_lbl2
@@ -544,7 +500,7 @@ namespace chati {
 			this->Pass_lbl2->Location = System::Drawing::Point(313, 271);
 			this->Pass_lbl2->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->Pass_lbl2->Name = L"Pass_lbl2";
-			this->Pass_lbl2->Size = System::Drawing::Size(126, 29);
+			this->Pass_lbl2->Size = System::Drawing::Size(155, 36);
 			this->Pass_lbl2->TabIndex = 1;
 			this->Pass_lbl2->Text = L"Password:";
 			// 
@@ -556,22 +512,83 @@ namespace chati {
 			this->MN_lbl2->Location = System::Drawing::Point(313, 190);
 			this->MN_lbl2->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->MN_lbl2->Name = L"MN_lbl2";
-			this->MN_lbl2->Size = System::Drawing::Size(186, 29);
+			this->MN_lbl2->Size = System::Drawing::Size(225, 36);
 			this->MN_lbl2->TabIndex = 0;
 			this->MN_lbl2->Text = L"Mobile Number:";
 			// 
 			// chatPanel
 			// 
 			this->chatPanel->BackColor = System::Drawing::Color::White;
+			this->chatPanel->Controls->Add(this->storyPanel);
 			this->chatPanel->Controls->Add(this->chatPnl);
 			this->chatPanel->Controls->Add(this->profilePanel);
-			this->chatPanel->Controls->Add(this->storyPanel);
 			this->chatPanel->Controls->Add(this->navPanel);
 			this->chatPanel->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->chatPanel->Location = System::Drawing::Point(0, 0);
 			this->chatPanel->Name = L"chatPanel";
-			this->chatPanel->Size = System::Drawing::Size(1324, 720);
+			this->chatPanel->Size = System::Drawing::Size(1351, 720);
 			this->chatPanel->TabIndex = 3;
+			// 
+			// storyPanel
+			// 
+			this->storyPanel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)),
+				static_cast<System::Int32>(static_cast<System::Byte>(45)));
+			this->storyPanel->Controls->Add(this->allStoriesPanel);
+			this->storyPanel->Controls->Add(this->stotyHeaderPanel);
+			this->storyPanel->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->storyPanel->Location = System::Drawing::Point(87, 0);
+			this->storyPanel->Name = L"storyPanel";
+			this->storyPanel->Size = System::Drawing::Size(1264, 720);
+			this->storyPanel->TabIndex = 11;
+			// 
+			// allStoriesPanel
+			// 
+			this->allStoriesPanel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)),
+				static_cast<System::Int32>(static_cast<System::Byte>(45)));
+			this->allStoriesPanel->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->allStoriesPanel->FlowDirection = System::Windows::Forms::FlowDirection::TopDown;
+			this->allStoriesPanel->Location = System::Drawing::Point(0, 100);
+			this->allStoriesPanel->Name = L"allStoriesPanel";
+			this->allStoriesPanel->Size = System::Drawing::Size(1264, 620);
+			this->allStoriesPanel->TabIndex = 1;
+			// 
+			// stotyHeaderPanel
+			// 
+			this->stotyHeaderPanel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(60)), static_cast<System::Int32>(static_cast<System::Byte>(60)),
+				static_cast<System::Int32>(static_cast<System::Byte>(60)));
+			this->stotyHeaderPanel->Controls->Add(this->label2);
+			this->stotyHeaderPanel->Controls->Add(this->button2);
+			this->stotyHeaderPanel->Dock = System::Windows::Forms::DockStyle::Top;
+			this->stotyHeaderPanel->Location = System::Drawing::Point(0, 0);
+			this->stotyHeaderPanel->Name = L"stotyHeaderPanel";
+			this->stotyHeaderPanel->Size = System::Drawing::Size(1264, 100);
+			this->stotyHeaderPanel->TabIndex = 0;
+			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 19.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label2->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->label2->Location = System::Drawing::Point(24, 15);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(116, 38);
+			this->label2->TabIndex = 13;
+			this->label2->Text = L"Status";
+			// 
+			// button2
+			// 
+			this->button2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->button2->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button2.BackgroundImage")));
+			this->button2->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+			this->button2->FlatAppearance->BorderSize = 0;
+			this->button2->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->button2->Location = System::Drawing::Point(1130, 12);
+			this->button2->Name = L"button2";
+			this->button2->Size = System::Drawing::Size(75, 53);
+			this->button2->TabIndex = 12;
+			this->button2->UseVisualStyleBackColor = true;
+			this->button2->Click += gcnew System::EventHandler(this, &GuiForm::button2_Click);
 			// 
 			// chatPnl
 			// 
@@ -580,7 +597,7 @@ namespace chati {
 			this->chatPnl->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->chatPnl->Location = System::Drawing::Point(87, 0);
 			this->chatPnl->Name = L"chatPnl";
-			this->chatPnl->Size = System::Drawing::Size(1237, 720);
+			this->chatPnl->Size = System::Drawing::Size(1264, 720);
 			this->chatPnl->TabIndex = 8;
 			// 
 			// currentCahtPanel
@@ -591,7 +608,7 @@ namespace chati {
 			this->currentCahtPanel->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->currentCahtPanel->Location = System::Drawing::Point(338, 0);
 			this->currentCahtPanel->Name = L"currentCahtPanel";
-			this->currentCahtPanel->Size = System::Drawing::Size(899, 720);
+			this->currentCahtPanel->Size = System::Drawing::Size(926, 720);
 			this->currentCahtPanel->TabIndex = 7;
 			// 
 			// panel2
@@ -603,7 +620,7 @@ namespace chati {
 			this->panel2->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->panel2->Location = System::Drawing::Point(0, 0);
 			this->panel2->Name = L"panel2";
-			this->panel2->Size = System::Drawing::Size(899, 674);
+			this->panel2->Size = System::Drawing::Size(926, 674);
 			this->panel2->TabIndex = 14;
 			// 
 			// messagesContainer
@@ -617,7 +634,7 @@ namespace chati {
 			this->messagesContainer->Name = L"messagesContainer";
 			this->messagesContainer->Padding = System::Windows::Forms::Padding(2);
 			this->messagesContainer->RightToLeft = System::Windows::Forms::RightToLeft::Yes;
-			this->messagesContainer->Size = System::Drawing::Size(899, 674);
+			this->messagesContainer->Size = System::Drawing::Size(926, 674);
 			this->messagesContainer->TabIndex = 2;
 			this->messagesContainer->WrapContents = false;
 			// 
@@ -630,7 +647,7 @@ namespace chati {
 			this->pictureBox1->InitialImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.InitialImage")));
 			this->pictureBox1->Location = System::Drawing::Point(0, 0);
 			this->pictureBox1->Name = L"pictureBox1";
-			this->pictureBox1->Size = System::Drawing::Size(899, 674);
+			this->pictureBox1->Size = System::Drawing::Size(926, 674);
 			this->pictureBox1->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
 			this->pictureBox1->TabIndex = 12;
 			this->pictureBox1->TabStop = false;
@@ -644,7 +661,7 @@ namespace chati {
 			this->panel1->Dock = System::Windows::Forms::DockStyle::Bottom;
 			this->panel1->Location = System::Drawing::Point(0, 674);
 			this->panel1->Name = L"panel1";
-			this->panel1->Size = System::Drawing::Size(899, 46);
+			this->panel1->Size = System::Drawing::Size(926, 46);
 			this->panel1->TabIndex = 13;
 			// 
 			// textBox1
@@ -654,7 +671,7 @@ namespace chati {
 				static_cast<System::Byte>(0)));
 			this->textBox1->Location = System::Drawing::Point(0, 0);
 			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(817, 46);
+			this->textBox1->Size = System::Drawing::Size(844, 46);
 			this->textBox1->TabIndex = 0;
 			this->textBox1->Text = L"";
 			// 
@@ -666,7 +683,7 @@ namespace chati {
 			this->sendButton->Dock = System::Windows::Forms::DockStyle::Right;
 			this->sendButton->FlatAppearance->BorderSize = 0;
 			this->sendButton->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->sendButton->Location = System::Drawing::Point(817, 0);
+			this->sendButton->Location = System::Drawing::Point(844, 0);
 			this->sendButton->Name = L"sendButton";
 			this->sendButton->Size = System::Drawing::Size(82, 46);
 			this->sendButton->TabIndex = 3;
@@ -691,7 +708,7 @@ namespace chati {
 			this->profilePanel->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->profilePanel->Location = System::Drawing::Point(87, 0);
 			this->profilePanel->Name = L"profilePanel";
-			this->profilePanel->Size = System::Drawing::Size(1237, 720);
+			this->profilePanel->Size = System::Drawing::Size(1264, 720);
 			this->profilePanel->TabIndex = 10;
 			// 
 			// label1
@@ -701,69 +718,9 @@ namespace chati {
 				static_cast<System::Byte>(0)));
 			this->label1->Location = System::Drawing::Point(503, 316);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(167, 31);
+			this->label1->Size = System::Drawing::Size(211, 39);
 			this->label1->TabIndex = 0;
 			this->label1->Text = L"Profile Panel";
-			// 
-			// storyPanel
-			// 
-			this->storyPanel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)),
-				static_cast<System::Int32>(static_cast<System::Byte>(45)));
-			this->storyPanel->Controls->Add(this->allStoriesPanel);
-			this->storyPanel->Controls->Add(this->stotyHeaderPanel);
-			this->storyPanel->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->storyPanel->Location = System::Drawing::Point(87, 0);
-			this->storyPanel->Name = L"storyPanel";
-			this->storyPanel->Size = System::Drawing::Size(1237, 720);
-			this->storyPanel->TabIndex = 11;
-			// 
-			// allStoriesPanel
-			// 
-			this->allStoriesPanel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)),
-				static_cast<System::Int32>(static_cast<System::Byte>(45)));
-			this->allStoriesPanel->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->allStoriesPanel->Location = System::Drawing::Point(0, 100);
-			this->allStoriesPanel->Name = L"allStoriesPanel";
-			this->allStoriesPanel->Size = System::Drawing::Size(1237, 620);
-			this->allStoriesPanel->TabIndex = 1;
-			// 
-			// stotyHeaderPanel
-			// 
-			this->stotyHeaderPanel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(60)), static_cast<System::Int32>(static_cast<System::Byte>(60)),
-				static_cast<System::Int32>(static_cast<System::Byte>(60)));
-			this->stotyHeaderPanel->Controls->Add(this->label2);
-			this->stotyHeaderPanel->Controls->Add(this->button2);
-			this->stotyHeaderPanel->Dock = System::Windows::Forms::DockStyle::Top;
-			this->stotyHeaderPanel->Location = System::Drawing::Point(0, 0);
-			this->stotyHeaderPanel->Name = L"stotyHeaderPanel";
-			this->stotyHeaderPanel->Size = System::Drawing::Size(1237, 100);
-			this->stotyHeaderPanel->TabIndex = 0;
-			// 
-			// label2
-			// 
-			this->label2->AutoSize = true;
-			this->label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 19.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->label2->ForeColor = System::Drawing::SystemColors::ControlLightLight;
-			this->label2->Location = System::Drawing::Point(24, 15);
-			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(98, 31);
-			this->label2->TabIndex = 13;
-			this->label2->Text = L"Status";
-			// 
-			// button2
-			// 
-			this->button2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->button2->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button2.BackgroundImage")));
-			this->button2->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
-			this->button2->FlatAppearance->BorderSize = 0;
-			this->button2->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->button2->Location = System::Drawing::Point(1103, 12);
-			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(75, 53);
-			this->button2->TabIndex = 12;
-			this->button2->UseVisualStyleBackColor = true;
-			this->button2->Click += gcnew System::EventHandler(this, &GuiForm::button2_Click);
 			// 
 			// navPanel
 			// 
@@ -833,7 +790,7 @@ namespace chati {
 			this->addStoryPanel->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->addStoryPanel->Location = System::Drawing::Point(0, 0);
 			this->addStoryPanel->Name = L"addStoryPanel";
-			this->addStoryPanel->Size = System::Drawing::Size(1324, 720);
+			this->addStoryPanel->Size = System::Drawing::Size(1351, 720);
 			this->addStoryPanel->TabIndex = 13;
 			// 
 			// button6
@@ -843,7 +800,7 @@ namespace chati {
 			this->button6->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
 			this->button6->FlatAppearance->BorderSize = 0;
 			this->button6->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->button6->Location = System::Drawing::Point(1167, 12);
+			this->button6->Location = System::Drawing::Point(1194, 12);
 			this->button6->Name = L"button6";
 			this->button6->Size = System::Drawing::Size(56, 50);
 			this->button6->TabIndex = 4;
@@ -857,7 +814,7 @@ namespace chati {
 			this->button5->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
 			this->button5->FlatAppearance->BorderSize = 0;
 			this->button5->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->button5->Location = System::Drawing::Point(1256, 12);
+			this->button5->Location = System::Drawing::Point(1283, 12);
 			this->button5->Name = L"button5";
 			this->button5->Size = System::Drawing::Size(56, 50);
 			this->button5->TabIndex = 3;
@@ -871,11 +828,12 @@ namespace chati {
 			this->button4->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
 			this->button4->FlatAppearance->BorderSize = 0;
 			this->button4->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->button4->Location = System::Drawing::Point(1229, 658);
+			this->button4->Location = System::Drawing::Point(1256, 658);
 			this->button4->Name = L"button4";
 			this->button4->Size = System::Drawing::Size(49, 50);
 			this->button4->TabIndex = 2;
 			this->button4->UseVisualStyleBackColor = true;
+			this->button4->Click += gcnew System::EventHandler(this, &GuiForm::button4_Click);
 			// 
 			// textStory
 			// 
@@ -910,11 +868,11 @@ namespace chati {
 			// GuiForm
 			// 
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
-			this->ClientSize = System::Drawing::Size(1324, 720);
+			this->ClientSize = System::Drawing::Size(1351, 720);
+			this->Controls->Add(this->addStoryPanel);
 			this->Controls->Add(this->chatPanel);
 			this->Controls->Add(this->signUp_pnl);
 			this->Controls->Add(this->signIn_pnl);
-			this->Controls->Add(this->addStoryPanel);
 			this->Controls->Add(this->First_pnl);
 			this->Margin = System::Windows::Forms::Padding(4);
 			this->Name = L"GuiForm";
@@ -929,6 +887,9 @@ namespace chati {
 			this->signIn_pnl->ResumeLayout(false);
 			this->signIn_pnl->PerformLayout();
 			this->chatPanel->ResumeLayout(false);
+			this->storyPanel->ResumeLayout(false);
+			this->stotyHeaderPanel->ResumeLayout(false);
+			this->stotyHeaderPanel->PerformLayout();
 			this->chatPnl->ResumeLayout(false);
 			this->currentCahtPanel->ResumeLayout(false);
 			this->panel2->ResumeLayout(false);
@@ -936,9 +897,6 @@ namespace chati {
 			this->panel1->ResumeLayout(false);
 			this->profilePanel->ResumeLayout(false);
 			this->profilePanel->PerformLayout();
-			this->storyPanel->ResumeLayout(false);
-			this->stotyHeaderPanel->ResumeLayout(false);
-			this->stotyHeaderPanel->PerformLayout();
 			this->navPanel->ResumeLayout(false);
 			this->addStoryPanel->ResumeLayout(false);
 			this->addStoryPanel->PerformLayout();
@@ -985,7 +943,7 @@ namespace chati {
 			//for(auto m: currentChatRoom->getMessagesID()){
 			//	cout << "messageID from current chat: " << m << endl;
 			//}
-
+			
 			//for (auto m : messages) {
 
 			//	cout << "messageID: " << m.first << " : " << m.second.getIsRead() << endl;
@@ -1135,5 +1093,90 @@ namespace chati {
 			}
 
 		}
+		private: System::Void createUserStoryPanel() {
+			// Define the PictureBox for the user story image
+			PictureBox^ pictureUserStoryPic = gcnew PictureBox();
+
+			// Load the resources
+			System::ComponentModel::ComponentResourceManager^ resources = gcnew System::ComponentModel::ComponentResourceManager(GuiForm::typeid);
+			cli::array<System::Byte>^ imageBytes = (cli::safe_cast<cli::array<System::Byte>^>(resources->GetObject(L"profile-user")));
+
+			// Convert byte array to Image using MemoryStream
+			MemoryStream^ ms = gcnew MemoryStream(imageBytes);
+			pictureUserStoryPic->Image = System::Drawing::Image::FromStream(ms);
+
+			// Set the SizeMode to Zoom for the image to be zoomed correctly and fit within the PictureBox
+			pictureUserStoryPic->SizeMode = PictureBoxSizeMode::Zoom;
+			pictureUserStoryPic->Dock = System::Windows::Forms::DockStyle::Left;
+			pictureUserStoryPic->InitialImage = nullptr;
+			pictureUserStoryPic->Location = System::Drawing::Point(0, 0);
+			pictureUserStoryPic->Name = L"pictureUserStoryPic";
+			pictureUserStoryPic->Size = System::Drawing::Size(99, 97); // Adjust size as needed
+			pictureUserStoryPic->TabIndex = 0;
+			pictureUserStoryPic->TabStop = false;
+
+			// Create other labels for name and date
+			Label^ nameUserStoryLabel = gcnew Label();
+			nameUserStoryLabel->AutoSize = true;
+			nameUserStoryLabel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)),
+				static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)));
+			nameUserStoryLabel->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			nameUserStoryLabel->Font = (gcnew System::Drawing::Font(L"Microsoft YaHei", 16.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			nameUserStoryLabel->ForeColor = System::Drawing::SystemColors::ButtonHighlight;
+			nameUserStoryLabel->Location = System::Drawing::Point(116, 9);
+			nameUserStoryLabel->Name = L"nameUserStoryLabel";
+			nameUserStoryLabel->Size = System::Drawing::Size(101, 37);
+			nameUserStoryLabel->TabIndex = 1;
+			std::string fullName = currentUser->getFirstName() + " " + currentUser->getLastName();
+			nameUserStoryLabel->Text = gcnew System::String(fullName.c_str());
+
+
+
+			Label^ DateUserStoryLabel = gcnew Label();
+			DateUserStoryLabel->AutoSize = true;
+			DateUserStoryLabel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)),
+				static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)));
+			DateUserStoryLabel->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			DateUserStoryLabel->Font = (gcnew System::Drawing::Font(L"Microsoft YaHei", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			DateUserStoryLabel->ForeColor = System::Drawing::SystemColors::ButtonHighlight;
+			DateUserStoryLabel->Location = System::Drawing::Point(135, 64);
+			DateUserStoryLabel->Name = L"DateUserStoryLabel";
+			DateUserStoryLabel->Size = System::Drawing::Size(50, 24);
+			DateUserStoryLabel->TabIndex = 2;
+			DateUserStoryLabel->Text = DateTime::Now.ToString("hh-mm tt"); // Set the date format as needed
+
+			// Set up the user story panel
+			Panel^ userStoryPanel = gcnew Panel();
+			userStoryPanel->Controls->Add(DateUserStoryLabel);
+			userStoryPanel->Controls->Add(nameUserStoryLabel);
+			userStoryPanel->Controls->Add(pictureUserStoryPic);
+			userStoryPanel->Location = System::Drawing::Point(3, 3);
+			userStoryPanel->Name = L"userStoryPanel";
+			userStoryPanel->Size = System::Drawing::Size(1249, 97);
+			userStoryPanel->TabIndex = 0;
+
+			// Add click event handler to the user story panel
+			userStoryPanel->Click += gcnew System::EventHandler(this, &GuiForm::userStoryPanel_Click);
+
+			// Add the user story panel to the main panel
+			this->allStoriesPanel->Controls->Add(userStoryPanel);
+		}
+
+
+
+		private: System::Void userStoryPanel_Click(System::Object^ sender, System::EventArgs^ e) {
+			// Handle the logic of the click event here
+			MessageBox::Show("User Story Panel Clicked!");
+			//? show the panel of the user story
+		}
+		private: System::Void button4_Click(System::Object^ sender, System::EventArgs^ e) {
+			createUserStoryPanel();
+			addStoryPanel->BringToFront();
+			chatPanel->BringToFront();
+		}
+			  
+
 };
 }
