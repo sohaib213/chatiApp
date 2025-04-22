@@ -46,7 +46,7 @@ C:\Programms\chati\chati\SaveLoadFiles.cpp(213,2): warning C4996: 'freopen': Thi
 C:\Programms\chati\chati\SaveLoadFiles.cpp(343,10): warning C4101: 'len': unreferenced local variable
   (compiling source file 'GuiForm.cpp')
   
-C:\Programms\chati\chati\MessageHandler.h(51,25): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Programms\chati\chati\MessageHandler.h(54,25): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   (compiling source file 'GuiForm.cpp')
   
   Message.cpp

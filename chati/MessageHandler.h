@@ -18,6 +18,9 @@ public:
 
     unordered_map<int, chati::Message>* globalMessages;
     ChatRoom* globalChatRoom;
+	int messageIDToDelete;
+	Panel^ panelToDelete;
+	FlowLayoutPanel^ messagesContainer;
 
     void initializeChat(ChatRoom *chatRoom, FlowLayoutPanel^ messagesContainer, 
                                unordered_map<int, chati::Message>& messages, User *currentUser) {
@@ -129,7 +132,8 @@ public:
 
                     if (messagesContainer != nullptr)
                     {
-                        deleteMessage(messagesContainer, Convert::ToInt32(label->Name), panel);
+
+                        deleteMessage(panel, label, messagesContainer);
                     }
                 }
             }
@@ -146,19 +150,42 @@ public:
                         FlowLayoutPanel^ messagesContainer = dynamic_cast<FlowLayoutPanel^>(label->Parent->Parent);
 
                         if (messagesContainer != nullptr)
-                        {
-                            deleteMessage(messagesContainer, Convert::ToInt32(label->Name), panel);
-                        }
+                            deleteMessage(panel, label, messagesContainer);
                     }
                 }
             }
         }
     }
 
-     void deleteMessage(FlowLayoutPanel^ messagesContainer, int messageID, Panel^ panel) {
+     void deleteMessage( Panel^ panel, Label^ label, FlowLayoutPanel^ messagesContainer) {
 
-		 globalChatRoom->deleteMessageID(messageID);
-		 globalMessages->erase(messageID);
-		 messagesContainer->Controls->Remove(panel);
+         ContextMenuStrip^ contextMenu = gcnew ContextMenuStrip();
+
+         messageIDToDelete = Convert::ToInt32(label->Name);
+         panelToDelete = panel;
+         this->messagesContainer = messagesContainer;
+
+         // Add menu item
+         ToolStripMenuItem^ deleteItem = gcnew ToolStripMenuItem("Delete Message");
+         contextMenu->Items->Add(deleteItem);
+
+		 deleteItem->Name = panel->Controls[0]->Name;
+
+         deleteItem->Click += gcnew EventHandler(this, &MessageHandler::deleteItemF);
+
+         contextMenu->Show(Control::MousePosition);
      }
+
+     void deleteItemF(Object^ sender, EventArgs^ e) {
+
+         ToolStripMenuItem^ optionDelete = dynamic_cast<ToolStripMenuItem^>(sender);
+
+
+
+
+         globalChatRoom->deleteMessageID(messageIDToDelete);
+         int x = messageIDToDelete;
+		 globalMessages->erase(x);
+         messagesContainer->Controls->Remove(panelToDelete);
+	 }
 };
