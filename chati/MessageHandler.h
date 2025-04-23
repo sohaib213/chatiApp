@@ -16,21 +16,26 @@ using namespace System::Drawing;
 ref class MessageHandler {  
 public:
 
-    map<int, chati::Message>* globalMessages;
+    unordered_map<int, chati::Message>* globalMessages;
     ChatRoom* globalChatRoom;
 	int messageIDToDelete;
 	Panel^ panelToDelete;
 	FlowLayoutPanel^ messagesContainer;
+	User* currentUser;
 
     void initializeChat(ChatRoom *chatRoom, FlowLayoutPanel^ messagesContainer, 
-                               map<int, chati::Message>& messages, User *currentUser) {
+        unordered_map<int, chati::Message>& messages, User *currentUser) {
 
 		cout << "Initializing chat..." << endl;
+
+		globalMessages = &messages;
+		globalChatRoom = chatRoom;
+		this->currentUser = currentUser;
+
         for(auto& messageID : chatRoom->getMessagesID()) {
             createMessage(messagesContainer, messages[messageID]);
 		}
-		globalMessages = &messages;
-		globalChatRoom = chatRoom;
+
     }
 
    void createMessageEvent(RichTextBox^ textBox1, FlowLayoutPanel^ messagesContainer, User currentUser) {  
@@ -42,22 +47,21 @@ public:
            time_t now_time_t = chrono::system_clock::to_time_t(now);  
            tm* now_tm = localtime(&now_time_t);  
 
-           ostringstream day, time;  
-           day << std::put_time(now_tm, "%d-%m-%y"); // Format: DD-MM-YYYY  
-           time << std::put_time(now_tm, "%H:%M");  // Format: HH:MM  
+           ostringstream day, hour, minute;  
+           day << put_time(now_tm, "%d-%m-%y"); // Format: DD-MM-YYYY  
+           hour << put_time(now_tm, "%H"); 
+           minute << put_time(now_tm, "%M"); 
+
+
 
            //? create the message to get the id directly (is better)
-		   chati::Message msg =  chati::Message(s,currentUser.getUserID(), globalChatRoom->getChatRoomID(), day.str(), time.str(), false);
+		   chati::Message msg =  chati::Message(s,currentUser.getUserID(), globalChatRoom->getChatRoomID(), day.str(), stoi(hour.str()), stoi(minute.str()), false);
            // Fix: Use pointer dereference to access the map
-		   auto last = globalMessages->rbegin();
-           int lastMessageID = last->first;
-
-		   msg.setMessageID(lastMessageID + 1);
+		   msg.setMessageID(chati::Message::getMessageCounter());
+		   chati::Message::incrementMessageCounter();
 
 		   (*globalMessages)[msg.getMessageID()] = msg; 
            globalChatRoom->addMessageID(msg.getMessageID());
-
-
            // Fix: Pass the dereferenced map to the createMessage function  
            createMessage(messagesContainer, (*globalMessages)[msg.getMessageID()]);
            textBox1->Clear();
@@ -67,6 +71,7 @@ public:
 
     void createMessage(FlowLayoutPanel^ messagesContainer, chati::Message m)
     {  
+
 		//? picture box for the profile photo 
 		//? Label for the sender name
         //? Label for the status of icon
@@ -80,24 +85,45 @@ public:
         newLabel->AutoSize = true;
         newLabel->Name = m.getMessageID().ToString();
         newLabel->Location = Point(10, 10);
-        newLabel->MouseDown += gcnew MouseEventHandler(this, &MessageHandler::messageRightClick); // Fix: Use 'this' to bind the delegate to the managed class
         newLabel->Cursor = Cursors::IBeam;
 
-        Label^ timeLabel = gcnew Label();  
-        timeLabel->Text = gcnew String(m.getTimeSent().c_str());
+        Label^ timeLabel = gcnew Label();
+		int hour = m.getHourSent();
+		int minute = m.getMinuteSent();
         timeLabel->Font = gcnew Font("Arial", 9, FontStyle::Bold);
         timeLabel->BackColor = Color::Transparent;
+        // Replace the problematic line with the following code to fix the error:
+        string status;
+        if (hour >= 12) {
+            hour %= 12;
+			status = "AM";
+        }
+        else {
+			status = "PM";
+        }
+        std::ostringstream timeStream;
+        timeStream << hour << ':' << std::setw(2) << std::setfill('0') << minute;
+        
+		string time = timeStream.str() + " " + status;
+
+        timeLabel->Text = gcnew String(time.c_str());
+        string text = msclr::interop::marshal_as<std::string>(timeLabel->Text);
         timeLabel->ForeColor = Color::White;
         timeLabel->Anchor = static_cast<AnchorStyles>(AnchorStyles::Bottom | AnchorStyles::Left);
         timeLabel->AutoSize = true;
 
 
+        if(m.getSenderID() == currentUser->getUserID()) {
+            messagePanel->BackColor = Color::FromArgb(55, 128, 82);
+            messagePanel->MouseDown += gcnew MouseEventHandler(this, &MessageHandler::messageRightClick); // Fix: Use 'this' to bind the delegate to the managed class
+            newLabel->MouseDown += gcnew MouseEventHandler(this, &MessageHandler::messageRightClick); // Fix: Use 'this' to bind the delegate to the managed class
+        } else {
+            messagePanel->BackColor = Color::Gray;
 
-		messagePanel->BackColor = Color::FromArgb(55, 128, 82); // Semi-transparent background
+		}
         messagePanel->Padding = Padding(10);
         messagePanel->Margin = Padding(5);        
         messagePanel->BorderStyle = BorderStyle::FixedSingle;
-        messagePanel->MouseDown += gcnew MouseEventHandler(this, &MessageHandler::messageRightClick); // Fix: Use 'this' to bind the delegate to the managed class
         messagePanel->Name = m.getMessageID().ToString();
         messagePanel->AutoSize = true;
 		//?messagePanel->ContextMenuStrip 
@@ -109,8 +135,17 @@ public:
         messagesContainer->Controls->SetChildIndex(messagePanel, 0);
         messagesContainer->ScrollControlIntoView(messagePanel);
         
-        timeLabel->Location = Point(messagePanel->Width, messagePanel->Height - 20);
+        timeLabel->Location = Point(messagePanel->Width,  messagePanel->Height - 20);
+        if (m.getSenderID() != currentUser->getUserID())
+        {
+            messagePanel->Margin = Padding(1480 - messagePanel->Width, 3, 3, 3);
+			messagePanel->Anchor = AnchorStyles::Left;
+			messagePanel->Dock = DockStyle::Left;
+        }
+        else
+            messagePanel->Margin = Padding(3, 3, 50, 3);
     }
+    
 
     void messageRightClick(Object^ sender, MouseEventArgs^ e)
     {

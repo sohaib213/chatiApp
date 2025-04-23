@@ -112,7 +112,7 @@ static unordered_set<int> readUnOrderedSet(ifstream& in) {
 }
 
 
-static void saveToFile(map<string, User> users, unordered_map<int, ChatRoom> chatRooms, map<int, chati::Message> messages) {
+static void saveToFile(map<string, User> users, unordered_map<int, ChatRoom> chatRooms, unordered_map<int, chati::Message> messages) {
 	AllocConsole();
 	if (freopen("CONOUT$", "w", stdout) == nullptr) {
 		cerr << "Failed to redirect stdout to console." << endl;
@@ -223,6 +223,8 @@ static void saveToFile(map<string, User> users, unordered_map<int, ChatRoom> cha
 	// save messages to file
 	out.open("messages.txt", ios::binary | ios::trunc);
 	if (!out) return;
+	int messageCounter = chati::Message::getMessageCounter();
+	out.write(reinterpret_cast<char*>(&messageCounter), sizeof(messageCounter));
 	int messageCount = messages.size();
 	out.write(reinterpret_cast<char*>(&messageCount), sizeof(messageCount));
 	for (const auto& pair : messages) {
@@ -237,14 +239,17 @@ static void saveToFile(map<string, User> users, unordered_map<int, ChatRoom> cha
 		out.write(reinterpret_cast<const char*>(&x), sizeof(x));
 		writeString(out, m.getText());
 		writeString(out, m.getDateSent());
-		writeString(out, m.getTimeSent());
+		x = m.getHourSent();
+		out.write(reinterpret_cast<const char*>(&x), sizeof(x));
+		x = m.getMinuteSent();
+		out.write(reinterpret_cast<const char*>(&x), sizeof(x));
 		x = m.getIsRead();
 		out.write(reinterpret_cast<const char*>(&x), sizeof(&x));
 	}
 	out.close();
 }
 
-static void loadFromFile(map<string, User>& users, unordered_map<int, ChatRoom>& chatRooms, map<int, chati::Message>& messages) {
+static void loadFromFile(map<string, User>& users, unordered_map<int, ChatRoom>& chatRooms, unordered_map<int, chati::Message>& messages) {
 
 	AllocConsole();
 	freopen("CONOUT$", "w", stdout);
@@ -373,6 +378,9 @@ static void loadFromFile(map<string, User>& users, unordered_map<int, ChatRoom>&
 		return;
 	}
 	messages.clear();
+	int messagesCounter = 0;
+	in.read(reinterpret_cast<char*>(&messagesCounter), sizeof(messagesCounter));
+	chati::Message::setMessageCounter(messagesCounter);
 	int messageCount = 0;
 	in.read(reinterpret_cast<char*>(&messageCount), sizeof(messageCount));
 	for (int i = 0; i < messageCount; ++i) {
@@ -388,7 +396,10 @@ static void loadFromFile(map<string, User>& users, unordered_map<int, ChatRoom>&
 		m.setSenderID(x);
 		m.setText(readString(in));
 		m.setDateSent(readString(in));
-		m.setTimeSent(readString(in));
+		in.read(reinterpret_cast<char*>(&x), sizeof(x));
+		m.setHourSent(x);
+		in.read(reinterpret_cast<char*>(&x), sizeof(x));
+		m.setMinuteSent(x);
 		bool is;
 		in.read(reinterpret_cast<char*>(&is), sizeof(&is));
 		m.setIsRead(is);
