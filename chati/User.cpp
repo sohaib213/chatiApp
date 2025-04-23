@@ -22,7 +22,7 @@ string User::getLastName() const { return lastName; }
 string User::getProfilePhoto() const { return profilePhoto; }
 string User::getAbout() const { return about; }
 bool User::getVisible() const { return visible; }
-unordered_set<int> User::getContactsID() const { return contactsID; }
+map<int, string> User::getContactsID() const { return contactsID; }
 set<int> User::getStoriesID() const { return storiesID; }
 set<int> User::getChatRoomsID() const { return chatRoomsID; }
 
@@ -35,13 +35,13 @@ void User::setLastName(const string& lname) { lastName = lname; }
 void User::setProfilePhoto(const string& photo) { profilePhoto = photo; }
 void User::setAbout(const string& about) { this->about = about; }
 void User::setVisible(bool vis) { visible = vis; }
-void User::setContactsID(const unordered_set<int>& contacts) { contactsID = contacts; }
+void User::setContactsID(const map<int, string>& contacts) { contactsID = contacts; }
 void User::setStoriesID(const set<int>& stories) { storiesID = stories; }
 void User::setChatRoomsID(const set<int>& chatRooms) { chatRoomsID = chatRooms; }
 
 // Add/Remove Methods
-bool User::addContactID(int contactID) {
-    return contactsID.insert(contactID).second; // Directly modify contactsID
+bool User::addContactID(int contactID,string contactName) {
+    return contactsID.insert({contactID,contactName}); // Directly modify contactsID
 }
 
 bool User::addStoryID(int storyID) {

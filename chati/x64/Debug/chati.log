@@ -1,48 +1,163 @@
-﻿  GuiForm.cpp
-C:\Programms\chati\chati\SaveLoadFiles.cpp(48,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+﻿  AddContact.cpp
+  chat.cpp
+  ChatRoom.cpp
+  GuiForm.cpp
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(48,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'GuiForm.cpp')
   
-C:\Programms\chati\chati\SaveLoadFiles.cpp(56,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(56,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'GuiForm.cpp')
   
-C:\Programms\chati\chati\SaveLoadFiles.cpp(127,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(127,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'GuiForm.cpp')
   
-C:\Programms\chati\chati\SaveLoadFiles.cpp(200,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(161,3): error C2664: 'void writeUnOrderedSet(std::ofstream &,std::unordered_set<int,std::hash<int>,std::equal_to<_Kty>,std::allocator<_Kty>>)': cannot convert argument 2 from 'std::map<int,std::string,std::less<int>,std::allocator<std::pair<const _Kty,_Ty>>>' to 'std::unordered_set<int,std::hash<int>,std::equal_to<_Kty>,std::allocator<_Kty>>'
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(161,3): error C2664:         with
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(161,3): error C2664:         [
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(161,3): error C2664:             _Kty=int
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(161,3): error C2664:         ]
+  (compiling source file 'GuiForm.cpp')
+      C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(161,41):
+      No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+      C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(47,13):
+      see declaration of 'writeUnOrderedSet'
+      C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(161,3):
+      while trying to match the argument list '(std::ofstream, std::map<int,std::string,std::less<int>,std::allocator<std::pair<const _Kty,_Ty>>>)'
+          with
+          [
+              _Kty=int,
+              _Ty=std::string
+          ]
+  
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(200,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'GuiForm.cpp')
   
-C:\Programms\chati\chati\SaveLoadFiles.cpp(212,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(212,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'GuiForm.cpp')
   
-C:\Programms\chati\chati\SaveLoadFiles.cpp(215,21): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(215,21): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'GuiForm.cpp')
   
-C:\Programms\chati\chati\SaveLoadFiles.cpp(228,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(228,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'GuiForm.cpp')
   
-C:\Programms\chati\chati\SaveLoadFiles.cpp(117,6): warning C4996: 'freopen': This function or variable may be unsafe. Consider using freopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(117,6): warning C4996: 'freopen': This function or variable may be unsafe. Consider using freopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   (compiling source file 'GuiForm.cpp')
   
-C:\Programms\chati\chati\SaveLoadFiles.cpp(132,10): warning C4101: 'len': unreferenced local variable
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(300,5): error C2664: 'void User::setContactsID(const std::map<int,std::string,std::less<int>,std::allocator<std::pair<const _Kty,_Ty>>> &)': cannot convert argument 1 from 'std::unordered_set<int,std::hash<int>,std::equal_to<_Kty>,std::allocator<_Kty>>' to 'const std::map<int,std::string,std::less<int>,std::allocator<std::pair<const _Kty,_Ty>>> &'
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(300,5): error C2664:         with
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(300,5): error C2664:         [
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(300,5): error C2664:             _Kty=int,
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(300,5): error C2664:             _Ty=std::string
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(300,5): error C2664:         ]
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(300,5): error C2664:         and
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(300,5): error C2664:         [
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(300,5): error C2664:             _Kty=int
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(300,5): error C2664:         ]
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(300,5): error C2664:         and
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(300,5): error C2664:         [
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(300,5): error C2664:             _Kty=int,
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(300,5): error C2664:             _Ty=std::string
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(300,5): error C2664:         ]
+  (compiling source file 'GuiForm.cpp')
+      C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(300,35):
+      Reason: cannot convert from 'std::unordered_set<int,std::hash<int>,std::equal_to<_Kty>,std::allocator<_Kty>>' to 'const std::map<int,std::string,std::less<int>,std::allocator<std::pair<const _Kty,_Ty>>>'
+          with
+          [
+              _Kty=int
+          ]
+      C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(300,35):
+      No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+      C:\Users\aammo\chatiApp\chati\User.h(51,10):
+      see declaration of 'User::setContactsID'
+      C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(300,5):
+      while trying to match the argument list '(std::unordered_set<int,std::hash<int>,std::equal_to<_Kty>,std::allocator<_Kty>>)'
+          with
+          [
+              _Kty=int
+          ]
+  
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(357,21): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'GuiForm.cpp')
   
-C:\Programms\chati\chati\SaveLoadFiles.cpp(204,10): warning C4101: 'len': unreferenced local variable
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(255,2): warning C4996: 'freopen': This function or variable may be unsafe. Consider using freopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   (compiling source file 'GuiForm.cpp')
   
-C:\Programms\chati\chati\SaveLoadFiles.cpp(232,10): warning C4101: 'len': unreferenced local variable
+C:\Users\aammo\chatiApp\chati\MessageHandler.h(48,25): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   (compiling source file 'GuiForm.cpp')
   
-C:\Programms\chati\chati\SaveLoadFiles.cpp(357,21): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  (compiling source file 'GuiForm.cpp')
+  Message.cpp
+  SaveLoadFiles.cpp
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(48,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(56,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(127,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(161,3): error C2664: 'void writeUnOrderedSet(std::ofstream &,std::unordered_set<int,std::hash<int>,std::equal_to<_Kty>,std::allocator<_Kty>>)': cannot convert argument 2 from 'std::map<int,std::string,std::less<int>,std::allocator<std::pair<const _Kty,_Ty>>>' to 'std::unordered_set<int,std::hash<int>,std::equal_to<_Kty>,std::allocator<_Kty>>'
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(161,3): error C2664:         with
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(161,3): error C2664:         [
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(161,3): error C2664:             _Kty=int
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(161,3): error C2664:         ]
+      C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(161,41):
+      No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+      C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(47,13):
+      see declaration of 'writeUnOrderedSet'
+      C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(161,3):
+      while trying to match the argument list '(std::ofstream, std::map<int,std::string,std::less<int>,std::allocator<std::pair<const _Kty,_Ty>>>)'
+          with
+          [
+              _Kty=int,
+              _Ty=std::string
+          ]
   
-C:\Programms\chati\chati\SaveLoadFiles.cpp(255,2): warning C4996: 'freopen': This function or variable may be unsafe. Consider using freopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  (compiling source file 'GuiForm.cpp')
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(200,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(212,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(215,21): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(228,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(117,6): warning C4996: 'freopen': This function or variable may be unsafe. Consider using freopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(300,5): error C2664: 'void User::setContactsID(const std::map<int,std::string,std::less<int>,std::allocator<std::pair<const _Kty,_Ty>>> &)': cannot convert argument 1 from 'std::unordered_set<int,std::hash<int>,std::equal_to<_Kty>,std::allocator<_Kty>>' to 'const std::map<int,std::string,std::less<int>,std::allocator<std::pair<const _Kty,_Ty>>> &'
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(300,5): error C2664:         with
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(300,5): error C2664:         [
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(300,5): error C2664:             _Kty=int,
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(300,5): error C2664:             _Ty=std::string
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(300,5): error C2664:         ]
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(300,5): error C2664:         and
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(300,5): error C2664:         [
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(300,5): error C2664:             _Kty=int
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(300,5): error C2664:         ]
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(300,5): error C2664:         and
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(300,5): error C2664:         [
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(300,5): error C2664:             _Kty=int,
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(300,5): error C2664:             _Ty=std::string
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(300,5): error C2664:         ]
+      C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(300,35):
+      Reason: cannot convert from 'std::unordered_set<int,std::hash<int>,std::equal_to<_Kty>,std::allocator<_Kty>>' to 'const std::map<int,std::string,std::less<int>,std::allocator<std::pair<const _Kty,_Ty>>>'
+          with
+          [
+              _Kty=int
+          ]
+      C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(300,35):
+      No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+      C:\Users\aammo\chatiApp\chati\User.h(51,10):
+      see declaration of 'User::setContactsID'
+      C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(300,5):
+      while trying to match the argument list '(std::unordered_set<int,std::hash<int>,std::equal_to<_Kty>,std::allocator<_Kty>>)'
+          with
+          [
+              _Kty=int
+          ]
   
-C:\Programms\chati\chati\SaveLoadFiles.cpp(388,10): warning C4101: 'len': unreferenced local variable
-  (compiling source file 'GuiForm.cpp')
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(357,21): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\aammo\chatiApp\chati\SaveLoadFiles.cpp(255,2): warning C4996: 'freopen': This function or variable may be unsafe. Consider using freopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  Signing.cpp
+  Story.cpp
+  User.cpp
+C:\Users\aammo\chatiApp\chati\User.cpp(44,29): error C2440: 'return': cannot convert from 'std::pair<std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const _Kty,_Ty>>>>,bool>' to 'bool'
+C:\Users\aammo\chatiApp\chati\User.cpp(44,29): error C2440:         with
+C:\Users\aammo\chatiApp\chati\User.cpp(44,29): error C2440:         [
+C:\Users\aammo\chatiApp\chati\User.cpp(44,29): error C2440:             _Kty=int,
+C:\Users\aammo\chatiApp\chati\User.cpp(44,29): error C2440:             _Ty=std::string
+C:\Users\aammo\chatiApp\chati\User.cpp(44,29): error C2440:         ]
+      C:\Users\aammo\chatiApp\chati\User.cpp(44,29):
+      No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
   
-C:\Programms\chati\chati\MessageHandler.h(48,25): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  (compiling source file 'GuiForm.cpp')
-  
-  chat.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
-  chati.vcxproj -> C:\Programms\chati\x64\Debug\chati.exe
+  .NETFramework,Version=v4.7.2.AssemblyAttributes.cpp
+  Generating Code...
