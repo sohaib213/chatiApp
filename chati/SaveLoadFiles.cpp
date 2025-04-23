@@ -44,6 +44,22 @@ static void writeIntVector(ofstream& out, int count, const vector<int> vec) {
 		out.write(reinterpret_cast<const char*>(&i), sizeof(i));
 }
 
+static void writeUnOrderedSet(ofstream& out,  unordered_set<int> s) {
+	int contactCount = s.size();
+	out.write(reinterpret_cast<char*>(&contactCount), sizeof(contactCount));
+	for (const int& i : s) {
+		out.write(reinterpret_cast<const char*>(&i), sizeof(i));
+	}
+}
+
+static void writeSet(ofstream& out, const set<int>& s) {
+	int contactCount = s.size();
+	out.write(reinterpret_cast<char*>(&contactCount), sizeof(contactCount));
+	for (const int& i : s) {
+		out.write(reinterpret_cast<const char*>(&i), sizeof(i));
+	}
+}
+
 static void readStringVector(ifstream& in, vector<string>& vec) {
 
 	string temp;
@@ -71,8 +87,32 @@ static vector<int> readIntVector(ifstream& in) {
 	return vec;
 }
 
+static set<int> readSet(ifstream& in) {
+	set<int> s;
+	int contactCount;
+	int temp;
+	in.read(reinterpret_cast<char*>(&contactCount), sizeof(contactCount));
+	for (int j = 0; j < contactCount; ++j) {
+		in.read(reinterpret_cast<char*>(&temp), sizeof(temp));
+		s.insert(temp);
+	}
+	return s;
+}
 
-static void saveToFile(map<string, User> users, unordered_map<int, ChatRoom> chatRooms, unordered_map<int, chati::Message> messages) {
+static unordered_set<int> readUnOrderedSet(ifstream& in) {
+	unordered_set<int> s;
+	int contactCount;
+	int temp;
+	in.read(reinterpret_cast<char*>(&contactCount), sizeof(contactCount));
+	for (int j = 0; j < contactCount; ++j) {
+		in.read(reinterpret_cast<char*>(&temp), sizeof(temp));
+		s.insert(temp);
+	}
+	return s;
+}
+
+
+static void saveToFile(map<string, User> users, unordered_map<int, ChatRoom> chatRooms, map<int, chati::Message> messages) {
 	AllocConsole();
 	if (freopen("CONOUT$", "w", stdout) == nullptr) {
 		cerr << "Failed to redirect stdout to console." << endl;
@@ -118,8 +158,7 @@ static void saveToFile(map<string, User> users, unordered_map<int, ChatRoom> cha
 
 
 
-		int contactCount = u.getContactsID().size();
-		writeIntVector(out, contactCount, u.getContactsID());
+		writeUnOrderedSet(out, u.getContactsID());
 
 		//out.write(reinterpret_cast<char*>(&contactCount), sizeof(contactCount));
 		//for (const string& s : u.contactsID) {
@@ -128,8 +167,7 @@ static void saveToFile(map<string, User> users, unordered_map<int, ChatRoom> cha
 		//	out.write(s.c_str(), len);                             
 		//}
 
-		int storyCount = u.getStoriesID().size();
-		writeIntVector(out, storyCount, u.getStoriesID());
+		writeSet(out, u.getStoriesID());
 
 		//out.write(reinterpret_cast<char*>(&storyCount), sizeof(storyCount));
 		//for (const string& s : u.stories) {
@@ -141,8 +179,7 @@ static void saveToFile(map<string, User> users, unordered_map<int, ChatRoom> cha
 
 
 
-		int charRoomsCount = u.getChatRoomsID().size();
-		writeIntVector(out, charRoomsCount, u.getChatRoomsID());
+		writeSet(out, u.getChatRoomsID());
 
 		//out.write(reinterpret_cast<char*>(&charRoomsCount), sizeof(charRoomsCount));
 		//for (const string& s : u.chatRoomsID) {
@@ -207,7 +244,7 @@ static void saveToFile(map<string, User> users, unordered_map<int, ChatRoom> cha
 	out.close();
 }
 
-static void loadFromFile(map<string, User>& users, unordered_map<int, ChatRoom>& chatRooms, unordered_map<int, chati::Message>& messages) {
+static void loadFromFile(map<string, User>& users, unordered_map<int, ChatRoom>& chatRooms, map<int, chati::Message>& messages) {
 
 	AllocConsole();
 	freopen("CONOUT$", "w", stdout);
@@ -255,7 +292,7 @@ static void loadFromFile(map<string, User>& users, unordered_map<int, ChatRoom>&
 		//u.password = temp;
 
 
-		u.setContactsID(readIntVector(in));
+		u.setContactsID(readUnOrderedSet(in));
 		//int contactCount;
 		//in.read(reinterpret_cast<char*>(&contactCount), sizeof(contactCount));
 		//for (int j = 0; j < contactCount; ++j) {
@@ -265,7 +302,7 @@ static void loadFromFile(map<string, User>& users, unordered_map<int, ChatRoom>&
 		//	u.contactsID.push_back(temp);
 		//}
 
-		u.setStoriesID(readIntVector(in));
+		u.setStoriesID(readSet(in));
 		//int storyCount;
 		//in.read(reinterpret_cast<char*>(&storyCount), sizeof(storyCount));
 		//for (int j = 0; j < storyCount; ++j) {
@@ -275,7 +312,7 @@ static void loadFromFile(map<string, User>& users, unordered_map<int, ChatRoom>&
 		//	u.stories.push_back(temp);
 		//}
 
-		u.setChatRoomsID(readIntVector(in));
+		u.setChatRoomsID(readSet(in));
 		//int charRoomsCount;
 		//in.read(reinterpret_cast<char*>(&charRoomsCount), sizeof(charRoomsCount));
 		//for (int j = 0; j < charRoomsCount; ++j) {

@@ -16,37 +16,22 @@ using namespace System::Drawing;
 ref class MessageHandler {  
 public:
 
-    unordered_map<int, chati::Message>* globalMessages;
+    map<int, chati::Message>* globalMessages;
     ChatRoom* globalChatRoom;
 	int messageIDToDelete;
 	Panel^ panelToDelete;
 	FlowLayoutPanel^ messagesContainer;
 
     void initializeChat(ChatRoom *chatRoom, FlowLayoutPanel^ messagesContainer, 
-                               unordered_map<int, chati::Message>& messages, User *currentUser) {
+                               map<int, chati::Message>& messages, User *currentUser) {
 
 		cout << "Initializing chat..." << endl;
         for(auto& messageID : chatRoom->getMessagesID()) {
-            createMessage(messagesContainer, messages[messageID], messages);
+            createMessage(messagesContainer, messages[messageID]);
 		}
 		globalMessages = &messages;
 		globalChatRoom = chatRoom;
     }
-    //ContextMenuStrip^ BuildStandardContextMenu()
-    //{
-    //    ContextMenuStrip^ menu = gcnew ContextMenuStrip();
-
-    //    ToolStripMenuItem^ deleteItem = gcnew ToolStripMenuItem("Delete");
-    //    ToolStripMenuItem^ infoItem = gcnew ToolStripMenuItem("Info");
-
-    //    //deleteItem->Click += gcnew EventHandler(this, &YourForm::DeleteMessage_Click);
-    //    //infoItem->Click += gcnew EventHandler(this, &YourForm::InfoMessage_Click);
-
-    //    menu->Items->Add(deleteItem);
-    //    menu->Items->Add(infoItem);
-
-    //    return menu;
-    //}
 
    void createMessageEvent(RichTextBox^ textBox1, FlowLayoutPanel^ messagesContainer, User currentUser) {  
        if (textBox1->Text != "") {  
@@ -63,18 +48,24 @@ public:
 
            //? create the message to get the id directly (is better)
 		   chati::Message msg =  chati::Message(s,currentUser.getUserID(), globalChatRoom->getChatRoomID(), day.str(), time.str(), false);
-           // Fix: Use pointer dereference to access the map  
+           // Fix: Use pointer dereference to access the map
+		   auto last = globalMessages->rbegin();
+           int lastMessageID = last->first;
+
+		   msg.setMessageID(lastMessageID + 1);
+
 		   (*globalMessages)[msg.getMessageID()] = msg; 
            globalChatRoom->addMessageID(msg.getMessageID());
 
+
            // Fix: Pass the dereferenced map to the createMessage function  
-           createMessage(messagesContainer, (*globalMessages)[msg.getMessageID()], *globalMessages);
+           createMessage(messagesContainer, (*globalMessages)[msg.getMessageID()]);
            textBox1->Clear();
 		   textBox1->Focus();
        }  
    }
 
-    void createMessage(FlowLayoutPanel^ messagesContainer, chati::Message m, unordered_map<int, chati::Message>& messages)
+    void createMessage(FlowLayoutPanel^ messagesContainer, chati::Message m)
     {  
 		//? picture box for the profile photo 
 		//? Label for the sender name
@@ -89,7 +80,7 @@ public:
         newLabel->AutoSize = true;
         newLabel->Name = m.getMessageID().ToString();
         newLabel->Location = Point(10, 10);
-        newLabel->MouseDown += gcnew MouseEventHandler(this, &MessageHandler::Label_RightClick); // Fix: Use 'this' to bind the delegate to the managed class
+        newLabel->MouseDown += gcnew MouseEventHandler(this, &MessageHandler::messageRightClick); // Fix: Use 'this' to bind the delegate to the managed class
         newLabel->Cursor = Cursors::IBeam;
 
         Label^ timeLabel = gcnew Label();  
@@ -106,7 +97,7 @@ public:
         messagePanel->Padding = Padding(10);
         messagePanel->Margin = Padding(5);        
         messagePanel->BorderStyle = BorderStyle::FixedSingle;
-        messagePanel->MouseDown += gcnew MouseEventHandler(this, &MessageHandler::Label_RightClick); // Fix: Use 'this' to bind the delegate to the managed class
+        messagePanel->MouseDown += gcnew MouseEventHandler(this, &MessageHandler::messageRightClick); // Fix: Use 'this' to bind the delegate to the managed class
         messagePanel->Name = m.getMessageID().ToString();
         messagePanel->AutoSize = true;
 		//?messagePanel->ContextMenuStrip 
@@ -121,7 +112,7 @@ public:
         timeLabel->Location = Point(messagePanel->Width, messagePanel->Height - 20);
     }
 
-    void Label_RightClick(Object^ sender, MouseEventArgs^ e)
+    void messageRightClick(Object^ sender, MouseEventArgs^ e)
     {
         if (e->Button == MouseButtons::Right)
         {
@@ -142,7 +133,7 @@ public:
                     if (messagesContainer != nullptr)
                     {
 
-                        deleteMessage(panel, label, messagesContainer);
+                        messageOptions(panel, label, messagesContainer);
                     }
                 }
             }
@@ -159,33 +150,33 @@ public:
                         FlowLayoutPanel^ messagesContainer = dynamic_cast<FlowLayoutPanel^>(label->Parent->Parent);
 
                         if (messagesContainer != nullptr)
-                            deleteMessage(panel, label, messagesContainer);
+                            messageOptions(panel, label, messagesContainer);
                     }
                 }
             }
         }
     }
 
-     void deleteMessage( Panel^ panel, Label^ label, FlowLayoutPanel^ messagesContainer) {
+    void messageOptions( Panel^ panel, Label^ label, FlowLayoutPanel^ messagesContainer) {
 
-         ContextMenuStrip^ contextMenu = gcnew ContextMenuStrip();
+        ContextMenuStrip^ contextMenu = gcnew ContextMenuStrip();
 
-         messageIDToDelete = Convert::ToInt32(label->Name);
-         panelToDelete = panel;
-         this->messagesContainer = messagesContainer;
+        messageIDToDelete = Convert::ToInt32(label->Name);
+        panelToDelete = panel;
+        this->messagesContainer = messagesContainer;
 
-         // Add menu item
-         ToolStripMenuItem^ deleteItem = gcnew ToolStripMenuItem("Delete Message");
-         contextMenu->Items->Add(deleteItem);
+        // Add menu item
+        ToolStripMenuItem^ deleteItem = gcnew ToolStripMenuItem("Delete Message");
+        contextMenu->Items->Add(deleteItem);
 
-		 deleteItem->Name = panel->Controls[0]->Name;
+	    deleteItem->Name = panel->Controls[0]->Name;
 
-         deleteItem->Click += gcnew EventHandler(this, &MessageHandler::deleteItemF);
+        deleteItem->Click += gcnew EventHandler(this, &MessageHandler::deleteMessage);
 
-         contextMenu->Show(Control::MousePosition);
-     }
+        contextMenu->Show(Control::MousePosition);
+    }
 
-     void deleteItemF(Object^ sender, EventArgs^ e) {
+     void deleteMessage(Object^ sender, EventArgs^ e) {
 
          ToolStripMenuItem^ optionDelete = dynamic_cast<ToolStripMenuItem^>(sender);
 

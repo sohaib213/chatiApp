@@ -24,7 +24,7 @@ using namespace System::IO;
 //? Global maps for save and load from the files
 map<string, User> users;
 unordered_map<int, ChatRoom> chatRooms;
-unordered_map<int, chati::Message> messages;
+map<int, chati::Message> messages;
 unordered_map<int, Contact> contacts;
 unordered_map<int, Story> stories;
 User *currentUser;
@@ -135,12 +135,10 @@ namespace chati {
 	private: System::Windows::Forms::TextBox^ textStory;
 	private: System::Windows::Forms::Button^ button3;
 
-<<<<<<< HEAD
 
 
 	private: System::Windows::Forms::ColorDialog^ colorDialog1;
-=======
->>>>>>> 35785956bab27e6bd4c4eff7a04705da200b3422
+
 	private: System::Windows::Forms::Button^ button4;
 
 	private: System::Windows::Forms::Button^ button5;
@@ -151,7 +149,6 @@ namespace chati {
 
 
 	private: System::Windows::Forms::RichTextBox^ textBox1;
-	private: System::Windows::Forms::ColorDialog^ colorDialog1;
 
 
 
@@ -273,7 +270,7 @@ namespace chati {
 			this->signUp_done->Location = System::Drawing::Point(633, 76);
 			this->signUp_done->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->signUp_done->Name = L"signUp_done";
-			this->signUp_done->Size = System::Drawing::Size(417, 52);
+			this->signUp_done->Size = System::Drawing::Size(331, 39);
 			this->signUp_done->TabIndex = 19;
 			this->signUp_done->Text = L"Signed up Correctly!";
 			this->signUp_done->Visible = false;
@@ -301,7 +298,7 @@ namespace chati {
 			this->FN_lbl->Location = System::Drawing::Point(335, 219);
 			this->FN_lbl->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->FN_lbl->Name = L"FN_lbl";
-			this->FN_lbl->Size = System::Drawing::Size(135, 29);
+			this->FN_lbl->Size = System::Drawing::Size(104, 24);
 			this->FN_lbl->TabIndex = 17;
 			this->FN_lbl->Text = L"Fitst Name:";
 			// 
@@ -310,7 +307,7 @@ namespace chati {
 			this->FN_textbox->Location = System::Drawing::Point(559, 225);
 			this->FN_textbox->Margin = System::Windows::Forms::Padding(4);
 			this->FN_textbox->Name = L"FN_textbox";
-			this->FN_textbox->Size = System::Drawing::Size(184, 22);
+			this->FN_textbox->Size = System::Drawing::Size(184, 20);
 			this->FN_textbox->TabIndex = 16;
 			// 
 			// LN_lbl
@@ -321,7 +318,7 @@ namespace chati {
 			this->LN_lbl->Location = System::Drawing::Point(335, 284);
 			this->LN_lbl->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->LN_lbl->Name = L"LN_lbl";
-			this->LN_lbl->Size = System::Drawing::Size(134, 29);
+			this->LN_lbl->Size = System::Drawing::Size(104, 24);
 			this->LN_lbl->TabIndex = 15;
 			this->LN_lbl->Text = L"Last Name:";
 			// 
@@ -333,7 +330,7 @@ namespace chati {
 			this->Pass_lbl->Location = System::Drawing::Point(335, 364);
 			this->Pass_lbl->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->Pass_lbl->Name = L"Pass_lbl";
-			this->Pass_lbl->Size = System::Drawing::Size(126, 29);
+			this->Pass_lbl->Size = System::Drawing::Size(97, 24);
 			this->Pass_lbl->TabIndex = 14;
 			this->Pass_lbl->Text = L"Password:";
 			// 
@@ -342,7 +339,7 @@ namespace chati {
 			this->LN_textbox->Location = System::Drawing::Point(559, 290);
 			this->LN_textbox->Margin = System::Windows::Forms::Padding(4);
 			this->LN_textbox->Name = L"LN_textbox";
-			this->LN_textbox->Size = System::Drawing::Size(184, 22);
+			this->LN_textbox->Size = System::Drawing::Size(184, 20);
 			this->LN_textbox->TabIndex = 13;
 			// 
 			// Pass_textbox
@@ -350,7 +347,7 @@ namespace chati {
 			this->Pass_textbox->Location = System::Drawing::Point(559, 369);
 			this->Pass_textbox->Margin = System::Windows::Forms::Padding(4);
 			this->Pass_textbox->Name = L"Pass_textbox";
-			this->Pass_textbox->Size = System::Drawing::Size(184, 22);
+			this->Pass_textbox->Size = System::Drawing::Size(184, 20);
 			this->Pass_textbox->TabIndex = 12;
 			// 
 			// submit_but
@@ -375,7 +372,7 @@ namespace chati {
 			this->MN_lbl->Location = System::Drawing::Point(335, 447);
 			this->MN_lbl->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->MN_lbl->Name = L"MN_lbl";
-			this->MN_lbl->Size = System::Drawing::Size(187, 29);
+			this->MN_lbl->Size = System::Drawing::Size(148, 24);
 			this->MN_lbl->TabIndex = 10;
 			this->MN_lbl->Text = L"Mobile number: ";
 			// 
@@ -384,7 +381,7 @@ namespace chati {
 			this->MN_textbox->Location = System::Drawing::Point(559, 453);
 			this->MN_textbox->Margin = System::Windows::Forms::Padding(4);
 			this->MN_textbox->Name = L"MN_textbox";
-			this->MN_textbox->Size = System::Drawing::Size(184, 22);
+			this->MN_textbox->Size = System::Drawing::Size(184, 20);
 			this->MN_textbox->TabIndex = 9;
 			// 
 			// First_pnl
@@ -433,7 +430,7 @@ namespace chati {
 			this->letsChat->Location = System::Drawing::Point(514, 129);
 			this->letsChat->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->letsChat->Name = L"letsChat";
-			this->letsChat->Size = System::Drawing::Size(352, 69);
+			this->letsChat->Size = System::Drawing::Size(283, 55);
 			this->letsChat->TabIndex = 0;
 			this->letsChat->Text = L"Let\'s chat : )";
 			// 
@@ -485,7 +482,7 @@ namespace chati {
 			this->Pass_txt->Location = System::Drawing::Point(650, 282);
 			this->Pass_txt->Margin = System::Windows::Forms::Padding(4);
 			this->Pass_txt->Name = L"Pass_txt";
-			this->Pass_txt->Size = System::Drawing::Size(347, 22);
+			this->Pass_txt->Size = System::Drawing::Size(347, 20);
 			this->Pass_txt->TabIndex = 3;
 			// 
 			// MN_txt
@@ -493,7 +490,7 @@ namespace chati {
 			this->MN_txt->Location = System::Drawing::Point(650, 191);
 			this->MN_txt->Margin = System::Windows::Forms::Padding(4);
 			this->MN_txt->Name = L"MN_txt";
-			this->MN_txt->Size = System::Drawing::Size(347, 22);
+			this->MN_txt->Size = System::Drawing::Size(347, 20);
 			this->MN_txt->TabIndex = 2;
 			// 
 			// Pass_lbl2
@@ -504,7 +501,7 @@ namespace chati {
 			this->Pass_lbl2->Location = System::Drawing::Point(313, 271);
 			this->Pass_lbl2->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->Pass_lbl2->Name = L"Pass_lbl2";
-			this->Pass_lbl2->Size = System::Drawing::Size(155, 36);
+			this->Pass_lbl2->Size = System::Drawing::Size(126, 29);
 			this->Pass_lbl2->TabIndex = 1;
 			this->Pass_lbl2->Text = L"Password:";
 			// 
@@ -516,15 +513,15 @@ namespace chati {
 			this->MN_lbl2->Location = System::Drawing::Point(313, 190);
 			this->MN_lbl2->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->MN_lbl2->Name = L"MN_lbl2";
-			this->MN_lbl2->Size = System::Drawing::Size(225, 36);
+			this->MN_lbl2->Size = System::Drawing::Size(186, 29);
 			this->MN_lbl2->TabIndex = 0;
 			this->MN_lbl2->Text = L"Mobile Number:";
 			// 
 			// chatPanel
 			// 
 			this->chatPanel->BackColor = System::Drawing::Color::White;
-			this->chatPanel->Controls->Add(this->storyPanel);
 			this->chatPanel->Controls->Add(this->chatPnl);
+			this->chatPanel->Controls->Add(this->storyPanel);
 			this->chatPanel->Controls->Add(this->profilePanel);
 			this->chatPanel->Controls->Add(this->navPanel);
 			this->chatPanel->Dock = System::Windows::Forms::DockStyle::Fill;
@@ -576,7 +573,7 @@ namespace chati {
 			this->label2->ForeColor = System::Drawing::SystemColors::ControlLightLight;
 			this->label2->Location = System::Drawing::Point(24, 15);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(116, 38);
+			this->label2->Size = System::Drawing::Size(98, 31);
 			this->label2->TabIndex = 13;
 			this->label2->Text = L"Status";
 			// 
@@ -722,7 +719,7 @@ namespace chati {
 				static_cast<System::Byte>(0)));
 			this->label1->Location = System::Drawing::Point(503, 316);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(211, 39);
+			this->label1->Size = System::Drawing::Size(167, 31);
 			this->label1->TabIndex = 0;
 			this->label1->Text = L"Profile Panel";
 			// 
@@ -873,8 +870,8 @@ namespace chati {
 			// 
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
 			this->ClientSize = System::Drawing::Size(1351, 720);
-			this->Controls->Add(this->addStoryPanel);
 			this->Controls->Add(this->chatPanel);
+			this->Controls->Add(this->addStoryPanel);
 			this->Controls->Add(this->signUp_pnl);
 			this->Controls->Add(this->signIn_pnl);
 			this->Controls->Add(this->First_pnl);
@@ -946,15 +943,17 @@ namespace chati {
 
 			//for(auto m: currentChatRoom->getMessagesID()){
 			//	cout << "messageID from current chat: " << m << endl;
+			//	cout << "text: " << messages[m].getText() << endl;
 			//}
+			//cout << endl;
 			
 			//for (auto m : messages) {
 
 			//	cout << "messageID: " << m.first << " : " << m.second.getIsRead() << endl;
 			//	cout << "Text : " << m.second.getText() << endl;
-			//	cout << "Sender ID: " << m.second.getSenderID() << endl;
-			//	cout << "date Sent: " << m.second.getDateSent() << endl;
-			//	cout << "Time Sent: " << m.second.getTimeSent() << endl << endl;
+			//	//cout << "Sender ID: " << m.second.getSenderID() << endl;
+			//	//cout << "date Sent: " << m.second.getDateSent() << endl;
+			//	//cout << "Time Sent: " << m.second.getTimeSent() << endl << endl;
 			//}
 
 
