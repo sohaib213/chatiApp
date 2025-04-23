@@ -767,9 +767,14 @@ private: System::Windows::Forms::Button^ checkContNum_btn;
 			// 
 			// goToAddContact_btn
 			// 
-			this->goToAddContact_btn->Location = System::Drawing::Point(11, 848);
+			this->goToAddContact_btn->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left));
+			this->goToAddContact_btn->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"goToAddContact_btn.BackgroundImage")));
+			this->goToAddContact_btn->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+			this->goToAddContact_btn->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->goToAddContact_btn->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->goToAddContact_btn->Location = System::Drawing::Point(12, 875);
 			this->goToAddContact_btn->Name = L"goToAddContact_btn";
-			this->goToAddContact_btn->Size = System::Drawing::Size(62, 60);
+			this->goToAddContact_btn->Size = System::Drawing::Size(63, 60);
 			this->goToAddContact_btn->TabIndex = 3;
 			this->goToAddContact_btn->UseVisualStyleBackColor = true;
 			this->goToAddContact_btn->Click += gcnew System::EventHandler(this, &GuiForm::goToAddContact_btn_Click);
@@ -917,8 +922,9 @@ private: System::Windows::Forms::Button^ checkContNum_btn;
 			this->addContactPanel->Dock = System::Windows::Forms::DockStyle::Left;
 			this->addContactPanel->Location = System::Drawing::Point(0, 0);
 			this->addContactPanel->Name = L"addContactPanel";
-			this->addContactPanel->Size = System::Drawing::Size(435, 1041);
+			this->addContactPanel->Size = System::Drawing::Size(425, 1041);
 			this->addContactPanel->TabIndex = 14;
+			this->addContactPanel->Visible = false;
 			// 
 			// addContact_btn
 			// 
@@ -1308,6 +1314,7 @@ private: System::Windows::Forms::Button^ checkContNum_btn;
 			addContact(*currentUser, contName);
 		}
 		private: System::Void goToAddContact_btn_Click(System::Object^ sender, System::EventArgs^ e) {
+			addContactPanel->Visible = true;
 			addContactPanel->BringToFront();
 		}
 	};
