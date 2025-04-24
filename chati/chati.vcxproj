@@ -130,6 +130,7 @@
     <ClInclude Include="User.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AddContact.cpp" />
     <ClCompile Include="chat.cpp" />
     <ClCompile Include="ChatRoom.cpp" />
     <ClCompile Include="GuiForm.cpp" />

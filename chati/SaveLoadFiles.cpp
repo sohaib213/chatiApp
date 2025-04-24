@@ -17,7 +17,6 @@ static void writeString(ofstream& out, string word) {
 	out.write(reinterpret_cast<char*>(&len), sizeof(len));
 	out.write(word.c_str(), len);
 }
-
 static string readString(ifstream& in) {
 	string temp;
 	size_t len;
@@ -28,6 +27,7 @@ static string readString(ifstream& in) {
 	return temp;
 }
 
+
 static void writeStringVector(ofstream& out, int count, const vector<string> vec) {
 	size_t len;
 	out.write(reinterpret_cast<char*>(&count), sizeof(count));
@@ -37,29 +37,6 @@ static void writeStringVector(ofstream& out, int count, const vector<string> vec
 		out.write(s.c_str(), len);
 	}
 }
-
-static void writeIntVector(ofstream& out, int count, const vector<int> vec) {
-	out.write(reinterpret_cast<char*>(&count), sizeof(count));
-	for (const int& i : vec)
-		out.write(reinterpret_cast<const char*>(&i), sizeof(i));
-}
-
-static void writeUnOrderedSet(ofstream& out,  unordered_set<int> s) {
-	int contactCount = s.size();
-	out.write(reinterpret_cast<char*>(&contactCount), sizeof(contactCount));
-	for (const int& i : s) {
-		out.write(reinterpret_cast<const char*>(&i), sizeof(i));
-	}
-}
-
-static void writeSet(ofstream& out, const set<int>& s) {
-	int contactCount = s.size();
-	out.write(reinterpret_cast<char*>(&contactCount), sizeof(contactCount));
-	for (const int& i : s) {
-		out.write(reinterpret_cast<const char*>(&i), sizeof(i));
-	}
-}
-
 static void readStringVector(ifstream& in, vector<string>& vec) {
 
 	string temp;
@@ -75,6 +52,11 @@ static void readStringVector(ifstream& in, vector<string>& vec) {
 	}
 }
 
+static void writeIntVector(ofstream& out, int count, const vector<int> vec) {
+	out.write(reinterpret_cast<char*>(&count), sizeof(count));
+	for (const int& i : vec)
+		out.write(reinterpret_cast<const char*>(&i), sizeof(i));
+}
 static vector<int> readIntVector(ifstream& in) {
 	vector<int> vec;
 	int contactCount;
@@ -87,6 +69,33 @@ static vector<int> readIntVector(ifstream& in) {
 	return vec;
 }
 
+
+static void writeUnOrderedSet(ofstream& out,  unordered_set<int> s) {
+	int contactCount = s.size();
+	out.write(reinterpret_cast<char*>(&contactCount), sizeof(contactCount));
+	for (const int& i : s) {
+		out.write(reinterpret_cast<const char*>(&i), sizeof(i));
+	}
+}
+static unordered_set<int> readUnOrderedSet(ifstream& in) {
+	unordered_set<int> s;
+	int contactCount;
+	int temp;
+	in.read(reinterpret_cast<char*>(&contactCount), sizeof(contactCount));
+	for (int j = 0; j < contactCount; ++j) {
+		in.read(reinterpret_cast<char*>(&temp), sizeof(temp));
+		s.insert(temp);
+	}
+	return s;
+}
+
+static void writeSet(ofstream& out, const set<int>& s) {
+	int contactCount = s.size();
+	out.write(reinterpret_cast<char*>(&contactCount), sizeof(contactCount));
+	for (const int& i : s) {
+		out.write(reinterpret_cast<const char*>(&i), sizeof(i));
+	}
+}
 static set<int> readSet(ifstream& in) {
 	set<int> s;
 	int contactCount;
@@ -99,17 +108,31 @@ static set<int> readSet(ifstream& in) {
 	return s;
 }
 
-static unordered_set<int> readUnOrderedSet(ifstream& in) {
-	unordered_set<int> s;
-	int contactCount;
-	int temp;
-	in.read(reinterpret_cast<char*>(&contactCount), sizeof(contactCount));
-	for (int j = 0; j < contactCount; ++j) {
-		in.read(reinterpret_cast<char*>(&temp), sizeof(temp));
-		s.insert(temp);
+static void writeMap(ofstream& out, const map<int, string>& c) {
+	int contactCount = c.size();
+	out.write(reinterpret_cast<char*>(&contactCount), sizeof(contactCount));
+	for (const auto& i : c) {
+		out.write(reinterpret_cast<const char*>(&i.first), sizeof(i.first));
+		writeString(out, i.second);
 	}
-	return s;
 }
+static map<int, string> readMap(ifstream& in) {
+	map<int, string> map;
+
+	int contactCount;
+	in.read(reinterpret_cast<char*>(&contactCount), sizeof(contactCount));
+	
+	for (int j = 0; j < contactCount; ++j) {
+		int temp;
+		in.read(reinterpret_cast<char*>(&temp), sizeof(temp));
+		string s = readString(in);
+		map[temp] = s;
+	}
+	return map;
+}
+
+
+
 
 
 static void saveToFile(map<string, User> users, unordered_map<int, ChatRoom> chatRooms, unordered_map<int, chati::Message> messages) {
@@ -158,7 +181,7 @@ static void saveToFile(map<string, User> users, unordered_map<int, ChatRoom> cha
 
 
 
-		writeUnOrderedSet(out, u.getContactsID());
+		writeMap(out, u.getContactsID());
 
 		//out.write(reinterpret_cast<char*>(&contactCount), sizeof(contactCount));
 		//for (const string& s : u.contactsID) {
@@ -297,7 +320,7 @@ static void loadFromFile(map<string, User>& users, unordered_map<int, ChatRoom>&
 		//u.password = temp;
 
 
-		u.setContactsID(readUnOrderedSet(in));
+		u.setContactsID(readMap(in));
 		//int contactCount;
 		//in.read(reinterpret_cast<char*>(&contactCount), sizeof(contactCount));
 		//for (int j = 0; j < contactCount; ++j) {

@@ -3,6 +3,7 @@
 #include <unordered_set>
 #include <set>
 #include <vector>
+#include <map>
 
 using namespace std;
 
@@ -16,7 +17,7 @@ class User {
     string profilePhoto;
     string about;
     bool visible; // for the user profile description
-    unordered_set<int> contactsID; // unordered_set for fast lookups, unique for each user
+    map<int,string> contactsID; // unordered_set for fast lookups, unique for each user
     set<int> storiesID; // set to store story IDs
     set<int> chatRoomsID; // set to store chat room IDs
 
@@ -34,7 +35,7 @@ public:
     string getProfilePhoto() const;
     string getAbout() const;
     bool getVisible() const;
-    unordered_set<int> getContactsID() const;
+    map<int, string> getContactsID() const;
     set<int> getStoriesID() const;
     set<int> getChatRoomsID() const;
 
@@ -47,12 +48,12 @@ public:
     void setProfilePhoto(const string& photo);
     void setAbout(const string& about);
     void setVisible(bool vis);
-    void setContactsID(const unordered_set<int>& contacts);
+    void setContactsID(const map<int, string>& contacts);
     void setStoriesID(const set<int>& stories);
     void setChatRoomsID(const set<int>& chatRooms);
 
     // Add/Remove methods
-    bool addContactID(int contactID);
+    bool addContactID(int contactID,string contactName);
     bool addStoryID(int storyID);
     bool addChatRoomID(int chatRoomID);
     void removeContactID(int contactID);
