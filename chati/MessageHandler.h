@@ -112,6 +112,14 @@ public:
         timeLabel->Anchor = static_cast<AnchorStyles>(AnchorStyles::Bottom | AnchorStyles::Left);
         timeLabel->AutoSize = true;
 
+		PictureBox^ seenPicture = gcnew PictureBox();
+		seenPicture->Size = System::Drawing::Size(17, 14);
+        if(m.getIsRead()) {
+            seenPicture->Image = Image::FromFile("icons/seen.png");
+        } else {
+            seenPicture->Image = Image::FromFile("icons/un_seen.png");
+		}
+
 
         if(m.getSenderID() == currentUser->getUserID()) {
             messagePanel->BackColor = Color::FromArgb(55, 128, 82);
@@ -121,7 +129,7 @@ public:
             messagePanel->BackColor = Color::Gray;
 
 		}
-        messagePanel->Padding = Padding(10);
+        messagePanel->Padding = Padding(5);
         messagePanel->Margin = Padding(5);        
         messagePanel->BorderStyle = BorderStyle::FixedSingle;
         messagePanel->Name = m.getMessageID().ToString();
@@ -130,12 +138,17 @@ public:
 
         messagePanel->Controls->Add(newLabel);
         messagePanel->Controls->Add(timeLabel);
+        if(m.getSenderID() == currentUser->getUserID())
+            messagePanel->Controls->Add(seenPicture);
+
 
         messagesContainer->Controls->Add(messagePanel);
         messagesContainer->Controls->SetChildIndex(messagePanel, 0);
         messagesContainer->ScrollControlIntoView(messagePanel);
         
         timeLabel->Location = Point(messagePanel->Width,  messagePanel->Height - 20);
+		seenPicture->Location = Point(messagePanel->Width - 10, messagePanel->Height - 20);
+
         if (m.getSenderID() != currentUser->getUserID())
         {
             messagePanel->Margin = Padding(1480 - messagePanel->Width, 3, 3, 3);
