@@ -1,2 +1,53 @@
-﻿  AddContact.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
-  chati.vcxproj -> C:\Users\aammo\chatiApp\x64\Debug\chati.exe
+﻿  GuiForm.cpp
+D:\chatApp\chati\SaveLoadFiles.cpp(74,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file 'GuiForm.cpp')
+  
+D:\chatApp\chati\SaveLoadFiles.cpp(93,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file 'GuiForm.cpp')
+  
+D:\chatApp\chati\SaveLoadFiles.cpp(112,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file 'GuiForm.cpp')
+  
+D:\chatApp\chati\SaveLoadFiles.cpp(150,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file 'GuiForm.cpp')
+  
+D:\chatApp\chati\SaveLoadFiles.cpp(223,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file 'GuiForm.cpp')
+  
+D:\chatApp\chati\SaveLoadFiles.cpp(235,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file 'GuiForm.cpp')
+  
+D:\chatApp\chati\SaveLoadFiles.cpp(238,21): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file 'GuiForm.cpp')
+  
+D:\chatApp\chati\SaveLoadFiles.cpp(251,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file 'GuiForm.cpp')
+  
+D:\chatApp\chati\SaveLoadFiles.cpp(140,6): warning C4996: 'freopen': This function or variable may be unsafe. Consider using freopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file 'GuiForm.cpp')
+  
+D:\chatApp\chati\SaveLoadFiles.cpp(155,10): warning C4101: 'len': unreferenced local variable
+  (compiling source file 'GuiForm.cpp')
+  
+D:\chatApp\chati\SaveLoadFiles.cpp(227,10): warning C4101: 'len': unreferenced local variable
+  (compiling source file 'GuiForm.cpp')
+  
+D:\chatApp\chati\SaveLoadFiles.cpp(255,10): warning C4101: 'len': unreferenced local variable
+  (compiling source file 'GuiForm.cpp')
+  
+D:\chatApp\chati\SaveLoadFiles.cpp(380,21): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file 'GuiForm.cpp')
+  
+D:\chatApp\chati\SaveLoadFiles.cpp(278,2): warning C4996: 'freopen': This function or variable may be unsafe. Consider using freopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file 'GuiForm.cpp')
+  
+D:\chatApp\chati\SaveLoadFiles.cpp(411,10): warning C4101: 'len': unreferenced local variable
+  (compiling source file 'GuiForm.cpp')
+  
+D:\chatApp\chati\MessageHandler.h(48,25): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file 'GuiForm.cpp')
+  
+  User.cpp
+  Generating Code...
+  AddContact.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
+  chati.vcxproj -> D:\chatApp\x64\Debug\chati.exe

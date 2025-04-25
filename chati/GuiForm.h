@@ -92,10 +92,12 @@ namespace chati {
 		private: System::Windows::Forms::TextBox^ MN_txt;
 		private: System::Windows::Forms::Label^ Pass_lbl2;
 		private: System::Windows::Forms::Label^ MN_lbl2;
+		//private: System::Windows::Forms::Label^ DateUserStoryLabel;
+		//private: System::Windows::Forms::Label^ nameUserStoryLabel;
 		private: System::Windows::Forms::Button^ back;
 		private: System::Windows::Forms::Button^ sign;
 		private: System::Windows::Forms::Panel^ mainPanel;
-
+		
 
 
 
@@ -166,6 +168,21 @@ namespace chati {
 		private: System::Windows::Forms::Label^ label2;
 private: System::Windows::Forms::Button^ checkContact_btn;
 private: System::Windows::Forms::Button^ addContact_btn;
+private: System::Windows::Forms::Panel^ getStoryPanel;
+private: System::Windows::Forms::Panel^ profileUserInStoryPanel;
+private: System::Windows::Forms::PictureBox^ profileStoryPic;
+
+private: System::Windows::Forms::Label^ dateInStoryLabel;
+
+
+private: System::Windows::Forms::Label^ nameInStoryLabel;
+private: System::Windows::Forms::Panel^ bodyOfTheStoryPanel;
+private: System::Windows::Forms::Label^ bodyOfTheStoryLabel;
+private: System::Windows::Forms::Panel^ footerOfTheSroryPanel;
+private: System::Windows::Forms::Button^ viewerOfTheStoryBtn;
+private: System::Windows::Forms::Button^ cancelStoryBtn;
+
+
 
 
 
@@ -227,7 +244,13 @@ private: System::Windows::Forms::Button^ addContact_btn;
 			this->Pass_lbl2 = (gcnew System::Windows::Forms::Label());
 			this->MN_lbl2 = (gcnew System::Windows::Forms::Label());
 			this->mainPanel = (gcnew System::Windows::Forms::Panel());
+			this->storyPanel = (gcnew System::Windows::Forms::Panel());
+			this->allStoriesPanel = (gcnew System::Windows::Forms::FlowLayoutPanel());
+			this->stotyHeaderPanel = (gcnew System::Windows::Forms::Panel());
+			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->addContactPanel = (gcnew System::Windows::Forms::Panel());
+			this->addContact_btn = (gcnew System::Windows::Forms::Button());
 			this->checkContact_btn = (gcnew System::Windows::Forms::Button());
 			this->addContName_field = (gcnew System::Windows::Forms::TextBox());
 			this->addContNum_field = (gcnew System::Windows::Forms::TextBox());
@@ -243,11 +266,6 @@ private: System::Windows::Forms::Button^ addContact_btn;
 			this->textBox1 = (gcnew System::Windows::Forms::RichTextBox());
 			this->sendButton = (gcnew System::Windows::Forms::Button());
 			this->chatRoomsPanel = (gcnew System::Windows::Forms::FlowLayoutPanel());
-			this->storyPanel = (gcnew System::Windows::Forms::Panel());
-			this->allStoriesPanel = (gcnew System::Windows::Forms::FlowLayoutPanel());
-			this->stotyHeaderPanel = (gcnew System::Windows::Forms::Panel());
-			this->label2 = (gcnew System::Windows::Forms::Label());
-			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->navPanel = (gcnew System::Windows::Forms::Panel());
 			this->goToAddContact_btn = (gcnew System::Windows::Forms::Button());
 			this->statusButton = (gcnew System::Windows::Forms::Button());
@@ -262,22 +280,36 @@ private: System::Windows::Forms::Button^ addContact_btn;
 			this->textStory = (gcnew System::Windows::Forms::TextBox());
 			this->button3 = (gcnew System::Windows::Forms::Button());
 			this->colorDialog1 = (gcnew System::Windows::Forms::ColorDialog());
-			this->addContact_btn = (gcnew System::Windows::Forms::Button());
+			this->getStoryPanel = (gcnew System::Windows::Forms::Panel());
+			this->footerOfTheSroryPanel = (gcnew System::Windows::Forms::Panel());
+			this->viewerOfTheStoryBtn = (gcnew System::Windows::Forms::Button());
+			this->bodyOfTheStoryPanel = (gcnew System::Windows::Forms::Panel());
+			this->bodyOfTheStoryLabel = (gcnew System::Windows::Forms::Label());
+			this->profileUserInStoryPanel = (gcnew System::Windows::Forms::Panel());
+			this->cancelStoryBtn = (gcnew System::Windows::Forms::Button());
+			this->dateInStoryLabel = (gcnew System::Windows::Forms::Label());
+			this->nameInStoryLabel = (gcnew System::Windows::Forms::Label());
+			this->profileStoryPic = (gcnew System::Windows::Forms::PictureBox());
 			this->signUp_pnl->SuspendLayout();
 			this->First_pnl->SuspendLayout();
 			this->signIn_pnl->SuspendLayout();
 			this->mainPanel->SuspendLayout();
+			this->storyPanel->SuspendLayout();
+			this->stotyHeaderPanel->SuspendLayout();
 			this->addContactPanel->SuspendLayout();
 			this->chatPnl->SuspendLayout();
 			this->currentCahtPanel->SuspendLayout();
 			this->panel2->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->panel1->SuspendLayout();
-			this->storyPanel->SuspendLayout();
-			this->stotyHeaderPanel->SuspendLayout();
 			this->navPanel->SuspendLayout();
 			this->profilePanel->SuspendLayout();
 			this->addStoryPanel->SuspendLayout();
+			this->getStoryPanel->SuspendLayout();
+			this->footerOfTheSroryPanel->SuspendLayout();
+			this->bodyOfTheStoryPanel->SuspendLayout();
+			this->profileUserInStoryPanel->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->profileStoryPic))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// signUp_pnl
@@ -559,9 +591,9 @@ private: System::Windows::Forms::Button^ addContact_btn;
 			// mainPanel
 			// 
 			this->mainPanel->BackColor = System::Drawing::Color::White;
+			this->mainPanel->Controls->Add(this->storyPanel);
 			this->mainPanel->Controls->Add(this->addContactPanel);
 			this->mainPanel->Controls->Add(this->chatPnl);
-			this->mainPanel->Controls->Add(this->storyPanel);
 			this->mainPanel->Controls->Add(this->navPanel);
 			this->mainPanel->Controls->Add(this->profilePanel);
 			this->mainPanel->Dock = System::Windows::Forms::DockStyle::Fill;
@@ -569,6 +601,67 @@ private: System::Windows::Forms::Button^ addContact_btn;
 			this->mainPanel->Name = L"mainPanel";
 			this->mainPanel->Size = System::Drawing::Size(1904, 1041);
 			this->mainPanel->TabIndex = 3;
+			// 
+			// storyPanel
+			// 
+			this->storyPanel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)),
+				static_cast<System::Int32>(static_cast<System::Byte>(45)));
+			this->storyPanel->Controls->Add(this->allStoriesPanel);
+			this->storyPanel->Controls->Add(this->stotyHeaderPanel);
+			this->storyPanel->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->storyPanel->Location = System::Drawing::Point(87, 0);
+			this->storyPanel->Name = L"storyPanel";
+			this->storyPanel->Size = System::Drawing::Size(1817, 1041);
+			this->storyPanel->TabIndex = 11;
+			// 
+			// allStoriesPanel
+			// 
+			this->allStoriesPanel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)),
+				static_cast<System::Int32>(static_cast<System::Byte>(45)));
+			this->allStoriesPanel->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->allStoriesPanel->FlowDirection = System::Windows::Forms::FlowDirection::TopDown;
+			this->allStoriesPanel->Location = System::Drawing::Point(0, 100);
+			this->allStoriesPanel->Name = L"allStoriesPanel";
+			this->allStoriesPanel->Size = System::Drawing::Size(1817, 941);
+			this->allStoriesPanel->TabIndex = 1;
+			// 
+			// stotyHeaderPanel
+			// 
+			this->stotyHeaderPanel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(60)), static_cast<System::Int32>(static_cast<System::Byte>(60)),
+				static_cast<System::Int32>(static_cast<System::Byte>(60)));
+			this->stotyHeaderPanel->Controls->Add(this->label2);
+			this->stotyHeaderPanel->Controls->Add(this->button2);
+			this->stotyHeaderPanel->Dock = System::Windows::Forms::DockStyle::Top;
+			this->stotyHeaderPanel->Location = System::Drawing::Point(0, 0);
+			this->stotyHeaderPanel->Name = L"stotyHeaderPanel";
+			this->stotyHeaderPanel->Size = System::Drawing::Size(1817, 100);
+			this->stotyHeaderPanel->TabIndex = 0;
+			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 19.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label2->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->label2->Location = System::Drawing::Point(33, 34);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(116, 38);
+			this->label2->TabIndex = 14;
+			this->label2->Text = L"Status";
+			// 
+			// button2
+			// 
+			this->button2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->button2->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button2.BackgroundImage")));
+			this->button2->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+			this->button2->FlatAppearance->BorderSize = 0;
+			this->button2->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->button2->Location = System::Drawing::Point(1683, 12);
+			this->button2->Name = L"button2";
+			this->button2->Size = System::Drawing::Size(75, 53);
+			this->button2->TabIndex = 12;
+			this->button2->UseVisualStyleBackColor = true;
+			this->button2->Click += gcnew System::EventHandler(this, &GuiForm::button2_Click);
 			// 
 			// addContactPanel
 			// 
@@ -586,6 +679,16 @@ private: System::Windows::Forms::Button^ addContact_btn;
 			this->addContactPanel->Name = L"addContactPanel";
 			this->addContactPanel->Size = System::Drawing::Size(1817, 1041);
 			this->addContactPanel->TabIndex = 14;
+			// 
+			// addContact_btn
+			// 
+			this->addContact_btn->Location = System::Drawing::Point(865, 573);
+			this->addContact_btn->Name = L"addContact_btn";
+			this->addContact_btn->Size = System::Drawing::Size(75, 23);
+			this->addContact_btn->TabIndex = 22;
+			this->addContact_btn->Text = L"Add";
+			this->addContact_btn->UseVisualStyleBackColor = true;
+			this->addContact_btn->Click += gcnew System::EventHandler(this, &GuiForm::addContact_btn_Click);
 			// 
 			// checkContact_btn
 			// 
@@ -755,67 +858,6 @@ private: System::Windows::Forms::Button^ addContact_btn;
 			this->chatRoomsPanel->Name = L"chatRoomsPanel";
 			this->chatRoomsPanel->Size = System::Drawing::Size(338, 1041);
 			this->chatRoomsPanel->TabIndex = 2;
-			// 
-			// storyPanel
-			// 
-			this->storyPanel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)),
-				static_cast<System::Int32>(static_cast<System::Byte>(45)));
-			this->storyPanel->Controls->Add(this->allStoriesPanel);
-			this->storyPanel->Controls->Add(this->stotyHeaderPanel);
-			this->storyPanel->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->storyPanel->Location = System::Drawing::Point(87, 0);
-			this->storyPanel->Name = L"storyPanel";
-			this->storyPanel->Size = System::Drawing::Size(1817, 1041);
-			this->storyPanel->TabIndex = 11;
-			// 
-			// allStoriesPanel
-			// 
-			this->allStoriesPanel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)),
-				static_cast<System::Int32>(static_cast<System::Byte>(45)));
-			this->allStoriesPanel->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->allStoriesPanel->FlowDirection = System::Windows::Forms::FlowDirection::TopDown;
-			this->allStoriesPanel->Location = System::Drawing::Point(0, 100);
-			this->allStoriesPanel->Name = L"allStoriesPanel";
-			this->allStoriesPanel->Size = System::Drawing::Size(1817, 941);
-			this->allStoriesPanel->TabIndex = 1;
-			// 
-			// stotyHeaderPanel
-			// 
-			this->stotyHeaderPanel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(60)), static_cast<System::Int32>(static_cast<System::Byte>(60)),
-				static_cast<System::Int32>(static_cast<System::Byte>(60)));
-			this->stotyHeaderPanel->Controls->Add(this->label2);
-			this->stotyHeaderPanel->Controls->Add(this->button2);
-			this->stotyHeaderPanel->Dock = System::Windows::Forms::DockStyle::Top;
-			this->stotyHeaderPanel->Location = System::Drawing::Point(0, 0);
-			this->stotyHeaderPanel->Name = L"stotyHeaderPanel";
-			this->stotyHeaderPanel->Size = System::Drawing::Size(1817, 100);
-			this->stotyHeaderPanel->TabIndex = 0;
-			// 
-			// label2
-			// 
-			this->label2->AutoSize = true;
-			this->label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 19.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->label2->ForeColor = System::Drawing::SystemColors::ControlLightLight;
-			this->label2->Location = System::Drawing::Point(33, 34);
-			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(116, 38);
-			this->label2->TabIndex = 14;
-			this->label2->Text = L"Status";
-			// 
-			// button2
-			// 
-			this->button2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->button2->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button2.BackgroundImage")));
-			this->button2->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
-			this->button2->FlatAppearance->BorderSize = 0;
-			this->button2->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->button2->Location = System::Drawing::Point(1683, 12);
-			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(75, 53);
-			this->button2->TabIndex = 12;
-			this->button2->UseVisualStyleBackColor = true;
-			this->button2->Click += gcnew System::EventHandler(this, &GuiForm::button2_Click);
 			// 
 			// navPanel
 			// 
@@ -997,25 +1039,135 @@ private: System::Windows::Forms::Button^ addContact_btn;
 			// 
 			this->colorDialog1->FullOpen = true;
 			// 
-			// addContact_btn
+			// getStoryPanel
 			// 
-			this->addContact_btn->Location = System::Drawing::Point(865, 573);
-			this->addContact_btn->Name = L"addContact_btn";
-			this->addContact_btn->Size = System::Drawing::Size(75, 23);
-			this->addContact_btn->TabIndex = 22;
-			this->addContact_btn->Text = L"Add";
-			this->addContact_btn->UseVisualStyleBackColor = true;
-			this->addContact_btn->Click += gcnew System::EventHandler(this, &GuiForm::addContact_btn_Click);
+			this->getStoryPanel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)),
+				static_cast<System::Int32>(static_cast<System::Byte>(45)));
+			this->getStoryPanel->Controls->Add(this->footerOfTheSroryPanel);
+			this->getStoryPanel->Controls->Add(this->bodyOfTheStoryPanel);
+			this->getStoryPanel->Controls->Add(this->profileUserInStoryPanel);
+			this->getStoryPanel->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->getStoryPanel->Location = System::Drawing::Point(0, 0);
+			this->getStoryPanel->Name = L"getStoryPanel";
+			this->getStoryPanel->Size = System::Drawing::Size(1904, 1041);
+			this->getStoryPanel->TabIndex = 14;
+			// 
+			// footerOfTheSroryPanel
+			// 
+			this->footerOfTheSroryPanel->Controls->Add(this->viewerOfTheStoryBtn);
+			this->footerOfTheSroryPanel->Dock = System::Windows::Forms::DockStyle::Bottom;
+			this->footerOfTheSroryPanel->Location = System::Drawing::Point(0, 951);
+			this->footerOfTheSroryPanel->Name = L"footerOfTheSroryPanel";
+			this->footerOfTheSroryPanel->Size = System::Drawing::Size(1904, 90);
+			this->footerOfTheSroryPanel->TabIndex = 2;
+			// 
+			// viewerOfTheStoryBtn
+			// 
+			this->viewerOfTheStoryBtn->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"viewerOfTheStoryBtn.BackgroundImage")));
+			this->viewerOfTheStoryBtn->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+			this->viewerOfTheStoryBtn->FlatAppearance->BorderSize = 0;
+			this->viewerOfTheStoryBtn->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->viewerOfTheStoryBtn->ForeColor = System::Drawing::Color::DarkCyan;
+			this->viewerOfTheStoryBtn->Location = System::Drawing::Point(692, 21);
+			this->viewerOfTheStoryBtn->Name = L"viewerOfTheStoryBtn";
+			this->viewerOfTheStoryBtn->Size = System::Drawing::Size(93, 42);
+			this->viewerOfTheStoryBtn->TabIndex = 0;
+			this->viewerOfTheStoryBtn->UseVisualStyleBackColor = true;
+			this->viewerOfTheStoryBtn->Click += gcnew System::EventHandler(this, &GuiForm::viewerOfTheStoryBtn_Click);
+			// 
+			// bodyOfTheStoryPanel
+			// 
+			this->bodyOfTheStoryPanel->Controls->Add(this->bodyOfTheStoryLabel);
+			this->bodyOfTheStoryPanel->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->bodyOfTheStoryPanel->Location = System::Drawing::Point(0, 128);
+			this->bodyOfTheStoryPanel->Name = L"bodyOfTheStoryPanel";
+			this->bodyOfTheStoryPanel->Size = System::Drawing::Size(1904, 913);
+			this->bodyOfTheStoryPanel->TabIndex = 1;
+			// 
+			// bodyOfTheStoryLabel
+			// 
+			this->bodyOfTheStoryLabel->AutoSize = true;
+			this->bodyOfTheStoryLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 19.8F, System::Drawing::FontStyle::Bold,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->bodyOfTheStoryLabel->ForeColor = System::Drawing::SystemColors::ButtonHighlight;
+			this->bodyOfTheStoryLabel->Location = System::Drawing::Point(580, 54);
+			this->bodyOfTheStoryLabel->Name = L"bodyOfTheStoryLabel";
+			this->bodyOfTheStoryLabel->Size = System::Drawing::Size(276, 38);
+			this->bodyOfTheStoryLabel->TabIndex = 1;
+			this->bodyOfTheStoryLabel->Text = L"body of the story";
+			// 
+			// profileUserInStoryPanel
+			// 
+			this->profileUserInStoryPanel->Controls->Add(this->cancelStoryBtn);
+			this->profileUserInStoryPanel->Controls->Add(this->dateInStoryLabel);
+			this->profileUserInStoryPanel->Controls->Add(this->nameInStoryLabel);
+			this->profileUserInStoryPanel->Controls->Add(this->profileStoryPic);
+			this->profileUserInStoryPanel->Dock = System::Windows::Forms::DockStyle::Top;
+			this->profileUserInStoryPanel->Location = System::Drawing::Point(0, 0);
+			this->profileUserInStoryPanel->Name = L"profileUserInStoryPanel";
+			this->profileUserInStoryPanel->Size = System::Drawing::Size(1904, 128);
+			this->profileUserInStoryPanel->TabIndex = 0;
+			// 
+			// cancelStoryBtn
+			// 
+			this->cancelStoryBtn->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->cancelStoryBtn->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"cancelStoryBtn.BackgroundImage")));
+			this->cancelStoryBtn->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+			this->cancelStoryBtn->FlatAppearance->BorderSize = 0;
+			this->cancelStoryBtn->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->cancelStoryBtn->ForeColor = System::Drawing::Color::DarkCyan;
+			this->cancelStoryBtn->Location = System::Drawing::Point(1488, 9);
+			this->cancelStoryBtn->Name = L"cancelStoryBtn";
+			this->cancelStoryBtn->Size = System::Drawing::Size(93, 52);
+			this->cancelStoryBtn->TabIndex = 1;
+			this->cancelStoryBtn->UseVisualStyleBackColor = true;
+			this->cancelStoryBtn->Click += gcnew System::EventHandler(this, &GuiForm::cancelStoryBtn_Click);
+			// 
+			// dateInStoryLabel
+			// 
+			this->dateInStoryLabel->AutoSize = true;
+			this->dateInStoryLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Tai Le", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->dateInStoryLabel->ForeColor = System::Drawing::SystemColors::ButtonHighlight;
+			this->dateInStoryLabel->Location = System::Drawing::Point(163, 81);
+			this->dateInStoryLabel->Name = L"dateInStoryLabel";
+			this->dateInStoryLabel->Size = System::Drawing::Size(53, 25);
+			this->dateInStoryLabel->TabIndex = 2;
+			this->dateInStoryLabel->Text = L"Date";
+			// 
+			// nameInStoryLabel
+			// 
+			this->nameInStoryLabel->AutoSize = true;
+			this->nameInStoryLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 19.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->nameInStoryLabel->ForeColor = System::Drawing::SystemColors::ButtonHighlight;
+			this->nameInStoryLabel->Location = System::Drawing::Point(140, 9);
+			this->nameInStoryLabel->Name = L"nameInStoryLabel";
+			this->nameInStoryLabel->Size = System::Drawing::Size(102, 38);
+			this->nameInStoryLabel->TabIndex = 1;
+			this->nameInStoryLabel->Text = L"name";
+			// 
+			// profileStoryPic
+			// 
+			this->profileStoryPic->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"profileStoryPic.BackgroundImage")));
+			this->profileStoryPic->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+			this->profileStoryPic->Dock = System::Windows::Forms::DockStyle::Left;
+			this->profileStoryPic->Location = System::Drawing::Point(0, 0);
+			this->profileStoryPic->Name = L"profileStoryPic";
+			this->profileStoryPic->Size = System::Drawing::Size(99, 128);
+			this->profileStoryPic->TabIndex = 0;
+			this->profileStoryPic->TabStop = false;
 			// 
 			// GuiForm
 			// 
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
 			this->ClientSize = System::Drawing::Size(1904, 1041);
-			this->Controls->Add(this->mainPanel);
-			this->Controls->Add(this->signUp_pnl);
-			this->Controls->Add(this->addStoryPanel);
-			this->Controls->Add(this->signIn_pnl);
 			this->Controls->Add(this->First_pnl);
+			this->Controls->Add(this->addStoryPanel);
+			this->Controls->Add(this->mainPanel);
+			this->Controls->Add(this->getStoryPanel);
+			this->Controls->Add(this->signUp_pnl);
+			this->Controls->Add(this->signIn_pnl);
 			this->Margin = System::Windows::Forms::Padding(4);
 			this->Name = L"GuiForm";
 			this->Text = L"chatApp";
@@ -1028,6 +1180,9 @@ private: System::Windows::Forms::Button^ addContact_btn;
 			this->signIn_pnl->ResumeLayout(false);
 			this->signIn_pnl->PerformLayout();
 			this->mainPanel->ResumeLayout(false);
+			this->storyPanel->ResumeLayout(false);
+			this->stotyHeaderPanel->ResumeLayout(false);
+			this->stotyHeaderPanel->PerformLayout();
 			this->addContactPanel->ResumeLayout(false);
 			this->addContactPanel->PerformLayout();
 			this->chatPnl->ResumeLayout(false);
@@ -1036,14 +1191,18 @@ private: System::Windows::Forms::Button^ addContact_btn;
 			this->panel2->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			this->panel1->ResumeLayout(false);
-			this->storyPanel->ResumeLayout(false);
-			this->stotyHeaderPanel->ResumeLayout(false);
-			this->stotyHeaderPanel->PerformLayout();
 			this->navPanel->ResumeLayout(false);
 			this->profilePanel->ResumeLayout(false);
 			this->profilePanel->PerformLayout();
 			this->addStoryPanel->ResumeLayout(false);
 			this->addStoryPanel->PerformLayout();
+			this->getStoryPanel->ResumeLayout(false);
+			this->footerOfTheSroryPanel->ResumeLayout(false);
+			this->bodyOfTheStoryPanel->ResumeLayout(false);
+			this->bodyOfTheStoryPanel->PerformLayout();
+			this->profileUserInStoryPanel->ResumeLayout(false);
+			this->profileUserInStoryPanel->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->profileStoryPic))->EndInit();
 			this->ResumeLayout(false);
 
 		}
@@ -1051,16 +1210,17 @@ private: System::Windows::Forms::Button^ addContact_btn;
 
 
 		private: System::Void GuiForm_Load(System::Object^ sender, System::EventArgs^ e) {
+			
 			loadFromFile(users, chatRooms, messages);
+			//users.clear();
 			cout << '1' << endl;
-
 			//cout << "messages size: " << chatRooms[1].messagesID.size() << endl;
 			//for (int i : chatRooms[1].messagesID) {
 			//	cout << "messageID: " << i << endl;
 			//}
 
 			// will remove this later
-			currentUser = &users["01067700658"];
+			//currentUser = &users["01151692506"];
 
 
 			//currentChatRoom = new ChatRoom(1, true);
@@ -1088,7 +1248,6 @@ private: System::Windows::Forms::Button^ addContact_btn;
 			//}
 
 
-			handler.initializeChat(currentChatRoom, messagesContainer, messages, currentUser);
 
 
 			//for (auto u : users) {
@@ -1170,6 +1329,12 @@ private: System::Windows::Forms::Button^ addContact_btn;
 			}
 			else {
 				currentUser = &users[mobileNumber];
+				cout << "current user name & id: " << currentUser->getFirstName()<<" "<<currentUser->getUserID() << " has stories: "<<currentUser->getStoriesID().size()<<endl;
+
+				if (currentUser->getStoriesID().size() > 0) {
+					createUserStoryPanel();
+				}
+				handler.initializeChat(currentChatRoom, messagesContainer, messages, currentUser);
 				mainPanel->BringToFront();
 			}
 	
@@ -1185,8 +1350,12 @@ private: System::Windows::Forms::Button^ addContact_btn;
 		}
 			   
 		private: System::Void GuiForm_FormClosed(System::Object^ sender, System::Windows::Forms::FormClosedEventArgs^ e) {
+			/*stories.clear();
+			currentUser->setStoriesID({});*/
+			users[currentUser->getMobileNumber()] = *currentUser;
 			saveToFile(users, chatRooms, messages);
 		}
+			   //?/shehab
 		private: System::Void chatButton_Click(System::Object^ sender, System::EventArgs^ e) {
 
 		}
@@ -1213,7 +1382,7 @@ private: System::Windows::Forms::Button^ addContact_btn;
 			colorDialog->Color = System::Drawing::Color::Black; //to initialze it with black
 			if (colorDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK)
 			{
-				// Set the background color of the form to the selected color
+				//? Set the background color of the form to the selected color
 				this->addStoryPanel->BackColor = colorDialog->Color;
 				this->textStory->BackColor = colorDialog->Color;
 			}
@@ -1222,7 +1391,7 @@ private: System::Windows::Forms::Button^ addContact_btn;
 			FontDialog^ fontDialog = gcnew FontDialog();
 			fontDialog->ShowColor = true;
 			fontDialog->ShowEffects = true;
-			fontDialog->Font = textStory->Font; // to initilze it with the current color
+			fontDialog->Font = textStory->Font; //? to initilze it with the current color
 			if (fontDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK)
 			{
 				textStory->Font = fontDialog->Font;
@@ -1230,19 +1399,33 @@ private: System::Windows::Forms::Button^ addContact_btn;
 			}
 
 		}
+		private: System::Void createStory() {
+			//? create story 
+			time_t publishTime = time(0);
+			std::string textStoryString = msclr::interop::marshal_as<std::string>(textStory->Text);
+			if (textStoryString == "") {
+				MessageBox::Show("Please fill the story text", "Infromation incompleted");
+				return;
+			}
+			Story* story = new Story(currentUser->getUserID(), publishTime, textStoryString);
+			currentUser->getStoriesID().insert(story->getStoryID());
+			cout<<"if the story added: "<<currentUser->addStoryID(story->getStoryID())<<endl;
+			stories[story->getStoryID()] = *story;
+			cout <<"the storyID in the map: "<< stories[story->getStoryID()].getStoryID() << endl;
+		}
 		private: System::Void createUserStoryPanel() {
-			// Define the PictureBox for the user story image
+			//? Define the PictureBox for the user story image
 			PictureBox^ pictureUserStoryPic = gcnew PictureBox();
 
-			// Load the resources
+			//? Load the resources
 			System::ComponentModel::ComponentResourceManager^ resources = gcnew System::ComponentModel::ComponentResourceManager(GuiForm::typeid);
-			cli::array<System::Byte>^ imageBytes = (cli::safe_cast<cli::array<System::Byte>^>(resources->GetObject(L"profile-user")));
+			cli::array<System::Byte>^ imageBytes = (cli::safe_cast<cli::array<System::Byte>^>(resources->GetObject(L"user")));
 
-			// Convert byte array to Image using MemoryStream
+			//? Convert byte array to Image using MemoryStream
 			MemoryStream^ ms = gcnew MemoryStream(imageBytes);
 			pictureUserStoryPic->Image = System::Drawing::Image::FromStream(ms);
 
-			// Set the SizeMode to Zoom for the image to be zoomed correctly and fit within the PictureBox
+			//? Set the SizeMode to Zoom for the image to be zoomed correctly and fit within the PictureBox
 			pictureUserStoryPic->SizeMode = PictureBoxSizeMode::Zoom;
 			pictureUserStoryPic->Dock = System::Windows::Forms::DockStyle::Left;
 			pictureUserStoryPic->InitialImage = nullptr;
@@ -1252,7 +1435,7 @@ private: System::Windows::Forms::Button^ addContact_btn;
 			pictureUserStoryPic->TabIndex = 0;
 			pictureUserStoryPic->TabStop = false;
 
-			// Create other labels for name and date
+			//? name story panel
 			Label^ nameUserStoryLabel = gcnew Label();
 			nameUserStoryLabel->AutoSize = true;
 			nameUserStoryLabel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)),
@@ -1269,7 +1452,7 @@ private: System::Windows::Forms::Button^ addContact_btn;
 			nameUserStoryLabel->Text = gcnew System::String(fullName.c_str());
 
 
-
+			//? label dateStoryPanel
 			Label^ DateUserStoryLabel = gcnew Label();
 			DateUserStoryLabel->AutoSize = true;
 			DateUserStoryLabel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)),
@@ -1284,7 +1467,7 @@ private: System::Windows::Forms::Button^ addContact_btn;
 			DateUserStoryLabel->TabIndex = 2;
 			DateUserStoryLabel->Text = DateTime::Now.ToString("hh-mm tt"); // Set the date format as needed
 
-			// Set up the user story panel
+			//? Set up the user story panel
 			Panel^ userStoryPanel = gcnew Panel();
 			userStoryPanel->Controls->Add(DateUserStoryLabel);
 			userStoryPanel->Controls->Add(nameUserStoryLabel);
@@ -1294,26 +1477,49 @@ private: System::Windows::Forms::Button^ addContact_btn;
 			userStoryPanel->Size = System::Drawing::Size(1249, 97);
 			userStoryPanel->TabIndex = 0;
 
-			// Add click event handler to the user story panel
+			//? Add click event handler to the user story panel
 			userStoryPanel->Click += gcnew System::EventHandler(this, &GuiForm::userStoryPanel_Click);
 
-			// Add the user story panel to the main panel
+			//? Add the user story panel to the main panel
 			this->allStoriesPanel->Controls->Add(userStoryPanel);
 		}
 
 
 
 		private: System::Void userStoryPanel_Click(System::Object^ sender, System::EventArgs^ e) {
-			// Handle the logic of the click event here
-			MessageBox::Show("User Story Panel Clicked!");
+			//? Handle the logic of the click event here
+			//MessageBox::Show("User Story Panel Clicked!");
+			string name= currentUser->getFirstName() + " " + currentUser->getLastName();
+			nameInStoryLabel->Text = gcnew System::String(name.c_str());
+			getStoryPanel->BringToFront();
 			//? show the panel of the user story
 		}
 		private: System::Void button4_Click(System::Object^ sender, System::EventArgs^ e) {
-			createUserStoryPanel();
+			string textStoryString = msclr::interop::marshal_as<std::string>(textStory->Text);
+			if (textStoryString =="") {
+				MessageBox::Show("Please fill the story text", "Infromation incompleted");
+				return;
+			}
+			cout << "the number of the stories: " << currentUser->getStoriesID().size()<<" for "<<currentUser->getFirstName() << endl;
+			if (currentUser->getStoriesID().size()==0) {
+				createUserStoryPanel();
+			}
+			createStory();
 			addStoryPanel->BringToFront();
 			mainPanel->BringToFront();
+			//? update userStoryPanel->(Date)
+			//time_t now = time(0);
+			//tm localTime;
+			//localtime_s(&localTime, &now);  // safer on Windows
+
+			//char buffer[80];
+			//strftime(buffer, sizeof(buffer), "%I-%M %p", &localTime);  // hh-mm tt format
+
+			//DateUserStoryLabel->Text = gcnew String(buffer);
+			//cout << "number of story valid: " << currentUser->getStoriesID().size()<<"for the current user"<<currentUser->getFirstName() << endl;
+			
 		}
-			  
+			//?shehab/  
 		private: System::Void checkContact_btn_Click(System::Object^ sender, System::EventArgs^ e) {
 			string contNum = msclr::interop::marshal_as<std::string>(addContNum_field->Text);
 			if (contNum.size() < 11) {
@@ -1338,10 +1544,18 @@ private: System::Windows::Forms::Button^ addContact_btn;
 			addContNum_field->Clear();
 			MessageBox::Show("Contact added", "Success");
 		}
-		
+		//? /shehab
 		private: System::Void goToAddContact_btn_Click(System::Object^ sender, System::EventArgs^ e) {
 			addContactPanel->BringToFront();
 		}
 	
+		private: System::Void cancelStoryBtn_Click(System::Object^ sender, System::EventArgs^ e) {
+			mainPanel->BringToFront();
+			storyPanel->BringToFront();
+		}
+		private: System::Void viewerOfTheStoryBtn_Click(System::Object^ sender, System::EventArgs^ e) {
+			MessageBox::Show("Viewer of the story button clicked!");
+		}
+		//?shehab/
 };
 }

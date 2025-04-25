@@ -2,7 +2,7 @@
 #include <iostream>
 
 // Initialize the static counter
-int User::userCounter = 0;
+int User::userCounter = 10;
 
 // Default Constructor
 User::User(string mobileNumber, string password, string firstName, string lastName)
@@ -41,27 +41,27 @@ void User::setChatRoomsID(const set<int>& chatRooms) { chatRoomsID = chatRooms; 
 
 // Add/Remove Methods
 bool User::addContactID(int contactID,string contactName) {
-	return contactsID.insert({ contactID, contactName }).second; // Directly modify contactsID
+	return this->getContactsID().insert({ contactID, contactName }).second; // Directly modify contactsID
 }
 
 bool User::addStoryID(int storyID) {
-    return storiesID.insert(storyID).second; // Directly modify storiesID
+    return this->storiesID.insert(storyID).second; // Directly modify storiesID
 }
 
 bool User::addChatRoomID(int chatRoomID) {
-    return chatRoomsID.insert(chatRoomID).second; // Directly modify chatRoomsID
+    return this->chatRoomsID.insert(chatRoomID).second; // Directly modify chatRoomsID
 }
 
 void User::removeContactID(int contactID) {
-    contactsID.erase(contactID); // Directly modify contactsID
+    this->contactsID.erase(contactID); // Directly modify contactsID
 }
 
 void User::removeStory(int storyID) {
-    storiesID.erase(storyID); // Directly modify storiesID
+    this->storiesID.erase(storyID); // Directly modify storiesID
 }
 
 void User::removeChatRoomID(int chatRoomID) {
-    chatRoomsID.erase(chatRoomID); // Directly modify chatRoomsID
+    this->getChatRoomsID().erase(chatRoomID); // Directly modify chatRoomsID
 }
 
 bool User::isUserVisible() {
