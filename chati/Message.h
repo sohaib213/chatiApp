@@ -6,7 +6,7 @@ namespace chati {
     class Message {
         static int messagesCounter; // Static variable to keep track of message IDs
         int messageID;
-        int senderID;
+        string senderPhone;
         int chatID;
         string text;
         string dateSent;
@@ -18,12 +18,12 @@ namespace chati {
 
         // constructors
         Message();
-        Message(string text, int userID, int chatID, string dateSent, int hour, int minute, bool isRead);
+        Message(string text, string senderPhone, int chatID, string dateSent, int hour, int minute, bool isRead);
 
         // Getters
 		static int getMessageCounter();
         int getMessageID() const;
-        int getSenderID() const;
+        string getSenderPhone() const;
         int getChatID() const;
         string getText() const;
         string getDateSent() const;
@@ -35,7 +35,7 @@ namespace chati {
         // Setters
 		static void setMessageCounter(int count);
         void setMessageID(int id);
-        void setSenderID(int id);
+        void setSenderPhone(string senderPhone);
         void setChatID(int id);
         void setText(const string& txt);
         void setDateSent(const string& date);

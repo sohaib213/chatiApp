@@ -6,15 +6,14 @@ int User::userCounter = 10;
 
 // Default Constructor
 User::User(string mobileNumber, string password, string firstName, string lastName)
-    : mobileNumber(mobileNumber), password(password), firstName(firstName), lastName(lastName), userID(++userCounter) {
+    : mobileNumber(mobileNumber), password(password), firstName(firstName), lastName(lastName) {
     visible = true;  // Assuming users are visible by default
 }
 
 // Default Constructor
-User::User() : userID(++userCounter), visible(true) {}
+User::User() : visible(true) {}
 
 // Getters
-int User::getUserID() const { return userID; }
 string User::getMobileNumber() const { return mobileNumber; }
 string User::getPassword() const { return password; }
 string User::getFirstName() const { return firstName; }
@@ -22,12 +21,11 @@ string User::getLastName() const { return lastName; }
 string User::getProfilePhoto() const { return profilePhoto; }
 string User::getAbout() const { return about; }
 bool User::getVisible() const { return visible; }
-map<int, string> User::getContactsID() const { return contactsID; }
+map<string, string> User::getContactsPhones() const { return contactsPhone; }
 set<int> User::getStoriesID() const { return storiesID; }
 set<int> User::getChatRoomsID() const { return chatRoomsID; }
 
 // Setters
-void User::setUserID(int id) { userID = id; }
 void User::setMobileNumber(const string& mobile) { mobileNumber = mobile; }
 void User::setPassword(const string& pass) { password = pass; }
 void User::setFirstName(const string& fname) { firstName = fname; }
@@ -35,13 +33,13 @@ void User::setLastName(const string& lname) { lastName = lname; }
 void User::setProfilePhoto(const string& photo) { profilePhoto = photo; }
 void User::setAbout(const string& about) { this->about = about; }
 void User::setVisible(bool vis) { visible = vis; }
-void User::setContactsID(const map<int, string>& contacts) { contactsID = contacts; }
+void User::setContactsPhones(const map<string, string>& contactsPhone) { this->contactsPhone = contactsPhone; }
 void User::setStoriesID(const set<int>& stories) { storiesID = stories; }
 void User::setChatRoomsID(const set<int>& chatRooms) { chatRoomsID = chatRooms; }
 
 // Add/Remove Methods
-bool User::addContactID(int contactID,string contactName) {
-	return this->getContactsID().insert({ contactID, contactName }).second; // Directly modify contactsID
+bool User::addContactPhone(string contactPhone,string contactName) {
+	return this->contactsPhone.insert({ contactPhone, contactName }).second; // Directly modify contactsID
 }
 
 bool User::addStoryID(int storyID) {
@@ -52,8 +50,8 @@ bool User::addChatRoomID(int chatRoomID) {
     return this->chatRoomsID.insert(chatRoomID).second; // Directly modify chatRoomsID
 }
 
-void User::removeContactID(int contactID) {
-    this->contactsID.erase(contactID); // Directly modify contactsID
+void User::removeContactPhone(string contactPhone) {
+    this->contactsPhone.erase(contactPhone); // Directly modify contactsID
 }
 
 void User::removeStory(int storyID) {

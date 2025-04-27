@@ -4,11 +4,11 @@
 int Story::storyCounter = 0;
 
 // Default constructor
-Story::Story() : storyId(++storyCounter), userID(0), publishTime(time(nullptr)), storyPhoto(""), storyText("") {}
+Story::Story() : storyId(++storyCounter), userPhone(0), publishTime(time(nullptr)), storyPhoto(""), storyText("") {}
 
 // Parameterized constructor
-Story::Story(int userID, time_t publishTime, string storyText, string storyPhoto)
-    : userID(userID), publishTime(publishTime), storyText(storyText), storyPhoto(storyPhoto) {
+Story::Story(string userPhone, time_t publishTime, string storyText, string storyPhoto)
+    : userPhone(userPhone), publishTime(publishTime), storyText(storyText), storyPhoto(storyPhoto) {
     storyId = ++storyCounter;
 }
 
@@ -17,8 +17,8 @@ int Story::getStoryID() const {
     return storyId;
 }
 
-int Story::getUserID() const {
-    return userID;
+string Story::getUserPhone() const {
+	return userPhone;
 }
 
 time_t Story::getPublishTime() const {
@@ -38,8 +38,8 @@ void Story::setStoryID(const int& id) {
     storyId = id;
 }
 
-void Story::setUserID(const int& id) {
-    userID = id;
+void Story::setUserPhone(const string& userPhone) {
+    this->userPhone = userPhone;
 }
 
 void Story::setPublishTime(const time_t& time) {

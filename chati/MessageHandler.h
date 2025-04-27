@@ -35,7 +35,6 @@ public:
         for(auto& messageID : chatRoom->getMessagesID()) {
             createMessage(messagesContainer, messages[messageID]);
 		}
-
     }
 
    void createMessageEvent(RichTextBox^ textBox1, FlowLayoutPanel^ messagesContainer, User currentUser) {  
@@ -55,17 +54,25 @@ public:
 
 
            //? create the message to get the id directly (is better)
-		   chati::Message msg =  chati::Message(s,currentUser.getUserID(), globalChatRoom->getChatRoomID(), day.str(), stoi(hour.str()), stoi(minute.str()), false);
+		   chati::Message msg =  chati::Message(s ,currentUser.getMobileNumber(), globalChatRoom->getChatRoomID(), day.str(), stoi(hour.str()), stoi(minute.str()), false);
            // Fix: Use pointer dereference to access the map
 		   msg.setMessageID(chati::Message::getMessageCounter());
 		   chati::Message::incrementMessageCounter();
 
-		   (*globalMessages)[msg.getMessageID()] = msg; 
+
+
+           (*globalMessages)[msg.getMessageID()] = msg;
+
+
            globalChatRoom->addMessageID(msg.getMessageID());
-           // Fix: Pass the dereferenced map to the createMessage function  
+           // Fix: Pass the dereferenced map to the createMessage function 
+           
+
            createMessage(messagesContainer, (*globalMessages)[msg.getMessageID()]);
+
            textBox1->Clear();
 		   textBox1->Focus();
+
        }  
    }
 
@@ -121,7 +128,7 @@ public:
 		}
 
 
-        if(m.getSenderID() == currentUser->getUserID()) {
+        if(m.getSenderPhone() == currentUser->getMobileNumber()) {
             messagePanel->BackColor = Color::FromArgb(55, 128, 82);
             messagePanel->MouseDown += gcnew MouseEventHandler(this, &MessageHandler::messageRightClick); // Fix: Use 'this' to bind the delegate to the managed class
             newLabel->MouseDown += gcnew MouseEventHandler(this, &MessageHandler::messageRightClick); // Fix: Use 'this' to bind the delegate to the managed class
@@ -138,7 +145,7 @@ public:
 
         messagePanel->Controls->Add(newLabel);
         messagePanel->Controls->Add(timeLabel);
-        if(m.getSenderID() == currentUser->getUserID())
+        if(m.getSenderPhone() == currentUser->getMobileNumber())
             messagePanel->Controls->Add(seenPicture);
 
 
@@ -149,7 +156,7 @@ public:
         timeLabel->Location = Point(messagePanel->Width,  messagePanel->Height - 20);
 		seenPicture->Location = Point(messagePanel->Width - 10, messagePanel->Height - 20);
 
-        if (m.getSenderID() != currentUser->getUserID())
+        if (m.getSenderPhone() != currentUser->getMobileNumber())
         {
             messagePanel->Margin = Padding(1480 - messagePanel->Width, 3, 3, 3);
 			messagePanel->Anchor = AnchorStyles::Left;

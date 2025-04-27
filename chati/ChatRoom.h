@@ -10,33 +10,37 @@ using namespace std;
 class ChatRoom {
 	static int chatRoomCounter; // Static variable to keep track of chat room IDs
     int chatRoomID;
-    vector<int> usersID;
+    vector<string> usersPhone;
     set<int> messagesID;
     bool isDual;
 
 public:
     // constructors
     ChatRoom();
-    ChatRoom(int id);
-    ChatRoom(int id, bool isDual);
+    ChatRoom(bool isDual);
 
     // Getters
+    static int getChatRoomsCounter();
     int getChatRoomID() const;
-    vector<int> getUsersID() const;
+    vector<string> getUsersID() const;
     set<int> getMessagesID() const;
     bool getIsDual() const;
 
     // Setters
+    static void setChatRoomsCounter(int count);
     void setChatRoomID(int id);
-    void setUsersID(const vector<int>& users);
+    void setUsersID(const vector<string>& users);
     void setMessagesID(const set<int>& messages);
     void setIsDual(bool dual);
 
 	// Add Delete Methods
-	void addUserID(int userID);
+	void addUserPhone(string userID);
 	void addMessageID(int messageID);
-	void deleteUserID(int userID);
+	void deleteUserPhone(string userID);
 	void deleteMessageID(int messageID);
+
+    static void incrementChatRoomsCounter();
+
 
 	//~ChatRoom();
 };

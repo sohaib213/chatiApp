@@ -28,7 +28,8 @@ static string readString(ifstream& in) {
 }
 
 
-static void writeStringVector(ofstream& out, int count, const vector<string> vec) {
+static void writeStringVector(ofstream& out, const vector<string> vec) {
+	int count = vec.size();
 	size_t len;
 	out.write(reinterpret_cast<char*>(&count), sizeof(count));
 	for (const string& s : vec) {
@@ -37,7 +38,9 @@ static void writeStringVector(ofstream& out, int count, const vector<string> vec
 		out.write(s.c_str(), len);
 	}
 }
-static void readStringVector(ifstream& in, vector<string>& vec) {
+static vector<string> readStringVector(ifstream& in) {
+
+	vector<string> vec;
 
 	string temp;
 	int contactCount;
@@ -50,6 +53,7 @@ static void readStringVector(ifstream& in, vector<string>& vec) {
 		in.read(&temp[0], len);
 		vec.push_back(temp);
 	}
+	return vec;
 }
 
 static void writeIntVector(ofstream& out, int count, const vector<int> vec) {
@@ -108,23 +112,24 @@ static set<int> readSet(ifstream& in) {
 	return s;
 }
 
-static void writeMap(ofstream& out, const map<int, string>& c) {
+static void writeMap(ofstream& out, const map<string, string>& c) {
 	int contactCount = c.size();
 	out.write(reinterpret_cast<char*>(&contactCount), sizeof(contactCount));
 	for (const auto& i : c) {
-		out.write(reinterpret_cast<const char*>(&i.first), sizeof(i.first));
+		
+		writeString(out, i.first);
 		writeString(out, i.second);
 	}
 }
-static map<int, string> readMap(ifstream& in) {
-	map<int, string> map;
+static map<string, string> readMap(ifstream& in) {
+	map<string, string> map;
 
 	int contactCount;
 	in.read(reinterpret_cast<char*>(&contactCount), sizeof(contactCount));
 	
 	for (int j = 0; j < contactCount; ++j) {
-		int temp;
-		in.read(reinterpret_cast<char*>(&temp), sizeof(temp));
+
+		string temp = readString(in);
 		string s = readString(in);
 		map[temp] = s;
 	}
@@ -154,8 +159,6 @@ static void saveToFile(map<string, User> users, unordered_map<int, ChatRoom> cha
 		const User u = pair.second;
 		size_t len;
 
-		int x = u.getUserID();
-		out.write(reinterpret_cast<const char*>(&x), sizeof(x));
 
 
 		writeString(out, u.getFirstName());
@@ -181,7 +184,7 @@ static void saveToFile(map<string, User> users, unordered_map<int, ChatRoom> cha
 
 
 
-		writeMap(out, u.getContactsID());
+		writeMap(out, u.getContactsPhones());
 
 		//out.write(reinterpret_cast<char*>(&contactCount), sizeof(contactCount));
 		//for (const string& s : u.contactsID) {
@@ -220,6 +223,8 @@ static void saveToFile(map<string, User> users, unordered_map<int, ChatRoom> cha
 	out.open("chatRooms.txt", ios::binary | ios::trunc);
 	if (!out) return;
 
+	int chatRoomsCounter = ChatRoom::getChatRoomsCounter();
+	out.write(reinterpret_cast<char*>(&chatRoomsCounter), sizeof(chatRoomsCounter));
 	int chatRoomCount = chatRooms.size();
 	out.write(reinterpret_cast<char*>(&chatRoomCount), sizeof(chatRoomCount));
 	for (const auto& pair : chatRooms) {
@@ -233,7 +238,7 @@ static void saveToFile(map<string, User> users, unordered_map<int, ChatRoom> cha
 		out.write(reinterpret_cast<const char*>(&x), sizeof(x));
 
 		int usersIDCount = c.getUsersID().size();
-		writeIntVector(out, usersIDCount, c.getUsersID());
+		writeStringVector(out, c.getUsersID());
 
 		int messagedCount = c.getMessagesID().size();
 		out.write(reinterpret_cast<char*>(&messagedCount), sizeof(messagedCount));
@@ -258,8 +263,7 @@ static void saveToFile(map<string, User> users, unordered_map<int, ChatRoom> cha
 		out.write(reinterpret_cast<const char*>(&x), sizeof(x));
 		x = m.getChatID();
 		out.write(reinterpret_cast<const char*>(&x), sizeof(x));
-		x = m.getSenderID();
-		out.write(reinterpret_cast<const char*>(&x), sizeof(x));
+		writeString(out, m.getSenderPhone());
 		writeString(out, m.getText());
 		writeString(out, m.getDateSent());
 		x = m.getHourSent();
@@ -283,6 +287,7 @@ static void loadFromFile(map<string, User>& users, unordered_map<int, ChatRoom>&
 		cout << "Could not open users file for reading." << endl;
 		return;
 	}
+
 	users.clear();
 	int userCount = 0;
 	in.read(reinterpret_cast<char*>(&userCount), sizeof(userCount));
@@ -290,8 +295,6 @@ static void loadFromFile(map<string, User>& users, unordered_map<int, ChatRoom>&
 		User u;
 
 		int x;
-		in.read(reinterpret_cast<char*>(&x), sizeof(x));
-		u.setUserID(x);
 
 		u.setFirstName(readString(in));
 		//in.read(reinterpret_cast<char*>(&len), sizeof(len));
@@ -320,7 +323,7 @@ static void loadFromFile(map<string, User>& users, unordered_map<int, ChatRoom>&
 		//u.password = temp;
 
 
-		u.setContactsID(readMap(in));
+		u.setContactsPhones(readMap(in));
 		//int contactCount;
 		//in.read(reinterpret_cast<char*>(&contactCount), sizeof(contactCount));
 		//for (int j = 0; j < contactCount; ++j) {
@@ -355,6 +358,7 @@ static void loadFromFile(map<string, User>& users, unordered_map<int, ChatRoom>&
 
 	in.close();
 
+
 	// load chatRooms from file
 	in.open("chatRooms.txt", ios::binary);
 
@@ -363,6 +367,9 @@ static void loadFromFile(map<string, User>& users, unordered_map<int, ChatRoom>&
 		return;
 	}
 	chatRooms.clear();
+	int chatRoomsCounter = 0;
+	in.read(reinterpret_cast<char*>(&chatRoomsCounter), sizeof(chatRoomsCounter));
+	ChatRoom::setChatRoomsCounter(chatRoomsCounter);
 	int chatRoomCount = 0;
 	in.read(reinterpret_cast<char*>(&chatRoomCount), sizeof(chatRoomCount));
 	for (int i = 0; i < chatRoomCount; ++i) {
@@ -377,8 +384,7 @@ static void loadFromFile(map<string, User>& users, unordered_map<int, ChatRoom>&
 		in.read(reinterpret_cast<char*>(&x), sizeof(x));
 		c.setIsDual(x);
 
-		int usesrsIDCount = c.getUsersID().size();
-		c.setUsersID(readIntVector(in));
+		c.setUsersID(readStringVector(in));
 
 		int temp;
 		int messagedCount;
@@ -394,6 +400,7 @@ static void loadFromFile(map<string, User>& users, unordered_map<int, ChatRoom>&
 	}
 	in.close();
 
+
 	// load messages from file
 	in.open("messages.txt", ios::binary);
 	if (!in) {
@@ -406,6 +413,8 @@ static void loadFromFile(map<string, User>& users, unordered_map<int, ChatRoom>&
 	chati::Message::setMessageCounter(messagesCounter);
 	int messageCount = 0;
 	in.read(reinterpret_cast<char*>(&messageCount), sizeof(messageCount));
+
+
 	for (int i = 0; i < messageCount; ++i) {
 		chati::Message m;
 		size_t len;
@@ -415,8 +424,9 @@ static void loadFromFile(map<string, User>& users, unordered_map<int, ChatRoom>&
 		m.setMessageID(x);
 		in.read(reinterpret_cast<char*>(&x), sizeof(x));
 		m.setChatID(x);
-		in.read(reinterpret_cast<char*>(&x), sizeof(x));
-		m.setSenderID(x);
+
+
+		m.setSenderPhone(readString(in));
 		m.setText(readString(in));
 		m.setDateSent(readString(in));
 		in.read(reinterpret_cast<char*>(&x), sizeof(x));
@@ -428,8 +438,12 @@ static void loadFromFile(map<string, User>& users, unordered_map<int, ChatRoom>&
 		m.setIsRead(is);
 
 
+
 		messages[m.getMessageID()] = m;
 
+
 	}
+
+
 	in.close();
 }

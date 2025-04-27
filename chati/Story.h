@@ -8,25 +8,25 @@ class Story {
 public:
     static int storyCounter; // Static variable to keep track of story IDs
     int storyId;             // Changed from string to int
-    int userID;
+    string userPhone;
     time_t publishTime;
     string storyPhoto;
     string storyText;
 
     // Constructors
     Story();
-    Story(int userID, time_t publishTime, string storyText, string storyPhoto = "");
+    Story(string userPhone, time_t publishTime, string storyText, string storyPhoto = "");
 
     // Getters
     int getStoryID() const;
-    int getUserID() const;
+    string getUserPhone() const;
     time_t getPublishTime() const;
     string getStoryPhoto() const;
     string getStoryText() const;
 
     // Setters
     void setStoryID(const int& storyId);
-    void setUserID(const int& id);
+    void setUserPhone(const string& userPhone);
     void setPublishTime(const time_t& time);
     void setStoryPhoto(const string& photo);
     void setStoryText(const string& text);

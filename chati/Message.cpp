@@ -4,10 +4,10 @@ namespace chati {
 
     int Message::messagesCounter = 0; // Definition with initialization
 
-    Message::Message() : messageID(0), senderID(0), chatID(0), isRead(false) {}
+    Message::Message() : messageID(0), senderPhone(""), chatID(0), isRead(false) {}
 
-    Message::Message(string text, int userID, int chatID, string dateSent, int hour, int minute, bool isRead)
-        : text(text), messageID(messageID), senderID(userID), chatID(chatID), dateSent(dateSent), hour(hour), minute(minute), isRead(isRead) {
+    Message::Message(string text, string senderPhone, int chatID, string dateSent, int hour, int minute, bool isRead)
+        : text(text), senderPhone(senderPhone), chatID(chatID), dateSent(dateSent), hour(hour), minute(minute), isRead(isRead) {
     }
 
     // Getters
@@ -16,7 +16,7 @@ namespace chati {
         return messagesCounter; // Increment and return the message counter
     }
     int Message::getMessageID() const { return messageID; }
-    int Message::getSenderID() const { return senderID; }
+    string Message::getSenderPhone() const { return senderPhone; }
     int Message::getChatID() const { return chatID; }
     string Message::getText() const { return text; }
     string Message::getDateSent() const { return dateSent; }
@@ -29,7 +29,7 @@ namespace chati {
         messagesCounter = messageCounter; // Set the message counter
     }
     void Message::setMessageID(int messageID) { this->messageID = messageID; }
-    void Message::setSenderID(int senderID) { this->senderID = senderID; }
+    void Message::setSenderPhone(string senderPhone) { this->senderPhone = senderPhone; }
     void Message::setChatID(int chatID) { this->chatID = chatID; }
     void Message::setText(const string& text) { this->text = text; }
     void Message::setDateSent(const string& dateSent) { this->dateSent = dateSent; }
