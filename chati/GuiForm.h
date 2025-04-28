@@ -17,7 +17,8 @@
 #include "ChatRoom.h"
 #include "Contact.h"
 #include "Story.h"
-#include "CreateChatRooms.h"
+#include "AddContact.h"
+#include "createChatRoomHandler.h"
 
 
 using namespace std;
@@ -32,6 +33,8 @@ unordered_map<int, long long> Activity;
 User *currentUser;
 ChatRoom *currentChatRoom;
 string currentContNum,currentContName;
+
+
 
 namespace chati {
 
@@ -51,6 +54,7 @@ namespace chati {
 	public ref class GuiForm : public System::Windows::Forms::Form
 	{
 	    MessageHandler handler;
+		createChatRoomHandler chatRoomHandler;
 
 		public:
 		GuiForm(void)
@@ -1230,13 +1234,17 @@ namespace chati {
 			//chatRooms[1] = *currentChatRoom;
 
 
-			//for(auto chatRoom: chatRooms){
-			//	cout << "chatRoom ID: " << chatRoom.first << endl;
-			//	cout << "userID: " << chatRoom.second.getUsersID()[0] << endl;
-			//}
+			for(auto chatRoom: chatRooms){
+				cout << "chatRoom ID: " << chatRoom.first << endl;
+				cout << "userID: " << chatRoom.second.getUsersID()[0] << endl;
+				for(auto m: chatRoom.second.getMessagesID()){
+					cout << "messageID: " << m << endl;
+					cout << "text: " << messages[m].getText() << endl;
+				}
+				cout << endl;
+			}
 
-			currentChatRoom = &chatRooms[1];
-
+			currentChatRoom = &chatRooms[5];
 
 
 
@@ -1272,8 +1280,28 @@ namespace chati {
 			//	}
 			//}
 
+			//createChatRoomHandler c(currentChatRoom, chatRooms, messagesContainer, currentUser, Activity);
 
-			handler.initializeChat(currentChatRoom, messagesContainer, messages,currentUser,Activity);
+			chatRoomHandler.activity = &Activity;
+			chatRoomHandler.chatRooms = &chatRooms;
+			chatRoomHandler.messages = &messages;
+			chatRoomHandler.currentChatRoom = &currentChatRoom;
+			chatRoomHandler.currentUser = currentUser;
+			chatRoomHandler.messagesContainer = messagesContainer;
+
+
+			handler.globalMessages = &messages;
+			handler.globalChatRoom = &currentChatRoom;
+			handler.currentUser = currentUser;
+			handler.messagesContainer = messagesContainer;
+
+
+			chatRoomHandler.messageHandler.globalMessages = &messages;
+			chatRoomHandler.messageHandler.globalChatRoom = &currentChatRoom;
+			chatRoomHandler.messageHandler.currentUser = currentUser;
+			chatRoomHandler.messageHandler.messagesContainer = messagesContainer;
+
+			handler.initializeChat(currentChatRoom, messagesContainer, messages, currentUser, Activity);
 		}
 
 		private: System::Void submit_but_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -1348,7 +1376,11 @@ namespace chati {
 				if (currentUser->getStoriesID().size() > 0) {
 					createUserStoryPanel();
 				}
-				handler.initializeChat(currentChatRoom, messagesContainer, messages, currentUser, Activity);
+				//for(auto chatRoom: currentUser->getChatRoomsID()){
+
+				//	handler.initializeChat(&chatRooms[chatRoom], messagesContainer, messages, currentUser, Activity);
+
+				//}
 				mainPanel->BringToFront();
 			}
 	
@@ -1357,10 +1389,7 @@ namespace chati {
 
 		private: System::Void sendButton_Click(System::Object^ sender, System::EventArgs^ e) {
 				handler.createMessageEvent(textBox1, messagesContainer, *currentUser, Activity,chatRoomsPanel,chatRooms);
-		}
-		private: System::Void textBox1_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
-			if (e->KeyCode == Keys::Enter) 
-				handler.createMessageEvent(textBox1, messagesContainer, *currentUser, Activity,chatRoomsPanel, chatRooms);
+				cout << "current ChatRoom ID From GUI FORM: " << currentChatRoom->getChatRoomID() << endl;
 		}
 			   
 		private: System::Void GuiForm_FormClosed(System::Object^ sender, System::Windows::Forms::FormClosedEventArgs^ e) {
@@ -1556,25 +1585,9 @@ namespace chati {
 
 
 			string contName = msclr::interop::marshal_as<std::string>(addContName_field->Text);
-			createRoom(currentContNum,contName,currentUser, addContName_field, addContNum_field, chatRooms, chatRoomsPanel,Activity,currentChatRoom);
+			chatRoomHandler.createRoom(currentContNum,contName,currentUser, addContName_field, addContNum_field, chatRooms, chatRoomsPanel,Activity, messagesContainer);
+			cout << "Current ChatRoom ID After Creating: " << currentChatRoom->getChatRoomID() << endl;
 			sortChatRooms(*currentUser, Activity, chatRooms, chatRoomsPanel);
-			/*addContact(currentUser, contName);
-			addContName_field->Clear();
-			addContNum_field->Clear();
-			MessageBox::Show("Contact added", "Success");
-
-
-			ChatRoom* chatRoom = new ChatRoom(true);
-
-			chatRoom->setChatRoomID(ChatRoom::getChatRoomsCounter());
-			ChatRoom::incrementChatRoomsCounter();
-
-			chatRoom->addUserPhone(currentUser->getMobileNumber());
-
-			chatRooms[chatRoom->getChatRoomID()] = *chatRoom;
-
-			int chatRoomID = chatRoom->getChatRoomID();
-			addChatRoomPanel(contName,chatRoomID, chatRoomsPanel);*/
 		}
 
 

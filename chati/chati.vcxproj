@@ -122,12 +122,13 @@
     <ClInclude Include="AddContact.h" />
     <ClInclude Include="ChatRoom.h" />
     <ClInclude Include="Contact.h" />
-    <ClInclude Include="CreateChatRooms.h" />
+    <ClInclude Include="createChatRoomHandler.h" />
     <ClInclude Include="GuiForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Message.h" />
     <ClInclude Include="MessageHandler.h" />
+    <ClInclude Include="Sort.h" />
     <ClInclude Include="Story.h" />
     <ClInclude Include="User.h" />
   </ItemGroup>
@@ -135,7 +136,6 @@
     <ClCompile Include="AddContact.cpp" />
     <ClCompile Include="chat.cpp" />
     <ClCompile Include="ChatRoom.cpp" />
-    <ClCompile Include="CreateChatRoom.cpp" />
     <ClCompile Include="GuiForm.cpp" />
     <ClCompile Include="Message.cpp" />
     <ClCompile Include="SaveLoadFiles.cpp" />

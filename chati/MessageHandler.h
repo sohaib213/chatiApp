@@ -6,20 +6,19 @@
 #include <ctime>
 #include <sstream>
 #include <iomanip>
-#include "CreateChatRooms.h"
+#include "User.h" // Keep this include
+#include "Sort.h"
 
-
-using namespace System;  
-using namespace System::Windows::Forms;  
+using namespace System;
+using namespace System::Windows::Forms;
 using namespace System::Drawing;
 
 
-
-ref class MessageHandler {  
+public ref class MessageHandler {  
 public:
 
     unordered_map<int, chati::Message>* globalMessages;
-    ChatRoom* globalChatRoom;
+    ChatRoom** globalChatRoom;
 	int messageIDToDelete;
 	Panel^ panelToDelete;
 	FlowLayoutPanel^ messagesContainer;
@@ -30,9 +29,7 @@ public:
 
 		cout << "Initializing chat..." << endl;
 
-		globalMessages = &messages;
-		globalChatRoom = chatRoom;
-		this->currentUser = currentUser;
+		messagesContainer->Controls->Clear();
 
 
         //// intialize map
@@ -40,6 +37,7 @@ public:
         //    int lastID = chatRoom->getLastMessageID();
         //    activity[chatRoom->getChatRoomID()] = lastID;
         //}
+
 
         for(auto& messageID : chatRoom->getMessagesID()) {
             createMessage(messagesContainer, messages[messageID]);
@@ -62,10 +60,9 @@ public:
            hour << put_time(now_tm, "%H"); 
            minute << put_time(now_tm, "%M"); 
 
-           
 
            //? create the message to get the id directly (is better)
-		   chati::Message msg =  chati::Message(s ,currentUser.getMobileNumber(), globalChatRoom->getChatRoomID(), day.str(), stoi(hour.str()), stoi(minute.str()), false);
+           chati::Message msg = chati::Message(s, currentUser.getMobileNumber(), (*globalChatRoom)->getChatRoomID(), day.str(), stoi(hour.str()), stoi(minute.str()), false);
            // Fix: Use pointer dereference to access the map
 		   msg.setMessageID(chati::Message::getMessageCounter());
 		   chati::Message::incrementMessageCounter();
@@ -77,12 +74,12 @@ public:
 
            //update when a new message is sent
            (*globalMessages)[msg.getMessageID()] = msg;
-           globalChatRoom->addMessageID(msg.getMessageID());
+           (*globalChatRoom)->addMessageID(msg.getMessageID());
 
            
 
 
-           globalChatRoom->addMessageID(msg.getMessageID());
+           (*globalChatRoom)->addMessageID(msg.getMessageID());
            // Fix: Pass the dereferenced map to the createMessage function 
            
 
@@ -101,7 +98,7 @@ public:
            // Get the number of milliseconds as integer
            long long milliseconds = value.count();
            
-           activity[globalChatRoom->getChatRoomID()] = milliseconds;
+           activity[(*globalChatRoom)->getChatRoomID()] = milliseconds;
 
            sortChatRooms(currentUser, activity, chatRooms, chatRoomsPanel);
        }  
@@ -109,6 +106,8 @@ public:
 
     void createMessage(FlowLayoutPanel^ messagesContainer, chati::Message m)
     {  
+
+        cout << "Chat room ID From MessageHandler: " << (*globalChatRoom)->getChatRoomID() << endl;
 
 		//? picture box for the profile photo 
 		//? Label for the sender name
@@ -262,14 +261,12 @@ public:
         contextMenu->Show(Control::MousePosition);
     }
 
-     void deleteMessage(Object^ sender, EventArgs^ e) {
+    void deleteMessage(Object^ sender, EventArgs^ e) {
 
          ToolStripMenuItem^ optionDelete = dynamic_cast<ToolStripMenuItem^>(sender);
 
 
-
-
-         globalChatRoom->deleteMessageID(messageIDToDelete);
+         (*globalChatRoom)->deleteMessageID(messageIDToDelete);
          int x = messageIDToDelete;
 		 globalMessages->erase(x);
          messagesContainer->Controls->Remove(panelToDelete);

@@ -14,6 +14,36 @@ Assembly System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=
 	hash=None, flags=None
 Assembly System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
 	hash=None, flags=None
+Class MessageHandler: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    std.unordered_map<int\,chati::Message\,std::hash<int>\,std::equal_to<int>\,std::allocator<std::pair<int const \,chati::Message> > >* globalMessages : Public
+    ChatRoom** globalChatRoom : Public
+    Int32 messageIDToDelete : Public
+    System.Windows.Forms.Panel panelToDelete : Public
+    System.Windows.Forms.FlowLayoutPanel messagesContainer : Public
+    User* currentUser : Public
+  Methods:
+    initializeChat(ChatRoom*, FlowLayoutPanel, unordered_map<int\,chati::Message\,std::hash<int>\,std::equal_to<int>\,std::allocator<std::pair<int const \,chati::Message> > >* IsImplicitlyDereferenced, User*, unordered_map<int\,__int64\,std::hash<int>\,std::equal_to<int>\,std::allocator<std::pair<int const \,__int64> > >* IsImplicitlyDereferenced): PrivateScope, Public, HideBySig
+    createMessageEvent(RichTextBox, FlowLayoutPanel, User*, unordered_map<int\,__int64\,std::hash<int>\,std::equal_to<int>\,std::allocator<std::pair<int const \,__int64> > >* IsImplicitlyDereferenced, FlowLayoutPanel, unordered_map<int\,ChatRoom\,std::hash<int>\,std::equal_to<int>\,std::allocator<std::pair<int const \,ChatRoom> > >* IsImplicitlyDereferenced): PrivateScope, Public, HideBySig
+    createMessage(FlowLayoutPanel, Message*): PrivateScope, Public, HideBySig
+    messageRightClick(Object, MouseEventArgs): PrivateScope, Public, HideBySig
+    messageOptions(Panel, Label, FlowLayoutPanel): PrivateScope, Public, HideBySig
+    deleteMessage(Object, EventArgs): PrivateScope, Public, HideBySig
+Class createChatRoomHandler: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    MessageHandler messageHandler IsByValue : Public, InitOnly
+    ChatRoom** currentChatRoom : Public
+    std.unordered_map<int\,ChatRoom\,std::hash<int>\,std::equal_to<int>\,std::allocator<std::pair<int const \,ChatRoom> > >* chatRooms : Public
+    System.Windows.Forms.FlowLayoutPanel messagesContainer : Public
+    User* currentUser : Public
+    std.unordered_map<int\,__int64\,std::hash<int>\,std::equal_to<int>\,std::allocator<std::pair<int const \,__int64> > >* activity : Public
+    std.unordered_map<int\,chati::Message\,std::hash<int>\,std::equal_to<int>\,std::allocator<std::pair<int const \,chati::Message> > >* messages : Public
+  Methods:
+    addChatRoomPanel(basic_string<char\,std::char_traits<char>\,std::allocator<char> >*, Int32, FlowLayoutPanel): PrivateScope, Public, HideBySig
+    onChatRoomButtonClick(Object, EventArgs): PrivateScope, Public, HideBySig
+    createRoom(basic_string<char\,std::char_traits<char>\,std::allocator<char> >*, basic_string<char\,std::char_traits<char>\,std::allocator<char> >*, User*, TextBox, TextBox, unordered_map<int\,ChatRoom\,std::hash<int>\,std::equal_to<int>\,std::allocator<std::pair<int const \,ChatRoom> > >* IsImplicitlyDereferenced, FlowLayoutPanel, unordered_map<int\,__int64\,std::hash<int>\,std::equal_to<int>\,std::allocator<std::pair<int const \,__int64> > >* IsImplicitlyDereferenced, FlowLayoutPanel): PrivateScope, Public, HideBySig
 Class chati.GuiForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
