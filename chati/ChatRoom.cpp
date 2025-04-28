@@ -34,10 +34,19 @@ void ChatRoom::deleteUserPhone(string userID) {
 void ChatRoom::addMessageID(int messageID) {
 	this->messagesID.insert(messageID);
 }
+int ChatRoom::getLastMessageID() const {
+	if (!messagesID.empty()) {
+		return *messagesID.rbegin(); 
+	}
+	return -1; 
+}
 void ChatRoom::deleteMessageID(int i) {
 	this->messagesID.erase(i);
 }
 
+bool ChatRoom::hasUser(string userPhone) const {
+	return find(usersPhone.begin(), usersPhone.end(), userPhone) != usersPhone.end();
+}
 
 void ChatRoom::incrementChatRoomsCounter() {
 	chatRoomCounter++; // Increment the message counter

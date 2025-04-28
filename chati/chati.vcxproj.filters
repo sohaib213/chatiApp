@@ -36,6 +36,12 @@
     <ClInclude Include="Contact.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CreateChatRooms.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AddContact.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="User.cpp">
@@ -63,6 +69,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AddContact.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CreateChatRoom.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

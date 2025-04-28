@@ -25,6 +25,7 @@ public:
     vector<string> getUsersID() const;
     set<int> getMessagesID() const;
     bool getIsDual() const;
+    int getLastMessageID() const;
 
     // Setters
     static void setChatRoomsCounter(int count);
@@ -41,6 +42,7 @@ public:
 
     static void incrementChatRoomsCounter();
 
+    bool hasUser(string userID) const;
 
 	//~ChatRoom();
 };

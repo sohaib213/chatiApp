@@ -6,6 +6,8 @@
 #include <ctime>
 #include <sstream>
 #include <iomanip>
+#include "CreateChatRooms.h"
+
 
 using namespace System;  
 using namespace System::Windows::Forms;  
@@ -24,7 +26,7 @@ public:
 	User* currentUser;
 
     void initializeChat(ChatRoom *chatRoom, FlowLayoutPanel^ messagesContainer, 
-        unordered_map<int, chati::Message>& messages, User *currentUser) {
+        unordered_map<int, chati::Message>& messages, User *currentUser, unordered_map<int, long long>& activity) {
 
 		cout << "Initializing chat..." << endl;
 
@@ -32,12 +34,21 @@ public:
 		globalChatRoom = chatRoom;
 		this->currentUser = currentUser;
 
+
+        //// intialize map
+        //if (!chatRoom->getMessagesID().empty()) {
+        //    int lastID = chatRoom->getLastMessageID();
+        //    activity[chatRoom->getChatRoomID()] = lastID;
+        //}
+
         for(auto& messageID : chatRoom->getMessagesID()) {
             createMessage(messagesContainer, messages[messageID]);
 		}
+
     }
 
-   void createMessageEvent(RichTextBox^ textBox1, FlowLayoutPanel^ messagesContainer, User currentUser) {  
+   void createMessageEvent(RichTextBox^ textBox1, FlowLayoutPanel^ messagesContainer, User currentUser, unordered_map<int, long long>& activity,
+       FlowLayoutPanel^ chatRoomsPanel, unordered_map<int, ChatRoom>& chatRooms) {
        if (textBox1->Text != "") {  
            string s = msclr::interop::marshal_as<string>(textBox1->Text);  
 
@@ -51,7 +62,7 @@ public:
            hour << put_time(now_tm, "%H"); 
            minute << put_time(now_tm, "%M"); 
 
-
+           
 
            //? create the message to get the id directly (is better)
 		   chati::Message msg =  chati::Message(s ,currentUser.getMobileNumber(), globalChatRoom->getChatRoomID(), day.str(), stoi(hour.str()), stoi(minute.str()), false);
@@ -64,6 +75,13 @@ public:
            (*globalMessages)[msg.getMessageID()] = msg;
 
 
+           //update when a new message is sent
+           (*globalMessages)[msg.getMessageID()] = msg;
+           globalChatRoom->addMessageID(msg.getMessageID());
+
+           
+
+
            globalChatRoom->addMessageID(msg.getMessageID());
            // Fix: Pass the dereferenced map to the createMessage function 
            
@@ -73,6 +91,19 @@ public:
            textBox1->Clear();
 		   textBox1->Focus();
 
+
+           auto now1 = std::chrono::system_clock::now();
+
+           // Convert it to milliseconds since epoch
+           auto now_ms = std::chrono::time_point_cast<std::chrono::milliseconds>(now1);
+           auto value = now_ms.time_since_epoch();
+
+           // Get the number of milliseconds as integer
+           long long milliseconds = value.count();
+           
+           activity[globalChatRoom->getChatRoomID()] = milliseconds;
+
+           sortChatRooms(currentUser, activity, chatRooms, chatRoomsPanel);
        }  
    }
 

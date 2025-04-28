@@ -119,8 +119,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AddContact.h" />
     <ClInclude Include="ChatRoom.h" />
     <ClInclude Include="Contact.h" />
+    <ClInclude Include="CreateChatRooms.h" />
     <ClInclude Include="GuiForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -133,6 +135,7 @@
     <ClCompile Include="AddContact.cpp" />
     <ClCompile Include="chat.cpp" />
     <ClCompile Include="ChatRoom.cpp" />
+    <ClCompile Include="CreateChatRoom.cpp" />
     <ClCompile Include="GuiForm.cpp" />
     <ClCompile Include="Message.cpp" />
     <ClCompile Include="SaveLoadFiles.cpp" />

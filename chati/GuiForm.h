@@ -14,10 +14,10 @@
 #include "MessageHandler.h"
 #include <unordered_map>
 #include "Message.h"
-#include "AddContact.cpp"
 #include "ChatRoom.h"
 #include "Contact.h"
 #include "Story.h"
+#include "CreateChatRooms.h"
 
 
 using namespace std;
@@ -28,9 +28,10 @@ unordered_map<int, ChatRoom> chatRooms;
 unordered_map<int, chati::Message> messages;
 unordered_map<int, Contact> contacts;
 unordered_map<int, Story> stories;
+unordered_map<int, long long> Activity;
 User *currentUser;
 ChatRoom *currentChatRoom;
-
+string currentContNum,currentContName;
 
 namespace chati {
 
@@ -1222,6 +1223,7 @@ namespace chati {
 			// will remove this later
 
 			currentUser = &users["01067700658"];
+			sortChatRooms(*currentUser, Activity, chatRooms, chatRoomsPanel);
 
 			//currentChatRoom = new ChatRoom(1, true);
 			//currentChatRoom->addUserPhone(currentUser->getMobileNumber());
@@ -1233,7 +1235,7 @@ namespace chati {
 			//	cout << "userID: " << chatRoom.second.getUsersID()[0] << endl;
 			//}
 
-			//currentChatRoom = &chatRooms[1];
+			currentChatRoom = &chatRooms[1];
 
 
 
@@ -1271,7 +1273,7 @@ namespace chati {
 			//}
 
 
-			//handler.initializeChat(currentChatRoom, messagesContainer, messages, currentUser);
+			handler.initializeChat(currentChatRoom, messagesContainer, messages,currentUser,Activity);
 		}
 
 		private: System::Void submit_but_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -1346,7 +1348,7 @@ namespace chati {
 				if (currentUser->getStoriesID().size() > 0) {
 					createUserStoryPanel();
 				}
-				handler.initializeChat(currentChatRoom, messagesContainer, messages, currentUser);
+				handler.initializeChat(currentChatRoom, messagesContainer, messages, currentUser, Activity);
 				mainPanel->BringToFront();
 			}
 	
@@ -1354,11 +1356,11 @@ namespace chati {
 
 
 		private: System::Void sendButton_Click(System::Object^ sender, System::EventArgs^ e) {
-				handler.createMessageEvent(textBox1, messagesContainer, *currentUser);
+				handler.createMessageEvent(textBox1, messagesContainer, *currentUser, Activity,chatRoomsPanel,chatRooms);
 		}
 		private: System::Void textBox1_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
 			if (e->KeyCode == Keys::Enter) 
-				handler.createMessageEvent(textBox1, messagesContainer, *currentUser);
+				handler.createMessageEvent(textBox1, messagesContainer, *currentUser, Activity,chatRoomsPanel, chatRooms);
 		}
 			   
 		private: System::Void GuiForm_FormClosed(System::Object^ sender, System::Windows::Forms::FormClosedEventArgs^ e) {
@@ -1539,8 +1541,9 @@ namespace chati {
 			}
 			else {
 
-				if (checkContactExist(contNum, users)) {
-					addContName_field->Text = gcnew System::String(showCurrentName().c_str());
+				if (checkContactExist(contNum, users, currentContName)) {
+					currentContNum = contNum;
+					addContName_field->Text = gcnew System::String(currentContName.c_str());
 				}
 				else {
 					MessageBox::Show("Contact does not exist", "Error");
@@ -1550,13 +1553,16 @@ namespace chati {
 		}
 
 		private: System::Void addContact_btn_Click(System::Object^ sender, System::EventArgs^ e) {
+
+
 			string contName = msclr::interop::marshal_as<std::string>(addContName_field->Text);
-			addContact(currentUser, contName);
+			createRoom(currentContNum,contName,currentUser, addContName_field, addContNum_field, chatRooms, chatRoomsPanel,Activity,currentChatRoom);
+			sortChatRooms(*currentUser, Activity, chatRooms, chatRoomsPanel);
+			/*addContact(currentUser, contName);
 			addContName_field->Clear();
 			addContNum_field->Clear();
 			MessageBox::Show("Contact added", "Success");
 
-			addChatRoomPanel(contName);
 
 			ChatRoom* chatRoom = new ChatRoom(true);
 
@@ -1566,31 +1572,11 @@ namespace chati {
 			chatRoom->addUserPhone(currentUser->getMobileNumber());
 
 			chatRooms[chatRoom->getChatRoomID()] = *chatRoom;
+
+			int chatRoomID = chatRoom->getChatRoomID();
+			addChatRoomPanel(contName,chatRoomID, chatRoomsPanel);*/
 		}
 
-		void addChatRoomPanel(string contName) {
-			Button^ chatRoomButton = gcnew Button();
-			chatRoomButton->BackColor = Color::Black;
-			chatRoomButton->Size = System::Drawing::Size(338, 100); // Set the size of the panel
-			chatRoomButton->Location = System::Drawing::Point(0, 0); // Set the location of the panel
-			
-
-			Label^ contactNameLabel = gcnew Label();
-			contactNameLabel->AutoSize = true;
-			contactNameLabel->BackColor = Color::Transparent;
-			contactNameLabel->Text = gcnew System::String(contName.c_str());
-			contactNameLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			contactNameLabel->ForeColor = Color::White;
-
-			chatRoomButton->Controls->Add(contactNameLabel);
-
-
-
-
-
-			chatRoomsPanel->Controls->Add(chatRoomButton);
-		}
 
 		//? /shehab
 		private: System::Void goToAddContact_btn_Click(System::Object^ sender, System::EventArgs^ e) {
