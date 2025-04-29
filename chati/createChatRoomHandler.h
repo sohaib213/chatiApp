@@ -23,12 +23,14 @@ public:
 
 	ChatRoom** currentChatRoom;
 	unordered_map<int, ChatRoom>* chatRooms;
-	FlowLayoutPanel^ messagesContainer;
+	Panel^ chatsContainer;
 	User* currentUser;
 	unordered_map<int, long long>* activity;
 	unordered_map<int, chati::Message>* messages;
+	//System::Collections::Generic::Dictionary<int, FlowLayoutPanel^>^% chatRoomsPanels;
+    System::Collections::Generic::Dictionary<int, FlowLayoutPanel^>^ chatRoomsPanels;
 
-	void addChatRoomPanel(string contName, int chatRoomID, FlowLayoutPanel^ chatRoomsPanel) {
+	void addChatRoomPanel(string contName, int chatRoomID, FlowLayoutPanel^ contactsPanel) {
 		Button^ chatRoomButton = gcnew Button();
 		chatRoomButton->BackColor = Color::Black;
 		chatRoomButton->Size = System::Drawing::Size(338, 100); // Set the size of the panel
@@ -46,30 +48,27 @@ public:
 		contactNameLabel->ForeColor = Color::White;
 
 		chatRoomButton->Controls->Add(contactNameLabel);
-		chatRoomsPanel->Controls->Add(chatRoomButton);
-		chatRoomsPanel->Refresh();
+		contactsPanel->Controls->Add(chatRoomButton);
 	}
 
 
     void onChatRoomButtonClick(Object^ sender, EventArgs^ e) {
         Button^ chatRoom = dynamic_cast<Button^>(sender);
 
-        // Convert the managed Tag property to a native integer
         int chatRoomID = safe_cast<int>(chatRoom->Tag);
 
-        // Output the chat room ID
-
-        // Fix: Use the address-of operator to get a pointer to the ChatRoom object
-		
 		*currentChatRoom = &(*chatRooms)[chatRoomID];
-		messageHandler.initializeChat(*currentChatRoom, messagesContainer, *messages, currentUser, *activity);
 
-		cout << "Chat room ID From CreateChatRoom: " << (*currentChatRoom)->getChatRoomID() << endl;
+		cout << "Current Chat Room ID" << (*currentChatRoom)->getChatRoomID() << endl;
+
+		chatRoomsPanels[chatRoomID]->BringToFront();
+
+		cout << chatRoomsPanels->Values->Count << endl;
     }
 
 
 	void createRoom(string currentNum, string contName, User* currentUser, TextBox^ addContName_field, TextBox^ addContNum_field,
-		unordered_map<int, ChatRoom>& chatRooms, FlowLayoutPanel^ chatRoomsPanel, unordered_map<int, long long>& activity, FlowLayoutPanel^ messagesContainer) {
+		unordered_map<int, ChatRoom>& chatRooms, FlowLayoutPanel^ chatRoomsPanel, unordered_map<int, long long>& activity, Panel^ messagesContainer) {
 
 		addCont(currentUser, contName, currentNum);
 		addContName_field->Clear();
@@ -77,18 +76,27 @@ public:
 		MessageBox::Show("Contact added", "Success");
 
 
-
 		ChatRoom* chatRoom = new ChatRoom(true);
 
 		chatRoom->setChatRoomID(ChatRoom::getChatRoomsCounter());
 		ChatRoom::incrementChatRoomsCounter();
 
+
+		createChatRoomGUI(chatRoom->getChatRoomID(), messagesContainer);
+
+
 		chatRoom->addUserPhone(currentUser->getMobileNumber());
+		chatRoom->addUserPhone(contName);
+
 
 		chatRooms[chatRoom->getChatRoomID()] = *chatRoom;
 
+
 		int chatRoomID = chatRoom->getChatRoomID();
 		addChatRoomPanel(contName, chatRoomID, chatRoomsPanel);
+
+
+		currentUser->addChatRoomID(chatRoomID);
 
 		auto now = std::chrono::system_clock::now();
 
@@ -100,56 +108,29 @@ public:
 		long long milliseconds = value.count();
 
 		activity[chatRoomID] = milliseconds;
+		cout << "TESTING 3" << endl;
 
 	}
 
+	FlowLayoutPanel^ createChatRoomGUI(int chatRoomID, Panel^ chatsContainer) {
+		FlowLayoutPanel^ chatRoomPanel = gcnew FlowLayoutPanel();
+		chatRoomPanel->Name = gcnew System::String(std::to_string(chatRoomID).c_str());
+		chatRoomPanel->BackColor = Color::Transparent;
+		chatRoomPanel->AutoScroll = true;
+		chatRoomPanel->Dock = System::Windows::Forms::DockStyle::Fill;
+		chatRoomPanel->FlowDirection = System::Windows::Forms::FlowDirection::BottomUp;
+		chatRoomPanel->Location = System::Drawing::Point(0, 0);
+		chatRoomPanel->Padding = System::Windows::Forms::Padding(2);
+		chatRoomPanel->RightToLeft = System::Windows::Forms::RightToLeft::Yes;
+		chatRoomPanel->Size = System::Drawing::Size(1479, 995);
+		chatRoomPanel->TabIndex = 2;
+		chatRoomPanel->WrapContents = false;
+		chatsContainer->Controls->Add(chatRoomPanel);
+		chatRoomPanel->SendToBack();
 
-	//void sortChatRooms(User currentUser, unordered_map<int, long long>& activity,
-	//	const unordered_map<int, ChatRoom>& chatRooms, FlowLayoutPanel^ chatRoomsPanel) {
+		chatRoomsPanels[chatRoomID] = chatRoomPanel;
 
-	//	
+		return chatRoomPanel;
 
-	//	cout << "called - map size: " << activity.size() << endl;
-
-	//	vector<pair<int, int>> userChatRooms;
-
-	//	push chatrooms that current user is a member of 
-	//	for (auto& chatRoom : activity) {
-	//		if (chatRooms.at(chatRoom.first).hasUser(currentUser.getMobileNumber())) {
-	//			userChatRooms.push_back({ chatRoom.first, chatRoom.second });
-	//		}
-	//	}
-
-	//	sort the chat rooms based on the last message ID
-	//	for (int i = 0; i < userChatRooms.size(); ++i) {
-	//		for (int j = i + 1; j < userChatRooms.size(); ++j) {
-	//			if (userChatRooms[i].second < userChatRooms[j].second) {
-	//				swap(userChatRooms[i], userChatRooms[j]);
-	//			}
-	//		}
-	//	}
-
-	//	List to store buttons
-	//	List<Control^>^ buttons = gcnew List<Control^>();
-
-
-	//	 Find buttons in chatRoomsPanel that match the chat room IDs
-	//	for (auto& room : userChatRooms) {
-	//		for each (Control ^ control in chatRoomsPanel->Controls) {
-	//			Button^ button = dynamic_cast<Button^>(control);
-	//			if (button != nullptr && button->Tag != nullptr && safe_cast<int>(button->Tag) == room.first) {
-	//				buttons->Add(button);
-	//				break;
-	//			}
-	//		}
-	//	}
-
-	//	 Clear the chatRoomsPanel and add the sorted buttons
-	//	chatRoomsPanel->SuspendLayout();
-	//	chatRoomsPanel->Controls->Clear();
-	//	for each (Control ^ button in buttons) {
-	//		chatRoomsPanel->Controls->Add(button);
-	//	}
-	//	chatRoomsPanel->ResumeLayout();
-	//}
+	}
 };

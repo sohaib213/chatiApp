@@ -53,6 +53,7 @@ namespace chati {
 	/// </summary>
 	public ref class GuiForm : public System::Windows::Forms::Form
 	{
+		System::Collections::Generic::Dictionary<int, FlowLayoutPanel^>^ chatRoomsPanels = gcnew System::Collections::Generic::Dictionary<int, FlowLayoutPanel^>();
 	    MessageHandler handler;
 		createChatRoomHandler chatRoomHandler;
 
@@ -123,16 +124,21 @@ namespace chati {
 		private: System::Windows::Forms::Panel^ profilePanel;
 		private: System::Windows::Forms::Panel^ chatPnl;
 		private: System::Windows::Forms::Panel^ currentCahtPanel;
-		private: System::Windows::Forms::Panel^ panel2;
-		private: System::Windows::Forms::FlowLayoutPanel^ messagesContainer;
-		private: System::Windows::Forms::PictureBox^ pictureBox1;
+		private: System::Windows::Forms::Panel^ chatsContainer;
+
+
+
+
+
+
 		private: System::Windows::Forms::Panel^ panel1;
 		private: System::Windows::Forms::Button^ sendButton;
 
 
 
 		private: System::Windows::Forms::Label^ label1;
-		private: System::Windows::Forms::FlowLayoutPanel^ chatRoomsPanel;
+	private: System::Windows::Forms::FlowLayoutPanel^ contactsPanel;
+
 		private: System::Windows::Forms::FlowLayoutPanel^ allStoriesPanel;
 		private: System::Windows::Forms::Panel^ stotyHeaderPanel;
 		private: System::Windows::Forms::Button^ button2;
@@ -251,13 +257,11 @@ namespace chati {
 			this->mainPanel = (gcnew System::Windows::Forms::Panel());
 			this->chatPnl = (gcnew System::Windows::Forms::Panel());
 			this->currentCahtPanel = (gcnew System::Windows::Forms::Panel());
-			this->panel2 = (gcnew System::Windows::Forms::Panel());
-			this->messagesContainer = (gcnew System::Windows::Forms::FlowLayoutPanel());
-			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
+			this->chatsContainer = (gcnew System::Windows::Forms::Panel());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->textBox1 = (gcnew System::Windows::Forms::RichTextBox());
 			this->sendButton = (gcnew System::Windows::Forms::Button());
-			this->chatRoomsPanel = (gcnew System::Windows::Forms::FlowLayoutPanel());
+			this->contactsPanel = (gcnew System::Windows::Forms::FlowLayoutPanel());
 			this->storyPanel = (gcnew System::Windows::Forms::Panel());
 			this->allStoriesPanel = (gcnew System::Windows::Forms::FlowLayoutPanel());
 			this->stotyHeaderPanel = (gcnew System::Windows::Forms::Panel());
@@ -301,8 +305,6 @@ namespace chati {
 			this->mainPanel->SuspendLayout();
 			this->chatPnl->SuspendLayout();
 			this->currentCahtPanel->SuspendLayout();
-			this->panel2->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->panel1->SuspendLayout();
 			this->storyPanel->SuspendLayout();
 			this->stotyHeaderPanel->SuspendLayout();
@@ -610,7 +612,7 @@ namespace chati {
 			// chatPnl
 			// 
 			this->chatPnl->Controls->Add(this->currentCahtPanel);
-			this->chatPnl->Controls->Add(this->chatRoomsPanel);
+			this->chatPnl->Controls->Add(this->contactsPanel);
 			this->chatPnl->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->chatPnl->Location = System::Drawing::Point(87, 0);
 			this->chatPnl->Name = L"chatPnl";
@@ -620,7 +622,7 @@ namespace chati {
 			// currentCahtPanel
 			// 
 			this->currentCahtPanel->BackColor = System::Drawing::Color::RosyBrown;
-			this->currentCahtPanel->Controls->Add(this->panel2);
+			this->currentCahtPanel->Controls->Add(this->chatsContainer);
 			this->currentCahtPanel->Controls->Add(this->panel1);
 			this->currentCahtPanel->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->currentCahtPanel->Location = System::Drawing::Point(338, 0);
@@ -628,47 +630,15 @@ namespace chati {
 			this->currentCahtPanel->Size = System::Drawing::Size(1479, 1041);
 			this->currentCahtPanel->TabIndex = 7;
 			// 
-			// panel2
+			// chatsContainer
 			// 
-			this->panel2->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)),
-				static_cast<System::Int32>(static_cast<System::Byte>(45)));
-			this->panel2->Controls->Add(this->messagesContainer);
-			this->panel2->Controls->Add(this->pictureBox1);
-			this->panel2->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->panel2->Location = System::Drawing::Point(0, 0);
-			this->panel2->Name = L"panel2";
-			this->panel2->Size = System::Drawing::Size(1479, 995);
-			this->panel2->TabIndex = 14;
-			// 
-			// messagesContainer
-			// 
-			this->messagesContainer->AutoScroll = true;
-			this->messagesContainer->AutoSize = true;
-			this->messagesContainer->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(60)),
-				static_cast<System::Int32>(static_cast<System::Byte>(60)), static_cast<System::Int32>(static_cast<System::Byte>(60)));
-			this->messagesContainer->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->messagesContainer->FlowDirection = System::Windows::Forms::FlowDirection::BottomUp;
-			this->messagesContainer->Location = System::Drawing::Point(0, 0);
-			this->messagesContainer->Name = L"messagesContainer";
-			this->messagesContainer->Padding = System::Windows::Forms::Padding(2);
-			this->messagesContainer->RightToLeft = System::Windows::Forms::RightToLeft::Yes;
-			this->messagesContainer->Size = System::Drawing::Size(1479, 995);
-			this->messagesContainer->TabIndex = 2;
-			this->messagesContainer->WrapContents = false;
-			// 
-			// pictureBox1
-			// 
-			this->pictureBox1->BackColor = System::Drawing::Color::Transparent;
-			this->pictureBox1->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->pictureBox1->ErrorImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.ErrorImage")));
-			this->pictureBox1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
-			this->pictureBox1->InitialImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.InitialImage")));
-			this->pictureBox1->Location = System::Drawing::Point(0, 0);
-			this->pictureBox1->Name = L"pictureBox1";
-			this->pictureBox1->Size = System::Drawing::Size(1479, 995);
-			this->pictureBox1->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
-			this->pictureBox1->TabIndex = 12;
-			this->pictureBox1->TabStop = false;
+			this->chatsContainer->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(60)), static_cast<System::Int32>(static_cast<System::Byte>(60)),
+				static_cast<System::Int32>(static_cast<System::Byte>(60)));
+			this->chatsContainer->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->chatsContainer->Location = System::Drawing::Point(0, 0);
+			this->chatsContainer->Name = L"chatsContainer";
+			this->chatsContainer->Size = System::Drawing::Size(1479, 995);
+			this->chatsContainer->TabIndex = 14;
 			// 
 			// panel1
 			// 
@@ -709,15 +679,15 @@ namespace chati {
 			this->sendButton->UseVisualStyleBackColor = true;
 			this->sendButton->Click += gcnew System::EventHandler(this, &GuiForm::sendButton_Click);
 			// 
-			// chatRoomsPanel
+			// contactsPanel
 			// 
-			this->chatRoomsPanel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)),
+			this->contactsPanel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)),
 				static_cast<System::Int32>(static_cast<System::Byte>(45)));
-			this->chatRoomsPanel->Dock = System::Windows::Forms::DockStyle::Left;
-			this->chatRoomsPanel->Location = System::Drawing::Point(0, 0);
-			this->chatRoomsPanel->Name = L"chatRoomsPanel";
-			this->chatRoomsPanel->Size = System::Drawing::Size(338, 1041);
-			this->chatRoomsPanel->TabIndex = 2;
+			this->contactsPanel->Dock = System::Windows::Forms::DockStyle::Left;
+			this->contactsPanel->Location = System::Drawing::Point(0, 0);
+			this->contactsPanel->Name = L"contactsPanel";
+			this->contactsPanel->Size = System::Drawing::Size(338, 1041);
+			this->contactsPanel->TabIndex = 2;
 			// 
 			// storyPanel
 			// 
@@ -1168,12 +1138,12 @@ namespace chati {
 			// 
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
 			this->ClientSize = System::Drawing::Size(1904, 1041);
-			this->Controls->Add(this->mainPanel);
-			this->Controls->Add(this->signUp_pnl);
 			this->Controls->Add(this->signIn_pnl);
+			this->Controls->Add(this->signUp_pnl);
+			this->Controls->Add(this->mainPanel);
+			this->Controls->Add(this->getStoryPanel);
 			this->Controls->Add(this->First_pnl);
 			this->Controls->Add(this->addStoryPanel);
-			this->Controls->Add(this->getStoryPanel);
 			this->Margin = System::Windows::Forms::Padding(4);
 			this->Name = L"GuiForm";
 			this->Text = L"chatApp";
@@ -1188,9 +1158,6 @@ namespace chati {
 			this->mainPanel->ResumeLayout(false);
 			this->chatPnl->ResumeLayout(false);
 			this->currentCahtPanel->ResumeLayout(false);
-			this->panel2->ResumeLayout(false);
-			this->panel2->PerformLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			this->panel1->ResumeLayout(false);
 			this->storyPanel->ResumeLayout(false);
 			this->stotyHeaderPanel->ResumeLayout(false);
@@ -1226,8 +1193,7 @@ namespace chati {
 
 			// will remove this later
 
-			currentUser = &users["01067700658"];
-			sortChatRooms(*currentUser, Activity, chatRooms, chatRoomsPanel);
+			//sortChatRooms(*currentUser, Activity, chatRooms, contactsPanel);
 
 			//currentChatRoom = new ChatRoom(1, true);
 			//currentChatRoom->addUserPhone(currentUser->getMobileNumber());
@@ -1244,7 +1210,6 @@ namespace chati {
 				cout << endl;
 			}
 
-			currentChatRoom = &chatRooms[5];
 
 
 
@@ -1253,7 +1218,8 @@ namespace chati {
 			//	cout << "text: " << messages[m].getText() << endl;
 			//}
 			//cout << endl;
-			
+			//
+			// 
 			//for (auto m : messages) {
 
 			//	cout << "messageID: " << m.first << " : " << m.second.getIsRead() << endl;
@@ -1287,21 +1253,22 @@ namespace chati {
 			chatRoomHandler.messages = &messages;
 			chatRoomHandler.currentChatRoom = &currentChatRoom;
 			chatRoomHandler.currentUser = currentUser;
-			chatRoomHandler.messagesContainer = messagesContainer;
+			chatRoomHandler.chatsContainer = chatsContainer;
+			chatRoomHandler.chatRoomsPanels = chatRoomsPanels;
 
 
 			handler.globalMessages = &messages;
-			handler.globalChatRoom = &currentChatRoom;
+			handler.globalChatRoom = currentChatRoom;
 			handler.currentUser = currentUser;
-			handler.messagesContainer = messagesContainer;
+			handler.messagesContainer = chatsContainer;
 
 
 			chatRoomHandler.messageHandler.globalMessages = &messages;
-			chatRoomHandler.messageHandler.globalChatRoom = &currentChatRoom;
+			chatRoomHandler.messageHandler.globalChatRoom = currentChatRoom;
 			chatRoomHandler.messageHandler.currentUser = currentUser;
-			chatRoomHandler.messageHandler.messagesContainer = messagesContainer;
+			chatRoomHandler.messageHandler.messagesContainer = chatsContainer;
 
-			handler.initializeChat(currentChatRoom, messagesContainer, messages, currentUser, Activity);
+			//handler.initializeChat(currentChatRoom, messagesContainer, messages, currentUser, Activity);
 		}
 
 		private: System::Void submit_but_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -1376,20 +1343,26 @@ namespace chati {
 				if (currentUser->getStoriesID().size() > 0) {
 					createUserStoryPanel();
 				}
-				//for(auto chatRoom: currentUser->getChatRoomsID()){
 
-				//	handler.initializeChat(&chatRooms[chatRoom], messagesContainer, messages, currentUser, Activity);
+				for(int chatRoom: currentUser->getChatRoomsID()){
 
-				//}
+					FlowLayoutPanel^ chatRoomPanel = chatRoomHandler.createChatRoomGUI(chatRoom, chatsContainer);
+
+					handler.initializeChat(&chatRooms[chatRoom], chatRoomPanel, messages, currentUser, Activity);
+					chatRoomHandler.addChatRoomPanel(chatRooms[chatRoom].getUsersID()[1], chatRoom, contactsPanel);
+				}
 				mainPanel->BringToFront();
+
+				
 			}
 	
 		}
 
 
 		private: System::Void sendButton_Click(System::Object^ sender, System::EventArgs^ e) {
-				handler.createMessageEvent(textBox1, messagesContainer, *currentUser, Activity,chatRoomsPanel,chatRooms);
-				cout << "current ChatRoom ID From GUI FORM: " << currentChatRoom->getChatRoomID() << endl;
+			cout << "HERE IN SEND BUTTON" << endl;
+			handler.createMessageEvent(textBox1, chatRoomsPanels[currentChatRoom->getChatRoomID()], currentUser, Activity, contactsPanel, chatRooms, currentChatRoom);
+			cout << "current ChatRoom ID From GUI FORM: " << currentChatRoom->getChatRoomID() << endl;
 		}
 			   
 		private: System::Void GuiForm_FormClosed(System::Object^ sender, System::Windows::Forms::FormClosedEventArgs^ e) {
@@ -1585,9 +1558,8 @@ namespace chati {
 
 
 			string contName = msclr::interop::marshal_as<std::string>(addContName_field->Text);
-			chatRoomHandler.createRoom(currentContNum,contName,currentUser, addContName_field, addContNum_field, chatRooms, chatRoomsPanel,Activity, messagesContainer);
-			cout << "Current ChatRoom ID After Creating: " << currentChatRoom->getChatRoomID() << endl;
-			sortChatRooms(*currentUser, Activity, chatRooms, chatRoomsPanel);
+			chatRoomHandler.createRoom(currentContNum,contName,currentUser, addContName_field, addContNum_field, chatRooms, contactsPanel,Activity, chatsContainer);
+			sortChatRooms(*currentUser, Activity, chatRooms, contactsPanel);
 		}
 
 

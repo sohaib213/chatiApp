@@ -18,10 +18,10 @@ public ref class MessageHandler {
 public:
 
     unordered_map<int, chati::Message>* globalMessages;
-    ChatRoom** globalChatRoom;
+    ChatRoom* globalChatRoom;
 	int messageIDToDelete;
 	Panel^ panelToDelete;
-	FlowLayoutPanel^ messagesContainer;
+	Panel^ messagesContainer;
 	User* currentUser;
 
     void initializeChat(ChatRoom *chatRoom, FlowLayoutPanel^ messagesContainer, 
@@ -40,16 +40,17 @@ public:
 
 
         for(auto& messageID : chatRoom->getMessagesID()) {
-            createMessage(messagesContainer, messages[messageID]);
+            createMessage(messagesContainer, messages[messageID], chatRoom, currentUser);
 		}
 
     }
 
-   void createMessageEvent(RichTextBox^ textBox1, FlowLayoutPanel^ messagesContainer, User currentUser, unordered_map<int, long long>& activity,
-       FlowLayoutPanel^ chatRoomsPanel, unordered_map<int, ChatRoom>& chatRooms) {
+   void createMessageEvent(RichTextBox^ textBox1, FlowLayoutPanel^ messagesContainer, User *currentUser, unordered_map<int, long long>& activity,
+       FlowLayoutPanel^ chatRoomsPanel, unordered_map<int, ChatRoom>& chatRooms, ChatRoom* currentChatRoom) {
        if (textBox1->Text != "") {  
            string s = msclr::interop::marshal_as<string>(textBox1->Text);  
 
+		   globalChatRoom = currentChatRoom;
 
            auto now = chrono::system_clock::now();  
            time_t now_time_t = chrono::system_clock::to_time_t(now);  
@@ -62,11 +63,10 @@ public:
 
 
            //? create the message to get the id directly (is better)
-           chati::Message msg = chati::Message(s, currentUser.getMobileNumber(), (*globalChatRoom)->getChatRoomID(), day.str(), stoi(hour.str()), stoi(minute.str()), false);
+           chati::Message msg = chati::Message(s, currentUser->getMobileNumber(), globalChatRoom->getChatRoomID(), day.str(), stoi(hour.str()), stoi(minute.str()), false);
            // Fix: Use pointer dereference to access the map
 		   msg.setMessageID(chati::Message::getMessageCounter());
 		   chati::Message::incrementMessageCounter();
-
 
 
            (*globalMessages)[msg.getMessageID()] = msg;
@@ -74,16 +74,16 @@ public:
 
            //update when a new message is sent
            (*globalMessages)[msg.getMessageID()] = msg;
-           (*globalChatRoom)->addMessageID(msg.getMessageID());
+           globalChatRoom->addMessageID(msg.getMessageID());
 
            
 
 
-           (*globalChatRoom)->addMessageID(msg.getMessageID());
+           globalChatRoom->addMessageID(msg.getMessageID());
            // Fix: Pass the dereferenced map to the createMessage function 
            
 
-           createMessage(messagesContainer, (*globalMessages)[msg.getMessageID()]);
+           createMessage(messagesContainer, (*globalMessages)[msg.getMessageID()], currentChatRoom, currentUser);
 
            textBox1->Clear();
 		   textBox1->Focus();
@@ -98,16 +98,18 @@ public:
            // Get the number of milliseconds as integer
            long long milliseconds = value.count();
            
-           activity[(*globalChatRoom)->getChatRoomID()] = milliseconds;
+           activity[globalChatRoom->getChatRoomID()] = milliseconds;
 
-           sortChatRooms(currentUser, activity, chatRooms, chatRoomsPanel);
+           sortChatRooms(*currentUser, activity, chatRooms, chatRoomsPanel);
        }  
    }
 
-    void createMessage(FlowLayoutPanel^ messagesContainer, chati::Message m)
+    void createMessage(FlowLayoutPanel^ messagesContainer, chati::Message m, ChatRoom* currentChatRoom, User* currentUser)
     {  
 
-        cout << "Chat room ID From MessageHandler: " << (*globalChatRoom)->getChatRoomID() << endl;
+        globalChatRoom = currentChatRoom;
+
+        cout << "Chat room ID From MessageHandler: " << globalChatRoom->getChatRoomID() << endl;
 
 		//? picture box for the profile photo 
 		//? Label for the sender name
@@ -158,6 +160,7 @@ public:
 		}
 
 
+        cout << "TEST 1\n";
         if(m.getSenderPhone() == currentUser->getMobileNumber()) {
             messagePanel->BackColor = Color::FromArgb(55, 128, 82);
             messagePanel->MouseDown += gcnew MouseEventHandler(this, &MessageHandler::messageRightClick); // Fix: Use 'this' to bind the delegate to the managed class
@@ -166,6 +169,8 @@ public:
             messagePanel->BackColor = Color::Gray;
 
 		}
+        cout << "TEST 2\n";
+
         messagePanel->Padding = Padding(5);
         messagePanel->Margin = Padding(5);        
         messagePanel->BorderStyle = BorderStyle::FixedSingle;
@@ -266,7 +271,7 @@ public:
          ToolStripMenuItem^ optionDelete = dynamic_cast<ToolStripMenuItem^>(sender);
 
 
-         (*globalChatRoom)->deleteMessageID(messageIDToDelete);
+         globalChatRoom->deleteMessageID(messageIDToDelete);
          int x = messageIDToDelete;
 		 globalMessages->erase(x);
          messagesContainer->Controls->Remove(panelToDelete);
