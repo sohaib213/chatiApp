@@ -1139,8 +1139,8 @@ namespace chati {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
 			this->ClientSize = System::Drawing::Size(1904, 1041);
 			this->Controls->Add(this->signIn_pnl);
-			this->Controls->Add(this->signUp_pnl);
 			this->Controls->Add(this->mainPanel);
+			this->Controls->Add(this->signUp_pnl);
 			this->Controls->Add(this->getStoryPanel);
 			this->Controls->Add(this->First_pnl);
 			this->Controls->Add(this->addStoryPanel);
@@ -1543,23 +1543,32 @@ namespace chati {
 			}
 			else {
 
-				if (checkContactExist(contNum, users, currentContName)) {
+				// Check if the contact already exists
+				
+
+				if (checkUserExist(contNum, users, currentContName)) {
 					currentContNum = contNum;
 					addContName_field->Text = gcnew System::String(currentContName.c_str());
 				}
 				else {
-					MessageBox::Show("Contact does not exist", "Error");
+					MessageBox::Show("User does not exist", "Error");
+
 				}
 			}
 			
 		}
 
 		private: System::Void addContact_btn_Click(System::Object^ sender, System::EventArgs^ e) {
-
-
+			string contNum = msclr::interop::marshal_as<std::string>(addContNum_field->Text);
+			if (checkContactExist(contNum, users)) {
+				MessageBox::Show("Contact already exists", "Error");
+			}
+			else {
 			string contName = msclr::interop::marshal_as<std::string>(addContName_field->Text);
 			chatRoomHandler.createRoom(currentContNum,contName,currentUser, addContName_field, addContNum_field, chatRooms, contactsPanel,Activity, chatsContainer);
 			sortChatRooms(*currentUser, Activity, chatRooms, contactsPanel);
+			
+			}
 		}
 
 

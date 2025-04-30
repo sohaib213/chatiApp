@@ -19,14 +19,22 @@ static void sortChatRooms(User currentUser, unordered_map<int, long long>& activ
 
 	cout << "called - map size: " << activity.size() << endl;
 
-	vector<pair<int, int>> userChatRooms;
+	vector<pair<int, long long>> userChatRooms;
 
-	//push chatrooms that current user is a member of 
-	for (auto& chatRoom : activity) {
-		if (chatRooms.at(chatRoom.first).hasUser(currentUser.getMobileNumber())) {
-			userChatRooms.push_back({ chatRoom.first, chatRoom.second });
+
+	for (const auto& room : chatRooms) {
+		int chatRoomID = room.first;
+		const ChatRoom& chatRoom = room.second;
+
+		if (chatRoom.hasUser(currentUser.getMobileNumber())) {
+			long long lastActivity = 0;
+			if (activity.find(chatRoomID) != activity.end()) {
+				lastActivity = activity[chatRoomID];
+			}
+			userChatRooms.push_back({ chatRoomID, lastActivity });
 		}
 	}
+
 
 	//sort the chat rooms based on the last message ID
 	for (int i = 0; i < userChatRooms.size(); ++i) {

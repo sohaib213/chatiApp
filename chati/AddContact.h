@@ -8,9 +8,9 @@ using namespace std;
 
 
 
- bool checkContactExist(string contactNumber, map<string, User> users, string& currentContName);
+ bool checkUserExist(string contactNumber, map<string, User> users, string& currentContName);
 	
-
+ bool checkContactExist(string conNum, const map<string, User>& users);
 
  bool addCont(User * user, string contactName, string contNumber);
 
