@@ -12,13 +12,14 @@ namespace chati {
         string dateSent;
         int hour;
 		int minute;
+        int second;
         bool isRead = false;
 
     public:
 
         // constructors
         Message();
-        Message(string text, string senderPhone, int chatID, string dateSent, int hour, int minute, bool isRead);
+        Message(string text, string senderPhone, int chatID, string dateSent, int hour, int minute, int second, bool isRead);
 
         // Getters
 		static int getMessageCounter();
@@ -29,6 +30,7 @@ namespace chati {
         string getDateSent() const;
         int getHourSent() const;
         int getMinuteSent() const;
+		int getSecondSent() const;
         bool getIsRead() const;
       
 
@@ -41,6 +43,7 @@ namespace chati {
         void setDateSent(const string& date);
         void setHourSent(int hour);
         void setMinuteSent(int minute);
+		void setSecondSent(int second);
         void setIsRead(bool read);
 
         static void incrementMessageCounter();

@@ -34,9 +34,10 @@ static void sortChatRooms(User currentUser, unordered_map<int, long long>& activ
 			long long lastActivity = 0;
 			auto it = messages.find(lastMessageID);
 			if (it != messages.end()) {
+				string date = it->second.getDateSent();
 				int hour = it->second.getHourSent();
 				int minute = it->second.getMinuteSent();
-				string date = it->second.getDateSent();
+				int second = it->second.getSecondSent();
 
 				int day, month, year;
 				char dash;
@@ -53,7 +54,7 @@ static void sortChatRooms(User currentUser, unordered_map<int, long long>& activ
 				t.tm_mday = day;
 				t.tm_hour = hour;
 				t.tm_min = minute;
-				t.tm_sec = 0;
+				t.tm_sec = second;
 				
 				lastActivity = static_cast<long long>(mktime(&t));
 			}

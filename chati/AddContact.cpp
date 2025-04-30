@@ -1,5 +1,5 @@
 #include <string>
-#include <map>
+#include <unordered_map>
 #include "User.h"
 #include <iostream>
 #include "AddContact.h"
@@ -9,28 +9,26 @@ using namespace std;
 //string contNumber;
 //string currentContName;
 
- bool checkUserExist(string contactNumber, map<string, User> users, string& currentContName) {
+ bool checkUserExist(string contactNumber, unordered_map<string, User> users, string& currentContName) {
 	auto it = users.find(contactNumber);
 	if (it != users.end()) {
 		//contNumber = it->second.getMobileNumber();
-		currentContName = it->second.getFirstName();
+		currentContName = it->second.getFirstName() + it->second.getLastName();
 		return true;
 	}
 	return false;
  }
 
- bool checkContactExist(string contNum,const map<string, User>& users) {
+ bool checkContactExist(string contNum,const User user) {
 	
-	 for (const auto& user : users) {
-		 const auto& contacts = user.second.getContactsPhones(); 
-		 if (contacts.find(contNum) != contacts.end()) {
-			 return true;
-		 }
-	 }
+	const auto& contacts = user.getContactsPhones(); 
+	if (contacts.find(contNum) != contacts.end()) {
+		return true;
+	}
 	return false;
  }
 
- bool addCont(User* user, string contactName,string contNumber) {
-	return user->addContactPhone(contNumber, contactName);
+ bool addCont(User& user, string contactName,string contNumber) {
+	return user.addContactPhone(contNumber, contactName);
  }
 

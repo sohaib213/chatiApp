@@ -8,11 +8,11 @@ using namespace std;
 
 
 
- bool checkUserExist(string contactNumber, map<string, User> users, string& currentContName);
+ bool checkUserExist(string contactNumber, unordered_map<string, User> users, string& currentContName);
 	
- bool checkContactExist(string conNum, const map<string, User>& users);
+ bool checkContactExist(string conNum, const User users);
 
- bool addCont(User * user, string contactName, string contNumber);
+ bool addCont(User& user, string contactName, string contNumber);
 
 
 

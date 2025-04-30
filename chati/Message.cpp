@@ -6,8 +6,8 @@ namespace chati {
 
     Message::Message() : messageID(0), senderPhone(""), chatID(0), isRead(false) {}
 
-    Message::Message(string text, string senderPhone, int chatID, string dateSent, int hour, int minute, bool isRead)
-        : text(text), senderPhone(senderPhone), chatID(chatID), dateSent(dateSent), hour(hour), minute(minute), isRead(isRead) {
+    Message::Message(string text, string senderPhone, int chatID, string dateSent, int hour, int minute, int second, bool isRead)
+        : text(text), senderPhone(senderPhone), chatID(chatID), dateSent(dateSent), hour(hour), minute(minute), second(second), isRead(isRead) {
     }
 
     // Getters
@@ -22,6 +22,7 @@ namespace chati {
     string Message::getDateSent() const { return dateSent; }
     int Message::getHourSent() const { return hour; }
 	int Message::getMinuteSent() const { return minute; }
+	int Message::getSecondSent() const { return second; }
     bool Message::getIsRead() const { return isRead; }
 
     // Setters
@@ -35,6 +36,7 @@ namespace chati {
     void Message::setDateSent(const string& dateSent) { this->dateSent = dateSent; }
 	void Message::setHourSent(int hour) { this->hour = hour; }
 	void Message::setMinuteSent(int minute) { this->minute = minute; }
+	void Message::setSecondSent(int second) { this->second = second; }
     void Message::setIsRead(bool isRead) { this->isRead = isRead; }
 
     void Message::incrementMessageCounter() {

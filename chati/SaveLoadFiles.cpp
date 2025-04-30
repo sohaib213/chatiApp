@@ -140,7 +140,7 @@ static map<string, string> readMap(ifstream& in) {
 
 
 
-static void saveToFile(map<string, User> users, unordered_map<int, ChatRoom> chatRooms, unordered_map<int, chati::Message> messages) {
+static void saveToFile(unordered_map<string, User> users, unordered_map<int, ChatRoom> chatRooms, unordered_map<int, chati::Message> messages) {
 	AllocConsole();
 	if (freopen("CONOUT$", "w", stdout) == nullptr) {
 		cerr << "Failed to redirect stdout to console." << endl;
@@ -270,13 +270,15 @@ static void saveToFile(map<string, User> users, unordered_map<int, ChatRoom> cha
 		out.write(reinterpret_cast<const char*>(&x), sizeof(x));
 		x = m.getMinuteSent();
 		out.write(reinterpret_cast<const char*>(&x), sizeof(x));
+		x = m.getSecondSent();
+		out.write(reinterpret_cast<const char*>(&x), sizeof(x));
 		x = m.getIsRead();
 		out.write(reinterpret_cast<const char*>(&x), sizeof(&x));
 	}
 	out.close();
 }
 
-static void loadFromFile(map<string, User>& users, unordered_map<int, ChatRoom>& chatRooms, unordered_map<int, chati::Message>& messages) {
+static void loadFromFile(unordered_map<string, User>& users, unordered_map<int, ChatRoom>& chatRooms, unordered_map<int, chati::Message>& messages) {
 
 	AllocConsole();
 	freopen("CONOUT$", "w", stdout);
@@ -433,6 +435,8 @@ static void loadFromFile(map<string, User>& users, unordered_map<int, ChatRoom>&
 		m.setHourSent(x);
 		in.read(reinterpret_cast<char*>(&x), sizeof(x));
 		m.setMinuteSent(x);
+		in.read(reinterpret_cast<char*>(&x), sizeof(x));
+		m.setSecondSent(x);
 		bool is;
 		in.read(reinterpret_cast<char*>(&is), sizeof(&is));
 		m.setIsRead(is);

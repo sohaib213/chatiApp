@@ -24,7 +24,7 @@
 using namespace std;
 using namespace System::IO;
 //? Global maps for save and load from the files
-map<string, User> users;
+unordered_map<string, User> users;
 unordered_map<int, ChatRoom> chatRooms;
 unordered_map<int, chati::Message> messages;
 unordered_map<int, Contact> contacts;
@@ -55,7 +55,8 @@ namespace chati {
 	{
 		System::Collections::Generic::Dictionary<int, FlowLayoutPanel^>^ chatRoomsPanels = gcnew System::Collections::Generic::Dictionary<int, FlowLayoutPanel^>();
 	    MessageHandler handler;
-		createChatRoomHandler chatRoomHandler;
+	private: System::Windows::Forms::Button^ singOutButton;
+		   createChatRoomHandler chatRoomHandler;
 
 		public:
 		GuiForm(void)
@@ -255,6 +256,9 @@ namespace chati {
 			this->Pass_lbl2 = (gcnew System::Windows::Forms::Label());
 			this->MN_lbl2 = (gcnew System::Windows::Forms::Label());
 			this->mainPanel = (gcnew System::Windows::Forms::Panel());
+			this->profilePanel = (gcnew System::Windows::Forms::Panel());
+			this->singOutButton = (gcnew System::Windows::Forms::Button());
+			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->chatPnl = (gcnew System::Windows::Forms::Panel());
 			this->currentCahtPanel = (gcnew System::Windows::Forms::Panel());
 			this->chatsContainer = (gcnew System::Windows::Forms::Panel());
@@ -280,8 +284,6 @@ namespace chati {
 			this->goToAddContact_btn = (gcnew System::Windows::Forms::Button());
 			this->statusButton = (gcnew System::Windows::Forms::Button());
 			this->profileButton = (gcnew System::Windows::Forms::Button());
-			this->profilePanel = (gcnew System::Windows::Forms::Panel());
-			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->addStoryPanel = (gcnew System::Windows::Forms::Panel());
 			this->button6 = (gcnew System::Windows::Forms::Button());
 			this->button5 = (gcnew System::Windows::Forms::Button());
@@ -303,6 +305,7 @@ namespace chati {
 			this->First_pnl->SuspendLayout();
 			this->signIn_pnl->SuspendLayout();
 			this->mainPanel->SuspendLayout();
+			this->profilePanel->SuspendLayout();
 			this->chatPnl->SuspendLayout();
 			this->currentCahtPanel->SuspendLayout();
 			this->panel1->SuspendLayout();
@@ -310,7 +313,6 @@ namespace chati {
 			this->stotyHeaderPanel->SuspendLayout();
 			this->addContactPanel->SuspendLayout();
 			this->navPanel->SuspendLayout();
-			this->profilePanel->SuspendLayout();
 			this->addStoryPanel->SuspendLayout();
 			this->getStoryPanel->SuspendLayout();
 			this->footerOfTheSroryPanel->SuspendLayout();
@@ -599,15 +601,50 @@ namespace chati {
 			// 
 			this->mainPanel->BackColor = System::Drawing::Color::White;
 			this->mainPanel->Controls->Add(this->chatPnl);
+			this->mainPanel->Controls->Add(this->profilePanel);
 			this->mainPanel->Controls->Add(this->storyPanel);
 			this->mainPanel->Controls->Add(this->addContactPanel);
 			this->mainPanel->Controls->Add(this->navPanel);
-			this->mainPanel->Controls->Add(this->profilePanel);
 			this->mainPanel->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->mainPanel->Location = System::Drawing::Point(0, 0);
 			this->mainPanel->Name = L"mainPanel";
 			this->mainPanel->Size = System::Drawing::Size(1904, 1041);
 			this->mainPanel->TabIndex = 3;
+			// 
+			// profilePanel
+			// 
+			this->profilePanel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)),
+				static_cast<System::Int32>(static_cast<System::Byte>(45)));
+			this->profilePanel->Controls->Add(this->singOutButton);
+			this->profilePanel->Controls->Add(this->label1);
+			this->profilePanel->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->profilePanel->Location = System::Drawing::Point(87, 0);
+			this->profilePanel->Name = L"profilePanel";
+			this->profilePanel->Size = System::Drawing::Size(1817, 1041);
+			this->profilePanel->TabIndex = 10;
+			// 
+			// singOutButton
+			// 
+			this->singOutButton->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(128)), static_cast<System::Int32>(static_cast<System::Byte>(255)),
+				static_cast<System::Int32>(static_cast<System::Byte>(255)));
+			this->singOutButton->Location = System::Drawing::Point(840, 410);
+			this->singOutButton->Name = L"singOutButton";
+			this->singOutButton->Size = System::Drawing::Size(212, 51);
+			this->singOutButton->TabIndex = 1;
+			this->singOutButton->Text = L"Sign out";
+			this->singOutButton->UseVisualStyleBackColor = false;
+			this->singOutButton->Click += gcnew System::EventHandler(this, &GuiForm::singOutButton_Click);
+			// 
+			// label1
+			// 
+			this->label1->AutoSize = true;
+			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label1->Location = System::Drawing::Point(859, 290);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(167, 31);
+			this->label1->TabIndex = 0;
+			this->label1->Text = L"Profile Panel";
 			// 
 			// chatPnl
 			// 
@@ -906,28 +943,6 @@ namespace chati {
 			this->profileButton->UseVisualStyleBackColor = true;
 			this->profileButton->Click += gcnew System::EventHandler(this, &GuiForm::profileButton_Click);
 			// 
-			// profilePanel
-			// 
-			this->profilePanel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)),
-				static_cast<System::Int32>(static_cast<System::Byte>(45)));
-			this->profilePanel->Controls->Add(this->label1);
-			this->profilePanel->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->profilePanel->Location = System::Drawing::Point(0, 0);
-			this->profilePanel->Name = L"profilePanel";
-			this->profilePanel->Size = System::Drawing::Size(1904, 1041);
-			this->profilePanel->TabIndex = 10;
-			// 
-			// label1
-			// 
-			this->label1->AutoSize = true;
-			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->label1->Location = System::Drawing::Point(503, 316);
-			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(167, 31);
-			this->label1->TabIndex = 0;
-			this->label1->Text = L"Profile Panel";
-			// 
 			// addStoryPanel
 			// 
 			this->addStoryPanel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)),
@@ -1156,6 +1171,8 @@ namespace chati {
 			this->signIn_pnl->ResumeLayout(false);
 			this->signIn_pnl->PerformLayout();
 			this->mainPanel->ResumeLayout(false);
+			this->profilePanel->ResumeLayout(false);
+			this->profilePanel->PerformLayout();
 			this->chatPnl->ResumeLayout(false);
 			this->currentCahtPanel->ResumeLayout(false);
 			this->panel1->ResumeLayout(false);
@@ -1165,8 +1182,6 @@ namespace chati {
 			this->addContactPanel->ResumeLayout(false);
 			this->addContactPanel->PerformLayout();
 			this->navPanel->ResumeLayout(false);
-			this->profilePanel->ResumeLayout(false);
-			this->profilePanel->PerformLayout();
 			this->addStoryPanel->ResumeLayout(false);
 			this->addStoryPanel->PerformLayout();
 			this->getStoryPanel->ResumeLayout(false);
@@ -1196,15 +1211,15 @@ namespace chati {
 			//currentChatRoom->addUserPhone(currentUser->getMobileNumber());
 			//chatRooms[1] = *currentChatRoom;
 
-			for(auto chatRoom: chatRooms){
-				cout << "chatRoom ID: " << chatRoom.first << endl;
-				cout << "userID: " << chatRoom.second.getUsersID()[0] << endl;
-				for(auto m: chatRoom.second.getMessagesID()){
-					cout << "messageID: " << m << endl;
-					cout << "text: " << messages[m].getText() << endl;
-				}
-				cout << endl;
-			}
+			//for(auto chatRoom: chatRooms){
+			//	cout << "chatRoom ID: " << chatRoom.first << endl;
+			//	cout << "userID: " << chatRoom.second.getUsersID()[0] << endl;
+			//	for(auto m: chatRoom.second.getMessagesID()){
+			//		cout << "messageID: " << m << endl;
+			//		cout << "text: " << messages[m].getText() << endl;
+			//	}
+			//	cout << endl;
+			//}
 
 			//for(auto m: currentChatRoom->getMessagesID()){
 			//	cout << "messageID from current chat: " << m << endl;
@@ -1223,16 +1238,32 @@ namespace chati {
 			//{
 			//	addChatRoomPanel(users[chatRooms[ChatRoomID].getUsersID()[1]] );
 			//}
-			//for (auto u : users) {
-			//	cout << u.second.getMobileNumber() << endl;
-			//	cout << u.second.getFirstName() << endl;
-			//	cout << u.second.getLastName() << endl;
-			//	cout << u.second.getPassword() << endl;
-			//	for(auto &c: u.second.getContactsPhones()){
-   //                 cout << "contact ID: " << c.first << endl;
+			cout << "Users Number: " << users.size() << endl;
+			for (auto u : users) {
+				cout << u.second.getMobileNumber() << endl;
+				cout << u.second.getFirstName() << endl;
+				cout << u.second.getLastName() << endl;
+				cout << u.second.getPassword() << endl;
+				for(auto &c: u.second.getContactsPhones()){
+                    cout << "contact ID: " << c.first << endl;
+				}
+				cout << endl;
+			}
+
+
+			//// clear the chat rooms and contacts of the users
+			//for (auto &user : users)
+			//{
+			//	for(int chatRoomID : user.second.getChatRoomsID()) {
+			//		user.second.removeChatRoomID(chatRoomID);
+			//		cout << chatRoomID << endl;
+			//	}
+
+			//	for(auto contacID : user.second.getContactsPhones()) {
+			//		user.second.removeContactPhone(contacID.first);
 			//	}
 			//}
-			//createChatRoomHandler c(currentChatRoom, chatRooms, messagesContainer, currentUser, Activity);
+
 
 			chatRoomHandler.activity = &Activity;
 			chatRoomHandler.chatRooms = &chatRooms;
@@ -1253,8 +1284,6 @@ namespace chati {
 			chatRoomHandler.messageHandler.globalChatRoom = currentChatRoom;
 			chatRoomHandler.messageHandler.currentUser = currentUser;
 			chatRoomHandler.messageHandler.messagesContainer = chatsContainer;
-
-			//handler.initializeChat(currentChatRoom, messagesContainer, messages, currentUser, Activity);
 		}
 
 		private: System::Void submit_but_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -1324,33 +1353,47 @@ namespace chati {
 			}
 			else {
 				currentUser = &users[mobileNumber];
-				cout << "current user name & id: " << currentUser->getFirstName()<<" "<<currentUser->getMobileNumber() << " has stories: "<<currentUser->getStoriesID().size()<<endl;
 
 				if (currentUser->getStoriesID().size() > 0) {
 					createUserStoryPanel();
 				}
+
+				chatsContainer->Controls->Clear();
+				contactsPanel->Controls->Clear();
 
 				for(int chatRoom: currentUser->getChatRoomsID()){
 
 					FlowLayoutPanel^ chatRoomPanel = chatRoomHandler.createChatRoomGUI(chatRoom, chatsContainer);
 
 					handler.initializeChat(&chatRooms[chatRoom], chatRoomPanel, messages, currentUser, Activity);
-					chatRoomHandler.addChatRoomPanel(chatRooms[chatRoom].getUsersID()[1], chatRoom, contactsPanel);
+
+					if (chatRooms[chatRoom].getIsDual())
+					{
+						cout << "Contacts Phones Size: " << currentUser->getContactsPhones().size() << endl;
+						for(auto contact: currentUser->getContactsPhones()) {
+							cout << "contact ID: " << contact.first << endl;
+							cout << "contact name: " << contact.second << endl;
+						}
+						for (auto i : chatRooms[chatRoom].getUsersID()) {
+							cout << "userID: " << i << endl;
+						}
+						if(chatRooms[chatRoom].getUsersID()[0] == currentUser->getMobileNumber())
+							chatRoomHandler.addChatRoomPanel(currentUser->getContactsPhones()[chatRooms[chatRoom].getUsersID()[1]], chatRoom, contactsPanel);
+						else
+							chatRoomHandler.addChatRoomPanel(users[chatRooms[chatRoom].getUsersID()[0]].getFirstName() + ' ' + users[chatRooms[chatRoom].getUsersID()[0]].getLastName(), chatRoom, contactsPanel);
+
+					}
 				}
 
 				sortChatRooms(*currentUser, Activity, chatRooms, contactsPanel, messages);
 				mainPanel->BringToFront();
-
-				
 			}
 	
 		}
 
 
 		private: System::Void sendButton_Click(System::Object^ sender, System::EventArgs^ e) {
-			cout << "HERE IN SEND BUTTON" << endl;
 			handler.createMessageEvent(textBox1, chatRoomsPanels[currentChatRoom->getChatRoomID()], currentUser, Activity, contactsPanel, chatRooms, currentChatRoom,messages);
-			cout << "current ChatRoom ID From GUI FORM: " << currentChatRoom->getChatRoomID() << endl;
 		}
 			   
 		private: System::Void GuiForm_FormClosed(System::Object^ sender, System::Windows::Forms::FormClosedEventArgs^ e) {
@@ -1548,13 +1591,13 @@ namespace chati {
 
 		private: System::Void addContact_btn_Click(System::Object^ sender, System::EventArgs^ e) {
 			string contNum = msclr::interop::marshal_as<std::string>(addContNum_field->Text);
-			if (checkContactExist(contNum, users)) {
+			if (checkContactExist(contNum, *currentUser)) {
 				MessageBox::Show("Contact already exists", "Error");
 			}
 			else {
-			string contName = msclr::interop::marshal_as<std::string>(addContName_field->Text);
-			chatRoomHandler.createRoom(currentContNum,contName,currentUser, addContName_field, addContNum_field, chatRooms, contactsPanel,Activity, chatsContainer);
-			sortChatRooms(*currentUser, Activity, chatRooms, contactsPanel, messages);
+				string contName = msclr::interop::marshal_as<std::string>(addContName_field->Text);
+				chatRoomHandler.createRoom(currentContNum,contName,currentUser, addContName_field, addContNum_field, chatRooms, contactsPanel,Activity, chatsContainer, users);
+				sortChatRooms(*currentUser, Activity, chatRooms, contactsPanel, messages);
 			
 			}
 		}
@@ -1573,5 +1616,8 @@ namespace chati {
 			MessageBox::Show("Viewer of the story button clicked!");
 		}
 		//?shehab/
+		private: System::Void singOutButton_Click(System::Object^ sender, System::EventArgs^ e) {
+			signIn_pnl->BringToFront();
+		}
 };
 }

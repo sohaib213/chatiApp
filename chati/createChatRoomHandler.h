@@ -31,6 +31,9 @@ public:
     System::Collections::Generic::Dictionary<int, FlowLayoutPanel^>^ chatRoomsPanels;
 
 	void addChatRoomPanel(string contName, int chatRoomID, FlowLayoutPanel^ contactsPanel) {
+
+		cout << "CONT NAME: " << contName << endl;
+
 		Button^ chatRoomButton = gcnew Button();
 		chatRoomButton->BackColor = Color::Black;
 		chatRoomButton->Size = System::Drawing::Size(338, 100); // Set the size of the panel
@@ -67,50 +70,44 @@ public:
     }
 
 
-	void createRoom(string currentNum, string contName, User* currentUser, TextBox^ addContName_field, TextBox^ addContNum_field,
-		unordered_map<int, ChatRoom>& chatRooms, FlowLayoutPanel^ chatRoomsPanel, unordered_map<int, long long>& activity, Panel^ messagesContainer) {
-
-		addCont(currentUser, contName, currentNum);
-		addContName_field->Clear();
-		addContNum_field->Clear();
-		MessageBox::Show("Contact added", "Success");
+    void createRoom(string contNum, string contName, User* currentUser, TextBox^ addContName_field, TextBox^ addContNum_field,
+        unordered_map<int, ChatRoom>& chatRooms, FlowLayoutPanel^ chatRoomsPanel, unordered_map<int, long long>& activity, Panel^ messagesContainer, unordered_map<string, User>& users) {
 
 
-		ChatRoom* chatRoom = new ChatRoom(true);
+        addCont(*currentUser, contName, contNum);
+		addCont(users[contNum], currentUser->getFirstName() + currentUser->getLastName(), currentUser->getMobileNumber());
+        addContName_field->Clear();
+        addContNum_field->Clear();
+        MessageBox::Show("Contact added", "Success");
 
-		chatRoom->setChatRoomID(ChatRoom::getChatRoomsCounter());
-		ChatRoom::incrementChatRoomsCounter();
+        ChatRoom* chatRoom = new ChatRoom(true);
 
+        chatRoom->setChatRoomID(ChatRoom::getChatRoomsCounter());
+        ChatRoom::incrementChatRoomsCounter();
 
-		createChatRoomGUI(chatRoom->getChatRoomID(), messagesContainer);
+        createChatRoomGUI(chatRoom->getChatRoomID(), messagesContainer);
 
+        chatRoom->addUserPhone(currentUser->getMobileNumber());
+        chatRoom->addUserPhone(contNum);
 
-		chatRoom->addUserPhone(currentUser->getMobileNumber());
-		chatRoom->addUserPhone(contName);
+        chatRooms[chatRoom->getChatRoomID()] = *chatRoom;
 
+        int chatRoomID = chatRoom->getChatRoomID();
+        addChatRoomPanel(contName, chatRoomID, chatRoomsPanel);
 
-		chatRooms[chatRoom->getChatRoomID()] = *chatRoom;
+        currentUser->addChatRoomID(chatRoomID);
+        users[contNum].addChatRoomID(chatRoomID); // Fix: Ensure 'users' is passed by reference
+        auto now = std::chrono::system_clock::now();
 
+        // Convert it to milliseconds since epoch
+        auto now_ms = std::chrono::time_point_cast<std::chrono::milliseconds>(now);
+        auto value = now_ms.time_since_epoch();
 
-		int chatRoomID = chatRoom->getChatRoomID();
-		addChatRoomPanel(contName, chatRoomID, chatRoomsPanel);
+        // Get the number of milliseconds as integer
+        long long milliseconds = value.count();
 
-
-		currentUser->addChatRoomID(chatRoomID);
-
-		auto now = std::chrono::system_clock::now();
-
-		// Convert it to milliseconds since epoch
-		auto now_ms = std::chrono::time_point_cast<std::chrono::milliseconds>(now);
-		auto value = now_ms.time_since_epoch();
-
-		// Get the number of milliseconds as integer
-		long long milliseconds = value.count();
-
-		activity[chatRoomID] = milliseconds;
-		cout << "TESTING 3" << endl;
-
-	}
+        activity[chatRoomID] = milliseconds;
+    }
 
 	FlowLayoutPanel^ createChatRoomGUI(int chatRoomID, Panel^ chatsContainer) {
 		FlowLayoutPanel^ chatRoomPanel = gcnew FlowLayoutPanel();

@@ -59,7 +59,7 @@ void User::removeStory(int storyID) {
 }
 
 void User::removeChatRoomID(int chatRoomID) {
-    this->getChatRoomsID().erase(chatRoomID); // Directly modify chatRoomsID
+    this->chatRoomsID.erase(chatRoomID);
 }
 
 bool User::isUserVisible() {

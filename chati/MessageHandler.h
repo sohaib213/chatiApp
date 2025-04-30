@@ -56,14 +56,15 @@ public:
            time_t now_time_t = chrono::system_clock::to_time_t(now);  
            tm* now_tm = localtime(&now_time_t);  
 
-           ostringstream day, hour, minute;  
-           day << put_time(now_tm, "%d-%m-%y"); // Format: DD-MM-YYYY  
+           ostringstream day, hour, minute, second;  
+           day << put_time(now_tm, "%d-%m-%y"); // Format: DD-MM-YYYY
            hour << put_time(now_tm, "%H"); 
            minute << put_time(now_tm, "%M"); 
+		   second << put_time(now_tm, "%S");
 
 
            //? create the message to get the id directly (is better)
-           chati::Message msg = chati::Message(s, currentUser->getMobileNumber(), globalChatRoom->getChatRoomID(), day.str(), stoi(hour.str()), stoi(minute.str()), false);
+           chati::Message msg = chati::Message(s, currentUser->getMobileNumber(), globalChatRoom->getChatRoomID(), day.str(), stoi(hour.str()), stoi(minute.str()), stoi(second.str()), false);
            // Fix: Use pointer dereference to access the map
 		   msg.setMessageID(chati::Message::getMessageCounter());
 		   chati::Message::incrementMessageCounter();
@@ -109,7 +110,6 @@ public:
 
         globalChatRoom = currentChatRoom;
 
-        cout << "Chat room ID From MessageHandler: " << globalChatRoom->getChatRoomID() << endl;
 
 		//? picture box for the profile photo 
 		//? Label for the sender name
@@ -160,7 +160,6 @@ public:
 		}
 
 
-        cout << "TEST 1\n";
         if(m.getSenderPhone() == currentUser->getMobileNumber()) {
             messagePanel->BackColor = Color::FromArgb(55, 128, 82);
             messagePanel->MouseDown += gcnew MouseEventHandler(this, &MessageHandler::messageRightClick); // Fix: Use 'this' to bind the delegate to the managed class
@@ -169,7 +168,6 @@ public:
             messagePanel->BackColor = Color::Gray;
 
 		}
-        cout << "TEST 2\n";
 
         messagePanel->Padding = Padding(5);
         messagePanel->Margin = Padding(5);        
