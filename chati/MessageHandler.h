@@ -46,7 +46,7 @@ public:
     }
 
    void createMessageEvent(RichTextBox^ textBox1, FlowLayoutPanel^ messagesContainer, User *currentUser, unordered_map<int, long long>& activity,
-       FlowLayoutPanel^ chatRoomsPanel, unordered_map<int, ChatRoom>& chatRooms, ChatRoom* currentChatRoom) {
+       FlowLayoutPanel^ chatRoomsPanel, unordered_map<int, ChatRoom>& chatRooms, ChatRoom* currentChatRoom, unordered_map<int, chati::Message> messages) {
        if (textBox1->Text != "") {  
            string s = msclr::interop::marshal_as<string>(textBox1->Text);  
 
@@ -100,7 +100,7 @@ public:
            
            activity[globalChatRoom->getChatRoomID()] = milliseconds;
 
-           sortChatRooms(*currentUser, activity, chatRooms, chatRoomsPanel);
+           sortChatRooms(*currentUser, activity, chatRooms, chatRoomsPanel, messages);
        }  
    }
 

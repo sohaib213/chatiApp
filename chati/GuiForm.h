@@ -1190,15 +1190,11 @@ namespace chati {
 			//for (int i : chatRooms[1].messagesID) {
 			//	cout << "messageID: " << i << endl;
 			//}
-
 			// will remove this later
-
 			//sortChatRooms(*currentUser, Activity, chatRooms, contactsPanel);
-
 			//currentChatRoom = new ChatRoom(1, true);
 			//currentChatRoom->addUserPhone(currentUser->getMobileNumber());
 			//chatRooms[1] = *currentChatRoom;
-
 
 			for(auto chatRoom: chatRooms){
 				cout << "chatRoom ID: " << chatRoom.first << endl;
@@ -1210,9 +1206,6 @@ namespace chati {
 				cout << endl;
 			}
 
-
-
-
 			//for(auto m: currentChatRoom->getMessagesID()){
 			//	cout << "messageID from current chat: " << m << endl;
 			//	cout << "text: " << messages[m].getText() << endl;
@@ -1221,21 +1214,15 @@ namespace chati {
 			//
 			// 
 			//for (auto m : messages) {
-
 			//	cout << "messageID: " << m.first << " : " << m.second.getIsRead() << endl;
 			//	cout << "Text : " << m.second.getText() << endl;
 			//	cout << "Sender ID: " << m.second.getSenderPhone() << endl;
 			//	cout << "date Sent: " << m.second.getDateSent() << endl;
 			//}
-
-
-
 			//for (auto ChatRoomID: currentUser->getChatRoomsID())
 			//{
 			//	addChatRoomPanel(users[chatRooms[ChatRoomID].getUsersID()[1]] );
 			//}
-
-
 			//for (auto u : users) {
 			//	cout << u.second.getMobileNumber() << endl;
 			//	cout << u.second.getFirstName() << endl;
@@ -1245,7 +1232,6 @@ namespace chati {
    //                 cout << "contact ID: " << c.first << endl;
 			//	}
 			//}
-
 			//createChatRoomHandler c(currentChatRoom, chatRooms, messagesContainer, currentUser, Activity);
 
 			chatRoomHandler.activity = &Activity;
@@ -1351,6 +1337,8 @@ namespace chati {
 					handler.initializeChat(&chatRooms[chatRoom], chatRoomPanel, messages, currentUser, Activity);
 					chatRoomHandler.addChatRoomPanel(chatRooms[chatRoom].getUsersID()[1], chatRoom, contactsPanel);
 				}
+
+				sortChatRooms(*currentUser, Activity, chatRooms, contactsPanel, messages);
 				mainPanel->BringToFront();
 
 				
@@ -1361,7 +1349,7 @@ namespace chati {
 
 		private: System::Void sendButton_Click(System::Object^ sender, System::EventArgs^ e) {
 			cout << "HERE IN SEND BUTTON" << endl;
-			handler.createMessageEvent(textBox1, chatRoomsPanels[currentChatRoom->getChatRoomID()], currentUser, Activity, contactsPanel, chatRooms, currentChatRoom);
+			handler.createMessageEvent(textBox1, chatRoomsPanels[currentChatRoom->getChatRoomID()], currentUser, Activity, contactsPanel, chatRooms, currentChatRoom,messages);
 			cout << "current ChatRoom ID From GUI FORM: " << currentChatRoom->getChatRoomID() << endl;
 		}
 			   
@@ -1566,7 +1554,7 @@ namespace chati {
 			else {
 			string contName = msclr::interop::marshal_as<std::string>(addContName_field->Text);
 			chatRoomHandler.createRoom(currentContNum,contName,currentUser, addContName_field, addContNum_field, chatRooms, contactsPanel,Activity, chatsContainer);
-			sortChatRooms(*currentUser, Activity, chatRooms, contactsPanel);
+			sortChatRooms(*currentUser, Activity, chatRooms, contactsPanel, messages);
 			
 			}
 		}

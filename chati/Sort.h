@@ -5,6 +5,8 @@
 #include <msclr/marshal_cppstd.h>
 #include "User.h"
 #include "ChatRoom.h"
+#include <ctime>
+#include <sstream>
 
 using namespace System;
 using namespace System::Windows::Forms;
@@ -13,7 +15,8 @@ using namespace System::Collections::Generic;
 
 #pragma once
 static void sortChatRooms(User currentUser, unordered_map<int, long long>& activity,
-	const unordered_map<int, ChatRoom>& chatRooms, FlowLayoutPanel^ chatRoomsPanel) {
+	const unordered_map<int, ChatRoom>& chatRooms, FlowLayoutPanel^ chatRoomsPanel,
+	unordered_map<int, chati::Message> messages) {
 
 
 
@@ -27,10 +30,37 @@ static void sortChatRooms(User currentUser, unordered_map<int, long long>& activ
 		const ChatRoom& chatRoom = room.second;
 
 		if (chatRoom.hasUser(currentUser.getMobileNumber())) {
+			int lastMessageID = room.second.getLastMessageID();
 			long long lastActivity = 0;
-			if (activity.find(chatRoomID) != activity.end()) {
+			auto it = messages.find(lastMessageID);
+			if (it != messages.end()) {
+				int hour = it->second.getHourSent();
+				int minute = it->second.getMinuteSent();
+				string date = it->second.getDateSent();
+
+				int day, month, year;
+				char dash;
+
+				istringstream iss(date);
+				iss >> day >> dash >> month >> dash >> year;
+
+				// Normalize 2-digit year 
+				year += (year < 1000) ? 2000 : 0;
+
+				tm t = {};
+				t.tm_year = year - 1900;
+				t.tm_mon = month - 1;
+				t.tm_mday = day;
+				t.tm_hour = hour;
+				t.tm_min = minute;
+				t.tm_sec = 0;
+				
+				lastActivity = static_cast<long long>(mktime(&t));
+			}
+			else if (activity.find(chatRoomID) != activity.end()) {
 				lastActivity = activity[chatRoomID];
 			}
+
 			userChatRooms.push_back({ chatRoomID, lastActivity });
 		}
 	}
