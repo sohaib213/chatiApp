@@ -29,6 +29,7 @@ public:
 	unordered_map<int, chati::Message>* messages;
 	//System::Collections::Generic::Dictionary<int, FlowLayoutPanel^>^% chatRoomsPanels;
     System::Collections::Generic::Dictionary<int, FlowLayoutPanel^>^ chatRoomsPanels;
+	Panel^ footerContainer;
 
 	void addChatRoomPanel(string contName, int chatRoomID, FlowLayoutPanel^ contactsPanel) {
 
@@ -60,13 +61,16 @@ public:
 
         int chatRoomID = safe_cast<int>(chatRoom->Tag);
 
+		if(*currentChatRoom != nullptr)
+			chatRoomsPanels[(*currentChatRoom)->getChatRoomID()]->Visible = false;
+
+
 		*currentChatRoom = &(*chatRooms)[chatRoomID];
 
-		cout << "Current Chat Room ID" << (*currentChatRoom)->getChatRoomID() << endl;
 
-		chatRoomsPanels[chatRoomID]->BringToFront();
+		chatRoomsPanels[chatRoomID]->Visible = true;
 
-		cout << chatRoomsPanels->Values->Count << endl;
+		footerContainer->Visible = true;
     }
 
 
@@ -123,7 +127,7 @@ public:
 		chatRoomPanel->TabIndex = 2;
 		chatRoomPanel->WrapContents = false;
 		chatsContainer->Controls->Add(chatRoomPanel);
-		chatRoomPanel->SendToBack();
+		chatRoomPanel->Visible = false;
 
 		chatRoomsPanels[chatRoomID] = chatRoomPanel;
 

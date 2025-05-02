@@ -22,7 +22,7 @@ class User {
 
 public:
     // Constructors
-    User(string mobileNumber, string password, string firstName, string lastName);
+    User(string mobileNumber, string password, string firstName, string lastName, string profilePhoto);
     User();
 
     // Getters

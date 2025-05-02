@@ -41,6 +41,7 @@ Class createChatRoomHandler: AutoLayout, AnsiClass, Class, Public, BeforeFieldIn
     std.unordered_map<int\,__int64\,std::hash<int>\,std::equal_to<int>\,std::allocator<std::pair<int const \,__int64> > >* activity : Public
     std.unordered_map<int\,chati::Message\,std::hash<int>\,std::equal_to<int>\,std::allocator<std::pair<int const \,chati::Message> > >* messages : Public
     System.Collections.Generic.Dictionary`2[System.Int32,System.Windows.Forms.FlowLayoutPanel] chatRoomsPanels : Public
+    System.Windows.Forms.Panel footerContainer : Public
   Methods:
     addChatRoomPanel(basic_string<char\,std::char_traits<char>\,std::allocator<char> >*, Int32, FlowLayoutPanel): PrivateScope, Public, HideBySig
     onChatRoomButtonClick(Object, EventArgs): PrivateScope, Public, HideBySig

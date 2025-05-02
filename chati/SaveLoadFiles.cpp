@@ -159,62 +159,17 @@ static void saveToFile(unordered_map<string, User> users, unordered_map<int, Cha
 		const User u = pair.second;
 		size_t len;
 
-
-
 		writeString(out, u.getFirstName());
-		//len = u.firstName.size();
-		//out.write(reinterpret_cast<char*>(&len), sizeof(len));
-		//out.write(u.firstName.c_str(), len);
-
 		writeString(out, u.getLastName());
-		//len = u.lastName.size();
-		//out.write(reinterpret_cast<char*>(&len), sizeof(len));
-		//out.write(u.lastName.c_str(), len);
-
-
 		writeString(out, u.getMobileNumber());
-		//len = u.mobileNumber.size();
-		//out.write(reinterpret_cast<char*>(&len), sizeof(len));
-		//out.write(u.mobileNumber.c_str(), len);
-
 		writeString(out, u.getPassword());
-		//len = u.password.size();
-		//out.write(reinterpret_cast<char*>(&len), sizeof(len));
-		//out.write(u.password.c_str(), len);
-
-
+		writeString(out, u.getProfilePhoto());
 
 		writeMap(out, u.getContactsPhones());
 
-		//out.write(reinterpret_cast<char*>(&contactCount), sizeof(contactCount));
-		//for (const string& s : u.contactsID) {
-		//	len = s.size();
-		//	out.write(reinterpret_cast<char*>(&len), sizeof(len)); 
-		//	out.write(s.c_str(), len);                             
-		//}
-
 		writeSet(out, u.getStoriesID());
 
-		//out.write(reinterpret_cast<char*>(&storyCount), sizeof(storyCount));
-		//for (const string& s : u.stories) {
-		//	len = s.size();
-		//	out.write(reinterpret_cast<char*>(&len), sizeof(len));
-		//	out.write(s.c_str(), len);                           
-		//}
-
-
-
-
 		writeSet(out, u.getChatRoomsID());
-
-		//out.write(reinterpret_cast<char*>(&charRoomsCount), sizeof(charRoomsCount));
-		//for (const string& s : u.chatRoomsID) {
-		//	len = s.size();
-		//	out.write(reinterpret_cast<char*>(&len), sizeof(len));
-		//	out.write(s.c_str(), len);                             
-		//}
-
-
 	}
 
 	out.close();
@@ -292,68 +247,31 @@ static void loadFromFile(unordered_map<string, User>& users, unordered_map<int, 
 
 	users.clear();
 	int userCount = 0;
-	in.read(reinterpret_cast<char*>(&userCount), sizeof(userCount));
+	try{
+		in.read(reinterpret_cast<char*>(&userCount), sizeof(userCount));
+	}
+	catch (const std::exception& e) {
+		cout << "Error reading user count: " << e.what() << endl;
+	}
 	for (int i = 0; i < userCount; ++i) {
 		User u;
 
 		int x;
 
 		u.setFirstName(readString(in));
-		//in.read(reinterpret_cast<char*>(&len), sizeof(len));
-		//temp.resize(len);
-		//in.read(&temp[0], len);
-		//u.firstName = temp;
-
-
-
 		u.setLastName(readString(in));
-		//in.read(reinterpret_cast<char*>(&len), sizeof(len));
-		//temp.resize(len);
-		//in.read(&temp[0], len);
-		//u.lastName = temp;
-
 		u.setMobileNumber(readString(in));
-		//in.read(reinterpret_cast<char*>(&len), sizeof(len));
-		//temp.resize(len);
-		//in.read(&temp[0], len);
-		//u.mobileNumber = temp;
-
 		u.setPassword(readString(in));
-		//in.read(reinterpret_cast<char*>(&len), sizeof(len));
-		//temp.resize(len);
-		//in.read(&temp[0], len);
-		//u.password = temp;
-
+		u.setProfilePhoto(readString(in));
 
 		u.setContactsPhones(readMap(in));
-		//int contactCount;
-		//in.read(reinterpret_cast<char*>(&contactCount), sizeof(contactCount));
-		//for (int j = 0; j < contactCount; ++j) {
-		//	in.read(reinterpret_cast<char*>(&len), sizeof(len));
-		//	temp.resize(len);
-		//	in.read(&temp[0], len);
-		//	u.contactsID.push_back(temp);
-		//}
+
 
 		u.setStoriesID(readSet(in));
-		//int storyCount;
-		//in.read(reinterpret_cast<char*>(&storyCount), sizeof(storyCount));
-		//for (int j = 0; j < storyCount; ++j) {
-		//	in.read(reinterpret_cast<char*>(&len), sizeof(len));
-		//	temp.resize(len);
-		//	in.read(&temp[0], len);
-		//	u.stories.push_back(temp);
-		//}
+
 
 		u.setChatRoomsID(readSet(in));
-		//int charRoomsCount;
-		//in.read(reinterpret_cast<char*>(&charRoomsCount), sizeof(charRoomsCount));
-		//for (int j = 0; j < charRoomsCount; ++j) {
-		//	in.read(reinterpret_cast<char*>(&len), sizeof(len));
-		//	temp.resize(len);
-		//	in.read(&temp[0], len);
-		//	u.chatRoomsID.push_back(temp);
-		//}
+
 		users[u.getMobileNumber()] = u;
 
 	}

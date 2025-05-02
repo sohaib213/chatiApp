@@ -5,8 +5,8 @@
 int User::userCounter = 10;
 
 // Default Constructor
-User::User(string mobileNumber, string password, string firstName, string lastName)
-    : mobileNumber(mobileNumber), password(password), firstName(firstName), lastName(lastName) {
+User::User(string mobileNumber, string password, string firstName, string lastName, string profilePhoto)
+    : mobileNumber(mobileNumber), password(password), firstName(firstName), lastName(lastName), profilePhoto(profilePhoto) {
     visible = true;  // Assuming users are visible by default
 }
 

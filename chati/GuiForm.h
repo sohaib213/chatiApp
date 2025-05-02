@@ -36,6 +36,7 @@ string currentContNum,currentContName;
 
 
 
+
 namespace chati {
 
 	using namespace System;
@@ -55,8 +56,13 @@ namespace chati {
 	{
 		System::Collections::Generic::Dictionary<int, FlowLayoutPanel^>^ chatRoomsPanels = gcnew System::Collections::Generic::Dictionary<int, FlowLayoutPanel^>();
 	    MessageHandler handler;
-	private: System::Windows::Forms::Button^ singOutButton;
-		   createChatRoomHandler chatRoomHandler;
+		private: System::Windows::Forms::Button^ singOutButton;
+		private: System::Windows::Forms::Button^ imagePickerButton;
+		private: System::Windows::Forms::PictureBox^ pictureBox1;
+		createChatRoomHandler chatRoomHandler;
+		String^ destinationPath;
+		String^ selectedImagePath;
+		String^ fileName = "User.png";
 
 		public:
 		GuiForm(void)
@@ -126,19 +132,20 @@ namespace chati {
 		private: System::Windows::Forms::Panel^ chatPnl;
 		private: System::Windows::Forms::Panel^ currentCahtPanel;
 		private: System::Windows::Forms::Panel^ chatsContainer;
+		private: System::Windows::Forms::Panel^ footerContainer;
 
 
 
 
 
 
-		private: System::Windows::Forms::Panel^ panel1;
+
 		private: System::Windows::Forms::Button^ sendButton;
 
 
 
 		private: System::Windows::Forms::Label^ label1;
-	private: System::Windows::Forms::FlowLayoutPanel^ contactsPanel;
+		private: System::Windows::Forms::FlowLayoutPanel^ contactsPanel;
 
 		private: System::Windows::Forms::FlowLayoutPanel^ allStoriesPanel;
 		private: System::Windows::Forms::Panel^ stotyHeaderPanel;
@@ -175,7 +182,8 @@ namespace chati {
 		private: System::Windows::Forms::TextBox^ addContName_field;
 		private: System::Windows::Forms::TextBox^ addContNum_field;
 		private: System::Windows::Forms::Label^ label5;
-		private: System::Windows::Forms::Label^ label4;
+private: System::Windows::Forms::Label^ NameLabel;
+
 		private: System::Windows::Forms::Label^ label3;
 		private: System::Windows::Forms::Label^ label2;
 		private: System::Windows::Forms::Button^ checkContact_btn;
@@ -196,27 +204,6 @@ namespace chati {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	//private: System::Windows::Forms::Button^ button2;
 		private:
 		/// <summary>
@@ -233,6 +220,8 @@ namespace chati {
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(GuiForm::typeid));
 			this->signUp_pnl = (gcnew System::Windows::Forms::Panel());
+			this->imagePickerButton = (gcnew System::Windows::Forms::Button());
+			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->signUp_done = (gcnew System::Windows::Forms::Label());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->FN_lbl = (gcnew System::Windows::Forms::Label());
@@ -256,29 +245,29 @@ namespace chati {
 			this->Pass_lbl2 = (gcnew System::Windows::Forms::Label());
 			this->MN_lbl2 = (gcnew System::Windows::Forms::Label());
 			this->mainPanel = (gcnew System::Windows::Forms::Panel());
-			this->profilePanel = (gcnew System::Windows::Forms::Panel());
-			this->singOutButton = (gcnew System::Windows::Forms::Button());
-			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->chatPnl = (gcnew System::Windows::Forms::Panel());
-			this->currentCahtPanel = (gcnew System::Windows::Forms::Panel());
-			this->chatsContainer = (gcnew System::Windows::Forms::Panel());
-			this->panel1 = (gcnew System::Windows::Forms::Panel());
-			this->textBox1 = (gcnew System::Windows::Forms::RichTextBox());
-			this->sendButton = (gcnew System::Windows::Forms::Button());
-			this->contactsPanel = (gcnew System::Windows::Forms::FlowLayoutPanel());
-			this->storyPanel = (gcnew System::Windows::Forms::Panel());
-			this->allStoriesPanel = (gcnew System::Windows::Forms::FlowLayoutPanel());
-			this->stotyHeaderPanel = (gcnew System::Windows::Forms::Panel());
-			this->label2 = (gcnew System::Windows::Forms::Label());
-			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->addContactPanel = (gcnew System::Windows::Forms::Panel());
 			this->addContact_btn = (gcnew System::Windows::Forms::Button());
 			this->checkContact_btn = (gcnew System::Windows::Forms::Button());
 			this->addContName_field = (gcnew System::Windows::Forms::TextBox());
 			this->addContNum_field = (gcnew System::Windows::Forms::TextBox());
 			this->label5 = (gcnew System::Windows::Forms::Label());
-			this->label4 = (gcnew System::Windows::Forms::Label());
+			this->NameLabel = (gcnew System::Windows::Forms::Label());
 			this->label3 = (gcnew System::Windows::Forms::Label());
+			this->chatPnl = (gcnew System::Windows::Forms::Panel());
+			this->currentCahtPanel = (gcnew System::Windows::Forms::Panel());
+			this->chatsContainer = (gcnew System::Windows::Forms::Panel());
+			this->footerContainer = (gcnew System::Windows::Forms::Panel());
+			this->textBox1 = (gcnew System::Windows::Forms::RichTextBox());
+			this->sendButton = (gcnew System::Windows::Forms::Button());
+			this->contactsPanel = (gcnew System::Windows::Forms::FlowLayoutPanel());
+			this->profilePanel = (gcnew System::Windows::Forms::Panel());
+			this->singOutButton = (gcnew System::Windows::Forms::Button());
+			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->storyPanel = (gcnew System::Windows::Forms::Panel());
+			this->allStoriesPanel = (gcnew System::Windows::Forms::FlowLayoutPanel());
+			this->stotyHeaderPanel = (gcnew System::Windows::Forms::Panel());
+			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->navPanel = (gcnew System::Windows::Forms::Panel());
 			this->chatButton = (gcnew System::Windows::Forms::Button());
 			this->goToAddContact_btn = (gcnew System::Windows::Forms::Button());
@@ -302,16 +291,17 @@ namespace chati {
 			this->nameInStoryLabel = (gcnew System::Windows::Forms::Label());
 			this->profileStoryPic = (gcnew System::Windows::Forms::PictureBox());
 			this->signUp_pnl->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->First_pnl->SuspendLayout();
 			this->signIn_pnl->SuspendLayout();
 			this->mainPanel->SuspendLayout();
-			this->profilePanel->SuspendLayout();
+			this->addContactPanel->SuspendLayout();
 			this->chatPnl->SuspendLayout();
 			this->currentCahtPanel->SuspendLayout();
-			this->panel1->SuspendLayout();
+			this->footerContainer->SuspendLayout();
+			this->profilePanel->SuspendLayout();
 			this->storyPanel->SuspendLayout();
 			this->stotyHeaderPanel->SuspendLayout();
-			this->addContactPanel->SuspendLayout();
 			this->navPanel->SuspendLayout();
 			this->addStoryPanel->SuspendLayout();
 			this->getStoryPanel->SuspendLayout();
@@ -323,6 +313,8 @@ namespace chati {
 			// 
 			// signUp_pnl
 			// 
+			this->signUp_pnl->Controls->Add(this->imagePickerButton);
+			this->signUp_pnl->Controls->Add(this->pictureBox1);
 			this->signUp_pnl->Controls->Add(this->signUp_done);
 			this->signUp_pnl->Controls->Add(this->button1);
 			this->signUp_pnl->Controls->Add(this->FN_lbl);
@@ -340,6 +332,26 @@ namespace chati {
 			this->signUp_pnl->Name = L"signUp_pnl";
 			this->signUp_pnl->Size = System::Drawing::Size(1904, 1041);
 			this->signUp_pnl->TabIndex = 9;
+			// 
+			// imagePickerButton
+			// 
+			this->imagePickerButton->Location = System::Drawing::Point(1136, 384);
+			this->imagePickerButton->Name = L"imagePickerButton";
+			this->imagePickerButton->Size = System::Drawing::Size(94, 34);
+			this->imagePickerButton->TabIndex = 21;
+			this->imagePickerButton->Text = L"select image";
+			this->imagePickerButton->UseVisualStyleBackColor = true;
+			this->imagePickerButton->Click += gcnew System::EventHandler(this, &GuiForm::imagePickerButton_Click);
+			// 
+			// pictureBox1
+			// 
+			this->pictureBox1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
+			this->pictureBox1->Location = System::Drawing::Point(1115, 238);
+			this->pictureBox1->Name = L"pictureBox1";
+			this->pictureBox1->Size = System::Drawing::Size(142, 133);
+			this->pictureBox1->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
+			this->pictureBox1->TabIndex = 20;
+			this->pictureBox1->TabStop = false;
 			// 
 			// signUp_done
 			// 
@@ -600,10 +612,10 @@ namespace chati {
 			// mainPanel
 			// 
 			this->mainPanel->BackColor = System::Drawing::Color::White;
+			this->mainPanel->Controls->Add(this->addContactPanel);
 			this->mainPanel->Controls->Add(this->chatPnl);
 			this->mainPanel->Controls->Add(this->profilePanel);
 			this->mainPanel->Controls->Add(this->storyPanel);
-			this->mainPanel->Controls->Add(this->addContactPanel);
 			this->mainPanel->Controls->Add(this->navPanel);
 			this->mainPanel->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->mainPanel->Location = System::Drawing::Point(0, 0);
@@ -611,40 +623,92 @@ namespace chati {
 			this->mainPanel->Size = System::Drawing::Size(1904, 1041);
 			this->mainPanel->TabIndex = 3;
 			// 
-			// profilePanel
+			// addContactPanel
 			// 
-			this->profilePanel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)),
+			this->addContactPanel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)),
 				static_cast<System::Int32>(static_cast<System::Byte>(45)));
-			this->profilePanel->Controls->Add(this->singOutButton);
-			this->profilePanel->Controls->Add(this->label1);
-			this->profilePanel->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->profilePanel->Location = System::Drawing::Point(87, 0);
-			this->profilePanel->Name = L"profilePanel";
-			this->profilePanel->Size = System::Drawing::Size(1817, 1041);
-			this->profilePanel->TabIndex = 10;
+			this->addContactPanel->Controls->Add(this->addContact_btn);
+			this->addContactPanel->Controls->Add(this->checkContact_btn);
+			this->addContactPanel->Controls->Add(this->addContName_field);
+			this->addContactPanel->Controls->Add(this->addContNum_field);
+			this->addContactPanel->Controls->Add(this->label5);
+			this->addContactPanel->Controls->Add(this->NameLabel);
+			this->addContactPanel->Controls->Add(this->label3);
+			this->addContactPanel->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->addContactPanel->Location = System::Drawing::Point(87, 0);
+			this->addContactPanel->Name = L"addContactPanel";
+			this->addContactPanel->Size = System::Drawing::Size(1817, 1041);
+			this->addContactPanel->TabIndex = 14;
 			// 
-			// singOutButton
+			// addContact_btn
 			// 
-			this->singOutButton->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(128)), static_cast<System::Int32>(static_cast<System::Byte>(255)),
-				static_cast<System::Int32>(static_cast<System::Byte>(255)));
-			this->singOutButton->Location = System::Drawing::Point(840, 410);
-			this->singOutButton->Name = L"singOutButton";
-			this->singOutButton->Size = System::Drawing::Size(212, 51);
-			this->singOutButton->TabIndex = 1;
-			this->singOutButton->Text = L"Sign out";
-			this->singOutButton->UseVisualStyleBackColor = false;
-			this->singOutButton->Click += gcnew System::EventHandler(this, &GuiForm::singOutButton_Click);
+			this->addContact_btn->Location = System::Drawing::Point(865, 573);
+			this->addContact_btn->Name = L"addContact_btn";
+			this->addContact_btn->Size = System::Drawing::Size(75, 23);
+			this->addContact_btn->TabIndex = 22;
+			this->addContact_btn->Text = L"Add";
+			this->addContact_btn->UseVisualStyleBackColor = true;
+			this->addContact_btn->Visible = false;
+			this->addContact_btn->Click += gcnew System::EventHandler(this, &GuiForm::addContact_btn_Click);
 			// 
-			// label1
+			// checkContact_btn
 			// 
-			this->label1->AutoSize = true;
-			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->checkContact_btn->Location = System::Drawing::Point(1028, 485);
+			this->checkContact_btn->Name = L"checkContact_btn";
+			this->checkContact_btn->Size = System::Drawing::Size(75, 23);
+			this->checkContact_btn->TabIndex = 21;
+			this->checkContact_btn->Text = L"Check";
+			this->checkContact_btn->UseVisualStyleBackColor = true;
+			this->checkContact_btn->Click += gcnew System::EventHandler(this, &GuiForm::checkContact_btn_Click);
+			// 
+			// addContName_field
+			// 
+			this->addContName_field->Location = System::Drawing::Point(791, 516);
+			this->addContName_field->Name = L"addContName_field";
+			this->addContName_field->Size = System::Drawing::Size(215, 20);
+			this->addContName_field->TabIndex = 18;
+			this->addContName_field->Visible = false;
+			// 
+			// addContNum_field
+			// 
+			this->addContNum_field->Location = System::Drawing::Point(791, 485);
+			this->addContNum_field->Name = L"addContNum_field";
+			this->addContNum_field->Size = System::Drawing::Size(215, 20);
+			this->addContNum_field->TabIndex = 17;
+			// 
+			// label5
+			// 
+			this->label5->AutoSize = true;
+			this->label5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label1->Location = System::Drawing::Point(859, 290);
-			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(167, 31);
-			this->label1->TabIndex = 0;
-			this->label1->Text = L"Profile Panel";
+			this->label5->Location = System::Drawing::Point(713, 485);
+			this->label5->Name = L"label5";
+			this->label5->Size = System::Drawing::Size(59, 17);
+			this->label5->TabIndex = 16;
+			this->label5->Text = L"Phone:";
+			// 
+			// NameLabel
+			// 
+			this->NameLabel->AutoSize = true;
+			this->NameLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->NameLabel->Location = System::Drawing::Point(713, 516);
+			this->NameLabel->Name = L"NameLabel";
+			this->NameLabel->Size = System::Drawing::Size(54, 17);
+			this->NameLabel->TabIndex = 15;
+			this->NameLabel->Text = L"Name:";
+			this->NameLabel->Visible = false;
+			// 
+			// label3
+			// 
+			this->label3->AutoSize = true;
+			this->label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 13.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label3->Location = System::Drawing::Point(836, 437);
+			this->label3->Name = L"label3";
+			this->label3->Size = System::Drawing::Size(121, 24);
+			this->label3->TabIndex = 14;
+			this->label3->Text = L"Add contact";
 			// 
 			// chatPnl
 			// 
@@ -660,7 +724,7 @@ namespace chati {
 			// 
 			this->currentCahtPanel->BackColor = System::Drawing::Color::RosyBrown;
 			this->currentCahtPanel->Controls->Add(this->chatsContainer);
-			this->currentCahtPanel->Controls->Add(this->panel1);
+			this->currentCahtPanel->Controls->Add(this->footerContainer);
 			this->currentCahtPanel->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->currentCahtPanel->Location = System::Drawing::Point(338, 0);
 			this->currentCahtPanel->Name = L"currentCahtPanel";
@@ -677,17 +741,18 @@ namespace chati {
 			this->chatsContainer->Size = System::Drawing::Size(1479, 995);
 			this->chatsContainer->TabIndex = 14;
 			// 
-			// panel1
+			// footerContainer
 			// 
-			this->panel1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(50)), static_cast<System::Int32>(static_cast<System::Byte>(50)),
+			this->footerContainer->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(50)), static_cast<System::Int32>(static_cast<System::Byte>(50)),
 				static_cast<System::Int32>(static_cast<System::Byte>(50)));
-			this->panel1->Controls->Add(this->textBox1);
-			this->panel1->Controls->Add(this->sendButton);
-			this->panel1->Dock = System::Windows::Forms::DockStyle::Bottom;
-			this->panel1->Location = System::Drawing::Point(0, 995);
-			this->panel1->Name = L"panel1";
-			this->panel1->Size = System::Drawing::Size(1479, 46);
-			this->panel1->TabIndex = 13;
+			this->footerContainer->Controls->Add(this->textBox1);
+			this->footerContainer->Controls->Add(this->sendButton);
+			this->footerContainer->Dock = System::Windows::Forms::DockStyle::Bottom;
+			this->footerContainer->Location = System::Drawing::Point(0, 995);
+			this->footerContainer->Name = L"footerContainer";
+			this->footerContainer->Size = System::Drawing::Size(1479, 46);
+			this->footerContainer->TabIndex = 13;
+			this->footerContainer->Visible = false;
 			// 
 			// textBox1
 			// 
@@ -725,6 +790,41 @@ namespace chati {
 			this->contactsPanel->Name = L"contactsPanel";
 			this->contactsPanel->Size = System::Drawing::Size(338, 1041);
 			this->contactsPanel->TabIndex = 2;
+			// 
+			// profilePanel
+			// 
+			this->profilePanel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)),
+				static_cast<System::Int32>(static_cast<System::Byte>(45)));
+			this->profilePanel->Controls->Add(this->singOutButton);
+			this->profilePanel->Controls->Add(this->label1);
+			this->profilePanel->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->profilePanel->Location = System::Drawing::Point(87, 0);
+			this->profilePanel->Name = L"profilePanel";
+			this->profilePanel->Size = System::Drawing::Size(1817, 1041);
+			this->profilePanel->TabIndex = 10;
+			// 
+			// singOutButton
+			// 
+			this->singOutButton->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(128)), static_cast<System::Int32>(static_cast<System::Byte>(255)),
+				static_cast<System::Int32>(static_cast<System::Byte>(255)));
+			this->singOutButton->Location = System::Drawing::Point(840, 410);
+			this->singOutButton->Name = L"singOutButton";
+			this->singOutButton->Size = System::Drawing::Size(212, 51);
+			this->singOutButton->TabIndex = 1;
+			this->singOutButton->Text = L"Sign out";
+			this->singOutButton->UseVisualStyleBackColor = false;
+			this->singOutButton->Click += gcnew System::EventHandler(this, &GuiForm::singOutButton_Click);
+			// 
+			// label1
+			// 
+			this->label1->AutoSize = true;
+			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label1->Location = System::Drawing::Point(859, 290);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(167, 31);
+			this->label1->TabIndex = 0;
+			this->label1->Text = L"Profile Panel";
 			// 
 			// storyPanel
 			// 
@@ -786,90 +886,6 @@ namespace chati {
 			this->button2->TabIndex = 12;
 			this->button2->UseVisualStyleBackColor = true;
 			this->button2->Click += gcnew System::EventHandler(this, &GuiForm::button2_Click);
-			// 
-			// addContactPanel
-			// 
-			this->addContactPanel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)),
-				static_cast<System::Int32>(static_cast<System::Byte>(45)));
-			this->addContactPanel->Controls->Add(this->addContact_btn);
-			this->addContactPanel->Controls->Add(this->checkContact_btn);
-			this->addContactPanel->Controls->Add(this->addContName_field);
-			this->addContactPanel->Controls->Add(this->addContNum_field);
-			this->addContactPanel->Controls->Add(this->label5);
-			this->addContactPanel->Controls->Add(this->label4);
-			this->addContactPanel->Controls->Add(this->label3);
-			this->addContactPanel->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->addContactPanel->Location = System::Drawing::Point(87, 0);
-			this->addContactPanel->Name = L"addContactPanel";
-			this->addContactPanel->Size = System::Drawing::Size(1817, 1041);
-			this->addContactPanel->TabIndex = 14;
-			// 
-			// addContact_btn
-			// 
-			this->addContact_btn->Location = System::Drawing::Point(865, 573);
-			this->addContact_btn->Name = L"addContact_btn";
-			this->addContact_btn->Size = System::Drawing::Size(75, 23);
-			this->addContact_btn->TabIndex = 22;
-			this->addContact_btn->Text = L"Add";
-			this->addContact_btn->UseVisualStyleBackColor = true;
-			this->addContact_btn->Click += gcnew System::EventHandler(this, &GuiForm::addContact_btn_Click);
-			// 
-			// checkContact_btn
-			// 
-			this->checkContact_btn->Location = System::Drawing::Point(1028, 485);
-			this->checkContact_btn->Name = L"checkContact_btn";
-			this->checkContact_btn->Size = System::Drawing::Size(75, 23);
-			this->checkContact_btn->TabIndex = 21;
-			this->checkContact_btn->Text = L"Check";
-			this->checkContact_btn->UseVisualStyleBackColor = true;
-			this->checkContact_btn->Click += gcnew System::EventHandler(this, &GuiForm::checkContact_btn_Click);
-			// 
-			// addContName_field
-			// 
-			this->addContName_field->Location = System::Drawing::Point(791, 516);
-			this->addContName_field->Name = L"addContName_field";
-			this->addContName_field->Size = System::Drawing::Size(215, 20);
-			this->addContName_field->TabIndex = 18;
-			// 
-			// addContNum_field
-			// 
-			this->addContNum_field->Location = System::Drawing::Point(791, 485);
-			this->addContNum_field->Name = L"addContNum_field";
-			this->addContNum_field->Size = System::Drawing::Size(215, 20);
-			this->addContNum_field->TabIndex = 17;
-			// 
-			// label5
-			// 
-			this->label5->AutoSize = true;
-			this->label5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->label5->Location = System::Drawing::Point(713, 485);
-			this->label5->Name = L"label5";
-			this->label5->Size = System::Drawing::Size(59, 17);
-			this->label5->TabIndex = 16;
-			this->label5->Text = L"Phone:";
-			// 
-			// label4
-			// 
-			this->label4->AutoSize = true;
-			this->label4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->label4->Location = System::Drawing::Point(713, 516);
-			this->label4->Name = L"label4";
-			this->label4->Size = System::Drawing::Size(54, 17);
-			this->label4->TabIndex = 15;
-			this->label4->Text = L"Name:";
-			// 
-			// label3
-			// 
-			this->label3->AutoSize = true;
-			this->label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 13.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->label3->Location = System::Drawing::Point(836, 437);
-			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(121, 24);
-			this->label3->TabIndex = 14;
-			this->label3->Text = L"Add contact";
 			// 
 			// navPanel
 			// 
@@ -1153,9 +1169,9 @@ namespace chati {
 			// 
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
 			this->ClientSize = System::Drawing::Size(1904, 1041);
+			this->Controls->Add(this->signUp_pnl);
 			this->Controls->Add(this->signIn_pnl);
 			this->Controls->Add(this->mainPanel);
-			this->Controls->Add(this->signUp_pnl);
 			this->Controls->Add(this->getStoryPanel);
 			this->Controls->Add(this->First_pnl);
 			this->Controls->Add(this->addStoryPanel);
@@ -1166,21 +1182,22 @@ namespace chati {
 			this->Load += gcnew System::EventHandler(this, &GuiForm::GuiForm_Load);
 			this->signUp_pnl->ResumeLayout(false);
 			this->signUp_pnl->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			this->First_pnl->ResumeLayout(false);
 			this->First_pnl->PerformLayout();
 			this->signIn_pnl->ResumeLayout(false);
 			this->signIn_pnl->PerformLayout();
 			this->mainPanel->ResumeLayout(false);
-			this->profilePanel->ResumeLayout(false);
-			this->profilePanel->PerformLayout();
+			this->addContactPanel->ResumeLayout(false);
+			this->addContactPanel->PerformLayout();
 			this->chatPnl->ResumeLayout(false);
 			this->currentCahtPanel->ResumeLayout(false);
-			this->panel1->ResumeLayout(false);
+			this->footerContainer->ResumeLayout(false);
+			this->profilePanel->ResumeLayout(false);
+			this->profilePanel->PerformLayout();
 			this->storyPanel->ResumeLayout(false);
 			this->stotyHeaderPanel->ResumeLayout(false);
 			this->stotyHeaderPanel->PerformLayout();
-			this->addContactPanel->ResumeLayout(false);
-			this->addContactPanel->PerformLayout();
 			this->navPanel->ResumeLayout(false);
 			this->addStoryPanel->ResumeLayout(false);
 			this->addStoryPanel->PerformLayout();
@@ -1200,7 +1217,7 @@ namespace chati {
 		private: System::Void GuiForm_Load(System::Object^ sender, System::EventArgs^ e) {
 			
 			loadFromFile(users, chatRooms, messages);
-			//users.clear();
+
 			//cout << "messages size: " << chatRooms[1].messagesID.size() << endl;
 			//for (int i : chatRooms[1].messagesID) {
 			//	cout << "messageID: " << i << endl;
@@ -1244,6 +1261,7 @@ namespace chati {
 				cout << u.second.getFirstName() << endl;
 				cout << u.second.getLastName() << endl;
 				cout << u.second.getPassword() << endl;
+				cout << u.second.getProfilePhoto() << endl;
 				for(auto &c: u.second.getContactsPhones()){
                     cout << "contact ID: " << c.first << endl;
 				}
@@ -1272,6 +1290,7 @@ namespace chati {
 			chatRoomHandler.currentUser = currentUser;
 			chatRoomHandler.chatsContainer = chatsContainer;
 			chatRoomHandler.chatRoomsPanels = chatRoomsPanels;
+			chatRoomHandler.footerContainer = footerContainer;
 
 
 			handler.globalMessages = &messages;
@@ -1306,9 +1325,9 @@ namespace chati {
 				return;
 			}
 		
-			string mobileNumber = msclr::interop::marshal_as<std::string>(MN_textbox->Text);
-			string password = msclr::interop::marshal_as<std::string>(Pass_textbox->Text);
-			string firstName = msclr::interop::marshal_as<std::string>(FN_textbox->Text);
+			string mobileNumber = msclr::interop::marshal_as<string>(MN_textbox->Text);
+			string password = msclr::interop::marshal_as<string>(Pass_textbox->Text);
+			string firstName = msclr::interop::marshal_as<string>(FN_textbox->Text);
 			string lastName = msclr::interop::marshal_as<std::string>(LN_textbox->Text);
 
 			if (checkUser(mobileNumber, users)) {
@@ -1316,7 +1335,14 @@ namespace chati {
 				return;
 			}
 
-			signUp(mobileNumber, password, firstName, lastName, users);
+
+			string filename = msclr::interop::marshal_as<std::string>(fileName->ToString());
+			if(filename != "User.png")
+				File::Copy(selectedImagePath, destinationPath, true);
+
+
+
+			signUp(mobileNumber, password, firstName, lastName, users, filename);
 			signUp_done->Visible = true;
 		}
 		private: System::Void signUp_btn_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -1352,6 +1378,9 @@ namespace chati {
 				return;
 			}
 			else {
+				MN_txt->Clear();
+				Pass_txt->Clear();
+
 				currentUser = &users[mobileNumber];
 
 				if (currentUser->getStoriesID().size() > 0) {
@@ -1369,14 +1398,14 @@ namespace chati {
 
 					if (chatRooms[chatRoom].getIsDual())
 					{
-						cout << "Contacts Phones Size: " << currentUser->getContactsPhones().size() << endl;
-						for(auto contact: currentUser->getContactsPhones()) {
-							cout << "contact ID: " << contact.first << endl;
-							cout << "contact name: " << contact.second << endl;
-						}
-						for (auto i : chatRooms[chatRoom].getUsersID()) {
-							cout << "userID: " << i << endl;
-						}
+						//cout << "Contacts Phones Size: " << currentUser->getContactsPhones().size() << endl;
+						//for(auto contact: currentUser->getContactsPhones()) {
+						//	cout << "contact ID: " << contact.first << endl;
+						//	cout << "contact name: " << contact.second << endl;
+						//}
+						//for (auto i : chatRooms[chatRoom].getUsersID()) {
+						//	cout << "userID: " << i << endl;
+						//}
 						if(chatRooms[chatRoom].getUsersID()[0] == currentUser->getMobileNumber())
 							chatRoomHandler.addChatRoomPanel(currentUser->getContactsPhones()[chatRooms[chatRoom].getUsersID()[1]], chatRoom, contactsPanel);
 						else
@@ -1575,10 +1604,14 @@ namespace chati {
 			else {
 
 				// Check if the contact already exists
-				
 
 				if (checkUserExist(contNum, users, currentContName)) {
 					currentContNum = contNum;
+
+					NameLabel->Visible = true;
+					addContName_field->Visible = true;
+					addContact_btn->Visible = true;
+
 					addContName_field->Text = gcnew System::String(currentContName.c_str());
 				}
 				else {
@@ -1591,6 +1624,9 @@ namespace chati {
 
 		private: System::Void addContact_btn_Click(System::Object^ sender, System::EventArgs^ e) {
 			string contNum = msclr::interop::marshal_as<std::string>(addContNum_field->Text);
+			addContName_field->Visible = false;
+			addContact_btn->Visible = false;
+			NameLabel->Visible = false;
 			if (checkContactExist(contNum, *currentUser)) {
 				MessageBox::Show("Contact already exists", "Error");
 			}
@@ -1619,5 +1655,29 @@ namespace chati {
 		private: System::Void singOutButton_Click(System::Object^ sender, System::EventArgs^ e) {
 			signIn_pnl->BringToFront();
 		}
-};
+		private: System::Void imagePickerButton_Click(System::Object^ sender, System::EventArgs^ e) {
+			OpenFileDialog^ openFileDialog = gcnew OpenFileDialog();
+			openFileDialog->Title = "Select an image";
+			openFileDialog->Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif";
+
+            if (openFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK)
+			{
+				pictureBox1->Image = Image::FromFile(openFileDialog->FileName);
+                selectedImagePath = openFileDialog->FileName;
+				fileName = Path::GetFileName(selectedImagePath);
+
+				String^ projectRoot = Directory::GetParent(Application::StartupPath)->Parent->FullName;
+				String^ imagesFolder = Path::Combine(projectRoot, "usersImages");
+
+				// Ensure the folder exists
+				if (!Directory::Exists(imagesFolder))
+					Directory::CreateDirectory(imagesFolder);
+
+				// Create full destination path
+				destinationPath = Path::Combine(imagesFolder, fileName);
+			}
+		}
+
+
+	};
 }

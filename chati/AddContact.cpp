@@ -13,7 +13,7 @@ using namespace std;
 	auto it = users.find(contactNumber);
 	if (it != users.end()) {
 		//contNumber = it->second.getMobileNumber();
-		currentContName = it->second.getFirstName() + it->second.getLastName();
+		currentContName = it->second.getFirstName() + ' ' + it->second.getLastName();
 		return true;
 	}
 	return false;
