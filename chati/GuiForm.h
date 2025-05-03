@@ -1349,22 +1349,22 @@ namespace chati {
 			//currentChatRoom->addUserPhone(currentUser->getMobileNumber());
 			//chatRooms[1] = *currentChatRoom;
 
-			for(auto chatRoom: chatRooms){
-				cout << "chatRoom ID: " << chatRoom.first << endl;
+			//for(auto chatRoom: chatRooms){
+			//	cout << "chatRoom ID: " << chatRoom.first << endl;
 
-				for(auto userID: chatRoom.second.getUsersID()){
-					cout << "userID: " << userID << endl;
-				}
+			//	for(auto userID: chatRoom.second.getUsersID()){
+			//		cout << "userID: " << userID << endl;
+			//	}
 
-				LinkedList list1 = chatRoom.second.getMessagesID();
+			//	LinkedList list1 = chatRoom.second.getMessagesID();
 
-				for (Node* item = list1.begin(); item != list1.end(); item = item->next) {
-					cout << "Message Text: " << messages[item->value].getText() << " ";
-					cout << "Message ID: " << messages[item->value].getMessageID() << " ";
+			//	for (Node* item = list1.begin(); item != list1.end(); item = item->next) {
+			//		cout << "Message Text: " << messages[item->value].getText() << " ";
+			//		cout << "Message ID: " << messages[item->value].getMessageID() << " ";
 
-				}
-				cout << endl;
-			}
+			//	}
+			//	cout << endl;
+			//}
 
 			//for(auto m: currentChatRoom->getMessagesID()){
 			//	cout << "messageID from current chat: " << m << endl;

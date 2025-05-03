@@ -36,13 +36,18 @@ public:
 
         chati::LinkedList list1 = chatRoom->getMessagesID();
 
+        chati::Node* temp = list1.begin();
 	    for (chati::Node* item = list1.begin(); item != list1.end(); item = item->next) {
-            createMessage(messagesContainer, messages[item->value], chatRoom, currentUser, 1);
-        }
-  //      for(auto& messageID : chatRoom->getMessagesID()) {
-  //          createMessage(messagesContainer, messages[messageID.value], chatRoom, currentUser);
-		//}
 
+            createMessage(messagesContainer, messages[item->value], chatRoom, currentUser, 1);
+
+            if(item->next == list1.end())
+                createDateLabel(messagesContainer, messages[item->value].getDateSent(), "", 1);
+            else
+                createDateLabel(messagesContainer, messages[temp->value].getDateSent(), messages[item->value].getDateSent(), 1);
+
+			temp = item;
+        }
     }
 
    void createMessageEvent(RichTextBox^ textBox1, FlowLayoutPanel^ messagesContainer, User *currentUser, unordered_map<int, long long>& activity,
@@ -56,12 +61,13 @@ public:
            tm* now_tm = localtime(&now_time_t);  
 
            ostringstream day, hour, minute, second;  
-           day << put_time(now_tm, "%d-%m-%y"); // Format: DD-MM-YYYY
+           day << put_time(now_tm, "%d-%m-20%y"); // Format: DD-MM-YYYY
            hour << put_time(now_tm, "%H"); 
            minute << put_time(now_tm, "%M"); 
 		   second << put_time(now_tm, "%S");
 
 
+           
            //? create the message to get the id directly (is better)
            chati::Message msg = chati::Message(s, currentUser->getMobileNumber(), (*globalChatRoom)->getChatRoomID(), day.str(), stoi(hour.str()), stoi(minute.str()), stoi(second.str()), false);
            // Fix: Use pointer dereference to access the map
@@ -71,12 +77,16 @@ public:
 
            (*globalMessages)[msg.getMessageID()] = msg;
 
+           if((*globalChatRoom)->getMessagesID().Length() == 0)
+               createDateLabel(messagesContainer, day.str(), "", 2);
+           else
+			   createDateLabel(messagesContainer, day.str(), messages[(*globalChatRoom)->getLastMessageID()].getDateSent(), 2);
 
            //update when a new message is sent
            (*globalMessages)[msg.getMessageID()] = msg;
            (*globalChatRoom)->addMessageID(msg.getMessageID());
 
-                      // Fix: Pass the dereferenced map to the createMessage function 
+            // Fix: Pass the dereferenced map to the createMessage function 
            
 
            createMessage(messagesContainer, (*globalMessages)[msg.getMessageID()], currentChatRoom, currentUser, 2);
@@ -160,7 +170,7 @@ public:
             messagePanel->MouseDown += gcnew MouseEventHandler(this, &MessageHandler::messageRightClick); // Fix: Use 'this' to bind the delegate to the managed class
             newLabel->MouseDown += gcnew MouseEventHandler(this, &MessageHandler::messageRightClick); // Fix: Use 'this' to bind the delegate to the managed class
         } else {
-            messagePanel->BackColor = Color::Gray;
+            messagePanel->BackColor = Color::FromArgb(171, 164, 164);
 
 		}
 
@@ -182,6 +192,7 @@ public:
             messagesContainer->Controls->SetChildIndex(messagePanel, 0);
         messagesContainer->ScrollControlIntoView(messagePanel);
         
+
         timeLabel->Location = Point(messagePanel->Width,  messagePanel->Height - 20);
 		seenPicture->Location = Point(messagePanel->Width - 10, messagePanel->Height - 20);
 
@@ -195,6 +206,24 @@ public:
             messagePanel->Margin = Padding(3, 3, 50, 3);
     }
     
+    void createDateLabel(FlowLayoutPanel^ messagesContainer, string currentDay, string previousDay, int source) {
+        if (messagesContainer->Controls->Count == 0 || currentDay != previousDay) {
+
+
+            Label^ dateLabel = gcnew Label();
+            dateLabel->Text = gcnew String(currentDay.c_str());
+            dateLabel->Font = gcnew Font("Arial", 15, FontStyle::Bold);
+            dateLabel->ForeColor = Color::White;
+            dateLabel->BackColor = Color::FromArgb(87, 83, 83);
+            dateLabel->AutoSize = true;
+
+            messagesContainer->Controls->Add(dateLabel);
+            if(source == 2)
+				messagesContainer->Controls->SetChildIndex(dateLabel, 0);
+            dateLabel->Margin = Padding(750, 10, 3, 10);
+
+        }
+    }
 
     void messageRightClick(Object^ sender, MouseEventArgs^ e)
     {
