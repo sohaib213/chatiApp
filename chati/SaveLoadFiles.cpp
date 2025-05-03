@@ -195,6 +195,8 @@ static void saveToFile(unordered_map<string, User> users, unordered_map<int, Cha
 		int usersIDCount = c.getUsersID().size();
 		writeStringVector(out, c.getUsersID());
 
+		writeString(out, c.getGroupName());
+
 		int messagedCount = c.getMessagesID().size();
 		out.write(reinterpret_cast<char*>(&messagedCount), sizeof(messagedCount));
 		for (const int& i : c.getMessagesID())
@@ -305,6 +307,8 @@ static void loadFromFile(unordered_map<string, User>& users, unordered_map<int, 
 		c.setIsDual(x);
 
 		c.setUsersID(readStringVector(in));
+
+		c.setGroupName(readString(in));
 
 		int temp;
 		int messagedCount;

@@ -113,6 +113,54 @@ public:
         activity[chatRoomID] = milliseconds;
     }
 
+	void createGroup(User* currentUser, unordered_map<int, ChatRoom>& chatRooms,
+		Panel^ messagesContainer, CheckedListBox^ usersListBox, unordered_map<string,
+		User>& users, FlowLayoutPanel^ chatRoomsPanel, string groupName,
+		unordered_map<int, long long>& activity) {
+
+		ChatRoom* chatRoom = new ChatRoom(false);
+		chatRoom->setChatRoomID(ChatRoom::getChatRoomsCounter());
+		chatRoom->setGroupName(groupName);
+		ChatRoom::incrementChatRoomsCounter();
+		createChatRoomGUI(chatRoom->getChatRoomID(), messagesContainer);
+
+		int chatRoomID = chatRoom->getChatRoomID();
+
+		chatRoom->addUserPhone(currentUser->getMobileNumber());
+		currentUser->addChatRoomID(chatRoomID);
+
+
+		msclr::interop::marshal_context context;
+
+		for each(String ^ item in usersListBox->CheckedItems) {
+
+			int parenIndex = item->IndexOf(" ");
+			String^ phone = parenIndex > 0 ? item->Substring(0, parenIndex) : item;
+
+			string phoneStr = context.marshal_as<std::string>(phone);
+
+			if (users.find(phoneStr) != users.end()) {
+				cout << "chatRoomId:" << users[phoneStr].getChatRoomsID().size() << endl;
+				chatRoom->addUserPhone(phoneStr);
+				users[phoneStr].addChatRoomID(chatRoomID);
+				cout << "chatRoomId:" << users[phoneStr].getChatRoomsID().size() << endl;
+			}
+			else {
+				MessageBox::Show("User with phone " + phone + " not found", "Error");
+			}
+		}
+
+		chatRooms[chatRoomID] = *chatRoom;
+		addChatRoomPanel(groupName, chatRoomID, chatRoomsPanel);
+
+		auto now = std::chrono::system_clock::now();
+		auto now_ms = std::chrono::time_point_cast<std::chrono::milliseconds>(now);
+		long long milliseconds = now_ms.time_since_epoch().count();
+		activity[chatRoomID] = milliseconds;
+
+		MessageBox::Show("Group created successfully!", "Success");
+	}
+
 	FlowLayoutPanel^ createChatRoomGUI(int chatRoomID, Panel^ chatsContainer) {
 		FlowLayoutPanel^ chatRoomPanel = gcnew FlowLayoutPanel();
 		chatRoomPanel->Name = gcnew System::String(std::to_string(chatRoomID).c_str());

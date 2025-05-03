@@ -13,3 +13,6 @@ D:\DS_Project\chatiApp\chati\x64\Debug\chati.vcxproj.GenerateResource.cache
 C:\Programms\chati\chati\x64\Debug\chati.vcxproj.AssemblyReference.cache
 C:\Programms\chati\chati\x64\Debug\chati.GuiForm.resources
 C:\Programms\chati\chati\x64\Debug\chati.vcxproj.GenerateResource.cache
+D:\test\chatiApp\chati\x64\Debug\chati.vcxproj.AssemblyReference.cache
+D:\test\chatiApp\chati\x64\Debug\chati.GuiForm.resources
+D:\test\chatiApp\chati\x64\Debug\chati.vcxproj.GenerateResource.cache

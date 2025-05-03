@@ -13,7 +13,7 @@ class ChatRoom {
     vector<string> usersPhone;
     set<int> messagesID;
     bool isDual;
-
+    string groupName;
 public:
     // constructors
     ChatRoom();
@@ -26,6 +26,7 @@ public:
     set<int> getMessagesID() const;
     bool getIsDual() const;
     int getLastMessageID() const;
+    string getGroupName() const;
 
     // Setters
     static void setChatRoomsCounter(int count);
@@ -33,6 +34,7 @@ public:
     void setUsersID(const vector<string>& users);
     void setMessagesID(const set<int>& messages);
     void setIsDual(bool dual);
+    void setGroupName(const string &groupName);
 
 	// Add Delete Methods
 	void addUserPhone(string userID);

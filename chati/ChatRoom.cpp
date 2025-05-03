@@ -21,6 +21,9 @@ void ChatRoom::setMessagesID(const set<int>& messagesID) { this->messagesID = me
 bool ChatRoom::getIsDual() const { return isDual; }
 void ChatRoom::setIsDual(bool isDual) { this->isDual = isDual; }
 
+string ChatRoom::getGroupName() const { return groupName; }
+void ChatRoom::setGroupName(const string& groupName) { this->groupName = groupName; }
+
 void ChatRoom::addUserPhone(string userID) {
 	this->usersPhone.push_back(userID);
 }
