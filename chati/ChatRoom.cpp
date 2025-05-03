@@ -15,11 +15,14 @@ void ChatRoom::setChatRoomID(int chatRoomID) { this->chatRoomID = chatRoomID; }
 vector<string> ChatRoom::getUsersID() const { return usersPhone; }
 void ChatRoom::setUsersID(const vector<string>& usersID) { this->usersPhone = usersID; }
 
-set<int> ChatRoom::getMessagesID() const { return messagesID; }
-void ChatRoom::setMessagesID(const set<int>& messagesID) { this->messagesID = messagesID; }
+chati::LinkedList ChatRoom::getMessagesID() const { return messagesID; }
+void ChatRoom::setMessagesID(const chati::LinkedList& messagesID) { this->messagesID = messagesID; }
 
 bool ChatRoom::getIsDual() const { return isDual; }
 void ChatRoom::setIsDual(bool isDual) { this->isDual = isDual; }
+
+string ChatRoom::getGroupName() const { return groupName; }
+void ChatRoom::setGroupName(const string& groupName) { this->groupName = groupName; }
 
 void ChatRoom::addUserPhone(string userID) {
 	this->usersPhone.push_back(userID);
@@ -32,16 +35,21 @@ void ChatRoom::deleteUserPhone(string userID) {
 }
 
 void ChatRoom::addMessageID(int messageID) {
-	this->messagesID.insert(messageID);
+	this->messagesID.push_front(messageID);
 }
+
+void ChatRoom::addMessageIDInFiles(int messageID) {
+	this->messagesID.push_back(messageID);
+}
+
 int ChatRoom::getLastMessageID() const {
 	if (!messagesID.empty()) {
-		return *messagesID.rbegin(); 
+		return messagesID.begin()->value; 
 	}
 	return -1; 
 }
 void ChatRoom::deleteMessageID(int i) {
-	this->messagesID.erase(i);
+	this->messagesID.Delete(i);
 }
 
 bool ChatRoom::hasUser(string userPhone) const {

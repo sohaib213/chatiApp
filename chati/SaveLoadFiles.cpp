@@ -195,11 +195,16 @@ static void saveToFile(unordered_map<string, User> users, unordered_map<int, Cha
 		int usersIDCount = c.getUsersID().size();
 		writeStringVector(out, c.getUsersID());
 
-		int messagedCount = c.getMessagesID().size();
-		out.write(reinterpret_cast<char*>(&messagedCount), sizeof(messagedCount));
-		for (const int& i : c.getMessagesID())
-			out.write(reinterpret_cast<const char*>(&i), sizeof(i));
+		writeString(out, c.getGroupName());
 
+		int messagedCount = c.getMessagesID().Length();
+		out.write(reinterpret_cast<char*>(&messagedCount), sizeof(messagedCount));
+
+		chati::LinkedList list1 = c.getMessagesID();
+		for (chati::Node* item = list1.begin(); item != list1.end(); item = item->next) {
+			int messageID = item->value; // Assuming Node has a method getValue() to retrieve the integer
+			out.write(reinterpret_cast<const char*>(&messageID), sizeof(messageID));
+		}
 	}
 	out.close();
 
@@ -306,12 +311,14 @@ static void loadFromFile(unordered_map<string, User>& users, unordered_map<int, 
 
 		c.setUsersID(readStringVector(in));
 
+		c.setGroupName(readString(in));
+
 		int temp;
 		int messagedCount;
 		in.read(reinterpret_cast<char*>(&messagedCount), sizeof(messagedCount));
 		for (int j = 0; j < messagedCount; ++j) {
 			in.read(reinterpret_cast<char*>(&temp), sizeof(temp));
-			c.addMessageID(temp);
+			c.addMessageIDInFiles(temp);
 
 		}
 

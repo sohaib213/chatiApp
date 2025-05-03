@@ -126,6 +126,7 @@
     <ClInclude Include="GuiForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="LinkedList.h" />
     <ClInclude Include="Message.h" />
     <ClInclude Include="MessageHandler.h" />
     <ClInclude Include="Sort.h" />
@@ -137,6 +138,7 @@
     <ClCompile Include="chat.cpp" />
     <ClCompile Include="ChatRoom.cpp" />
     <ClCompile Include="GuiForm.cpp" />
+    <ClCompile Include="LinkedList.cpp" />
     <ClCompile Include="Message.cpp" />
     <ClCompile Include="SaveLoadFiles.cpp" />
     <ClCompile Include="Signing.cpp" />

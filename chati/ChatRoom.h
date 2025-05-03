@@ -4,6 +4,7 @@
 #include <set>
 #include "Message.h"
 #include "User.h"
+#include "LinkedList.h"
 
 using namespace std;
 
@@ -11,9 +12,9 @@ class ChatRoom {
 	static int chatRoomCounter; // Static variable to keep track of chat room IDs
     int chatRoomID;
     vector<string> usersPhone;
-    set<int> messagesID;
+    chati::LinkedList messagesID;
     bool isDual;
-
+    string groupName;
 public:
     // constructors
     ChatRoom();
@@ -23,20 +24,23 @@ public:
     static int getChatRoomsCounter();
     int getChatRoomID() const;
     vector<string> getUsersID() const;
-    set<int> getMessagesID() const;
+    chati::LinkedList getMessagesID() const;
     bool getIsDual() const;
     int getLastMessageID() const;
+    string getGroupName() const;
 
     // Setters
     static void setChatRoomsCounter(int count);
     void setChatRoomID(int id);
     void setUsersID(const vector<string>& users);
-    void setMessagesID(const set<int>& messages);
+    void setMessagesID(const chati::LinkedList& messages);
     void setIsDual(bool dual);
+    void setGroupName(const string &groupName);
 
 	// Add Delete Methods
 	void addUserPhone(string userID);
 	void addMessageID(int messageID);
+	void addMessageIDInFiles(int messageID);
 	void deleteUserPhone(string userID);
 	void deleteMessageID(int messageID);
 

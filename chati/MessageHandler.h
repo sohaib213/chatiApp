@@ -12,17 +12,19 @@
 using namespace System;
 using namespace System::Windows::Forms;
 using namespace System::Drawing;
-
+using namespace System::IO;
 
 public ref class MessageHandler {  
 public:
 
     unordered_map<int, chati::Message>* globalMessages;
-    ChatRoom* globalChatRoom;
+    ChatRoom** globalChatRoom;
 	int messageIDToDelete;
 	Panel^ panelToDelete;
 	Panel^ messagesContainer;
 	User* currentUser;
+    String^ projectRoot = Directory::GetParent(Application::StartupPath)->Parent->FullName;
+    String^ iconsFolder = Path::Combine(projectRoot, "icons");
 
     void initializeChat(ChatRoom *chatRoom, FlowLayoutPanel^ messagesContainer, 
         unordered_map<int, chati::Message>& messages, User *currentUser, unordered_map<int, long long>& activity) {
@@ -32,16 +34,14 @@ public:
 		messagesContainer->Controls->Clear();
 
 
-        //// intialize map
-        //if (!chatRoom->getMessagesID().empty()) {
-        //    int lastID = chatRoom->getLastMessageID();
-        //    activity[chatRoom->getChatRoomID()] = lastID;
-        //}
+        chati::LinkedList list1 = chatRoom->getMessagesID();
 
-
-        for(auto& messageID : chatRoom->getMessagesID()) {
-            createMessage(messagesContainer, messages[messageID], chatRoom, currentUser);
-		}
+	    for (chati::Node* item = list1.begin(); item != list1.end(); item = item->next) {
+            createMessage(messagesContainer, messages[item->value], chatRoom, currentUser, 1);
+        }
+  //      for(auto& messageID : chatRoom->getMessagesID()) {
+  //          createMessage(messagesContainer, messages[messageID.value], chatRoom, currentUser);
+		//}
 
     }
 
@@ -50,7 +50,6 @@ public:
        if (textBox1->Text != "") {  
            string s = msclr::interop::marshal_as<string>(textBox1->Text);  
 
-		   globalChatRoom = currentChatRoom;
 
            auto now = chrono::system_clock::now();  
            time_t now_time_t = chrono::system_clock::to_time_t(now);  
@@ -64,7 +63,7 @@ public:
 
 
            //? create the message to get the id directly (is better)
-           chati::Message msg = chati::Message(s, currentUser->getMobileNumber(), globalChatRoom->getChatRoomID(), day.str(), stoi(hour.str()), stoi(minute.str()), stoi(second.str()), false);
+           chati::Message msg = chati::Message(s, currentUser->getMobileNumber(), (*globalChatRoom)->getChatRoomID(), day.str(), stoi(hour.str()), stoi(minute.str()), stoi(second.str()), false);
            // Fix: Use pointer dereference to access the map
 		   msg.setMessageID(chati::Message::getMessageCounter());
 		   chati::Message::incrementMessageCounter();
@@ -75,16 +74,12 @@ public:
 
            //update when a new message is sent
            (*globalMessages)[msg.getMessageID()] = msg;
-           globalChatRoom->addMessageID(msg.getMessageID());
+           (*globalChatRoom)->addMessageID(msg.getMessageID());
 
+                      // Fix: Pass the dereferenced map to the createMessage function 
            
 
-
-           globalChatRoom->addMessageID(msg.getMessageID());
-           // Fix: Pass the dereferenced map to the createMessage function 
-           
-
-           createMessage(messagesContainer, (*globalMessages)[msg.getMessageID()], currentChatRoom, currentUser);
+           createMessage(messagesContainer, (*globalMessages)[msg.getMessageID()], currentChatRoom, currentUser, 2);
 
            textBox1->Clear();
 		   textBox1->Focus();
@@ -99,17 +94,14 @@ public:
            // Get the number of milliseconds as integer
            long long milliseconds = value.count();
            
-           activity[globalChatRoom->getChatRoomID()] = milliseconds;
+           activity[(*globalChatRoom)->getChatRoomID()] = milliseconds;
 
            sortChatRooms(*currentUser, activity, chatRooms, chatRoomsPanel, messages);
        }  
    }
 
-    void createMessage(FlowLayoutPanel^ messagesContainer, chati::Message m, ChatRoom* currentChatRoom, User* currentUser)
+    void createMessage(FlowLayoutPanel^ messagesContainer, chati::Message m, ChatRoom* currentChatRoom, User* currentUser, int source)
     {  
-
-        globalChatRoom = currentChatRoom;
-
 
 		//? picture box for the profile photo 
 		//? Label for the sender name
@@ -153,10 +145,13 @@ public:
 
 		PictureBox^ seenPicture = gcnew PictureBox();
 		seenPicture->Size = System::Drawing::Size(17, 14);
+
+
+
         if(m.getIsRead()) {
-            seenPicture->Image = Image::FromFile("icons/seen.png");
+            seenPicture->Image = Image::FromFile(Path::Combine(iconsFolder, "seen.png"));
         } else {
-            seenPicture->Image = Image::FromFile("icons/un_seen.png");
+            seenPicture->Image = Image::FromFile(Path::Combine(iconsFolder, "un_seen.png"));
 		}
 
 
@@ -183,7 +178,8 @@ public:
 
 
         messagesContainer->Controls->Add(messagePanel);
-        messagesContainer->Controls->SetChildIndex(messagePanel, 0);
+        if(source == 2)
+            messagesContainer->Controls->SetChildIndex(messagePanel, 0);
         messagesContainer->ScrollControlIntoView(messagePanel);
         
         timeLabel->Location = Point(messagePanel->Width,  messagePanel->Height - 20);
@@ -268,8 +264,8 @@ public:
 
          ToolStripMenuItem^ optionDelete = dynamic_cast<ToolStripMenuItem^>(sender);
 
-
-         globalChatRoom->deleteMessageID(messageIDToDelete);
+         
+         (*globalChatRoom)->deleteMessageID(messageIDToDelete);
          int x = messageIDToDelete;
 		 globalMessages->erase(x);
          messagesContainer->Controls->Remove(panelToDelete);
