@@ -24,6 +24,9 @@ void ChatRoom::setIsDual(bool isDual) { this->isDual = isDual; }
 string ChatRoom::getGroupName() const { return groupName; }
 void ChatRoom::setGroupName(const string& groupName) { this->groupName = groupName; }
 
+string ChatRoom::getGroupPhoto() const { return groupPhoto; }
+void ChatRoom::setGroupPhoto(const string& groupPhoto) { this->groupPhoto = groupPhoto; }
+
 void ChatRoom::addUserPhone(string userID) {
 	this->usersPhone.push_back(userID);
 }
