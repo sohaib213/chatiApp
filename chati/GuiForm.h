@@ -57,8 +57,8 @@ namespace chati {
 		System::Collections::Generic::Dictionary<int, FlowLayoutPanel^>^ chatRoomsPanels = gcnew System::Collections::Generic::Dictionary<int, FlowLayoutPanel^>();
 	    MessageHandler handler;
 		private: System::Windows::Forms::Button^ singOutButton;
-		private: System::Windows::Forms::Button^ imagePickerButton;
-		private: System::Windows::Forms::PictureBox^ pictureBox1;
+
+
 		createChatRoomHandler chatRoomHandler;
 		String^ destinationPath;
 		String^ selectedImagePath;
@@ -75,6 +75,35 @@ namespace chati {
 		private: System::Windows::Forms::PictureBox^ chatPicture;
 		private: System::Windows::Forms::Label^ chatName;
 		private: System::Windows::Forms::Panel^ messagesFlowPanelsContainer;
+	private: System::Windows::Forms::Panel^ panel1;
+
+	private: System::Windows::Forms::Label^ label4;
+	private: System::Windows::Forms::Label^ passLbl;
+	private: System::Windows::Forms::Label^ numLbl;
+	private: System::Windows::Forms::TextBox^ passTxt;
+	private: System::Windows::Forms::TextBox^ phoneTxt;
+	private: System::Windows::Forms::Label^ label10;
+	private: System::Windows::Forms::Label^ label9;
+	private: System::Windows::Forms::Button^ button8;
+	private: System::Windows::Forms::TextBox^ pasTxt;
+
+	private: System::Windows::Forms::TextBox^ numTxt;
+
+	private: System::Windows::Forms::TextBox^ lnTxt;
+
+	private: System::Windows::Forms::TextBox^ fnTxt;
+
+	private: System::Windows::Forms::Label^ label14;
+	private: System::Windows::Forms::Label^ label13;
+	private: System::Windows::Forms::Label^ label12;
+	private: System::Windows::Forms::Label^ label11;
+	private: System::Windows::Forms::Label^ label15;
+	private: System::Windows::Forms::Button^ button10;
+	private: System::Windows::Forms::Button^ button9;
+	private: System::Windows::Forms::PictureBox^ pictureBox2;
+	private: System::Windows::Forms::Button^ button12;
+
+
 
 
 
@@ -97,34 +126,35 @@ namespace chati {
 				delete components;
 			}
 		}
-		private: System::Windows::Forms::Panel^ signUp_pnl;
+
 		protected:
 
 		protected:
-		private: System::Windows::Forms::Label^ FN_lbl;
-		private: System::Windows::Forms::TextBox^ FN_textbox;
-		private: System::Windows::Forms::Label^ LN_lbl;
-		private: System::Windows::Forms::Label^ Pass_lbl;
-		private: System::Windows::Forms::TextBox^ LN_textbox;
-		private: System::Windows::Forms::TextBox^ Pass_textbox;
-		private: System::Windows::Forms::Button^ submit_but;
-		private: System::Windows::Forms::Label^ MN_lbl;
-		private: System::Windows::Forms::TextBox^ MN_textbox;
-		private: System::Windows::Forms::Panel^ First_pnl;
-		private: System::Windows::Forms::Button^ signin_btn;
-		private: System::Windows::Forms::Button^ signUp_btn;
-		private: System::Windows::Forms::Label^ letsChat;
-		private: System::Windows::Forms::Button^ button1;
-		private: System::Windows::Forms::Label^ signUp_done;
-		private: System::Windows::Forms::Panel^ signIn_pnl;
-		private: System::Windows::Forms::TextBox^ Pass_txt;
-		private: System::Windows::Forms::TextBox^ MN_txt;
-		private: System::Windows::Forms::Label^ Pass_lbl2;
-		private: System::Windows::Forms::Label^ MN_lbl2;
+
+
+
+
+
+
+
+
+
+	private: System::Windows::Forms::Panel^ signUpPnl;
+
+
+
+
+
+
+
+		
+
+
+
 		//private: System::Windows::Forms::Label^ DateUserStoryLabel;
 		//private: System::Windows::Forms::Label^ nameUserStoryLabel;
-		private: System::Windows::Forms::Button^ back;
-		private: System::Windows::Forms::Button^ sign;
+
+
 		private: System::Windows::Forms::Panel^ mainPanel;
 		
 
@@ -235,31 +265,21 @@ namespace chati {
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(GuiForm::typeid));
-			this->signUp_pnl = (gcnew System::Windows::Forms::Panel());
-			this->imagePickerButton = (gcnew System::Windows::Forms::Button());
-			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
-			this->signUp_done = (gcnew System::Windows::Forms::Label());
-			this->button1 = (gcnew System::Windows::Forms::Button());
-			this->FN_lbl = (gcnew System::Windows::Forms::Label());
-			this->FN_textbox = (gcnew System::Windows::Forms::TextBox());
-			this->LN_lbl = (gcnew System::Windows::Forms::Label());
-			this->Pass_lbl = (gcnew System::Windows::Forms::Label());
-			this->LN_textbox = (gcnew System::Windows::Forms::TextBox());
-			this->Pass_textbox = (gcnew System::Windows::Forms::TextBox());
-			this->submit_but = (gcnew System::Windows::Forms::Button());
-			this->MN_lbl = (gcnew System::Windows::Forms::Label());
-			this->MN_textbox = (gcnew System::Windows::Forms::TextBox());
-			this->First_pnl = (gcnew System::Windows::Forms::Panel());
-			this->signin_btn = (gcnew System::Windows::Forms::Button());
-			this->signUp_btn = (gcnew System::Windows::Forms::Button());
-			this->letsChat = (gcnew System::Windows::Forms::Label());
-			this->signIn_pnl = (gcnew System::Windows::Forms::Panel());
-			this->back = (gcnew System::Windows::Forms::Button());
-			this->sign = (gcnew System::Windows::Forms::Button());
-			this->Pass_txt = (gcnew System::Windows::Forms::TextBox());
-			this->MN_txt = (gcnew System::Windows::Forms::TextBox());
-			this->Pass_lbl2 = (gcnew System::Windows::Forms::Label());
-			this->MN_lbl2 = (gcnew System::Windows::Forms::Label());
+			this->signUpPnl = (gcnew System::Windows::Forms::Panel());
+			this->button12 = (gcnew System::Windows::Forms::Button());
+			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
+			this->button10 = (gcnew System::Windows::Forms::Button());
+			this->button9 = (gcnew System::Windows::Forms::Button());
+			this->label15 = (gcnew System::Windows::Forms::Label());
+			this->pasTxt = (gcnew System::Windows::Forms::TextBox());
+			this->numTxt = (gcnew System::Windows::Forms::TextBox());
+			this->lnTxt = (gcnew System::Windows::Forms::TextBox());
+			this->fnTxt = (gcnew System::Windows::Forms::TextBox());
+			this->label14 = (gcnew System::Windows::Forms::Label());
+			this->label13 = (gcnew System::Windows::Forms::Label());
+			this->label12 = (gcnew System::Windows::Forms::Label());
+			this->label11 = (gcnew System::Windows::Forms::Label());
+			this->passTxt = (gcnew System::Windows::Forms::TextBox());
 			this->mainPanel = (gcnew System::Windows::Forms::Panel());
 			this->chatPnl = (gcnew System::Windows::Forms::Panel());
 			this->currentCahtPanel = (gcnew System::Windows::Forms::Panel());
@@ -318,10 +338,16 @@ namespace chati {
 			this->dateInStoryLabel = (gcnew System::Windows::Forms::Label());
 			this->nameInStoryLabel = (gcnew System::Windows::Forms::Label());
 			this->profileStoryPic = (gcnew System::Windows::Forms::PictureBox());
-			this->signUp_pnl->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
-			this->First_pnl->SuspendLayout();
-			this->signIn_pnl->SuspendLayout();
+			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->button8 = (gcnew System::Windows::Forms::Button());
+			this->label10 = (gcnew System::Windows::Forms::Label());
+			this->label9 = (gcnew System::Windows::Forms::Label());
+			this->passLbl = (gcnew System::Windows::Forms::Label());
+			this->numLbl = (gcnew System::Windows::Forms::Label());
+			this->phoneTxt = (gcnew System::Windows::Forms::TextBox());
+			this->label4 = (gcnew System::Windows::Forms::Label());
+			this->signUpPnl->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			this->mainPanel->SuspendLayout();
 			this->chatPnl->SuspendLayout();
 			this->currentCahtPanel->SuspendLayout();
@@ -341,311 +367,193 @@ namespace chati {
 			this->bodyOfTheStoryPanel->SuspendLayout();
 			this->profileUserInStoryPanel->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->profileStoryPic))->BeginInit();
+			this->panel1->SuspendLayout();
 			this->SuspendLayout();
 			// 
-			// signUp_pnl
+			// signUpPnl
 			// 
-			this->signUp_pnl->Controls->Add(this->imagePickerButton);
-			this->signUp_pnl->Controls->Add(this->pictureBox1);
-			this->signUp_pnl->Controls->Add(this->signUp_done);
-			this->signUp_pnl->Controls->Add(this->button1);
-			this->signUp_pnl->Controls->Add(this->FN_lbl);
-			this->signUp_pnl->Controls->Add(this->FN_textbox);
-			this->signUp_pnl->Controls->Add(this->LN_lbl);
-			this->signUp_pnl->Controls->Add(this->Pass_lbl);
-			this->signUp_pnl->Controls->Add(this->LN_textbox);
-			this->signUp_pnl->Controls->Add(this->Pass_textbox);
-			this->signUp_pnl->Controls->Add(this->submit_but);
-			this->signUp_pnl->Controls->Add(this->MN_lbl);
-			this->signUp_pnl->Controls->Add(this->MN_textbox);
-			this->signUp_pnl->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->signUp_pnl->Location = System::Drawing::Point(0, 0);
-			this->signUp_pnl->Margin = System::Windows::Forms::Padding(4);
-			this->signUp_pnl->Name = L"signUp_pnl";
-			this->signUp_pnl->Size = System::Drawing::Size(1904, 1041);
-			this->signUp_pnl->TabIndex = 9;
+			this->signUpPnl->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"signUpPnl.BackgroundImage")));
+			this->signUpPnl->BackgroundImageLayout = System::Windows::Forms::ImageLayout::None;
+			this->signUpPnl->Controls->Add(this->button12);
+			this->signUpPnl->Controls->Add(this->pictureBox2);
+			this->signUpPnl->Controls->Add(this->button10);
+			this->signUpPnl->Controls->Add(this->button9);
+			this->signUpPnl->Controls->Add(this->label15);
+			this->signUpPnl->Controls->Add(this->pasTxt);
+			this->signUpPnl->Controls->Add(this->numTxt);
+			this->signUpPnl->Controls->Add(this->lnTxt);
+			this->signUpPnl->Controls->Add(this->fnTxt);
+			this->signUpPnl->Controls->Add(this->label14);
+			this->signUpPnl->Controls->Add(this->label13);
+			this->signUpPnl->Controls->Add(this->label12);
+			this->signUpPnl->Controls->Add(this->label11);
+			this->signUpPnl->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->signUpPnl->Location = System::Drawing::Point(0, 0);
+			this->signUpPnl->Margin = System::Windows::Forms::Padding(4);
+			this->signUpPnl->Name = L"signUpPnl";
+			this->signUpPnl->Size = System::Drawing::Size(1904, 1041);
+			this->signUpPnl->TabIndex = 10;
 			// 
-			// imagePickerButton
+			// button12
 			// 
-			this->imagePickerButton->Location = System::Drawing::Point(1136, 384);
-			this->imagePickerButton->Name = L"imagePickerButton";
-			this->imagePickerButton->Size = System::Drawing::Size(94, 34);
-			this->imagePickerButton->TabIndex = 21;
-			this->imagePickerButton->Text = L"select image";
-			this->imagePickerButton->UseVisualStyleBackColor = true;
-			this->imagePickerButton->Click += gcnew System::EventHandler(this, &GuiForm::imagePickerButton_Click);
-			// 
-			// pictureBox1
-			// 
-			this->pictureBox1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
-			this->pictureBox1->Location = System::Drawing::Point(1115, 238);
-			this->pictureBox1->Name = L"pictureBox1";
-			this->pictureBox1->Size = System::Drawing::Size(142, 133);
-			this->pictureBox1->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
-			this->pictureBox1->TabIndex = 20;
-			this->pictureBox1->TabStop = false;
-			// 
-			// signUp_done
-			// 
-			this->signUp_done->AutoSize = true;
-			this->signUp_done->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 26.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->button12->BackColor = System::Drawing::Color::Cyan;
+			this->button12->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
+			this->button12->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->signUp_done->ForeColor = System::Drawing::Color::Lime;
-			this->signUp_done->Location = System::Drawing::Point(633, 76);
-			this->signUp_done->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-			this->signUp_done->Name = L"signUp_done";
-			this->signUp_done->Size = System::Drawing::Size(331, 39);
-			this->signUp_done->TabIndex = 19;
-			this->signUp_done->Text = L"Signed up Correctly!";
-			this->signUp_done->Visible = false;
+			this->button12->Location = System::Drawing::Point(1396, 516);
+			this->button12->Name = L"button12";
+			this->button12->Size = System::Drawing::Size(100, 35);
+			this->button12->TabIndex = 24;
+			this->button12->Text = L"Select image";
+			this->button12->UseVisualStyleBackColor = false;
+			this->button12->Click += gcnew System::EventHandler(this, &GuiForm::button12_Click);
 			// 
-			// button1
+			// pictureBox2
 			// 
-			this->button1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(128)), static_cast<System::Int32>(static_cast<System::Byte>(255)),
-				static_cast<System::Int32>(static_cast<System::Byte>(255)));
-			this->button1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->pictureBox2->BackColor = System::Drawing::Color::Transparent;
+			this->pictureBox2->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox2.Image")));
+			this->pictureBox2->Location = System::Drawing::Point(1375, 364);
+			this->pictureBox2->Name = L"pictureBox2";
+			this->pictureBox2->Size = System::Drawing::Size(142, 133);
+			this->pictureBox2->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
+			this->pictureBox2->TabIndex = 23;
+			this->pictureBox2->TabStop = false;
+			// 
+			// button10
+			// 
+			this->button10->BackColor = System::Drawing::Color::Cyan;
+			this->button10->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
+			this->button10->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->button1->Location = System::Drawing::Point(401, 587);
-			this->button1->Margin = System::Windows::Forms::Padding(4);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(200, 68);
-			this->button1->TabIndex = 18;
-			this->button1->Text = L"Back";
-			this->button1->UseVisualStyleBackColor = false;
-			this->button1->Click += gcnew System::EventHandler(this, &GuiForm::button1_Click);
+			this->button10->Location = System::Drawing::Point(425, 801);
+			this->button10->Name = L"button10";
+			this->button10->Size = System::Drawing::Size(206, 80);
+			this->button10->TabIndex = 11;
+			this->button10->Text = L"Sign In ";
+			this->button10->UseVisualStyleBackColor = false;
+			this->button10->Click += gcnew System::EventHandler(this, &GuiForm::button10_Click);
 			// 
-			// FN_lbl
+			// button9
 			// 
-			this->FN_lbl->AutoSize = true;
-			this->FN_lbl->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->button9->BackColor = System::Drawing::Color::Cyan;
+			this->button9->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
+			this->button9->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->FN_lbl->Location = System::Drawing::Point(335, 219);
-			this->FN_lbl->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-			this->FN_lbl->Name = L"FN_lbl";
-			this->FN_lbl->Size = System::Drawing::Size(104, 24);
-			this->FN_lbl->TabIndex = 17;
-			this->FN_lbl->Text = L"Fitst Name:";
+			this->button9->Location = System::Drawing::Point(1375, 801);
+			this->button9->Name = L"button9";
+			this->button9->Size = System::Drawing::Size(206, 80);
+			this->button9->TabIndex = 10;
+			this->button9->Text = L"Sign Up →";
+			this->button9->UseVisualStyleBackColor = false;
+			this->button9->Click += gcnew System::EventHandler(this, &GuiForm::button9_Click);
 			// 
-			// FN_textbox
+			// label15
 			// 
-			this->FN_textbox->Location = System::Drawing::Point(559, 225);
-			this->FN_textbox->Margin = System::Windows::Forms::Padding(4);
-			this->FN_textbox->Name = L"FN_textbox";
-			this->FN_textbox->Size = System::Drawing::Size(184, 20);
-			this->FN_textbox->TabIndex = 16;
-			// 
-			// LN_lbl
-			// 
-			this->LN_lbl->AutoSize = true;
-			this->LN_lbl->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label15->AutoSize = true;
+			this->label15->BackColor = System::Drawing::Color::Transparent;
+			this->label15->Font = (gcnew System::Drawing::Font(L"Brush Script MT", 36, System::Drawing::FontStyle::Italic, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->LN_lbl->Location = System::Drawing::Point(335, 284);
-			this->LN_lbl->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-			this->LN_lbl->Name = L"LN_lbl";
-			this->LN_lbl->Size = System::Drawing::Size(104, 24);
-			this->LN_lbl->TabIndex = 15;
-			this->LN_lbl->Text = L"Last Name:";
+			this->label15->Location = System::Drawing::Point(750, 199);
+			this->label15->Name = L"label15";
+			this->label15->Size = System::Drawing::Size(345, 59);
+			this->label15->TabIndex = 8;
+			this->label15->Text = L"Sign Up with Chati";
 			// 
-			// Pass_lbl
+			// pasTxt
 			// 
-			this->Pass_lbl->AutoSize = true;
-			this->Pass_lbl->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->pasTxt->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->Pass_lbl->Location = System::Drawing::Point(335, 364);
-			this->Pass_lbl->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-			this->Pass_lbl->Name = L"Pass_lbl";
-			this->Pass_lbl->Size = System::Drawing::Size(97, 24);
-			this->Pass_lbl->TabIndex = 14;
-			this->Pass_lbl->Text = L"Password:";
+			this->pasTxt->Location = System::Drawing::Point(951, 499);
+			this->pasTxt->Name = L"pasTxt";
+			this->pasTxt->PasswordChar = '*';
+			this->pasTxt->Size = System::Drawing::Size(162, 31);
+			this->pasTxt->TabIndex = 7;
 			// 
-			// LN_textbox
+			// numTxt
 			// 
-			this->LN_textbox->Location = System::Drawing::Point(559, 290);
-			this->LN_textbox->Margin = System::Windows::Forms::Padding(4);
-			this->LN_textbox->Name = L"LN_textbox";
-			this->LN_textbox->Size = System::Drawing::Size(184, 20);
-			this->LN_textbox->TabIndex = 13;
-			// 
-			// Pass_textbox
-			// 
-			this->Pass_textbox->Location = System::Drawing::Point(559, 369);
-			this->Pass_textbox->Margin = System::Windows::Forms::Padding(4);
-			this->Pass_textbox->Name = L"Pass_textbox";
-			this->Pass_textbox->Size = System::Drawing::Size(184, 20);
-			this->Pass_textbox->TabIndex = 12;
-			// 
-			// submit_but
-			// 
-			this->submit_but->BackColor = System::Drawing::Color::Lime;
-			this->submit_but->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->numTxt->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->submit_but->Location = System::Drawing::Point(1124, 587);
-			this->submit_but->Margin = System::Windows::Forms::Padding(4);
-			this->submit_but->Name = L"submit_but";
-			this->submit_but->Size = System::Drawing::Size(200, 68);
-			this->submit_but->TabIndex = 11;
-			this->submit_but->Text = L"Submit";
-			this->submit_but->UseVisualStyleBackColor = false;
-			this->submit_but->Click += gcnew System::EventHandler(this, &GuiForm::submit_but_Click);
+			this->numTxt->Location = System::Drawing::Point(951, 456);
+			this->numTxt->Name = L"numTxt";
+			this->numTxt->Size = System::Drawing::Size(162, 31);
+			this->numTxt->TabIndex = 6;
 			// 
-			// MN_lbl
+			// lnTxt
 			// 
-			this->MN_lbl->AutoSize = true;
-			this->MN_lbl->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->lnTxt->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->MN_lbl->Location = System::Drawing::Point(335, 447);
-			this->MN_lbl->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-			this->MN_lbl->Name = L"MN_lbl";
-			this->MN_lbl->Size = System::Drawing::Size(148, 24);
-			this->MN_lbl->TabIndex = 10;
-			this->MN_lbl->Text = L"Mobile number: ";
+			this->lnTxt->Location = System::Drawing::Point(951, 414);
+			this->lnTxt->Name = L"lnTxt";
+			this->lnTxt->Size = System::Drawing::Size(162, 31);
+			this->lnTxt->TabIndex = 5;
 			// 
-			// MN_textbox
+			// fnTxt
 			// 
-			this->MN_textbox->Location = System::Drawing::Point(559, 453);
-			this->MN_textbox->Margin = System::Windows::Forms::Padding(4);
-			this->MN_textbox->Name = L"MN_textbox";
-			this->MN_textbox->Size = System::Drawing::Size(184, 20);
-			this->MN_textbox->TabIndex = 9;
-			// 
-			// First_pnl
-			// 
-			this->First_pnl->Controls->Add(this->signin_btn);
-			this->First_pnl->Controls->Add(this->signUp_btn);
-			this->First_pnl->Controls->Add(this->letsChat);
-			this->First_pnl->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->First_pnl->Location = System::Drawing::Point(0, 0);
-			this->First_pnl->Margin = System::Windows::Forms::Padding(4);
-			this->First_pnl->Name = L"First_pnl";
-			this->First_pnl->Size = System::Drawing::Size(1904, 1041);
-			this->First_pnl->TabIndex = 10;
-			// 
-			// signin_btn
-			// 
-			this->signin_btn->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->fnTxt->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->signin_btn->Location = System::Drawing::Point(782, 301);
-			this->signin_btn->Margin = System::Windows::Forms::Padding(4);
-			this->signin_btn->Name = L"signin_btn";
-			this->signin_btn->Size = System::Drawing::Size(263, 117);
-			this->signin_btn->TabIndex = 2;
-			this->signin_btn->Text = L"Sign In";
-			this->signin_btn->UseVisualStyleBackColor = true;
-			this->signin_btn->Click += gcnew System::EventHandler(this, &GuiForm::signin_btn_Click);
+			this->fnTxt->Location = System::Drawing::Point(951, 372);
+			this->fnTxt->Name = L"fnTxt";
+			this->fnTxt->Size = System::Drawing::Size(162, 31);
+			this->fnTxt->TabIndex = 4;
 			// 
-			// signUp_btn
+			// label14
 			// 
-			this->signUp_btn->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label14->AutoSize = true;
+			this->label14->BackColor = System::Drawing::Color::Transparent;
+			this->label14->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->signUp_btn->Location = System::Drawing::Point(298, 301);
-			this->signUp_btn->Margin = System::Windows::Forms::Padding(4);
-			this->signUp_btn->Name = L"signUp_btn";
-			this->signUp_btn->Size = System::Drawing::Size(263, 117);
-			this->signUp_btn->TabIndex = 1;
-			this->signUp_btn->Text = L"Sign Up";
-			this->signUp_btn->UseVisualStyleBackColor = true;
-			this->signUp_btn->Click += gcnew System::EventHandler(this, &GuiForm::signUp_btn_Click);
+			this->label14->Location = System::Drawing::Point(717, 420);
+			this->label14->Name = L"label14";
+			this->label14->Size = System::Drawing::Size(121, 25);
+			this->label14->TabIndex = 3;
+			this->label14->Text = L"Last Name:";
 			// 
-			// letsChat
+			// label13
 			// 
-			this->letsChat->AutoSize = true;
-			this->letsChat->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 36, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label13->AutoSize = true;
+			this->label13->BackColor = System::Drawing::Color::Transparent;
+			this->label13->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->letsChat->Location = System::Drawing::Point(514, 129);
-			this->letsChat->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-			this->letsChat->Name = L"letsChat";
-			this->letsChat->Size = System::Drawing::Size(283, 55);
-			this->letsChat->TabIndex = 0;
-			this->letsChat->Text = L"Let\'s chat : )";
+			this->label13->Location = System::Drawing::Point(717, 462);
+			this->label13->Name = L"label13";
+			this->label13->Size = System::Drawing::Size(161, 25);
+			this->label13->TabIndex = 2;
+			this->label13->Text = L"Phone Number:";
 			// 
-			// signIn_pnl
+			// label12
 			// 
-			this->signIn_pnl->Controls->Add(this->back);
-			this->signIn_pnl->Controls->Add(this->sign);
-			this->signIn_pnl->Controls->Add(this->Pass_txt);
-			this->signIn_pnl->Controls->Add(this->MN_txt);
-			this->signIn_pnl->Controls->Add(this->Pass_lbl2);
-			this->signIn_pnl->Controls->Add(this->MN_lbl2);
-			this->signIn_pnl->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->signIn_pnl->Location = System::Drawing::Point(0, 0);
-			this->signIn_pnl->Margin = System::Windows::Forms::Padding(4);
-			this->signIn_pnl->Name = L"signIn_pnl";
-			this->signIn_pnl->Size = System::Drawing::Size(1904, 1041);
-			this->signIn_pnl->TabIndex = 11;
-			// 
-			// back
-			// 
-			this->back->BackColor = System::Drawing::SystemColors::ActiveCaption;
-			this->back->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->back->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 21.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label12->AutoSize = true;
+			this->label12->BackColor = System::Drawing::Color::Transparent;
+			this->label12->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->back->Location = System::Drawing::Point(441, 585);
-			this->back->Margin = System::Windows::Forms::Padding(4);
-			this->back->Name = L"back";
-			this->back->Size = System::Drawing::Size(285, 110);
-			this->back->TabIndex = 5;
-			this->back->Text = L"Back";
-			this->back->UseVisualStyleBackColor = false;
-			this->back->Click += gcnew System::EventHandler(this, &GuiForm::back_Click);
+			this->label12->Location = System::Drawing::Point(717, 502);
+			this->label12->Name = L"label12";
+			this->label12->Size = System::Drawing::Size(112, 25);
+			this->label12->TabIndex = 1;
+			this->label12->Text = L"Password:";
 			// 
-			// sign
+			// label11
 			// 
-			this->sign->BackColor = System::Drawing::Color::Lime;
-			this->sign->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->sign->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 21.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label11->AutoSize = true;
+			this->label11->BackColor = System::Drawing::Color::Transparent;
+			this->label11->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->sign->Location = System::Drawing::Point(1086, 585);
-			this->sign->Margin = System::Windows::Forms::Padding(4);
-			this->sign->Name = L"sign";
-			this->sign->Size = System::Drawing::Size(285, 110);
-			this->sign->TabIndex = 4;
-			this->sign->Text = L"Submit";
-			this->sign->UseVisualStyleBackColor = false;
-			this->sign->Click += gcnew System::EventHandler(this, &GuiForm::sign_Click);
+			this->label11->Location = System::Drawing::Point(717, 375);
+			this->label11->Name = L"label11";
+			this->label11->Size = System::Drawing::Size(122, 25);
+			this->label11->TabIndex = 0;
+			this->label11->Text = L"First Name:";
 			// 
-			// Pass_txt
+			// passTxt
 			// 
-			this->Pass_txt->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->passTxt->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->Pass_txt->Location = System::Drawing::Point(843, 303);
-			this->Pass_txt->Margin = System::Windows::Forms::Padding(4);
-			this->Pass_txt->Name = L"Pass_txt";
-			this->Pass_txt->Size = System::Drawing::Size(347, 30);
-			this->Pass_txt->TabIndex = 3;
-			// 
-			// MN_txt
-			// 
-			this->MN_txt->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->MN_txt->Location = System::Drawing::Point(843, 213);
-			this->MN_txt->Margin = System::Windows::Forms::Padding(4);
-			this->MN_txt->Name = L"MN_txt";
-			this->MN_txt->Size = System::Drawing::Size(347, 30);
-			this->MN_txt->TabIndex = 2;
-			// 
-			// Pass_lbl2
-			// 
-			this->Pass_lbl2->AutoSize = true;
-			this->Pass_lbl2->Font = (gcnew System::Drawing::Font(L"Arial", 21.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(178)));
-			this->Pass_lbl2->Location = System::Drawing::Point(506, 293);
-			this->Pass_lbl2->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-			this->Pass_lbl2->Name = L"Pass_lbl2";
-			this->Pass_lbl2->Size = System::Drawing::Size(151, 33);
-			this->Pass_lbl2->TabIndex = 1;
-			this->Pass_lbl2->Text = L"Password:";
-			// 
-			// MN_lbl2
-			// 
-			this->MN_lbl2->AutoSize = true;
-			this->MN_lbl2->Font = (gcnew System::Drawing::Font(L"Arial", 21.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->MN_lbl2->Location = System::Drawing::Point(506, 212);
-			this->MN_lbl2->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-			this->MN_lbl2->Name = L"MN_lbl2";
-			this->MN_lbl2->Size = System::Drawing::Size(220, 33);
-			this->MN_lbl2->TabIndex = 0;
-			this->MN_lbl2->Text = L"Mobile Number:";
+			this->passTxt->Location = System::Drawing::Point(937, 527);
+			this->passTxt->Margin = System::Windows::Forms::Padding(4);
+			this->passTxt->Name = L"passTxt";
+			this->passTxt->PasswordChar = '*';
+			this->passTxt->Size = System::Drawing::Size(156, 31);
+			this->passTxt->TabIndex = 3;
 			// 
 			// mainPanel
 			// 
@@ -1346,28 +1254,129 @@ namespace chati {
 			this->profileStoryPic->TabIndex = 0;
 			this->profileStoryPic->TabStop = false;
 			// 
+			// panel1
+			// 
+			this->panel1->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"panel1.BackgroundImage")));
+			this->panel1->BackgroundImageLayout = System::Windows::Forms::ImageLayout::None;
+			this->panel1->Controls->Add(this->button8);
+			this->panel1->Controls->Add(this->label10);
+			this->panel1->Controls->Add(this->label9);
+			this->panel1->Controls->Add(this->passLbl);
+			this->panel1->Controls->Add(this->numLbl);
+			this->panel1->Controls->Add(this->passTxt);
+			this->panel1->Controls->Add(this->phoneTxt);
+			this->panel1->Controls->Add(this->label4);
+			this->panel1->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->panel1->Location = System::Drawing::Point(0, 0);
+			this->panel1->Margin = System::Windows::Forms::Padding(4);
+			this->panel1->Name = L"panel1";
+			this->panel1->Size = System::Drawing::Size(1904, 1041);
+			this->panel1->TabIndex = 15;
+			// 
+			// button8
+			// 
+			this->button8->BackColor = System::Drawing::Color::Cyan;
+			this->button8->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
+			this->button8->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->button8->Location = System::Drawing::Point(1488, 830);
+			this->button8->Name = L"button8";
+			this->button8->Size = System::Drawing::Size(206, 80);
+			this->button8->TabIndex = 9;
+			this->button8->Text = L"Sign In →";
+			this->button8->UseVisualStyleBackColor = false;
+			this->button8->Click += gcnew System::EventHandler(this, &GuiForm::button8_Click);
+			// 
+			// label10
+			// 
+			this->label10->AutoSize = true;
+			this->label10->BackColor = System::Drawing::Color::Transparent;
+			this->label10->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Underline, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label10->ForeColor = System::Drawing::Color::Turquoise;
+			this->label10->Location = System::Drawing::Point(984, 587);
+			this->label10->Name = L"label10";
+			this->label10->Size = System::Drawing::Size(60, 18);
+			this->label10->TabIndex = 8;
+			this->label10->Text = L"Sign Up";
+			this->label10->Click += gcnew System::EventHandler(this, &GuiForm::label10_Click);
+			// 
+			// label9
+			// 
+			this->label9->AutoSize = true;
+			this->label9->BackColor = System::Drawing::Color::Transparent;
+			this->label9->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label9->ForeColor = System::Drawing::Color::Turquoise;
+			this->label9->Location = System::Drawing::Point(800, 587);
+			this->label9->Name = L"label9";
+			this->label9->Size = System::Drawing::Size(186, 18);
+			this->label9->TabIndex = 7;
+			this->label9->Text = L"Don\'t have an account yet\?";
+			// 
+			// passLbl
+			// 
+			this->passLbl->AutoSize = true;
+			this->passLbl->BackColor = System::Drawing::Color::Transparent;
+			this->passLbl->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->passLbl->Location = System::Drawing::Point(750, 533);
+			this->passLbl->Name = L"passLbl";
+			this->passLbl->Size = System::Drawing::Size(112, 25);
+			this->passLbl->TabIndex = 6;
+			this->passLbl->Tag = L"";
+			this->passLbl->Text = L"Password:";
+			// 
+			// numLbl
+			// 
+			this->numLbl->AutoSize = true;
+			this->numLbl->BackColor = System::Drawing::Color::Transparent;
+			this->numLbl->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->numLbl->Location = System::Drawing::Point(750, 462);
+			this->numLbl->Name = L"numLbl";
+			this->numLbl->Size = System::Drawing::Size(161, 25);
+			this->numLbl->TabIndex = 4;
+			this->numLbl->Text = L"Phone Number:";
+			// 
+			// phoneTxt
+			// 
+			this->phoneTxt->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->phoneTxt->Location = System::Drawing::Point(937, 459);
+			this->phoneTxt->Name = L"phoneTxt";
+			this->phoneTxt->Size = System::Drawing::Size(156, 31);
+			this->phoneTxt->TabIndex = 2;
+			// 
+			// label4
+			// 
+			this->label4->AutoSize = true;
+			this->label4->BackColor = System::Drawing::Color::Transparent;
+			this->label4->Font = (gcnew System::Drawing::Font(L"Brush Script MT", 36, System::Drawing::FontStyle::Italic, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label4->Location = System::Drawing::Point(737, 231);
+			this->label4->Name = L"label4";
+			this->label4->Size = System::Drawing::Size(376, 59);
+			this->label4->TabIndex = 1;
+			this->label4->Text = L"Welcome to Chati App";
+			// 
 			// GuiForm
 			// 
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
 			this->ClientSize = System::Drawing::Size(1904, 1041);
-			this->Controls->Add(this->signIn_pnl);
+			this->Controls->Add(this->panel1);
+			this->Controls->Add(this->signUpPnl);
 			this->Controls->Add(this->mainPanel);
-			this->Controls->Add(this->signUp_pnl);
 			this->Controls->Add(this->getStoryPanel);
-			this->Controls->Add(this->First_pnl);
 			this->Controls->Add(this->addStoryPanel);
 			this->Margin = System::Windows::Forms::Padding(4);
 			this->Name = L"GuiForm";
 			this->Text = L"chatApp";
 			this->FormClosed += gcnew System::Windows::Forms::FormClosedEventHandler(this, &GuiForm::GuiForm_FormClosed);
 			this->Load += gcnew System::EventHandler(this, &GuiForm::GuiForm_Load);
-			this->signUp_pnl->ResumeLayout(false);
-			this->signUp_pnl->PerformLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
-			this->First_pnl->ResumeLayout(false);
-			this->First_pnl->PerformLayout();
-			this->signIn_pnl->ResumeLayout(false);
-			this->signIn_pnl->PerformLayout();
+			this->signUpPnl->ResumeLayout(false);
+			this->signUpPnl->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
 			this->mainPanel->ResumeLayout(false);
 			this->chatPnl->ResumeLayout(false);
 			this->currentCahtPanel->ResumeLayout(false);
@@ -1395,6 +1404,8 @@ namespace chati {
 			this->profileUserInStoryPanel->ResumeLayout(false);
 			this->profileUserInStoryPanel->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->profileStoryPic))->EndInit();
+			this->panel1->ResumeLayout(false);
+			this->panel1->PerformLayout();
 			this->ResumeLayout(false);
 
 		}
@@ -1503,30 +1514,30 @@ namespace chati {
 			chatRoomHandler.messageHandler.messagesContainer = messagesFlowPanelsContainer;
 		}
 
-		private: System::Void submit_but_Click(System::Object^ sender, System::EventArgs^ e) {
+		private: System::Void button9_Click(System::Object^ sender, System::EventArgs^ e) {
 		
-			signUp_done->Visible = false;
+			
 
-			if (MN_textbox->Text == "" || Pass_textbox->Text == "" || FN_textbox->Text == "" || LN_textbox->Text == "")
+			if (numTxt->Text == "" || pasTxt->Text == "" || fnTxt->Text == "" || lnTxt->Text == "")
 			{
 				MessageBox::Show("Please fill all the fields","Infromation incompleted");
 				return;
 			}
-			if (MN_textbox->Text->Length < 11 || MN_textbox->Text->Length > 11)
+			if (numTxt->Text->Length < 11 || numTxt->Text->Length > 11)
 			{
 				MessageBox::Show("Mobile number must be 11 digits","Invalid Mobile Number");
 				return;
 			}
-			if (Pass_textbox->Text->Length < 6)
+			if (pasTxt->Text->Length < 6)
 			{
 				MessageBox::Show("Password must be at least 6 characters","Invalid Password");
 				return;
 			}
 		
-			string mobileNumber = msclr::interop::marshal_as<string>(MN_textbox->Text);
-			string password = msclr::interop::marshal_as<string>(Pass_textbox->Text);
-			string firstName = msclr::interop::marshal_as<string>(FN_textbox->Text);
-			string lastName = msclr::interop::marshal_as<std::string>(LN_textbox->Text);
+			string mobileNumber = msclr::interop::marshal_as<string>(numTxt->Text);
+			string password = msclr::interop::marshal_as<string>(pasTxt->Text);
+			string firstName = msclr::interop::marshal_as<string>(fnTxt->Text);
+			string lastName = msclr::interop::marshal_as<std::string>(lnTxt->Text);
 
 			if (checkUser(mobileNumber, users)) {
 				MessageBox::Show("This mobile number is already registered", "Sign up error");
@@ -1538,36 +1549,27 @@ namespace chati {
 			if(filename != "User.png")
 				File::Copy(selectedImagePath, destinationPath, true);
 
-
-
 			signUp(mobileNumber, password, firstName, lastName, users, filename);
-			signUp_done->Visible = true;
+
+			MessageBox::Show("Signed Up successfully", "Signed Up");
+			panel1->BringToFront();
+			
 		}
-		private: System::Void signUp_btn_Click(System::Object^ sender, System::EventArgs^ e) {
-			signUp_pnl->BringToFront();
-		}
-		private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
-			First_pnl->BringToFront();
-		}
-		private: System::Void signin_btn_Click(System::Object^ sender, System::EventArgs^ e) {
-			signIn_pnl->BringToFront();
-		}
-		private: System::Void back_Click(System::Object^ sender, System::EventArgs^ e) {
-			First_pnl->BringToFront();
-		}
-		private: System::Void sign_Click(System::Object^ sender, System::EventArgs^ e) {
-			if (Pass_txt->Text->Length < 6)
+		
+		
+		private: System::Void button8_Click(System::Object^ sender, System::EventArgs^ e) {
+			if (passTxt->Text->Length < 6)
 			{
 				MessageBox::Show("Password must be at least 6 characters", "Invalid Password");
 				return;
 			}
-			if (MN_txt->Text == "")
+			if (phoneTxt->Text == "")
 			{
 				MessageBox::Show("Please fill all the fields", "Infromation incompleted");
 				return;
 			}
-			string mobileNumber = msclr::interop::marshal_as<std::string>(MN_txt->Text);
-			string password = msclr::interop::marshal_as<std::string>(Pass_txt->Text);
+			string mobileNumber = msclr::interop::marshal_as<std::string>(phoneTxt->Text);
+			string password = msclr::interop::marshal_as<std::string>(passTxt->Text);
 
 
 			if (!checkSignIn(mobileNumber, password, users))
@@ -1576,8 +1578,8 @@ namespace chati {
 				return;
 			}
 			else {
-				MN_txt->Clear();
-				Pass_txt->Clear();
+				phoneTxt->Clear();
+				passTxt->Clear();
 				headerContainer->Visible = false;
 
 				currentUser = &users[mobileNumber];
@@ -1849,16 +1851,16 @@ namespace chati {
 		}
 		//?shehab/
 		private: System::Void singOutButton_Click(System::Object^ sender, System::EventArgs^ e) {
-			signIn_pnl->BringToFront();
+			panel1->BringToFront();
 		}
-		private: System::Void imagePickerButton_Click(System::Object^ sender, System::EventArgs^ e) {
+		private: System::Void button12_Click(System::Object^ sender, System::EventArgs^ e) {
 			OpenFileDialog^ openFileDialog = gcnew OpenFileDialog();
 			openFileDialog->Title = "Select an image";
 			openFileDialog->Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif";
 
             if (openFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK)
 			{
-				pictureBox1->Image = Image::FromFile(openFileDialog->FileName);
+				pictureBox2->Image = Image::FromFile(openFileDialog->FileName);
                 selectedImagePath = openFileDialog->FileName;
 				fileName = Path::GetFileName(selectedImagePath);
 
@@ -1901,6 +1903,13 @@ namespace chati {
 				String^ number = gcnew String(contact.first.c_str());
 				usersListBox->Items->Add(number + " (" + name + ")");
 			}
+		}
+
+		private: System::Void button10_Click(System::Object^ sender, System::EventArgs^ e) {
+			panel1->BringToFront();
+		}
+		private: System::Void label10_Click(System::Object^ sender, System::EventArgs^ e) {
+			signUpPnl->BringToFront();
 		}
 	};
 }
