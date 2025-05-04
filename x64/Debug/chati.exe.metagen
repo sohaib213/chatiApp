@@ -39,12 +39,16 @@ Class createChatRoomHandler: AutoLayout, AnsiClass, Class, Public, BeforeFieldIn
     MessageHandler messageHandler IsByValue : Public, InitOnly
     ChatRoom** currentChatRoom : Public
     std.unordered_map<int\,ChatRoom\,std::hash<int>\,std::equal_to<int>\,std::allocator<std::pair<int const \,ChatRoom> > >* chatRooms : Public
-    System.Windows.Forms.Panel chatsContainer : Public
+    System.Windows.Forms.Panel messagesFlowPanelsContainer : Public
     User** currentUser : Public
+    std.unordered_map<std::basic_string<char\,std::char_traits<char>\,std::allocator<char> >\,User\,std::hash<std::basic_string<char\,std::char_traits<char>\,std::allocator<char> > >\,std::equal_to<std::basic_string<char\,std::char_traits<char>\,std::allocator<char> > >\,std::allocator<std::pair<std::basic_string<char\,std::char_traits<char>\,std::allocator<char> > const \,User> > >* users : Public
     std.unordered_map<int\,__int64\,std::hash<int>\,std::equal_to<int>\,std::allocator<std::pair<int const \,__int64> > >* activity : Public
     std.unordered_map<int\,chati::Message\,std::hash<int>\,std::equal_to<int>\,std::allocator<std::pair<int const \,chati::Message> > >* messages : Public
     System.Collections.Generic.Dictionary`2[System.Int32,System.Windows.Forms.FlowLayoutPanel] chatRoomsPanels : Public
     System.Windows.Forms.Panel footerContainer : Public
+    System.Windows.Forms.Panel headerContainer : Public
+    System.String projectRoot : Public
+    System.String imagesFolder : Public
   Methods:
     addChatRoomPanel(basic_string<char\,std::char_traits<char>\,std::allocator<char> >*, Int32, FlowLayoutPanel): PrivateScope, Public, HideBySig
     onChatRoomButtonClick(Object, EventArgs): PrivateScope, Public, HideBySig

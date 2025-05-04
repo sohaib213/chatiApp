@@ -33,6 +33,11 @@ public:
 
 		messagesContainer->Controls->Clear();
 
+        Panel^ fillerPanel = gcnew Panel();
+        fillerPanel->Size = System::Drawing::Size(300, 750);
+        fillerPanel->BackColor = Color::Transparent;
+        messagesContainer->Controls->Add(fillerPanel);
+
 
         chati::LinkedList list1 = chatRoom->getMessagesID();
 
@@ -188,22 +193,24 @@ public:
 
 
         messagesContainer->Controls->Add(messagePanel);
+        if(source == 1)
+            messagesContainer->Controls->SetChildIndex(messagePanel, 1);
         if(source == 2)
-            messagesContainer->Controls->SetChildIndex(messagePanel, 0);
-        messagesContainer->ScrollControlIntoView(messagePanel);
+            messagesContainer->ScrollControlIntoView(messagePanel);
         
+
 
         timeLabel->Location = Point(messagePanel->Width,  messagePanel->Height - 20);
 		seenPicture->Location = Point(messagePanel->Width - 10, messagePanel->Height - 20);
 
         if (m.getSenderPhone() != currentUser->getMobileNumber())
         {
-            messagePanel->Margin = Padding(1480 - messagePanel->Width, 3, 3, 3);
+            messagePanel->Margin = Padding(1460 - messagePanel->Width, 3, 3, 3);
 			messagePanel->Anchor = AnchorStyles::Left;
 			messagePanel->Dock = DockStyle::Left;
         }
         else
-            messagePanel->Margin = Padding(3, 3, 50, 3);
+            messagePanel->Margin = Padding(30, 3, 3, 3);
     }
     
     void createDateLabel(FlowLayoutPanel^ messagesContainer, string currentDay, string previousDay, int source) {
@@ -218,8 +225,8 @@ public:
             dateLabel->AutoSize = true;
 
             messagesContainer->Controls->Add(dateLabel);
-            if(source == 2)
-				messagesContainer->Controls->SetChildIndex(dateLabel, 0);
+            if(source == 1)
+				messagesContainer->Controls->SetChildIndex(dateLabel, 1);
             dateLabel->Margin = Padding(750, 10, 3, 10);
 
         }

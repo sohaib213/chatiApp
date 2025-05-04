@@ -23,25 +23,30 @@ public:
 
 	ChatRoom** currentChatRoom;
 	unordered_map<int, ChatRoom>* chatRooms;
-	Panel^ chatsContainer;
+	Panel^ messagesFlowPanelsContainer;
+
 	User** currentUser;
+	unordered_map<string, User>* users;
 	unordered_map<int, long long>* activity;
 	unordered_map<int, chati::Message>* messages;
 	//System::Collections::Generic::Dictionary<int, FlowLayoutPanel^>^% chatRoomsPanels;
     System::Collections::Generic::Dictionary<int, FlowLayoutPanel^>^ chatRoomsPanels;
 	Panel^ footerContainer;
+	Panel^ headerContainer;
+	String^ projectRoot = Directory::GetParent(Application::StartupPath)->Parent->FullName;
+	String^ imagesFolder = Path::Combine(projectRoot, "usersImages");
 
 	void addChatRoomPanel(string contName, int chatRoomID, FlowLayoutPanel^ contactsPanel) {
 
-		cout << "CONT NAME: " << contName << endl;
 
 		Button^ chatRoomButton = gcnew Button();
-		chatRoomButton->BackColor = Color::Black;
-		chatRoomButton->Size = System::Drawing::Size(338, 100); // Set the size of the panel
+		chatRoomButton->BackColor = Color::FromArgb(60, 60, 60);
+		chatRoomButton->Size = System::Drawing::Size(330, 100); // Set the size of the panel
 		chatRoomButton->Location = System::Drawing::Point(0, 0); // Set the location of the panel
 		chatRoomButton->Tag = chatRoomID;
 		chatRoomButton->Click += gcnew EventHandler(this, &createChatRoomHandler::onChatRoomButtonClick); // Fix: Use 'this' to bind the delegate to the managed class
-
+		chatRoomButton->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+		chatRoomButton->FlatAppearance->BorderSize = 2;
 
 		Label^ contactNameLabel = gcnew Label();
 		contactNameLabel->AutoSize = true;
@@ -56,26 +61,58 @@ public:
 	}
 
 
-    void onChatRoomButtonClick(Object^ sender, EventArgs^ e) {
-        Button^ chatRoom = dynamic_cast<Button^>(sender);
+    void onChatRoomButtonClick(Object^ sender, EventArgs^ e) {  
+        Button^ chatRoom = dynamic_cast<Button^>(sender);  
 
-        int chatRoomID = safe_cast<int>(chatRoom->Tag);
+        int chatRoomID = safe_cast<int>(chatRoom->Tag);  
 
-		if(*currentChatRoom != nullptr)
-			chatRoomsPanels[(*currentChatRoom)->getChatRoomID()]->Visible = false;
+        if (*currentChatRoom != nullptr)  
+            chatRoomsPanels[(*currentChatRoom)->getChatRoomID()]->Visible = false;  
+
+        *currentChatRoom = &(*chatRooms)[chatRoomID];  
+
+        // Fix: Correctly access the groupName and ensure proper type handling  
+        PictureBox^ chatRoomPicture = dynamic_cast<PictureBox^>(headerContainer->Controls["chatPicture"]);
+		Label^ chatRoomNameLabel = dynamic_cast<Label^>(headerContainer->Controls["chatName"]);
+        if (chatRoomPicture != nullptr) {  
+            if ((*currentChatRoom)->getIsDual()) {  
+                User* otherUser;  
+                if ((*currentChatRoom)->getUsersID()[0] == (*currentUser)->getMobileNumber()) { 
+
+					otherUser = &(*users)[(*currentChatRoom)->getUsersID()[1]];
+					chatRoomNameLabel->Text = gcnew String((*currentUser)->getContactsPhones()[otherUser->getMobileNumber()].c_str());
+
+                } else {  
+                    otherUser = &(*users)[(*currentChatRoom)->getUsersID()[0]];  
+					chatRoomNameLabel->Text = gcnew String((otherUser->getFirstName() + ' ' + otherUser->getLastName()).c_str());
+                }  
+                String^ destinationPath = Path::Combine(imagesFolder, gcnew String(otherUser->getProfilePhoto().c_str()));  
+                if (File::Exists(destinationPath)) {  
+                    chatRoomPicture->Image = Image::FromFile(destinationPath);  
+                } else {  
+                    chatRoomPicture->Image = Image::FromFile(Path::Combine(projectRoot, "defaultProfile.png"));  
+                }
 
 
-		*currentChatRoom = &(*chatRooms)[chatRoomID];
+            } else {  
+                //String^ groupPhoto = gcnew String((*currentChatRoom)->getGroupPhoto().c_str());  
+                String^ destinationPath = Path::Combine(imagesFolder, "default-group.png");
+                chatRoomPicture->Image = Image::FromFile(destinationPath);
 
+				chatRoomNameLabel->Text = gcnew String((*currentChatRoom)->getGroupName().c_str());
+  
+            }  
+        }  
 
+        chatRoomsPanels[chatRoomID]->Visible = true;  
+		
+		if(chatRoomsPanels[chatRoomID]->Controls->Count > 0)
+			chatRoomsPanels[chatRoomID]->ScrollControlIntoView(chatRoomsPanels[chatRoomID]->Controls[chatRoomsPanels[chatRoomID]->Controls->Count - 1]);
 
-		chatRoomsPanels[chatRoomID]->Visible = true;
+        footerContainer->Visible = true;
+		headerContainer->Visible = true;
 
-		footerContainer->Visible = true;
-
-		(*currentChatRoom)->getMessagesID().updateMessagesSeen(*messages, *currentUser);
-
-
+        (*currentChatRoom)->getMessagesID().updateMessagesSeen(*messages, *currentUser);  
     }
 
 
@@ -171,16 +208,19 @@ public:
 		chatRoomPanel->Name = gcnew System::String(std::to_string(chatRoomID).c_str());
 		chatRoomPanel->BackColor = Color::Transparent;
 		chatRoomPanel->AutoScroll = true;
-		chatRoomPanel->Dock = System::Windows::Forms::DockStyle::Fill;
-		chatRoomPanel->FlowDirection = System::Windows::Forms::FlowDirection::BottomUp;
-		chatRoomPanel->Location = System::Drawing::Point(0, 0);
+		chatRoomPanel->FlowDirection = System::Windows::Forms::FlowDirection::TopDown;
 		chatRoomPanel->Padding = System::Windows::Forms::Padding(2);
 		chatRoomPanel->RightToLeft = System::Windows::Forms::RightToLeft::Yes;
-		chatRoomPanel->Size = System::Drawing::Size(1479, 995);
-		chatRoomPanel->TabIndex = 2;
+		//chatRoomPanel->Size = System::Drawing::Size(1479, 995);
 		chatRoomPanel->WrapContents = false;
 		chatsContainer->Controls->Add(chatRoomPanel);
+		chatRoomPanel->Dock = System::Windows::Forms::DockStyle::Fill;
 		chatRoomPanel->Visible = false;
+
+		Panel^ fillerPanel = gcnew Panel();
+		fillerPanel->Size = System::Drawing::Size(10, 750);
+		fillerPanel->BackColor = Color::Transparent;
+		chatRoomPanel->Controls->Add(fillerPanel);
 
 		chatRoomsPanels[chatRoomID] = chatRoomPanel;
 
