@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>D:\chatApp\x64\Debug\chati.exe</FullPath>
+      <FullPath>D:\test\chatiApp\x64\Debug\chati.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

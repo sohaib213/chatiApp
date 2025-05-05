@@ -8,6 +8,7 @@
 #include <iostream>
 #include "AddContact.h"
 #include "MessageHandler.h"
+#include "User.h"
 
 
 using namespace System;
@@ -15,10 +16,14 @@ using namespace System::Windows::Forms;
 using namespace System::Drawing;
 using namespace System::Collections::Generic;
 
+
+
 public ref class createChatRoomHandler {
 
 
 public:
+
+
 	MessageHandler messageHandler;
 
 	ChatRoom** currentChatRoom;
@@ -30,7 +35,7 @@ public:
 	unordered_map<int, long long>* activity;
 	unordered_map<int, chati::Message>* messages;
 	//System::Collections::Generic::Dictionary<int, FlowLayoutPanel^>^% chatRoomsPanels;
-    System::Collections::Generic::Dictionary<int, FlowLayoutPanel^>^ chatRoomsPanels;
+	System::Collections::Generic::Dictionary<int, FlowLayoutPanel^>^ chatRoomsPanels;
 	Panel^ footerContainer;
 	Panel^ headerContainer;
 	String^ projectRoot = Directory::GetParent(Application::StartupPath)->Parent->FullName;
@@ -73,12 +78,6 @@ public:
 		chatRoomButton->TextAlign = ContentAlignment::MiddleLeft;
 		chatRoomButton->FlatAppearance->MouseOverBackColor = Color::FromArgb(80, 80, 80);
 
-		//container panel
-		//Panel^ innerPanel = gcnew Panel();
-		//innerPanel->Size = System::Drawing::Size(chatRoomButton->Width - 10, 70);
-		//innerPanel->Location = System::Drawing::Point(10, 5);
-		//innerPanel->Dock = DockStyle::Fill;
-		//innerPanel->BackColor = Color::Transparent;
 
 		//contact label
 		Label^ contactNameLabel = gcnew Label();
@@ -110,6 +109,11 @@ public:
 		chatRoomButton->Controls->Add(profilePic);
 		chatRoomButton->Controls->Add(contactNameLabel);
 		contactsPanel->Controls->Add(chatRoomButton);
+
+		chatRoomButton->MouseDown += gcnew MouseEventHandler(this, &createChatRoomHandler::ChatRoomRightClick);
+		contactNameLabel->MouseDown += gcnew MouseEventHandler(this, &createChatRoomHandler::ChatRoomRightClick);
+		profilePic->MouseDown += gcnew MouseEventHandler(this, &createChatRoomHandler::ChatRoomRightClick);
+
 	}
 
 
@@ -158,17 +162,132 @@ public:
 			panelButton->BackColor = Color::FromArgb(60, 60, 60);
 		}
 	}
+	void ChatRoomRightClick(Object^ sender, MouseEventArgs^ e) {
+		if (e->Button == MouseButtons::Right) {
+			Button^ targetButton = nullptr;
+
+			// Find the parent Button control regardless of what was clicked
+			Control^ control = dynamic_cast<Control^>(sender);
+			while (control != nullptr && dynamic_cast<Button^>(control) == nullptr) {
+				control = control->Parent;
+			}
+
+			targetButton = dynamic_cast<Button^>(control);
+
+			if (targetButton != nullptr) {
+
+				int chatRoomID = safe_cast<int>(targetButton->Tag);
+				ChatRoom* chatRoom = &(*chatRooms)[chatRoomID];
+
+				ContextMenu^ contextMenu = gcnew ContextMenu();
+
+				if (chatRoom->getIsDual()) {
+					MenuItem^ deleteOption = gcnew MenuItem("Delete");
+					deleteOption->Click += gcnew EventHandler(this, &createChatRoomHandler::deleteContact);
+					contextMenu->MenuItems->Add(deleteOption);
+				}
+				else {
+					MenuItem^ leaveOption = gcnew MenuItem("Leave");
+					leaveOption->Click += gcnew EventHandler(this, &createChatRoomHandler::leaveGroup);
+					contextMenu->MenuItems->Add(leaveOption);
+				}
+
+				// Show the context menu at the mouse position
+				contextMenu->Show(targetButton, Point(e->X, e->Y));
+			}
+		}
+	}
+	void deleteContact(Object^ sender, EventArgs^ e) {
 
 
-    void onChatRoomButtonClick(Object^ sender, EventArgs^ e) {
+		MenuItem^ menuItem = dynamic_cast<MenuItem^>(sender);
+		ContextMenu^ contextMenu = dynamic_cast<ContextMenu^>(menuItem->Parent);
+
+		// Get the button that owns the context menu
+		Button^ targetButton = dynamic_cast<Button^>(contextMenu->SourceControl);
+		int chatRoomID = safe_cast<int>(targetButton->Tag);
+
+		ChatRoom* chatRoom = &(*chatRooms)[chatRoomID];
+
+
+		User* otherUser;
+		if (chatRoom->getUsersID()[0] == (*currentUser)->getMobileNumber())
+			otherUser = &(*users)[chatRoom->getUsersID()[1]];
+		else
+			otherUser = &(*users)[chatRoom->getUsersID()[0]];
+
+		otherUser->removeChatRoomID(chatRoom->getChatRoomID());
+		(*currentUser)->removeChatRoomID(chatRoom->getChatRoomID());
+		otherUser->removeContactPhone((*currentUser)->getMobileNumber());
+		(*currentUser)->removeContactPhone(otherUser->getMobileNumber());
+
+		chatRooms->erase(chatRoom->getChatRoomID());
+
+
+		FlowLayoutPanel^ contactsPanel = dynamic_cast<FlowLayoutPanel^>(targetButton->Parent);
+		if (contactsPanel != nullptr) {
+			contactsPanel->Controls->Remove(targetButton);
+		}
+
+		// b) Remove the messages panel
+		if (chatRoomsPanels->ContainsKey(chatRoom->getChatRoomID())) {
+			messagesFlowPanelsContainer->Controls->Remove(chatRoomsPanels[chatRoom->getChatRoomID()]);
+			chatRoomsPanels->Remove(chatRoom->getChatRoomID());
+		}
+		MessageBox::Show("Contact deleted successfully", "Success", MessageBoxButtons::OK, MessageBoxIcon::Information);
+	}
+
+	void leaveGroup(Object^ sender, EventArgs^ e) {
+
+		MenuItem^ menuItem = dynamic_cast<MenuItem^>(sender);
+		ContextMenu^ contextMenu = dynamic_cast<ContextMenu^>(menuItem->Parent);
+
+		Button^ targetButton = dynamic_cast<Button^>(contextMenu->SourceControl);
+		int chatRoomID = safe_cast<int>(targetButton->Tag);
+
+		ChatRoom* chatRoom = &(*chatRooms)[chatRoomID];
+
+		if (chatRoom->getAdminID() == (*currentUser)->getMobileNumber()) {
+			chatRoom->setAdminID(chatRoom->getUsersID()[1]);
+
+			std::string adminId = chatRoom->getAdminID();
+			System::String^ adminIdStr = gcnew System::String(adminId.c_str());
+
+			MessageBox::Show("Admin will be assigned to " + adminIdStr, "Info");
+
+		}
+
+		(*currentUser)->removeChatRoomID(chatRoom->getChatRoomID());
+
+		//Remove ui
+		FlowLayoutPanel^ contactsPanel = dynamic_cast<FlowLayoutPanel^>(targetButton->Parent);
+		if (contactsPanel != nullptr) {
+			contactsPanel->Controls->Remove(targetButton);
+		}
+
+		if (chatRoomsPanels->ContainsKey(chatRoomID)) {
+			messagesFlowPanelsContainer->Controls->Remove(chatRoomsPanels[chatRoomID]);
+			chatRoomsPanels->Remove(chatRoomID);
+		}
+
+		// If this was the current chat room, clear the display
+		if (*currentChatRoom && (*currentChatRoom)->getChatRoomID() == chatRoomID) {
+			*currentChatRoom = nullptr;
+			footerContainer->Visible = false;
+			headerContainer->Visible = false;
+		}
+		MessageBox::Show("You left the group successfully", "Success", MessageBoxButtons::OK, MessageBoxIcon::Information);
+	}
+
+	void onChatRoomButtonClick(Object^ sender, EventArgs^ e) {
 
 		System::String^ managedTypeName = sender->GetType()->Name;
 		std::string s = msclr::interop::marshal_as<std::string>(managedTypeName);
 		int chatRoomID;
-		if(s == "Button")
+		if (s == "Button")
 		{
 			Button^ chatRoom = dynamic_cast<Button^>(sender);
-			chatRoomID = safe_cast<int>(chatRoom->Tag);  
+			chatRoomID = safe_cast<int>(chatRoom->Tag);
 		}
 		else if (s == "Label") {
 			Label^ chatRoom = dynamic_cast<Label^>(sender);
@@ -180,101 +299,112 @@ public:
 		}
 
 
-        if (*currentChatRoom != nullptr)  
-            chatRoomsPanels[(*currentChatRoom)->getChatRoomID()]->Visible = false;  
+		if (*currentChatRoom != nullptr)
+			chatRoomsPanels[(*currentChatRoom)->getChatRoomID()]->Visible = false;
 
-        *currentChatRoom = &(*chatRooms)[chatRoomID];  
+		*currentChatRoom = &(*chatRooms)[chatRoomID];
 
-        // Fix: Correctly access the groupName and ensure proper type handling  
-        PictureBox^ chatRoomPicture = dynamic_cast<PictureBox^>(headerContainer->Controls["chatPicture"]);
+		// Fix: Correctly access the groupName and ensure proper type handling  
+		PictureBox^ chatRoomPicture = dynamic_cast<PictureBox^>(headerContainer->Controls["chatPicture"]);
+		PictureBox^ addMemPic = dynamic_cast<PictureBox^>(headerContainer->Controls["addMemPicBox"]);
 		Label^ chatRoomNameLabel = dynamic_cast<Label^>(headerContainer->Controls["chatName"]);
-        if (chatRoomPicture != nullptr) {  
-            if ((*currentChatRoom)->getIsDual()) {  
-                User* otherUser;  
-                if ((*currentChatRoom)->getUsersID()[0] == (*currentUser)->getMobileNumber()) { 
+		if (chatRoomPicture != nullptr) {
+			if ((*currentChatRoom)->getIsDual()) {
+				addMemPic->Visible = false;
+				User* otherUser;
+				if ((*currentChatRoom)->getUsersID()[0] == (*currentUser)->getMobileNumber()) {
 
 					otherUser = &(*users)[(*currentChatRoom)->getUsersID()[1]];
 					chatRoomNameLabel->Text = gcnew String((*currentUser)->getContactsPhones()[otherUser->getMobileNumber()].c_str());
 
-                } else {  
-                    otherUser = &(*users)[(*currentChatRoom)->getUsersID()[0]];  
+				}
+				else {
+					otherUser = &(*users)[(*currentChatRoom)->getUsersID()[0]];
 					chatRoomNameLabel->Text = gcnew String((otherUser->getFirstName() + ' ' + otherUser->getLastName()).c_str());
-                }  
-                String^ destinationPath = Path::Combine(imagesFolder, gcnew String(otherUser->getProfilePhoto().c_str()));  
-                if (File::Exists(destinationPath)) {  
-                    chatRoomPicture->Image = Image::FromFile(destinationPath);  
-                } else {  
-                    chatRoomPicture->Image = Image::FromFile(Path::Combine(projectRoot, "defaultProfile.png"));  
-                }
+				}
+				String^ destinationPath = Path::Combine(imagesFolder, gcnew String(otherUser->getProfilePhoto().c_str()));
+				if (File::Exists(destinationPath)) {
+					chatRoomPicture->Image = Image::FromFile(destinationPath);
+				}
+				else {
+					chatRoomPicture->Image = Image::FromFile(Path::Combine(projectRoot, "defaultProfile.png"));
+				}
 
 
-            } else {  
+			}
+			else if ((*currentChatRoom)->getAdminID() == (*currentUser)->getMobileNumber()) {
+
 				String^ groupPhoto = Path::Combine(imagesFolder, gcnew String((*currentChatRoom)->getGroupPhoto().c_str()));
-               
-                chatRoomPicture->Image = Image::FromFile(groupPhoto);
-
+				addMemPic->Visible = true;
+				chatRoomPicture->Image = Image::FromFile(groupPhoto);
 				chatRoomNameLabel->Text = gcnew String((*currentChatRoom)->getGroupName().c_str());
-  
-            }  
-        }  
 
-        chatRoomsPanels[chatRoomID]->Visible = true;  
-		
-		if(chatRoomsPanels[chatRoomID]->Controls->Count > 0)
+			}
+			else {
+				addMemPic->Visible = false;
+				String^ groupPhoto = Path::Combine(imagesFolder, gcnew String((*currentChatRoom)->getGroupPhoto().c_str()));
+				chatRoomPicture->Image = Image::FromFile(groupPhoto);
+				chatRoomNameLabel->Text = gcnew String((*currentChatRoom)->getGroupName().c_str());
+			}
+		}
+
+		chatRoomsPanels[chatRoomID]->Visible = true;
+
+		if (chatRoomsPanels[chatRoomID]->Controls->Count > 0)
 			chatRoomsPanels[chatRoomID]->ScrollControlIntoView(chatRoomsPanels[chatRoomID]->Controls[chatRoomsPanels[chatRoomID]->Controls->Count - 1]);
 
-        footerContainer->Visible = true;
+		footerContainer->Visible = true;
 		headerContainer->Visible = true;
 
-        (*currentChatRoom)->getMessagesID().updateMessagesSeen(*messages, *currentUser);  
-    }
+		(*currentChatRoom)->getMessagesID().updateMessagesSeen(*messages, *currentUser);
+	}
 
 
-    void createRoom(string contNum, string contName, User* currentUser, TextBox^ addContName_field, TextBox^ addContNum_field,
-        unordered_map<int, ChatRoom>& chatRooms, FlowLayoutPanel^ chatRoomsPanel,
+	void createRoom(string contNum, string contName, User* currentUser, TextBox^ addContName_field, TextBox^ addContNum_field,
+		unordered_map<int, ChatRoom>& chatRooms, FlowLayoutPanel^ chatRoomsPanel,
 		unordered_map<int, long long>& activity, Panel^ messagesContainer, unordered_map<string,
-		User>& users,string img, unordered_map<int, chati::Message>& messages) {
+		User>& users, string img, unordered_map<int, chati::Message>& messages) {
 
 
-        addCont(*currentUser, contName, contNum);
+		addCont(*currentUser, contName, contNum);
 		addCont(users[contNum], currentUser->getFirstName() + currentUser->getLastName(), currentUser->getMobileNumber());
-        addContName_field->Clear();
-        addContNum_field->Clear();
-        MessageBox::Show("Contact added", "Success");
+		addContName_field->Clear();
+		addContNum_field->Clear();
+		MessageBox::Show("Contact added", "Success");
 
-        ChatRoom* chatRoom = new ChatRoom(true);
+		ChatRoom* chatRoom = new ChatRoom(true);
 
-        chatRoom->setChatRoomID(ChatRoom::getChatRoomsCounter());
-        ChatRoom::incrementChatRoomsCounter();
+		chatRoom->setChatRoomID(ChatRoom::getChatRoomsCounter());
+		ChatRoom::incrementChatRoomsCounter();
 		chatRoom->setGroupPhoto(img);
-        createChatRoomGUI(chatRoom->getChatRoomID(), messagesContainer);
+		createChatRoomGUI(chatRoom->getChatRoomID(), messagesContainer);
 
-        chatRoom->addUserPhone(currentUser->getMobileNumber());
-        chatRoom->addUserPhone(contNum);
+		chatRoom->addUserPhone(currentUser->getMobileNumber());
+		chatRoom->addUserPhone(contNum);
 
-        chatRooms[chatRoom->getChatRoomID()] = *chatRoom;
+		chatRooms[chatRoom->getChatRoomID()] = *chatRoom;
 
-        int chatRoomID = chatRoom->getChatRoomID();
-        addChatRoomPanel(contName, chatRoomID, chatRoomsPanel);
+		int chatRoomID = chatRoom->getChatRoomID();
+		addChatRoomPanel(contName, chatRoomID, chatRoomsPanel);
 
-        currentUser->addChatRoomID(chatRoomID);
-        users[contNum].addChatRoomID(chatRoomID); // Fix: Ensure 'users' is passed by reference
-        auto now = std::chrono::system_clock::now();
+		currentUser->addChatRoomID(chatRoomID);
+		users[contNum].addChatRoomID(chatRoomID); // Fix: Ensure 'users' is passed by reference
+		auto now = std::chrono::system_clock::now();
 
-        // Convert it to milliseconds since epoch
-        auto now_ms = std::chrono::time_point_cast<std::chrono::milliseconds>(now);
-        auto value = now_ms.time_since_epoch();
+		// Convert it to milliseconds since epoch
+		auto now_ms = std::chrono::time_point_cast<std::chrono::milliseconds>(now);
+		auto value = now_ms.time_since_epoch();
 
-        // Get the number of milliseconds as integer
-        long long milliseconds = value.count();
+		// Get the number of milliseconds as integer
+		long long milliseconds = value.count();
 
-        activity[chatRoomID] = milliseconds;
-    }
+		activity[chatRoomID] = milliseconds;
+	}
 
 	void createGroup(User* currentUser, unordered_map<int, ChatRoom>& chatRooms,
 		Panel^ messagesContainer, CheckedListBox^ usersListBox, unordered_map<string,
 		User>& users, FlowLayoutPanel^ chatRoomsPanel, string groupName,
-		unordered_map<int, long long>& activity,string img, unordered_map<int, chati::Message>& messages) {
+		unordered_map<int, long long>& activity, string img, unordered_map<int, chati::Message>& messages) {
 
 		ChatRoom* chatRoom = new ChatRoom(false);
 		chatRoom->setChatRoomID(ChatRoom::getChatRoomsCounter());
@@ -286,12 +416,12 @@ public:
 		int chatRoomID = chatRoom->getChatRoomID();
 
 		chatRoom->addUserPhone(currentUser->getMobileNumber());
+		chatRoom->setAdminID(currentUser->getMobileNumber());
 		currentUser->addChatRoomID(chatRoomID);
-
 
 		msclr::interop::marshal_context context;
 
-		for each(String ^ item in usersListBox->CheckedItems) {
+		for each (String ^ item in usersListBox->CheckedItems) {
 
 			int parenIndex = item->IndexOf(" ");
 			String^ phone = parenIndex > 0 ? item->Substring(0, parenIndex) : item;
@@ -320,6 +450,10 @@ public:
 		MessageBox::Show("Group created successfully!", "Success");
 	}
 
+	void addMember(int chatRoomID, string memNum, unordered_map<string, User>& users, unordered_map<int, ChatRoom>& chatRooms) {
+		chatRooms[chatRoomID].addUserPhone(memNum);
+		users[memNum].addChatRoomID(chatRoomID);
+	}
 	FlowLayoutPanel^ createChatRoomGUI(int chatRoomID, Panel^ chatsContainer) {
 		FlowLayoutPanel^ chatRoomPanel = gcnew FlowLayoutPanel();
 		chatRoomPanel->Name = gcnew System::String(std::to_string(chatRoomID).c_str());

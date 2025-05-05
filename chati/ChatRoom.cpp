@@ -27,6 +27,9 @@ void ChatRoom::setGroupName(const string& groupName) { this->groupName = groupNa
 string ChatRoom::getGroupPhoto() const { return groupPhoto; }
 void ChatRoom::setGroupPhoto(const string& groupPhoto) { this->groupPhoto = groupPhoto; }
 
+string ChatRoom::getAdminID() const { return adminID; }
+void ChatRoom::setAdminID(const string& adminID) { this->adminID = adminID; }
+
 void ChatRoom::addUserPhone(string userID) {
 	this->usersPhone.push_back(userID);
 }

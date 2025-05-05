@@ -196,6 +196,7 @@ static void saveToFile(unordered_map<string, User> users, unordered_map<int, Cha
 		writeStringVector(out, c.getUsersID());
 		writeString(out, c.getGroupPhoto());
 		writeString(out, c.getGroupName());
+		writeString(out, c.getAdminID());
 
 		int messagedCount = c.getMessagesID().Length();
 		out.write(reinterpret_cast<char*>(&messagedCount), sizeof(messagedCount));
@@ -312,6 +313,7 @@ static void loadFromFile(unordered_map<string, User>& users, unordered_map<int, 
 		c.setUsersID(readStringVector(in));
 		c.setGroupPhoto(readString(in));
 		c.setGroupName(readString(in));
+		c.setAdminID(readString(in));
 
 		int temp;
 		int messagedCount;

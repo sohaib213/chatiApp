@@ -16,6 +16,7 @@ class ChatRoom {
     bool isDual;
     string groupName;
 	string groupPhoto;
+	string adminID;
 public:
     // constructors
     ChatRoom();
@@ -30,6 +31,7 @@ public:
     int getLastMessageID() const;
     string getGroupName() const;
 	string getGroupPhoto() const;
+	string getAdminID() const;
 
     // Setters
     static void setChatRoomsCounter(int count);
@@ -39,6 +41,8 @@ public:
     void setIsDual(bool dual);
     void setGroupName(const string &groupName);
 	void setGroupPhoto(const string& groupPhoto);
+	void setAdminID(const string& adminID);
+	
 
 	// Add Delete Methods
 	void addUserPhone(string userID);
