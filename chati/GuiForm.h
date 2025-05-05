@@ -20,6 +20,7 @@
 #include "AddContact.h"
 #include "createChatRoomHandler.h"
 #include "StoryStyleHelper.cpp"
+#include "SearchChatrooms.h"
 
 
 
@@ -139,6 +140,17 @@ namespace chati {
 	private: System::Windows::Forms::Label^ memNameLbl;
 	private: System::Windows::Forms::Label^ label18;
 	private: System::Windows::Forms::PictureBox^ addMemPicBox;
+	private: System::Windows::Forms::Button^ goToSearchChat_btn;
+	private: System::Windows::Forms::Panel^ panel1;
+	private: System::Windows::Forms::Label^ label16;
+	private: System::Windows::Forms::Button^ searchChat_btn;
+
+
+	private: System::Windows::Forms::FlowLayoutPanel^ showChatSearch_panel;
+	private: System::Windows::Forms::TextBox^ searchChat_field;
+	private: System::Windows::Forms::Button^ button1;
+
+
 
 
 
@@ -329,6 +341,12 @@ private: System::ComponentModel::IContainer^ components;
 			this->passTxt = (gcnew System::Windows::Forms::TextBox());
 			this->mainPanel = (gcnew System::Windows::Forms::Panel());
 			this->addMemberPnl = (gcnew System::Windows::Forms::Panel());
+			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->searchChat_field = (gcnew System::Windows::Forms::TextBox());
+			this->showChatSearch_panel = (gcnew System::Windows::Forms::FlowLayoutPanel());
+			this->searchChat_btn = (gcnew System::Windows::Forms::Button());
+			this->label16 = (gcnew System::Windows::Forms::Label());
 			this->addMem = (gcnew System::Windows::Forms::Button());
 			this->button11 = (gcnew System::Windows::Forms::Button());
 			this->memName = (gcnew System::Windows::Forms::TextBox());
@@ -374,6 +392,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->NameLabel = (gcnew System::Windows::Forms::Label());
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->navPanel = (gcnew System::Windows::Forms::Panel());
+			this->goToSearchChat_btn = (gcnew System::Windows::Forms::Button());
 			this->button7 = (gcnew System::Windows::Forms::Button());
 			this->chatButton = (gcnew System::Windows::Forms::Button());
 			this->goToAddContact_btn = (gcnew System::Windows::Forms::Button());
@@ -413,6 +432,7 @@ private: System::ComponentModel::IContainer^ components;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->signUpBackGround))->BeginInit();
 			this->mainPanel->SuspendLayout();
 			this->addMemberPnl->SuspendLayout();
+			this->panel1->SuspendLayout();
 			this->chatPnl->SuspendLayout();
 			this->currentCahtPanel->SuspendLayout();
 			this->chatsContainer->SuspendLayout();
@@ -522,7 +542,7 @@ private: System::ComponentModel::IContainer^ components;
 				static_cast<System::Byte>(0)));
 			this->label15->Location = System::Drawing::Point(750, 199);
 			this->label15->Name = L"label15";
-			this->label15->Size = System::Drawing::Size(418, 55);
+			this->label15->Size = System::Drawing::Size(521, 69);
 			this->label15->TabIndex = 8;
 			this->label15->Text = L"Sign Up with Chati";
 			// 
@@ -533,7 +553,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->pasTxt->Location = System::Drawing::Point(951, 499);
 			this->pasTxt->Name = L"pasTxt";
 			this->pasTxt->PasswordChar = '*';
-			this->pasTxt->Size = System::Drawing::Size(162, 31);
+			this->pasTxt->Size = System::Drawing::Size(162, 37);
 			this->pasTxt->TabIndex = 7;
 			// 
 			// numTxt
@@ -542,7 +562,7 @@ private: System::ComponentModel::IContainer^ components;
 				static_cast<System::Byte>(0)));
 			this->numTxt->Location = System::Drawing::Point(951, 456);
 			this->numTxt->Name = L"numTxt";
-			this->numTxt->Size = System::Drawing::Size(162, 31);
+			this->numTxt->Size = System::Drawing::Size(162, 37);
 			this->numTxt->TabIndex = 6;
 			// 
 			// lnTxt
@@ -551,7 +571,7 @@ private: System::ComponentModel::IContainer^ components;
 				static_cast<System::Byte>(0)));
 			this->lnTxt->Location = System::Drawing::Point(951, 414);
 			this->lnTxt->Name = L"lnTxt";
-			this->lnTxt->Size = System::Drawing::Size(162, 31);
+			this->lnTxt->Size = System::Drawing::Size(162, 37);
 			this->lnTxt->TabIndex = 5;
 			// 
 			// fnTxt
@@ -560,7 +580,7 @@ private: System::ComponentModel::IContainer^ components;
 				static_cast<System::Byte>(0)));
 			this->fnTxt->Location = System::Drawing::Point(951, 372);
 			this->fnTxt->Name = L"fnTxt";
-			this->fnTxt->Size = System::Drawing::Size(162, 31);
+			this->fnTxt->Size = System::Drawing::Size(162, 37);
 			this->fnTxt->TabIndex = 4;
 			// 
 			// label14
@@ -571,7 +591,7 @@ private: System::ComponentModel::IContainer^ components;
 				static_cast<System::Byte>(0)));
 			this->label14->Location = System::Drawing::Point(717, 420);
 			this->label14->Name = L"label14";
-			this->label14->Size = System::Drawing::Size(121, 25);
+			this->label14->Size = System::Drawing::Size(153, 31);
 			this->label14->TabIndex = 3;
 			this->label14->Text = L"Last Name:";
 			// 
@@ -583,7 +603,7 @@ private: System::ComponentModel::IContainer^ components;
 				static_cast<System::Byte>(0)));
 			this->label13->Location = System::Drawing::Point(717, 462);
 			this->label13->Name = L"label13";
-			this->label13->Size = System::Drawing::Size(161, 25);
+			this->label13->Size = System::Drawing::Size(203, 31);
 			this->label13->TabIndex = 2;
 			this->label13->Text = L"Phone Number:";
 			// 
@@ -595,7 +615,7 @@ private: System::ComponentModel::IContainer^ components;
 				static_cast<System::Byte>(0)));
 			this->label12->Location = System::Drawing::Point(717, 502);
 			this->label12->Name = L"label12";
-			this->label12->Size = System::Drawing::Size(112, 25);
+			this->label12->Size = System::Drawing::Size(142, 31);
 			this->label12->TabIndex = 1;
 			this->label12->Text = L"Password:";
 			// 
@@ -607,7 +627,7 @@ private: System::ComponentModel::IContainer^ components;
 				static_cast<System::Byte>(0)));
 			this->label11->Location = System::Drawing::Point(717, 375);
 			this->label11->Name = L"label11";
-			this->label11->Size = System::Drawing::Size(122, 25);
+			this->label11->Size = System::Drawing::Size(155, 31);
 			this->label11->TabIndex = 0;
 			this->label11->Text = L"First Name:";
 			// 
@@ -629,7 +649,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->passTxt->Margin = System::Windows::Forms::Padding(4);
 			this->passTxt->Name = L"passTxt";
 			this->passTxt->PasswordChar = '*';
-			this->passTxt->Size = System::Drawing::Size(156, 31);
+			this->passTxt->Size = System::Drawing::Size(156, 37);
 			this->passTxt->TabIndex = 3;
 			// 
 			// mainPanel
@@ -652,6 +672,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->addMemberPnl->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)),
 				static_cast<System::Int32>(static_cast<System::Byte>(45)));
+			this->addMemberPnl->Controls->Add(this->panel1);
 			this->addMemberPnl->Controls->Add(this->addMem);
 			this->addMemberPnl->Controls->Add(this->button11);
 			this->addMemberPnl->Controls->Add(this->memName);
@@ -664,6 +685,68 @@ private: System::ComponentModel::IContainer^ components;
 			this->addMemberPnl->Name = L"addMemberPnl";
 			this->addMemberPnl->Size = System::Drawing::Size(1817, 1041);
 			this->addMemberPnl->TabIndex = 17;
+			// 
+			// panel1
+			// 
+			this->panel1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(60)), static_cast<System::Int32>(static_cast<System::Byte>(60)),
+				static_cast<System::Int32>(static_cast<System::Byte>(60)));
+			this->panel1->Controls->Add(this->button1);
+			this->panel1->Controls->Add(this->searchChat_field);
+			this->panel1->Controls->Add(this->showChatSearch_panel);
+			this->panel1->Controls->Add(this->searchChat_btn);
+			this->panel1->Controls->Add(this->label16);
+			this->panel1->Location = System::Drawing::Point(3, 378);
+			this->panel1->Name = L"panel1";
+			this->panel1->Size = System::Drawing::Size(592, 451);
+			this->panel1->TabIndex = 16;
+			this->panel1->Visible = false;
+			// 
+			// button1
+			// 
+			this->button1->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button1.BackgroundImage")));
+			this->button1->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+			this->button1->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->button1->Location = System::Drawing::Point(14, 12);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(59, 53);
+			this->button1->TabIndex = 5;
+			this->button1->UseVisualStyleBackColor = true;
+			// 
+			// searchChat_field
+			// 
+			this->searchChat_field->Location = System::Drawing::Point(105, 78);
+			this->searchChat_field->Name = L"searchChat_field";
+			this->searchChat_field->Size = System::Drawing::Size(335, 22);
+			this->searchChat_field->TabIndex = 4;
+			// 
+			// showChatSearch_panel
+			// 
+			this->showChatSearch_panel->Location = System::Drawing::Point(105, 126);
+			this->showChatSearch_panel->Name = L"showChatSearch_panel";
+			this->showChatSearch_panel->Size = System::Drawing::Size(362, 315);
+			this->showChatSearch_panel->TabIndex = 3;
+			// 
+			// searchChat_btn
+			// 
+			this->searchChat_btn->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"searchChat_btn.BackgroundImage")));
+			this->searchChat_btn->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+			this->searchChat_btn->Location = System::Drawing::Point(439, 77);
+			this->searchChat_btn->Name = L"searchChat_btn";
+			this->searchChat_btn->Size = System::Drawing::Size(29, 23);
+			this->searchChat_btn->TabIndex = 2;
+			this->searchChat_btn->UseVisualStyleBackColor = true;
+			this->searchChat_btn->Click += gcnew System::EventHandler(this, &GuiForm::searchChat_btn_Click);
+			// 
+			// label16
+			// 
+			this->label16->AutoSize = true;
+			this->label16->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label16->Location = System::Drawing::Point(194, 12);
+			this->label16->Name = L"label16";
+			this->label16->Size = System::Drawing::Size(210, 25);
+			this->label16->TabIndex = 0;
+			this->label16->Text = L"Search for ChatRooms";
 			// 
 			// addMem
 			// 
@@ -690,7 +773,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->memName->Location = System::Drawing::Point(791, 516);
 			this->memName->Name = L"memName";
-			this->memName->Size = System::Drawing::Size(215, 20);
+			this->memName->Size = System::Drawing::Size(215, 22);
 			this->memName->TabIndex = 18;
 			this->memName->Visible = false;
 			// 
@@ -698,7 +781,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->memPhone->Location = System::Drawing::Point(791, 485);
 			this->memPhone->Name = L"memPhone";
-			this->memPhone->Size = System::Drawing::Size(215, 20);
+			this->memPhone->Size = System::Drawing::Size(215, 22);
 			this->memPhone->TabIndex = 17;
 			// 
 			// memNumLbl
@@ -708,7 +791,7 @@ private: System::ComponentModel::IContainer^ components;
 				static_cast<System::Byte>(0)));
 			this->memNumLbl->Location = System::Drawing::Point(713, 485);
 			this->memNumLbl->Name = L"memNumLbl";
-			this->memNumLbl->Size = System::Drawing::Size(59, 17);
+			this->memNumLbl->Size = System::Drawing::Size(67, 20);
 			this->memNumLbl->TabIndex = 16;
 			this->memNumLbl->Text = L"Phone:";
 			// 
@@ -719,7 +802,7 @@ private: System::ComponentModel::IContainer^ components;
 				static_cast<System::Byte>(0)));
 			this->memNameLbl->Location = System::Drawing::Point(713, 516);
 			this->memNameLbl->Name = L"memNameLbl";
-			this->memNameLbl->Size = System::Drawing::Size(54, 17);
+			this->memNameLbl->Size = System::Drawing::Size(63, 20);
 			this->memNameLbl->TabIndex = 15;
 			this->memNameLbl->Text = L"Name:";
 			this->memNameLbl->Visible = false;
@@ -731,7 +814,7 @@ private: System::ComponentModel::IContainer^ components;
 				static_cast<System::Byte>(0)));
 			this->label18->Location = System::Drawing::Point(836, 437);
 			this->label18->Name = L"label18";
-			this->label18->Size = System::Drawing::Size(131, 24);
+			this->label18->Size = System::Drawing::Size(162, 29);
 			this->label18->TabIndex = 14;
 			this->label18->Text = L"Add member";
 			// 
@@ -808,7 +891,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->chatName->ForeColor = System::Drawing::SystemColors::ButtonFace;
 			this->chatName->Location = System::Drawing::Point(167, 32);
 			this->chatName->Name = L"chatName";
-			this->chatName->Size = System::Drawing::Size(0, 29);
+			this->chatName->Size = System::Drawing::Size(0, 36);
 			this->chatName->TabIndex = 1;
 			// 
 			// chatPicture
@@ -913,7 +996,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->label2->ForeColor = System::Drawing::SystemColors::ControlLightLight;
 			this->label2->Location = System::Drawing::Point(33, 34);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(98, 31);
+			this->label2->Size = System::Drawing::Size(116, 38);
 			this->label2->TabIndex = 14;
 			this->label2->Text = L"Status";
 			// 
@@ -982,7 +1065,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->label6->ForeColor = System::Drawing::SystemColors::ActiveCaption;
 			this->label6->Location = System::Drawing::Point(735, 635);
 			this->label6->Name = L"label6";
-			this->label6->Size = System::Drawing::Size(304, 20);
+			this->label6->Size = System::Drawing::Size(371, 25);
 			this->label6->TabIndex = 12;
 			this->label6->Text = L"You don\'t have contacts yet\? Add contact";
 			this->label6->Click += gcnew System::EventHandler(this, &GuiForm::label6_Click);
@@ -994,7 +1077,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->usersListBox->FormattingEnabled = true;
 			this->usersListBox->Location = System::Drawing::Point(725, 437);
 			this->usersListBox->Name = L"usersListBox";
-			this->usersListBox->Size = System::Drawing::Size(327, 160);
+			this->usersListBox->Size = System::Drawing::Size(327, 132);
 			this->usersListBox->TabIndex = 11;
 			// 
 			// label8
@@ -1005,7 +1088,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->label8->ForeColor = System::Drawing::SystemColors::ControlLightLight;
 			this->label8->Location = System::Drawing::Point(720, 378);
 			this->label8->Name = L"label8";
-			this->label8->Size = System::Drawing::Size(139, 25);
+			this->label8->Size = System::Drawing::Size(176, 31);
 			this->label8->TabIndex = 10;
 			this->label8->Text = L"Group Name:";
 			// 
@@ -1015,7 +1098,7 @@ private: System::ComponentModel::IContainer^ components;
 				static_cast<System::Byte>(0)));
 			this->groupNameTxt->Location = System::Drawing::Point(886, 369);
 			this->groupNameTxt->Name = L"groupNameTxt";
-			this->groupNameTxt->Size = System::Drawing::Size(166, 38);
+			this->groupNameTxt->Size = System::Drawing::Size(166, 45);
 			this->groupNameTxt->TabIndex = 9;
 			// 
 			// label7
@@ -1026,7 +1109,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->label7->ForeColor = System::Drawing::SystemColors::ControlLightLight;
 			this->label7->Location = System::Drawing::Point(828, 321);
 			this->label7->Name = L"label7";
-			this->label7->Size = System::Drawing::Size(129, 29);
+			this->label7->Size = System::Drawing::Size(162, 36);
 			this->label7->TabIndex = 7;
 			this->label7->Text = L"Add Group";
 			// 
@@ -1073,7 +1156,7 @@ private: System::ComponentModel::IContainer^ components;
 				static_cast<System::Byte>(0)));
 			this->label1->Location = System::Drawing::Point(859, 290);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(167, 31);
+			this->label1->Size = System::Drawing::Size(211, 39);
 			this->label1->TabIndex = 0;
 			this->label1->Text = L"Profile Panel";
 			// 
@@ -1119,7 +1202,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->addContName_field->Location = System::Drawing::Point(791, 516);
 			this->addContName_field->Name = L"addContName_field";
-			this->addContName_field->Size = System::Drawing::Size(215, 20);
+			this->addContName_field->Size = System::Drawing::Size(215, 22);
 			this->addContName_field->TabIndex = 18;
 			this->addContName_field->Visible = false;
 			// 
@@ -1127,7 +1210,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->addContNum_field->Location = System::Drawing::Point(791, 485);
 			this->addContNum_field->Name = L"addContNum_field";
-			this->addContNum_field->Size = System::Drawing::Size(215, 20);
+			this->addContNum_field->Size = System::Drawing::Size(215, 22);
 			this->addContNum_field->TabIndex = 17;
 			// 
 			// label5
@@ -1137,7 +1220,7 @@ private: System::ComponentModel::IContainer^ components;
 				static_cast<System::Byte>(0)));
 			this->label5->Location = System::Drawing::Point(713, 485);
 			this->label5->Name = L"label5";
-			this->label5->Size = System::Drawing::Size(59, 17);
+			this->label5->Size = System::Drawing::Size(67, 20);
 			this->label5->TabIndex = 16;
 			this->label5->Text = L"Phone:";
 			// 
@@ -1148,7 +1231,7 @@ private: System::ComponentModel::IContainer^ components;
 				static_cast<System::Byte>(0)));
 			this->NameLabel->Location = System::Drawing::Point(713, 516);
 			this->NameLabel->Name = L"NameLabel";
-			this->NameLabel->Size = System::Drawing::Size(54, 17);
+			this->NameLabel->Size = System::Drawing::Size(63, 20);
 			this->NameLabel->TabIndex = 15;
 			this->NameLabel->Text = L"Name:";
 			this->NameLabel->Visible = false;
@@ -1160,7 +1243,7 @@ private: System::ComponentModel::IContainer^ components;
 				static_cast<System::Byte>(0)));
 			this->label3->Location = System::Drawing::Point(836, 437);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(121, 24);
+			this->label3->Size = System::Drawing::Size(149, 29);
 			this->label3->TabIndex = 14;
 			this->label3->Text = L"Add contact";
 			// 
@@ -1168,6 +1251,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->navPanel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(65)), static_cast<System::Int32>(static_cast<System::Byte>(65)),
 				static_cast<System::Int32>(static_cast<System::Byte>(65)));
+			this->navPanel->Controls->Add(this->goToSearchChat_btn);
 			this->navPanel->Controls->Add(this->button7);
 			this->navPanel->Controls->Add(this->chatButton);
 			this->navPanel->Controls->Add(this->goToAddContact_btn);
@@ -1178,6 +1262,16 @@ private: System::ComponentModel::IContainer^ components;
 			this->navPanel->Name = L"navPanel";
 			this->navPanel->Size = System::Drawing::Size(87, 1041);
 			this->navPanel->TabIndex = 5;
+			// 
+			// goToSearchChat_btn
+			// 
+			this->goToSearchChat_btn->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"goToSearchChat_btn.BackgroundImage")));
+			this->goToSearchChat_btn->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+			this->goToSearchChat_btn->Location = System::Drawing::Point(11, 635);
+			this->goToSearchChat_btn->Name = L"goToSearchChat_btn";
+			this->goToSearchChat_btn->Size = System::Drawing::Size(63, 54);
+			this->goToSearchChat_btn->TabIndex = 6;
+			this->goToSearchChat_btn->UseVisualStyleBackColor = true;
 			// 
 			// button7
 			// 
@@ -1398,7 +1492,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->bodyOfTheStoryLabel->ForeColor = System::Drawing::SystemColors::ButtonHighlight;
 			this->bodyOfTheStoryLabel->Location = System::Drawing::Point(842, 292);
 			this->bodyOfTheStoryLabel->Name = L"bodyOfTheStoryLabel";
-			this->bodyOfTheStoryLabel->Size = System::Drawing::Size(0, 31);
+			this->bodyOfTheStoryLabel->Size = System::Drawing::Size(0, 39);
 			this->bodyOfTheStoryLabel->TabIndex = 1;
 			// 
 			// profileUserInStoryPanel
@@ -1452,7 +1546,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->dateInStoryLabel->ForeColor = System::Drawing::SystemColors::ButtonHighlight;
 			this->dateInStoryLabel->Location = System::Drawing::Point(163, 81);
 			this->dateInStoryLabel->Name = L"dateInStoryLabel";
-			this->dateInStoryLabel->Size = System::Drawing::Size(42, 21);
+			this->dateInStoryLabel->Size = System::Drawing::Size(53, 25);
 			this->dateInStoryLabel->TabIndex = 2;
 			this->dateInStoryLabel->Text = L"Date";
 			// 
@@ -1464,7 +1558,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->nameInStoryLabel->ForeColor = System::Drawing::SystemColors::ButtonHighlight;
 			this->nameInStoryLabel->Location = System::Drawing::Point(140, 9);
 			this->nameInStoryLabel->Name = L"nameInStoryLabel";
-			this->nameInStoryLabel->Size = System::Drawing::Size(85, 31);
+			this->nameInStoryLabel->Size = System::Drawing::Size(102, 38);
 			this->nameInStoryLabel->TabIndex = 1;
 			this->nameInStoryLabel->Text = L"name";
 			// 
@@ -1523,7 +1617,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->label10->ForeColor = System::Drawing::Color::Turquoise;
 			this->label10->Location = System::Drawing::Point(984, 587);
 			this->label10->Name = L"label10";
-			this->label10->Size = System::Drawing::Size(60, 18);
+			this->label10->Size = System::Drawing::Size(77, 24);
 			this->label10->TabIndex = 8;
 			this->label10->Text = L"Sign Up";
 			this->label10->Click += gcnew System::EventHandler(this, &GuiForm::label10_Click);
@@ -1537,7 +1631,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->label9->ForeColor = System::Drawing::Color::Turquoise;
 			this->label9->Location = System::Drawing::Point(800, 587);
 			this->label9->Name = L"label9";
-			this->label9->Size = System::Drawing::Size(186, 18);
+			this->label9->Size = System::Drawing::Size(236, 24);
 			this->label9->TabIndex = 7;
 			this->label9->Text = L"Don\'t have an account yet\?";
 			// 
@@ -1549,7 +1643,7 @@ private: System::ComponentModel::IContainer^ components;
 				static_cast<System::Byte>(0)));
 			this->passLbl->Location = System::Drawing::Point(750, 533);
 			this->passLbl->Name = L"passLbl";
-			this->passLbl->Size = System::Drawing::Size(112, 25);
+			this->passLbl->Size = System::Drawing::Size(142, 31);
 			this->passLbl->TabIndex = 6;
 			this->passLbl->Tag = L"";
 			this->passLbl->Text = L"Password:";
@@ -1562,7 +1656,7 @@ private: System::ComponentModel::IContainer^ components;
 				static_cast<System::Byte>(0)));
 			this->numLbl->Location = System::Drawing::Point(717, 462);
 			this->numLbl->Name = L"numLbl";
-			this->numLbl->Size = System::Drawing::Size(161, 25);
+			this->numLbl->Size = System::Drawing::Size(203, 31);
 			this->numLbl->TabIndex = 4;
 			this->numLbl->Text = L"Phone Number:";
 			// 
@@ -1572,7 +1666,7 @@ private: System::ComponentModel::IContainer^ components;
 				static_cast<System::Byte>(0)));
 			this->phoneTxt->Location = System::Drawing::Point(937, 459);
 			this->phoneTxt->Name = L"phoneTxt";
-			this->phoneTxt->Size = System::Drawing::Size(156, 31);
+			this->phoneTxt->Size = System::Drawing::Size(156, 37);
 			this->phoneTxt->TabIndex = 2;
 			// 
 			// label4
@@ -1583,7 +1677,7 @@ private: System::ComponentModel::IContainer^ components;
 				static_cast<System::Byte>(0)));
 			this->label4->Location = System::Drawing::Point(737, 231);
 			this->label4->Name = L"label4";
-			this->label4->Size = System::Drawing::Size(501, 55);
+			this->label4->Size = System::Drawing::Size(624, 69);
 			this->label4->TabIndex = 1;
 			this->label4->Text = L"Welcome to Chati App";
 			// 
@@ -1611,9 +1705,9 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
 			this->ClientSize = System::Drawing::Size(1904, 1041);
-			this->Controls->Add(this->SignINPnl);
-			this->Controls->Add(this->mainPanel);
 			this->Controls->Add(this->signUpPnl);
+			this->Controls->Add(this->mainPanel);
+			this->Controls->Add(this->SignINPnl);
 			this->Controls->Add(this->getStoryPanel);
 			this->Controls->Add(this->addStoryPanel);
 			this->Margin = System::Windows::Forms::Padding(4);
@@ -1628,6 +1722,8 @@ private: System::ComponentModel::IContainer^ components;
 			this->mainPanel->ResumeLayout(false);
 			this->addMemberPnl->ResumeLayout(false);
 			this->addMemberPnl->PerformLayout();
+			this->panel1->ResumeLayout(false);
+			this->panel1->PerformLayout();
 			this->chatPnl->ResumeLayout(false);
 			this->currentCahtPanel->ResumeLayout(false);
 			this->chatsContainer->ResumeLayout(false);
@@ -2382,6 +2478,32 @@ private: System::ComponentModel::IContainer^ components;
 			}
 
 		}
+        private: System::Void searchChat_btn_Click(System::Object^ sender, System::EventArgs^ e) {
+           string searchText = msclr::interop::marshal_as<std::string>(searchChat_field->Text);
+           searchChat_field->Text = "";
+           ChatRoom* chat = nullptr; // Initialize as a pointer
+
+           // Assuming searchChatRooms returns a ChatRoom object, we need to dynamically allocate it
+           ChatRoom result = searchChatRooms(searchText, chatRooms);
+           chat = &chatRooms[result.getChatRoomID()]; // Assign the address of the matching ChatRoom
+
+           if (chat != nullptr) {
+               // Handle the found chat room
+               MessageBox::Show("Chat room found!", "Success");
+           } else {
+			   System::Windows::Forms::Button^ newButton = gcnew System::Windows::Forms::Button();
+
+                // Update the problematic line to convert the std::string to a System::String^ before assigning it to the Button's Text property.
+               newButton->Text = gcnew System::String(chat->getGroupName().c_str());
+			   newButton->Size = System::Drawing::Size(350, 30); // Set button size
+			   newButton->BackColor = System::Drawing::Color::Black; // Optional: Set background color
+			   newButton->FlatStyle = System::Windows::Forms::FlatStyle::Flat; // Optional: Set flat style
+
+			   // Add the button to the showChatSearch_panel
+			   this->showChatSearch_panel->Controls->Add(newButton);
+           }
+		   
+        }
 };
 
 };
