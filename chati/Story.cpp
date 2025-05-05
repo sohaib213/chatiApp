@@ -4,11 +4,16 @@
 int Story::storyCounter = 0;
 
 // Default constructor
-Story::Story() : storyId(++storyCounter), userPhone(0), publishTime(time(nullptr)), storyPhoto(""), storyText("") {}
+Story::Story() 
+    : storyId(++storyCounter), storyText(""), publishTime(time(nullptr)), storyPhoto(""),
+      fontName("Arial"), fontSize(12.0f), fontStyle(0), colorHex("#000000") {}
 
 // Parameterized constructor
-Story::Story(string userPhone, time_t publishTime, string storyText, string storyPhoto)
-    : userPhone(userPhone), publishTime(publishTime), storyText(storyText), storyPhoto(storyPhoto) {
+Story::Story( string storyText, time_t publishTime,
+             string storyPhoto, string fontName, float fontSize, int fontStyle, string colorHex)
+    : publishTime(publishTime), storyText(storyText), storyPhoto(storyPhoto),
+      fontName(fontName), fontSize(fontSize), fontStyle(fontStyle), colorHex(colorHex) 
+{
     storyId = ++storyCounter;
 }
 
@@ -17,9 +22,9 @@ int Story::getStoryID() const {
     return storyId;
 }
 
-string Story::getUserPhone() const {
-	return userPhone;
-}
+//string Story::getUserPhone() const {
+//	return userPhone;
+//}
 
 time_t Story::getPublishTime() const {
     return publishTime;
@@ -32,15 +37,40 @@ string Story::getStoryPhoto() const {
 string Story::getStoryText() const {
     return storyText;
 }
+string Story::getFontName() const {
+	return fontName;
+}
+float Story::getFontSize() const {
+	return fontSize;
+}
+int Story::getFontStyle() const {
+	return fontStyle;
+}
+string Story::getColorHex() const {
+	return colorHex;
+}
 
 // Setters
 void Story::setStoryID(const int& id) {
     storyId = id;
 }
 
-void Story::setUserPhone(const string& userPhone) {
-    this->userPhone = userPhone;
+void Story::setFontName(const string& fontName) {
+	this->fontName = fontName;
 }
+void Story::setFontSize(const float& fontSize) {
+	this->fontSize = fontSize;
+}
+void Story::setFontStyle(const int& fontStyle) {
+	this->fontStyle = fontStyle;
+}
+void Story::setColorHex(const string& colorHex) {
+	this->colorHex = colorHex;
+}
+
+//void Story::setUserPhone(const string& userPhone) {
+//    this->userPhone = userPhone;
+//}
 
 void Story::setPublishTime(const time_t& time) {
     publishTime = time;

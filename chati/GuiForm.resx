@@ -3828,9 +3828,9 @@
         AAAA0JFjx/4Hpl0u0wd4lS0AAAAASUVORK5CYII=
 </value>
   </data>
-  <metadata name="colorDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>46, 31</value>
-  </metadata>
+  <data name="colorDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing">
+    <value>30, 20</value>
+  </data>
   <data name="viewerOfTheStoryBtn.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
@@ -5162,7 +5162,15 @@
         NAlelAGgAAAAAAAAAAAAAAAAAAAAAP/Z
 </value>
   </data>
-  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="$this.TrayHeight" type="System.Int32, mscorlib">
     <value>26</value>
-  </metadata>
+  </data>
+  <data name="storyTimerTemp.TrayLocation" type="System.Drawing.Point, System.Drawing">
+    <value>155, 1</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="user" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>icons\user.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>
