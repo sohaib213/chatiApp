@@ -71,6 +71,11 @@ namespace chati {
 		String^ selectedImagePath;
 		String^ fileName = "User.png";
 
+		String^ groupImageDestinationPath;
+		String^ selectedGroupImagePath;
+		String^ groupFileName = "default-group.png";	
+	
+
 		private: System::Windows::Forms::Panel^ addGroup;
 		private: System::Windows::Forms::Label^ label6;
 		private: System::Windows::Forms::CheckedListBox^ usersListBox;
@@ -82,7 +87,8 @@ namespace chati {
 		private: System::Windows::Forms::PictureBox^ chatPicture;
 		private: System::Windows::Forms::Label^ chatName;
 		private: System::Windows::Forms::Panel^ messagesFlowPanelsContainer;
-	private: System::Windows::Forms::Panel^ panel1;
+	private: System::Windows::Forms::Panel^ SignINPnl;
+
 
 	private: System::Windows::Forms::Label^ label4;
 	private: System::Windows::Forms::Label^ passLbl;
@@ -109,9 +115,21 @@ namespace chati {
 	private: System::Windows::Forms::Button^ button9;
 	private: System::Windows::Forms::PictureBox^ pictureBox2;
 	private: System::Windows::Forms::Button^ button12;
+<<<<<<< HEAD
 	private: System::Windows::Forms::Timer^ storyTimerTemp;
 	private:System::Windows::Forms::ColorDialog^ colorDialog;
 	private:System::Windows::Forms::FontDialog^ fontDialog;
+=======
+	private: System::Windows::Forms::PictureBox^ signUpBackGround;
+	private: System::Windows::Forms::PictureBox^ signinBackGround;
+	private: System::Windows::Forms::Button^ groupImgBut;
+	private: System::Windows::Forms::PictureBox^ groupImgPicBox;
+
+
+
+
+
+>>>>>>> ba2380b35d554e90a9db7477011f646426e168e5
 
 
 
@@ -291,6 +309,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->label13 = (gcnew System::Windows::Forms::Label());
 			this->label12 = (gcnew System::Windows::Forms::Label());
 			this->label11 = (gcnew System::Windows::Forms::Label());
+			this->signUpBackGround = (gcnew System::Windows::Forms::PictureBox());
 			this->passTxt = (gcnew System::Windows::Forms::TextBox());
 			this->mainPanel = (gcnew System::Windows::Forms::Panel());
 			this->storyPanel = (gcnew System::Windows::Forms::Panel());
@@ -313,6 +332,8 @@ private: System::ComponentModel::IContainer^ components;
 			this->singOutButton = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->addGroup = (gcnew System::Windows::Forms::Panel());
+			this->groupImgBut = (gcnew System::Windows::Forms::Button());
+			this->groupImgPicBox = (gcnew System::Windows::Forms::PictureBox());
 			this->label6 = (gcnew System::Windows::Forms::Label());
 			this->usersListBox = (gcnew System::Windows::Forms::CheckedListBox());
 			this->label8 = (gcnew System::Windows::Forms::Label());
@@ -350,7 +371,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->dateInStoryLabel = (gcnew System::Windows::Forms::Label());
 			this->nameInStoryLabel = (gcnew System::Windows::Forms::Label());
 			this->profileStoryPic = (gcnew System::Windows::Forms::PictureBox());
-			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->SignINPnl = (gcnew System::Windows::Forms::Panel());
 			this->button8 = (gcnew System::Windows::Forms::Button());
 			this->label10 = (gcnew System::Windows::Forms::Label());
 			this->label9 = (gcnew System::Windows::Forms::Label());
@@ -358,9 +379,14 @@ private: System::ComponentModel::IContainer^ components;
 			this->numLbl = (gcnew System::Windows::Forms::Label());
 			this->phoneTxt = (gcnew System::Windows::Forms::TextBox());
 			this->label4 = (gcnew System::Windows::Forms::Label());
+<<<<<<< HEAD
 			this->storyTimerTemp = (gcnew System::Windows::Forms::Timer(this->components));
+=======
+			this->signinBackGround = (gcnew System::Windows::Forms::PictureBox());
+>>>>>>> ba2380b35d554e90a9db7477011f646426e168e5
 			this->signUpPnl->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->signUpBackGround))->BeginInit();
 			this->mainPanel->SuspendLayout();
 			this->storyPanel->SuspendLayout();
 			this->stotyHeaderPanel->SuspendLayout();
@@ -372,6 +398,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->footerContainer->SuspendLayout();
 			this->profilePanel->SuspendLayout();
 			this->addGroup->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->groupImgPicBox))->BeginInit();
 			this->addContactPanel->SuspendLayout();
 			this->navPanel->SuspendLayout();
 			this->addStoryPanel->SuspendLayout();
@@ -380,7 +407,8 @@ private: System::ComponentModel::IContainer^ components;
 			this->bodyOfTheStoryPanel->SuspendLayout();
 			this->profileUserInStoryPanel->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->profileStoryPic))->BeginInit();
-			this->panel1->SuspendLayout();
+			this->SignINPnl->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->signinBackGround))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// signUpPnl
@@ -400,6 +428,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->signUpPnl->Controls->Add(this->label13);
 			this->signUpPnl->Controls->Add(this->label12);
 			this->signUpPnl->Controls->Add(this->label11);
+			this->signUpPnl->Controls->Add(this->signUpBackGround);
 			this->signUpPnl->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->signUpPnl->Location = System::Drawing::Point(0, 0);
 			this->signUpPnl->Margin = System::Windows::Forms::Padding(4);
@@ -556,6 +585,16 @@ private: System::ComponentModel::IContainer^ components;
 			this->label11->Size = System::Drawing::Size(155, 31);
 			this->label11->TabIndex = 0;
 			this->label11->Text = L"First Name:";
+			// 
+			// signUpBackGround
+			// 
+			this->signUpBackGround->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"signUpBackGround.BackgroundImage")));
+			this->signUpBackGround->InitialImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"signUpBackGround.InitialImage")));
+			this->signUpBackGround->Location = System::Drawing::Point(0, 0);
+			this->signUpBackGround->Name = L"signUpBackGround";
+			this->signUpBackGround->Size = System::Drawing::Size(1944, 1041);
+			this->signUpBackGround->TabIndex = 25;
+			this->signUpBackGround->TabStop = false;
 			// 
 			// passTxt
 			// 
@@ -806,6 +845,8 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->addGroup->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)),
 				static_cast<System::Int32>(static_cast<System::Byte>(45)));
+			this->addGroup->Controls->Add(this->groupImgBut);
+			this->addGroup->Controls->Add(this->groupImgPicBox);
 			this->addGroup->Controls->Add(this->label6);
 			this->addGroup->Controls->Add(this->usersListBox);
 			this->addGroup->Controls->Add(this->label8);
@@ -817,6 +858,31 @@ private: System::ComponentModel::IContainer^ components;
 			this->addGroup->Name = L"addGroup";
 			this->addGroup->Size = System::Drawing::Size(1817, 1041);
 			this->addGroup->TabIndex = 16;
+			// 
+			// groupImgBut
+			// 
+			this->groupImgBut->BackColor = System::Drawing::Color::Cyan;
+			this->groupImgBut->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
+			this->groupImgBut->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->groupImgBut->Location = System::Drawing::Point(1330, 533);
+			this->groupImgBut->Name = L"groupImgBut";
+			this->groupImgBut->Size = System::Drawing::Size(100, 35);
+			this->groupImgBut->TabIndex = 25;
+			this->groupImgBut->Text = L"Select image";
+			this->groupImgBut->UseVisualStyleBackColor = false;
+			this->groupImgBut->Click += gcnew System::EventHandler(this, &GuiForm::groupImgBut_Click);
+			// 
+			// groupImgPicBox
+			// 
+			this->groupImgPicBox->BackColor = System::Drawing::Color::Transparent;
+			this->groupImgPicBox->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"groupImgPicBox.Image")));
+			this->groupImgPicBox->Location = System::Drawing::Point(1309, 378);
+			this->groupImgPicBox->Name = L"groupImgPicBox";
+			this->groupImgPicBox->Size = System::Drawing::Size(142, 133);
+			this->groupImgPicBox->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
+			this->groupImgPicBox->TabIndex = 24;
+			this->groupImgPicBox->TabStop = false;
 			// 
 			// label6
 			// 
@@ -1272,24 +1338,25 @@ private: System::ComponentModel::IContainer^ components;
 			this->profileStoryPic->TabIndex = 0;
 			this->profileStoryPic->TabStop = false;
 			// 
-			// panel1
+			// SignINPnl
 			// 
-			this->panel1->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"panel1.BackgroundImage")));
-			this->panel1->BackgroundImageLayout = System::Windows::Forms::ImageLayout::None;
-			this->panel1->Controls->Add(this->button8);
-			this->panel1->Controls->Add(this->label10);
-			this->panel1->Controls->Add(this->label9);
-			this->panel1->Controls->Add(this->passLbl);
-			this->panel1->Controls->Add(this->numLbl);
-			this->panel1->Controls->Add(this->passTxt);
-			this->panel1->Controls->Add(this->phoneTxt);
-			this->panel1->Controls->Add(this->label4);
-			this->panel1->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->panel1->Location = System::Drawing::Point(0, 0);
-			this->panel1->Margin = System::Windows::Forms::Padding(4);
-			this->panel1->Name = L"panel1";
-			this->panel1->Size = System::Drawing::Size(1904, 1041);
-			this->panel1->TabIndex = 15;
+			this->SignINPnl->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"SignINPnl.BackgroundImage")));
+			this->SignINPnl->BackgroundImageLayout = System::Windows::Forms::ImageLayout::None;
+			this->SignINPnl->Controls->Add(this->button8);
+			this->SignINPnl->Controls->Add(this->label10);
+			this->SignINPnl->Controls->Add(this->label9);
+			this->SignINPnl->Controls->Add(this->passLbl);
+			this->SignINPnl->Controls->Add(this->numLbl);
+			this->SignINPnl->Controls->Add(this->passTxt);
+			this->SignINPnl->Controls->Add(this->phoneTxt);
+			this->SignINPnl->Controls->Add(this->label4);
+			this->SignINPnl->Controls->Add(this->signinBackGround);
+			this->SignINPnl->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->SignINPnl->Location = System::Drawing::Point(0, 0);
+			this->SignINPnl->Margin = System::Windows::Forms::Padding(4);
+			this->SignINPnl->Name = L"SignINPnl";
+			this->SignINPnl->Size = System::Drawing::Size(1904, 1041);
+			this->SignINPnl->TabIndex = 15;
 			// 
 			// button8
 			// 
@@ -1378,15 +1445,33 @@ private: System::ComponentModel::IContainer^ components;
 			this->label4->TabIndex = 1;
 			this->label4->Text = L"Welcome to Chati App";
 			// 
+<<<<<<< HEAD
 			// storyTimerTemp
 			// 
 			this->storyTimerTemp->Interval = 3000;
 			this->storyTimerTemp->Tick += gcnew System::EventHandler(this, &GuiForm::storyTimerTemp_Tick);
+=======
+			// signinBackGround
+			// 
+			this->signinBackGround->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"signinBackGround.BackgroundImage")));
+			this->signinBackGround->InitialImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"signinBackGround.InitialImage")));
+			this->signinBackGround->Location = System::Drawing::Point(0, 0);
+			this->signinBackGround->Name = L"signinBackGround";
+			this->signinBackGround->Size = System::Drawing::Size(1944, 1041);
+			this->signinBackGround->TabIndex = 26;
+			this->signinBackGround->TabStop = false;
+>>>>>>> ba2380b35d554e90a9db7477011f646426e168e5
 			// 
 			// GuiForm
 			// 
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
 			this->ClientSize = System::Drawing::Size(1904, 1041);
+<<<<<<< HEAD
+=======
+			this->Controls->Add(this->SignINPnl);
+			this->Controls->Add(this->signUpPnl);
+			this->Controls->Add(this->mainPanel);
+>>>>>>> ba2380b35d554e90a9db7477011f646426e168e5
 			this->Controls->Add(this->getStoryPanel);
 			this->Controls->Add(this->signUpPnl);
 			this->Controls->Add(this->addStoryPanel);
@@ -1400,6 +1485,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->signUpPnl->ResumeLayout(false);
 			this->signUpPnl->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->signUpBackGround))->EndInit();
 			this->mainPanel->ResumeLayout(false);
 			this->storyPanel->ResumeLayout(false);
 			this->stotyHeaderPanel->ResumeLayout(false);
@@ -1415,6 +1501,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->profilePanel->PerformLayout();
 			this->addGroup->ResumeLayout(false);
 			this->addGroup->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->groupImgPicBox))->EndInit();
 			this->addContactPanel->ResumeLayout(false);
 			this->addContactPanel->PerformLayout();
 			this->navPanel->ResumeLayout(false);
@@ -1427,8 +1514,9 @@ private: System::ComponentModel::IContainer^ components;
 			this->profileUserInStoryPanel->ResumeLayout(false);
 			this->profileUserInStoryPanel->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->profileStoryPic))->EndInit();
-			this->panel1->ResumeLayout(false);
-			this->panel1->PerformLayout();
+			this->SignINPnl->ResumeLayout(false);
+			this->SignINPnl->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->signinBackGround))->EndInit();
 			this->ResumeLayout(false);
 
 		}
@@ -1575,8 +1663,8 @@ private: System::ComponentModel::IContainer^ components;
 			signUp(mobileNumber, password, firstName, lastName, users, filename);
 
 			MessageBox::Show("Signed Up successfully", "Signed Up");
-			panel1->BringToFront();
-			
+			SignINPnl->BringToFront();
+			pictureBox2->Image = nullptr;
 		}
 		
 		
@@ -1622,6 +1710,10 @@ private: System::ComponentModel::IContainer^ components;
 
 					if (chatRooms[chatRoom].getIsDual())
 					{
+
+						//string filename = msclr::interop::marshal_as<std::string>(fileName->ToString());
+						/*if (filename != "User.png")
+							File::Copy(selectedImagePath, destinationPath, true);*/
 
 						if(chatRooms[chatRoom].getUsersID()[0] == currentUser->getMobileNumber())
 							chatRoomHandler.addChatRoomPanel(currentUser->getContactsPhones()[chatRooms[chatRoom].getUsersID()[1]], chatRoom, contactsPanel);
@@ -1912,8 +2004,12 @@ private: System::ComponentModel::IContainer^ components;
 				MessageBox::Show("Contact already exists", "Error");
 			}
 			else {
+				string groupFilename = msclr::interop::marshal_as<std::string>(groupFileName->ToString());
+				if (groupFileName != "User.png")
+					File::Copy(selectedImagePath, destinationPath, true);
+
 				string contName = msclr::interop::marshal_as<std::string>(addContName_field->Text);
-				chatRoomHandler.createRoom(currentContNum,contName,currentUser, addContName_field, addContNum_field, chatRooms, contactsPanel,Activity, messagesFlowPanelsContainer, users);
+				chatRoomHandler.createRoom(currentContNum,contName,currentUser, addContName_field, addContNum_field, chatRooms, contactsPanel,Activity, messagesFlowPanelsContainer, users,groupFilename,messages);
 				sortChatRooms(*currentUser, Activity, chatRooms, contactsPanel, messages);
 			
 			}
@@ -1934,7 +2030,7 @@ private: System::ComponentModel::IContainer^ components;
 		}
 		//?shehab/
 		private: System::Void singOutButton_Click(System::Object^ sender, System::EventArgs^ e) {
-			panel1->BringToFront();
+			SignINPnl->BringToFront();
 		}
 		private: System::Void button12_Click(System::Object^ sender, System::EventArgs^ e) {
 			OpenFileDialog^ openFileDialog = gcnew OpenFileDialog();
@@ -1964,19 +2060,46 @@ private: System::ComponentModel::IContainer^ components;
 			addContactPanel->BringToFront();
 		}
 
+		private: System::Void groupImgBut_Click(System::Object^ sender, System::EventArgs^ e) {
+			OpenFileDialog^ openFileDialog = gcnew OpenFileDialog();
+			openFileDialog->Title = "Select an image";
+			openFileDialog->Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif";
+
+			if (openFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK)
+			{
+				groupImgPicBox->Image = Image::FromFile(openFileDialog->FileName);
+				selectedGroupImagePath = openFileDialog->FileName;
+				groupFileName = Path::GetFileName(selectedGroupImagePath);
+
+				String^ projectRoot = Directory::GetParent(Application::StartupPath)->Parent->FullName;
+				String^ imagesFolder = Path::Combine(projectRoot, "usersImages");
+
+				if (!Directory::Exists(imagesFolder))
+					Directory::CreateDirectory(imagesFolder);
+
+				groupImageDestinationPath = Path::Combine(imagesFolder, groupFileName);
+
+				File::Copy(selectedGroupImagePath, groupImageDestinationPath, true);
+			}
+
+		}
+
 		private: System::Void addBtn_Click(System::Object^ sender, System::EventArgs^ e) {
 			if (groupNameTxt->Text == "") {
 				MessageBox::Show("Please enter group name", "Error");
 			}
 			else {
+				string filename = msclr::interop::marshal_as<std::string>(groupFileName->ToString());
+				if (filename != "default-group.png")
+					File::Copy(selectedGroupImagePath, groupImageDestinationPath, true);
 			
 				string groupName = msclr::interop::marshal_as<std::string>(groupNameTxt->Text);
 				groupNameTxt->Text = "";
 				chatRoomHandler.createGroup(currentUser, chatRooms, messagesFlowPanelsContainer,
-					usersListBox, users, contactsPanel, groupName, Activity);
+					usersListBox, users, contactsPanel, groupName, Activity,filename,messages);
 				sortChatRooms(*currentUser, Activity, chatRooms, contactsPanel, messages);
 			}
-
+			groupImgPicBox->Image = nullptr;
 		}
 		private: System::Void button7_Click(System::Object^ sender, System::EventArgs^ e) {
 			addGroup->BringToFront();
@@ -1989,11 +2112,12 @@ private: System::ComponentModel::IContainer^ components;
 		}
 
 		private: System::Void button10_Click(System::Object^ sender, System::EventArgs^ e) {
-			panel1->BringToFront();
+			SignINPnl->BringToFront();
 		}
 		private: System::Void label10_Click(System::Object^ sender, System::EventArgs^ e) {
 			signUpPnl->BringToFront();
 		}
+<<<<<<< HEAD
 		//? shehab
 		private: System::Void storyTimerTemp_Tick(System::Object^ sender, System::EventArgs^ e) {
 			//? show the stories temporarily
@@ -2039,4 +2163,8 @@ private: System::ComponentModel::IContainer^ components;
 
 			  
 };
+=======
+	
+	};
+>>>>>>> ba2380b35d554e90a9db7477011f646426e168e5
 }

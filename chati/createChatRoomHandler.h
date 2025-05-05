@@ -38,16 +38,49 @@ public:
 
 	void addChatRoomPanel(string contName, int chatRoomID, FlowLayoutPanel^ contactsPanel) {
 
+		ChatRoom* chatRoom = &(*chatRooms)[chatRoomID];
 
+		User* otherUser;
+		String^ imagePath;
+		if (chatRoom->getIsDual()) {
+			if (chatRoom->getUsersID()[0] == (*currentUser)->getMobileNumber())
+				otherUser = &(*users)[chatRoom->getUsersID()[1]];
+			else
+				otherUser = &(*users)[chatRoom->getUsersID()[0]];
+
+			string otherUserPhone = otherUser->getMobileNumber();
+			string photoName = (*users)[otherUserPhone].getProfilePhoto();
+			imagePath = Path::Combine(imagesFolder, gcnew String(photoName.c_str()));
+		}
+		else {
+			// For group chat, get group image
+			string photoName = chatRoom->getGroupPhoto();
+			imagePath = Path::Combine(imagesFolder, gcnew String(photoName.c_str()));
+		}
+
+
+		//chatroom button
 		Button^ chatRoomButton = gcnew Button();
 		chatRoomButton->BackColor = Color::FromArgb(60, 60, 60);
-		chatRoomButton->Size = System::Drawing::Size(330, 100); // Set the size of the panel
+		chatRoomButton->Size = System::Drawing::Size(contactsPanel->Width - 5, 80); // Set the size of the panel
 		chatRoomButton->Location = System::Drawing::Point(0, 0); // Set the location of the panel
+		chatRoomButton->Dock = DockStyle::Top;
+		chatRoomButton->Margin = Padding::Empty;
 		chatRoomButton->Tag = chatRoomID;
 		chatRoomButton->Click += gcnew EventHandler(this, &createChatRoomHandler::onChatRoomButtonClick); // Fix: Use 'this' to bind the delegate to the managed class
 		chatRoomButton->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-		chatRoomButton->FlatAppearance->BorderSize = 2;
+		chatRoomButton->FlatAppearance->BorderSize = 1;
+		chatRoomButton->TextAlign = ContentAlignment::MiddleLeft;
+		chatRoomButton->FlatAppearance->MouseOverBackColor = Color::FromArgb(80, 80, 80);
 
+		//container panel
+		Panel^ innerPanel = gcnew Panel();
+		innerPanel->Size = System::Drawing::Size(chatRoomButton->Width - 10, 70);
+		innerPanel->Location = System::Drawing::Point(10, 5);
+		innerPanel->Dock = DockStyle::Fill;
+		innerPanel->BackColor = Color::Transparent;
+
+		//contact label
 		Label^ contactNameLabel = gcnew Label();
 		contactNameLabel->AutoSize = true;
 		contactNameLabel->BackColor = Color::Transparent;
@@ -55,10 +88,24 @@ public:
 		contactNameLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(0)));
 		contactNameLabel->ForeColor = Color::White;
+		contactNameLabel->Location = System::Drawing::Point(60, 10);
 
-		chatRoomButton->Controls->Add(contactNameLabel);
+
+		// contact/group image
+		PictureBox^ profilePic = gcnew PictureBox();
+		profilePic->Size = System::Drawing::Size(50, 50);
+		profilePic->Location = System::Drawing::Point(5, 10);
+		profilePic->Image = Image::FromFile(imagePath);
+		profilePic->SizeMode = PictureBoxSizeMode::StretchImage;
+
+
+
+		innerPanel->Controls->Add(profilePic);
+		innerPanel->Controls->Add(contactNameLabel);
+		chatRoomButton->Controls->Add(innerPanel);
 		contactsPanel->Controls->Add(chatRoomButton);
 	}
+
 
 
     void onChatRoomButtonClick(Object^ sender, EventArgs^ e) {  
@@ -95,9 +142,9 @@ public:
 
 
             } else {  
-                //String^ groupPhoto = gcnew String((*currentChatRoom)->getGroupPhoto().c_str());  
-                String^ destinationPath = Path::Combine(imagesFolder, "default-group.png");
-                chatRoomPicture->Image = Image::FromFile(destinationPath);
+				String^ groupPhoto = Path::Combine(imagesFolder, gcnew String((*currentChatRoom)->getGroupPhoto().c_str()));
+               
+                chatRoomPicture->Image = Image::FromFile(groupPhoto);
 
 				chatRoomNameLabel->Text = gcnew String((*currentChatRoom)->getGroupName().c_str());
   
@@ -117,7 +164,9 @@ public:
 
 
     void createRoom(string contNum, string contName, User* currentUser, TextBox^ addContName_field, TextBox^ addContNum_field,
-        unordered_map<int, ChatRoom>& chatRooms, FlowLayoutPanel^ chatRoomsPanel, unordered_map<int, long long>& activity, Panel^ messagesContainer, unordered_map<string, User>& users) {
+        unordered_map<int, ChatRoom>& chatRooms, FlowLayoutPanel^ chatRoomsPanel,
+		unordered_map<int, long long>& activity, Panel^ messagesContainer, unordered_map<string,
+		User>& users,string img, unordered_map<int, chati::Message>& messages) {
 
 
         addCont(*currentUser, contName, contNum);
@@ -130,7 +179,7 @@ public:
 
         chatRoom->setChatRoomID(ChatRoom::getChatRoomsCounter());
         ChatRoom::incrementChatRoomsCounter();
-
+		chatRoom->setGroupPhoto(img);
         createChatRoomGUI(chatRoom->getChatRoomID(), messagesContainer);
 
         chatRoom->addUserPhone(currentUser->getMobileNumber());
@@ -158,10 +207,11 @@ public:
 	void createGroup(User* currentUser, unordered_map<int, ChatRoom>& chatRooms,
 		Panel^ messagesContainer, CheckedListBox^ usersListBox, unordered_map<string,
 		User>& users, FlowLayoutPanel^ chatRoomsPanel, string groupName,
-		unordered_map<int, long long>& activity) {
+		unordered_map<int, long long>& activity,string img, unordered_map<int, chati::Message>& messages) {
 
 		ChatRoom* chatRoom = new ChatRoom(false);
 		chatRoom->setChatRoomID(ChatRoom::getChatRoomsCounter());
+		chatRoom->setGroupPhoto(img);
 		chatRoom->setGroupName(groupName);
 		ChatRoom::incrementChatRoomsCounter();
 		createChatRoomGUI(chatRoom->getChatRoomID(), messagesContainer);

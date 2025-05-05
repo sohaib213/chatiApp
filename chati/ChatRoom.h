@@ -15,6 +15,7 @@ class ChatRoom {
     chati::LinkedList messagesID;
     bool isDual;
     string groupName;
+	string groupPhoto;
 public:
     // constructors
     ChatRoom();
@@ -28,6 +29,7 @@ public:
     bool getIsDual() const;
     int getLastMessageID() const;
     string getGroupName() const;
+	string getGroupPhoto() const;
 
     // Setters
     static void setChatRoomsCounter(int count);
@@ -36,6 +38,7 @@ public:
     void setMessagesID(const chati::LinkedList& messages);
     void setIsDual(bool dual);
     void setGroupName(const string &groupName);
+	void setGroupPhoto(const string& groupPhoto);
 
 	// Add Delete Methods
 	void addUserPhone(string userID);
