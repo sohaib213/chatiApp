@@ -1,83 +1,87 @@
-﻿  GuiForm.cpp
-D:\chatApp\chati\SaveLoadFiles.cpp(32,12): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+﻿  AddContact.cpp
+  chat.cpp
+  ChatRoom.cpp
+  GuiForm.cpp
+C:\chati\chati\SaveLoadFiles.cpp(32,12): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'GuiForm.cpp')
   
-D:\chatApp\chati\SaveLoadFiles.cpp(78,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\chati\chati\SaveLoadFiles.cpp(78,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'GuiForm.cpp')
   
-D:\chatApp\chati\SaveLoadFiles.cpp(97,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\chati\chati\SaveLoadFiles.cpp(97,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'GuiForm.cpp')
   
-D:\chatApp\chati\SaveLoadFiles.cpp(116,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\chati\chati\SaveLoadFiles.cpp(116,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'GuiForm.cpp')
   
-D:\chatApp\chati\SaveLoadFiles.cpp(155,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\chati\chati\SaveLoadFiles.cpp(155,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'GuiForm.cpp')
   
-D:\chatApp\chati\SaveLoadFiles.cpp(183,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\chati\chati\SaveLoadFiles.cpp(183,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'GuiForm.cpp')
   
-D:\chatApp\chati\SaveLoadFiles.cpp(195,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\chati\chati\SaveLoadFiles.cpp(195,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'GuiForm.cpp')
   
-D:\chatApp\chati\SaveLoadFiles.cpp(216,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\chati\chati\SaveLoadFiles.cpp(216,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'GuiForm.cpp')
   
-D:\chatApp\chati\SaveLoadFiles.cpp(145,6): warning C4996: 'freopen': This function or variable may be unsafe. Consider using freopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\chati\chati\SaveLoadFiles.cpp(145,6): warning C4996: 'freopen': This function or variable may be unsafe. Consider using freopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   (compiling source file 'GuiForm.cpp')
   
-D:\chatApp\chati\SaveLoadFiles.cpp(160,10): warning C4101: 'len': unreferenced local variable
+C:\chati\chati\SaveLoadFiles.cpp(160,10): warning C4101: 'len': unreferenced local variable
   (compiling source file 'GuiForm.cpp')
   
-D:\chatApp\chati\SaveLoadFiles.cpp(187,10): warning C4101: 'len': unreferenced local variable
+C:\chati\chati\SaveLoadFiles.cpp(187,10): warning C4101: 'len': unreferenced local variable
   (compiling source file 'GuiForm.cpp')
   
-D:\chatApp\chati\SaveLoadFiles.cpp(220,10): warning C4101: 'len': unreferenced local variable
+C:\chati\chati\SaveLoadFiles.cpp(220,10): warning C4101: 'len': unreferenced local variable
   (compiling source file 'GuiForm.cpp')
   
-D:\chatApp\chati\SaveLoadFiles.cpp(244,2): warning C4996: 'freopen': This function or variable may be unsafe. Consider using freopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\chati\chati\SaveLoadFiles.cpp(244,2): warning C4996: 'freopen': This function or variable may be unsafe. Consider using freopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   (compiling source file 'GuiForm.cpp')
   
-D:\chatApp\chati\SaveLoadFiles.cpp(264,7): warning C4101: 'x': unreferenced local variable
+C:\chati\chati\SaveLoadFiles.cpp(264,7): warning C4101: 'x': unreferenced local variable
   (compiling source file 'GuiForm.cpp')
   
-D:\chatApp\chati\SaveLoadFiles.cpp(347,10): warning C4101: 'len': unreferenced local variable
+C:\chati\chati\SaveLoadFiles.cpp(347,10): warning C4101: 'len': unreferenced local variable
   (compiling source file 'GuiForm.cpp')
   
-D:\chatApp\chati\MessageHandler.h(66,25): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\chati\chati\MessageHandler.h(66,25): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   (compiling source file 'GuiForm.cpp')
   
-D:\chatApp\chati\GuiForm.h(1899,23): error C2535: 'void chati::GuiForm::InitializeComponent(void)': member function already defined or declared
-  (compiling source file 'GuiForm.cpp')
-      D:\chatApp\chati\GuiForm.h(294,8):
-      see declaration of 'chati::GuiForm::InitializeComponent'
-  
-D:\chatApp\chati\GuiForm.h(3097,24): error C2535: 'void chati::GuiForm::GuiForm_Load(System::Object ^,System::EventArgs ^)': member function already defined or declared
-  (compiling source file 'GuiForm.cpp')
-      D:\chatApp\chati\GuiForm.h(1257,25):
-      see declaration of 'chati::GuiForm::GuiForm_Load'
-  
-D:\chatApp\chati\GuiForm.h(597,79): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\chati\chati\createChatRoomHandler.h(121,7): warning C4101: 'chatRoomID': unreferenced local variable
   (compiling source file 'GuiForm.cpp')
   
-D:\chatApp\chati\GuiForm.h(855,79): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\chati\chati\createChatRoomHandler.h(145,7): warning C4101: 'chatRoomID': unreferenced local variable
   (compiling source file 'GuiForm.cpp')
   
-D:\chatApp\chati\GuiForm.h(863,82): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\chati\chati\GuiForm.h(2141,29): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   (compiling source file 'GuiForm.cpp')
   
-D:\chatApp\chati\GuiForm.h(872,79): warning C4305: 'argument': truncation from 'double' to 'float'
-  (compiling source file 'GuiForm.cpp')
-  
-D:\chatApp\chati\GuiForm.h(996,83): warning C4305: 'argument': truncation from 'double' to 'float'
-  (compiling source file 'GuiForm.cpp')
-  
-D:\chatApp\chati\GuiForm.h(1055,92): warning C4305: 'argument': truncation from 'double' to 'float'
-  (compiling source file 'GuiForm.cpp')
-  
-D:\chatApp\chati\GuiForm.h(1093,89): warning C4305: 'argument': truncation from 'double' to 'float'
-  (compiling source file 'GuiForm.cpp')
-  
-D:\chatApp\chati\GuiForm.h(1889,29): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  (compiling source file 'GuiForm.cpp')
-  
+  LinkedList.cpp
+  Message.cpp
+  SaveLoadFiles.cpp
+C:\chati\chati\SaveLoadFiles.cpp(32,12): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\chati\chati\SaveLoadFiles.cpp(78,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\chati\chati\SaveLoadFiles.cpp(97,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\chati\chati\SaveLoadFiles.cpp(116,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\chati\chati\SaveLoadFiles.cpp(155,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\chati\chati\SaveLoadFiles.cpp(183,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\chati\chati\SaveLoadFiles.cpp(195,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\chati\chati\SaveLoadFiles.cpp(216,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\chati\chati\SaveLoadFiles.cpp(145,6): warning C4996: 'freopen': This function or variable may be unsafe. Consider using freopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\chati\chati\SaveLoadFiles.cpp(160,10): warning C4101: 'len': unreferenced local variable
+C:\chati\chati\SaveLoadFiles.cpp(187,10): warning C4101: 'len': unreferenced local variable
+C:\chati\chati\SaveLoadFiles.cpp(220,10): warning C4101: 'len': unreferenced local variable
+C:\chati\chati\SaveLoadFiles.cpp(244,2): warning C4996: 'freopen': This function or variable may be unsafe. Consider using freopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\chati\chati\SaveLoadFiles.cpp(264,7): warning C4101: 'x': unreferenced local variable
+C:\chati\chati\SaveLoadFiles.cpp(347,10): warning C4101: 'len': unreferenced local variable
+  Signing.cpp
+  Story.cpp
+  StoryStyleHelper.cpp
+  User.cpp
+  .NETFramework,Version=v4.7.2.AssemblyAttributes.cpp
+  Generating Code...
+  AddContact.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
+  chati.vcxproj -> C:\chati\x64\Debug\chati.exe

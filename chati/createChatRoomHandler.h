@@ -65,7 +65,7 @@ public:
 		chatRoomButton->Size = System::Drawing::Size(contactsPanel->Width - 5, 80); // Set the size of the panel
 		chatRoomButton->Location = System::Drawing::Point(0, 0); // Set the location of the panel
 		chatRoomButton->Dock = DockStyle::Top;
-		chatRoomButton->Margin = Padding::Empty;
+		chatRoomButton->Padding = Padding(5);
 		chatRoomButton->Tag = chatRoomID;
 		chatRoomButton->Click += gcnew EventHandler(this, &createChatRoomHandler::onChatRoomButtonClick); // Fix: Use 'this' to bind the delegate to the managed class
 		chatRoomButton->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
@@ -74,11 +74,11 @@ public:
 		chatRoomButton->FlatAppearance->MouseOverBackColor = Color::FromArgb(80, 80, 80);
 
 		//container panel
-		Panel^ innerPanel = gcnew Panel();
-		innerPanel->Size = System::Drawing::Size(chatRoomButton->Width - 10, 70);
-		innerPanel->Location = System::Drawing::Point(10, 5);
-		innerPanel->Dock = DockStyle::Fill;
-		innerPanel->BackColor = Color::Transparent;
+		//Panel^ innerPanel = gcnew Panel();
+		//innerPanel->Size = System::Drawing::Size(chatRoomButton->Width - 10, 70);
+		//innerPanel->Location = System::Drawing::Point(10, 5);
+		//innerPanel->Dock = DockStyle::Fill;
+		//innerPanel->BackColor = Color::Transparent;
 
 		//contact label
 		Label^ contactNameLabel = gcnew Label();
@@ -89,29 +89,96 @@ public:
 			static_cast<System::Byte>(0)));
 		contactNameLabel->ForeColor = Color::White;
 		contactNameLabel->Location = System::Drawing::Point(60, 10);
+		contactNameLabel->Click += gcnew System::EventHandler(this, &createChatRoomHandler::onChatRoomButtonClick);
 
+		contactNameLabel->MouseEnter += gcnew EventHandler(this, &createChatRoomHandler::HoverEnter);
+		contactNameLabel->MouseLeave += gcnew EventHandler(this, &createChatRoomHandler::HoverLeave);
 
 		// contact/group image
 		PictureBox^ profilePic = gcnew PictureBox();
 		profilePic->Size = System::Drawing::Size(50, 50);
 		profilePic->Location = System::Drawing::Point(5, 10);
 		profilePic->Image = Image::FromFile(imagePath);
-		profilePic->SizeMode = PictureBoxSizeMode::StretchImage;
+		profilePic->SizeMode = PictureBoxSizeMode::Zoom;
+		profilePic->BackColor = Color::Transparent;
+		profilePic->Click += gcnew System::EventHandler(this, &createChatRoomHandler::onChatRoomButtonClick);
+		profilePic->MouseEnter += gcnew EventHandler(this, &createChatRoomHandler::HoverEnter);
+
+		profilePic->MouseLeave += gcnew EventHandler(this, &createChatRoomHandler::HoverLeave);
 
 
-
-		innerPanel->Controls->Add(profilePic);
-		innerPanel->Controls->Add(contactNameLabel);
-		chatRoomButton->Controls->Add(innerPanel);
+		chatRoomButton->Controls->Add(profilePic);
+		chatRoomButton->Controls->Add(contactNameLabel);
 		contactsPanel->Controls->Add(chatRoomButton);
 	}
 
 
+	void HoverEnter(Object^ sender, EventArgs^ e)
+	{
+		System::String^ managedTypeName = sender->GetType()->Name;
+		std::string s = msclr::interop::marshal_as<std::string>(managedTypeName);
+		Button^ panelButton;
+		int chatRoomID;
+		if (s == "PictureBox")
+		{
+			cout << "Enter PictureBox" << endl;
+			PictureBox^ pictureBox = dynamic_cast<PictureBox^>(sender);
+			panelButton = dynamic_cast<Button^>(pictureBox->Parent);
 
-    void onChatRoomButtonClick(Object^ sender, EventArgs^ e) {  
-        Button^ chatRoom = dynamic_cast<Button^>(sender);  
+		}
+		else if (s == "Label") {
+			Label^ label = dynamic_cast<Label^>(sender);
+			panelButton = dynamic_cast<Button^>(label->Parent);
+		}
 
-        int chatRoomID = safe_cast<int>(chatRoom->Tag);  
+		if (panelButton != nullptr) {
+			cout << "Change Color" << endl;
+			panelButton->BackColor = Color::FromArgb(80, 80, 80);
+		}
+	}
+
+	void HoverLeave(Object^ sender, EventArgs^ e)
+	{
+		System::String^ managedTypeName = sender->GetType()->Name;
+		std::string s = msclr::interop::marshal_as<std::string>(managedTypeName);
+		Button^ panelButton;
+		int chatRoomID;
+		if (s == "PictureBox")
+		{
+			PictureBox^ pictureBox = dynamic_cast<PictureBox^>(sender);
+			panelButton = dynamic_cast<Button^>(pictureBox->Parent);
+
+		}
+		else if (s == "Label") {
+			Label^ label = dynamic_cast<Label^>(sender);
+			panelButton = dynamic_cast<Button^>(label->Parent);
+		}
+
+		if (panelButton != nullptr) {
+			panelButton->BackColor = Color::FromArgb(60, 60, 60);
+		}
+	}
+
+
+    void onChatRoomButtonClick(Object^ sender, EventArgs^ e) {
+
+		System::String^ managedTypeName = sender->GetType()->Name;
+		std::string s = msclr::interop::marshal_as<std::string>(managedTypeName);
+		int chatRoomID;
+		if(s == "Button")
+		{
+			Button^ chatRoom = dynamic_cast<Button^>(sender);
+			chatRoomID = safe_cast<int>(chatRoom->Tag);  
+		}
+		else if (s == "Label") {
+			Label^ chatRoom = dynamic_cast<Label^>(sender);
+			chatRoomID = safe_cast<int>(chatRoom->Parent->Tag);
+		}
+		else if (s == "PictureBox") {
+			PictureBox^ chatRoom = dynamic_cast<PictureBox^>(sender);
+			chatRoomID = safe_cast<int>(chatRoom->Parent->Tag);
+		}
+
 
         if (*currentChatRoom != nullptr)  
             chatRoomsPanels[(*currentChatRoom)->getChatRoomID()]->Visible = false;  
