@@ -14,24 +14,25 @@ using namespace System::Windows::Forms;
 using namespace System::Drawing;
 using namespace System::IO;
 
-public ref class MessageHandler {  
+public ref class MessageHandler {
 public:
 
     unordered_map<int, chati::Message>* globalMessages;
     ChatRoom** globalChatRoom;
-	int messageIDToDelete;
-	Panel^ panelToDelete;
-	Panel^ messagesContainer;
-	User* currentUser;
+    int messageIDToDelete;
+    Panel^ panelToDelete;
+    Panel^ messagesContainer;
+    User* currentUser;
     String^ projectRoot = Directory::GetParent(Application::StartupPath)->Parent->FullName;
     String^ iconsFolder = Path::Combine(projectRoot, "icons");
 
-    void initializeChat(ChatRoom *chatRoom, FlowLayoutPanel^ messagesContainer, 
-        unordered_map<int, chati::Message>& messages, User *currentUser, unordered_map<int, long long>& activity) {
+    void initializeChat(ChatRoom* chatRoom, FlowLayoutPanel^ messagesContainer,
+        unordered_map<int, chati::Message>& messages, User* currentUser, unordered_map<int, long long>& activity,
+        unordered_map<string, User>* users) {
 
-		cout << "Initializing chat..." << endl;
+        cout << "Initializing chat..." << endl;
 
-		messagesContainer->Controls->Clear();
+        messagesContainer->Controls->Clear();
 
         Panel^ fillerPanel = gcnew Panel();
         fillerPanel->Size = System::Drawing::Size(300, 750);
@@ -42,177 +43,227 @@ public:
         chati::LinkedList list1 = chatRoom->getMessagesID();
 
         chati::Node* temp = list1.begin();
-	    for (chati::Node* item = list1.begin(); item != list1.end(); item = item->next) {
+        for (chati::Node* item = list1.begin(); item != list1.end(); item = item->next) {
 
-            createMessage(messagesContainer, messages[item->value], chatRoom, currentUser, 1);
+            createMessage(messagesContainer, messages[item->value], chatRoom, currentUser, users, 1);
 
-            if(item->next == list1.end())
+            if (item->next == list1.end())
                 createDateLabel(messagesContainer, messages[item->value].getDateSent(), "", 1);
             else
                 createDateLabel(messagesContainer, messages[temp->value].getDateSent(), messages[item->value].getDateSent(), 1);
 
-			temp = item;
+            temp = item;
         }
     }
 
-   void createMessageEvent(RichTextBox^ textBox1, FlowLayoutPanel^ messagesContainer, User *currentUser, unordered_map<int, long long>& activity,
-       FlowLayoutPanel^ chatRoomsPanel, unordered_map<int, ChatRoom>& chatRooms, ChatRoom* currentChatRoom, unordered_map<int, chati::Message> messages) {
-       if (textBox1->Text != "") {  
-           string s = msclr::interop::marshal_as<string>(textBox1->Text);  
+    void createMessageEvent(RichTextBox^ textBox1, FlowLayoutPanel^ messagesContainer, User* currentUser, unordered_map<int, long long>& activity,
+        FlowLayoutPanel^ chatRoomsPanel, unordered_map<int, ChatRoom>& chatRooms, ChatRoom* currentChatRoom, unordered_map<int, chati::Message> messages, unordered_map<string, User>* users) {
+        if (textBox1->Text != "") {
+            string s = msclr::interop::marshal_as<string>(textBox1->Text);
 
 
-           auto now = chrono::system_clock::now();  
-           time_t now_time_t = chrono::system_clock::to_time_t(now);  
-           tm* now_tm = localtime(&now_time_t);  
+            auto now = chrono::system_clock::now();
+            time_t now_time_t = chrono::system_clock::to_time_t(now);
+            tm* now_tm = localtime(&now_time_t);
 
-           ostringstream day, hour, minute, second;  
-           day << put_time(now_tm, "%d-%m-20%y"); // Format: DD-MM-YYYY
-           hour << put_time(now_tm, "%H"); 
-           minute << put_time(now_tm, "%M"); 
-		   second << put_time(now_tm, "%S");
-
-
-           
-           //? create the message to get the id directly (is better)
-           chati::Message msg = chati::Message(s, currentUser->getMobileNumber(), (*globalChatRoom)->getChatRoomID(), day.str(), stoi(hour.str()), stoi(minute.str()), stoi(second.str()), false);
-           // Fix: Use pointer dereference to access the map
-		   msg.setMessageID(chati::Message::getMessageCounter());
-		   chati::Message::incrementMessageCounter();
+            ostringstream day, hour, minute, second;
+            day << put_time(now_tm, "%d-%m-20%y"); // Format: DD-MM-YYYY
+            hour << put_time(now_tm, "%H");
+            minute << put_time(now_tm, "%M");
+            second << put_time(now_tm, "%S");
 
 
-           (*globalMessages)[msg.getMessageID()] = msg;
 
-           if((*globalChatRoom)->getMessagesID().Length() == 0)
-               createDateLabel(messagesContainer, day.str(), "", 2);
-           else
-			   createDateLabel(messagesContainer, day.str(), messages[(*globalChatRoom)->getLastMessageID()].getDateSent(), 2);
+            //? create the message to get the id directly (is better)
+            chati::Message msg = chati::Message(s, currentUser->getMobileNumber(), (*globalChatRoom)->getChatRoomID(), day.str(), stoi(hour.str()), stoi(minute.str()), stoi(second.str()), false);
+            // Fix: Use pointer dereference to access the map
+            msg.setMessageID(chati::Message::getMessageCounter());
+            chati::Message::incrementMessageCounter();
 
-           //update when a new message is sent
-           (*globalMessages)[msg.getMessageID()] = msg;
-           (*globalChatRoom)->addMessageID(msg.getMessageID());
+
+            (*globalMessages)[msg.getMessageID()] = msg;
+
+            if ((*globalChatRoom)->getMessagesID().Length() == 0)
+                createDateLabel(messagesContainer, day.str(), "", 2);
+            else
+                createDateLabel(messagesContainer, day.str(), messages[(*globalChatRoom)->getLastMessageID()].getDateSent(), 2);
+
+            //update when a new message is sent
+            (*globalMessages)[msg.getMessageID()] = msg;
+            (*globalChatRoom)->addMessageID(msg.getMessageID());
 
             // Fix: Pass the dereferenced map to the createMessage function 
-           
-
-           createMessage(messagesContainer, (*globalMessages)[msg.getMessageID()], currentChatRoom, currentUser, 2);
-
-           textBox1->Clear();
-		   textBox1->Focus();
 
 
-           auto now1 = std::chrono::system_clock::now();
+            createMessage(messagesContainer, (*globalMessages)[msg.getMessageID()], currentChatRoom, currentUser, users, 2);
 
-           // Convert it to milliseconds since epoch
-           auto now_ms = std::chrono::time_point_cast<std::chrono::milliseconds>(now1);
-           auto value = now_ms.time_since_epoch();
+            textBox1->Clear();
+            textBox1->Focus();
 
-           // Get the number of milliseconds as integer
-           long long milliseconds = value.count();
-           
-           activity[(*globalChatRoom)->getChatRoomID()] = milliseconds;
 
-           sortChatRooms(*currentUser, activity, chatRooms, chatRoomsPanel, messages);
-       }  
-   }
+            auto now1 = std::chrono::system_clock::now();
 
-    void createMessage(FlowLayoutPanel^ messagesContainer, chati::Message m, ChatRoom* currentChatRoom, User* currentUser, int source)
-    {  
+            // Convert it to milliseconds since epoch
+            auto now_ms = std::chrono::time_point_cast<std::chrono::milliseconds>(now1);
+            auto value = now_ms.time_since_epoch();
 
-		//? picture box for the profile photo 
-		//? Label for the sender name
+            // Get the number of milliseconds as integer
+            long long milliseconds = value.count();
+
+            activity[(*globalChatRoom)->getChatRoomID()] = milliseconds;
+
+            sortChatRooms(*currentUser, activity, chatRooms, chatRoomsPanel, messages);
+        }
+    }
+
+    void createMessage(FlowLayoutPanel^ messagesContainer, chati::Message m, ChatRoom* currentChatRoom, User* currentUser, unordered_map<string, User>* users, int source)
+    {
+
+        //? picture box for the profile photo 
+        //? Label for the sender name
         //? Label for the status of icon
-        Label^ newLabel = gcnew Label();  
         Panel^ messagePanel = gcnew Panel();
 
-        newLabel->Text = gcnew String(m.getText().c_str());
-        newLabel->Font = gcnew Font("Arial", 15, FontStyle::Bold);
-        newLabel->ForeColor = Color::White;  
-        newLabel->BackColor = Color::Transparent;
-        newLabel->AutoSize = true;
-        newLabel->Name = m.getMessageID().ToString();
-        newLabel->Location = Point(10, 10);
-        newLabel->Cursor = Cursors::IBeam;
+        Label^ messageTextLabel = gcnew Label();
+        messageTextLabel->Text = gcnew String(m.getText().c_str());
+        messageTextLabel->Font = gcnew Font("Arial", 15, FontStyle::Bold);
+        messageTextLabel->ForeColor = Color::White;
+        messageTextLabel->BackColor = Color::Transparent;
+        messageTextLabel->AutoSize = true;
+        messageTextLabel->Name = m.getMessageID().ToString();
+        messageTextLabel->Location = Point(10, 10);
+        messageTextLabel->Cursor = Cursors::IBeam;
 
         Label^ timeLabel = gcnew Label();
-		int hour = m.getHourSent();
-		int minute = m.getMinuteSent();
+        int hour = m.getHourSent();
+        int minute = m.getMinuteSent();
         timeLabel->Font = gcnew Font("Arial", 9, FontStyle::Bold);
         timeLabel->BackColor = Color::Transparent;
         // Replace the problematic line with the following code to fix the error:
         string status;
         if (hour >= 12) {
             hour %= 12;
-			status = "AM";
+            status = "AM";
         }
         else {
-			status = "PM";
+            status = "PM";
         }
-        std::ostringstream timeStream;
+        ostringstream timeStream;
         timeStream << hour << ':' << std::setw(2) << std::setfill('0') << minute;
-        
-		string time = timeStream.str() + " " + status;
+
+        string time = timeStream.str() + " " + status;
 
         timeLabel->Text = gcnew String(time.c_str());
-        string text = msclr::interop::marshal_as<std::string>(timeLabel->Text);
-        timeLabel->ForeColor = Color::White;
+        timeLabel->ForeColor = Color::FromArgb(160, 160, 160);
         timeLabel->Anchor = static_cast<AnchorStyles>(AnchorStyles::Bottom | AnchorStyles::Left);
         timeLabel->AutoSize = true;
 
-		PictureBox^ seenPicture = gcnew PictureBox();
-		seenPicture->Size = System::Drawing::Size(17, 14);
-
-
-
-        if(m.getIsRead()) {
+        PictureBox^ seenPicture = gcnew PictureBox();
+        seenPicture->Size = System::Drawing::Size(17, 14);
+        if (m.getIsRead()) {
             seenPicture->Image = Image::FromFile(Path::Combine(iconsFolder, "seen.png"));
-        } else {
+        }
+        else {
             seenPicture->Image = Image::FromFile(Path::Combine(iconsFolder, "un_seen.png"));
-		}
+        }
+
+        Panel^ SenderNameContainer;
+        Label^ senderName;
+        Label^ senderPhone;
+        if (!currentChatRoom->getIsDual() && m.getSenderPhone() != currentUser->getMobileNumber())
+        {
+            SenderNameContainer = gcnew Panel();
+            SenderNameContainer->AutoSize = true;
+            //SenderNameContainer->BackColor = Color::FromArgb(150, 144, 144);
+            SenderNameContainer->BackColor = Color::Transparent;
+
+            senderName = gcnew Label();
+            senderName->Text = gcnew String(((*users)[m.getSenderPhone()].getFirstName() + ' ' + (*users)[m.getSenderPhone()].getLastName()).c_str());
+            senderName->AutoSize = true;
+            senderName->ForeColor = Color::FromArgb(0, 200, 240);
+            senderName->Font = gcnew System::Drawing::Font("Arial", 11, FontStyle::Bold);
+
+            senderPhone = gcnew Label();
+            senderPhone->Text = gcnew String(m.getSenderPhone().c_str());
+            senderPhone->AutoSize = true;
+            senderPhone->ForeColor = Color::FromArgb(160, 160, 160);
+            senderPhone->Font = gcnew System::Drawing::Font("Arial", 11, FontStyle::Bold);
+
+            SenderNameContainer->Controls->Add(senderName);
+            SenderNameContainer->Controls->Add(senderPhone);
+
+            SenderNameContainer->Size = Size(senderName->Width, senderName->Height);
+            messagePanel->Controls->Add(SenderNameContainer);
+            SenderNameContainer->Dock = DockStyle::Top;
+            senderName->TextAlign = ContentAlignment::MiddleLeft;
+            senderPhone->Dock = DockStyle::Right;
 
 
-        if(m.getSenderPhone() == currentUser->getMobileNumber()) {
-            messagePanel->BackColor = Color::FromArgb(55, 128, 82);
+            messageTextLabel->Location = Point(10, SenderNameContainer->Height + 10);
+
+        }
+
+
+
+        if (m.getSenderPhone() == currentUser->getMobileNumber()) {
+            messagePanel->BackColor = Color::FromArgb(11, 117, 66);
             messagePanel->MouseDown += gcnew MouseEventHandler(this, &MessageHandler::messageRightClick); // Fix: Use 'this' to bind the delegate to the managed class
-            newLabel->MouseDown += gcnew MouseEventHandler(this, &MessageHandler::messageRightClick); // Fix: Use 'this' to bind the delegate to the managed class
-        } else {
-            messagePanel->BackColor = Color::FromArgb(171, 164, 164);
+            messageTextLabel->MouseDown += gcnew MouseEventHandler(this, &MessageHandler::messageRightClick); // Fix: Use 'this' to bind the delegate to the managed class
+        }
+        else {
+            messagePanel->BackColor = Color::FromArgb(65, 65, 65);
 
-		}
+        }
 
         messagePanel->Padding = Padding(5);
-        messagePanel->Margin = Padding(5);        
+        messagePanel->Margin = Padding(5);
         messagePanel->BorderStyle = BorderStyle::FixedSingle;
         messagePanel->Name = m.getMessageID().ToString();
         messagePanel->AutoSize = true;
-		//?messagePanel->ContextMenuStrip 
+        //?messagePanel->ContextMenuStrip 
 
-        messagePanel->Controls->Add(newLabel);
+        messagePanel->Controls->Add(messageTextLabel);
         messagePanel->Controls->Add(timeLabel);
-        if(m.getSenderPhone() == currentUser->getMobileNumber())
+        if (m.getSenderPhone() == currentUser->getMobileNumber())
             messagePanel->Controls->Add(seenPicture);
 
 
         messagesContainer->Controls->Add(messagePanel);
-        if(source == 1)
+        if (source == 1)
             messagesContainer->Controls->SetChildIndex(messagePanel, 1);
-        if(source == 2)
+        if (source == 2)
             messagesContainer->ScrollControlIntoView(messagePanel);
-        
 
 
-        timeLabel->Location = Point(messagePanel->Width,  messagePanel->Height - 20);
-		seenPicture->Location = Point(messagePanel->Width - 10, messagePanel->Height - 20);
+        timeLabel->Location = Point(messagePanel->Width, messagePanel->Height - 20);
+        if (!currentChatRoom->getIsDual() && m.getSenderPhone() != currentUser->getMobileNumber())
+            timeLabel->Margin = Padding(0, 10, 0, 10);
+        else
+            seenPicture->Location = Point(messagePanel->Width - 10, messagePanel->Height - 20);
+
+
+
+        if (senderName != nullptr)
+        {
+            if (messagePanel->Width < (senderName->Width + senderPhone->Width + 15))
+            {
+                int messagePanelHeight = messagePanel->Height;
+                messagePanel->AutoSize = false;
+                messagePanel->Size = Size(senderName->Width + senderPhone->Width + 15, messagePanelHeight);
+            }
+
+        }
 
         if (m.getSenderPhone() != currentUser->getMobileNumber())
         {
             messagePanel->Margin = Padding(1460 - messagePanel->Width, 3, 3, 3);
-			messagePanel->Anchor = AnchorStyles::Left;
-			messagePanel->Dock = DockStyle::Left;
+            messagePanel->Anchor = AnchorStyles::Left;
+            messagePanel->Dock = DockStyle::Left;
         }
         else
             messagePanel->Margin = Padding(30, 3, 3, 3);
     }
-    
+
     void createDateLabel(FlowLayoutPanel^ messagesContainer, string currentDay, string previousDay, int source) {
         if (messagesContainer->Controls->Count == 0 || currentDay != previousDay) {
 
@@ -225,8 +276,8 @@ public:
             dateLabel->AutoSize = true;
 
             messagesContainer->Controls->Add(dateLabel);
-            if(source == 1)
-				messagesContainer->Controls->SetChildIndex(dateLabel, 1);
+            if (source == 1)
+                messagesContainer->Controls->SetChildIndex(dateLabel, 1);
             dateLabel->Margin = Padding(750, 10, 3, 10);
 
         }
@@ -263,7 +314,7 @@ public:
                 Panel^ panel = dynamic_cast<Panel^>(sender);
                 if (panel != nullptr)
                 {
-                    Label^ label = dynamic_cast<Label^>(panel->Controls[0]); 
+                    Label^ label = dynamic_cast<Label^>(panel->Controls[0]);
 
                     if (label != nullptr)
                     {
@@ -277,7 +328,7 @@ public:
         }
     }
 
-    void messageOptions( Panel^ panel, Label^ label, FlowLayoutPanel^ messagesContainer) {
+    void messageOptions(Panel^ panel, Label^ label, FlowLayoutPanel^ messagesContainer) {
 
         ContextMenuStrip^ contextMenu = gcnew ContextMenuStrip();
 
@@ -289,7 +340,7 @@ public:
         ToolStripMenuItem^ deleteItem = gcnew ToolStripMenuItem("Delete Message");
         contextMenu->Items->Add(deleteItem);
 
-	    deleteItem->Name = panel->Controls[0]->Name;
+        deleteItem->Name = panel->Controls[0]->Name;
 
         deleteItem->Click += gcnew EventHandler(this, &MessageHandler::deleteMessage);
 
@@ -298,12 +349,12 @@ public:
 
     void deleteMessage(Object^ sender, EventArgs^ e) {
 
-         ToolStripMenuItem^ optionDelete = dynamic_cast<ToolStripMenuItem^>(sender);
+        ToolStripMenuItem^ optionDelete = dynamic_cast<ToolStripMenuItem^>(sender);
 
-         
-         (*globalChatRoom)->deleteMessageID(messageIDToDelete);
-         int x = messageIDToDelete;
-		 globalMessages->erase(x);
-         messagesContainer->Controls->Remove(panelToDelete);
-	 }
+
+        (*globalChatRoom)->deleteMessageID(messageIDToDelete);
+        int x = messageIDToDelete;
+        globalMessages->erase(x);
+        messagesContainer->Controls->Remove(panelToDelete);
+    }
 };
