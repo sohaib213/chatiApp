@@ -2483,25 +2483,19 @@ private: System::ComponentModel::IContainer^ components;
         private: System::Void searchChat_btn_Click(System::Object^ sender, System::EventArgs^ e) {
            string searchText = msclr::interop::marshal_as<std::string>(searchChat_field->Text);
            searchChat_field->Text = "";
-           ChatRoom* chat = nullptr; // Initialize as a pointer
-
-           // Assuming searchChatRooms returns a ChatRoom object, we need to dynamically allocate it
+           ChatRoom* chat = nullptr; 
            ChatRoom result = searchChatRooms(searchText, chatRooms);
-           chat = &chatRooms[result.getChatRoomID()]; // Assign the address of the matching ChatRoom
+           chat = &chatRooms[result.getChatRoomID()]; 
 
            if (chat != nullptr) {
-               // Handle the found chat room
+               
                MessageBox::Show("Chat room found!", "Success");
            } else {
 			   System::Windows::Forms::Button^ newButton = gcnew System::Windows::Forms::Button();
-
-                // Update the problematic line to convert the std::string to a System::String^ before assigning it to the Button's Text property.
                newButton->Text = gcnew System::String(chat->getGroupName().c_str());
-			   newButton->Size = System::Drawing::Size(350, 30); // Set button size
-			   newButton->BackColor = System::Drawing::Color::Black; // Optional: Set background color
-			   newButton->FlatStyle = System::Windows::Forms::FlatStyle::Flat; // Optional: Set flat style
-
-			   // Add the button to the showChatSearch_panel
+			   newButton->Size = System::Drawing::Size(350, 30); 
+			   newButton->BackColor = System::Drawing::Color::Black; 
+			   newButton->FlatStyle = System::Windows::Forms::FlatStyle::Flat; 
 			   this->showChatSearch_panel->Controls->Add(newButton);
            }
 		   
