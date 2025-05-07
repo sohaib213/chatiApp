@@ -140,16 +140,20 @@ namespace chati {
 	private: System::Windows::Forms::Label^ memNameLbl;
 	private: System::Windows::Forms::Label^ label18;
 	private: System::Windows::Forms::PictureBox^ addMemPicBox;
-	private: System::Windows::Forms::Button^ goToSearchChat_btn;
-	private: System::Windows::Forms::Panel^ searchContactPanel;
-
-	private: System::Windows::Forms::Label^ label16;
-	private: System::Windows::Forms::Button^ searchChat_btn;
+	private: System::Windows::Forms::TextBox^ searchChatroom_field;
 
 
-	private: System::Windows::Forms::FlowLayoutPanel^ showChatSearch_panel;
-	private: System::Windows::Forms::TextBox^ searchChat_field;
-	private: System::Windows::Forms::Button^ button1;
+
+
+
+
+
+
+
+
+
+	private: System::Windows::Forms::Button^ searchChatroom_btn;
+
 
 
 
@@ -341,12 +345,6 @@ private: System::ComponentModel::IContainer^ components;
 			this->signUpBackGround = (gcnew System::Windows::Forms::PictureBox());
 			this->passTxt = (gcnew System::Windows::Forms::TextBox());
 			this->mainPanel = (gcnew System::Windows::Forms::Panel());
-			this->searchContactPanel = (gcnew System::Windows::Forms::Panel());
-			this->button1 = (gcnew System::Windows::Forms::Button());
-			this->searchChat_field = (gcnew System::Windows::Forms::TextBox());
-			this->showChatSearch_panel = (gcnew System::Windows::Forms::FlowLayoutPanel());
-			this->searchChat_btn = (gcnew System::Windows::Forms::Button());
-			this->label16 = (gcnew System::Windows::Forms::Label());
 			this->chatPnl = (gcnew System::Windows::Forms::Panel());
 			this->currentCahtPanel = (gcnew System::Windows::Forms::Panel());
 			this->chatsContainer = (gcnew System::Windows::Forms::Panel());
@@ -359,6 +357,8 @@ private: System::ComponentModel::IContainer^ components;
 			this->textBox1 = (gcnew System::Windows::Forms::RichTextBox());
 			this->sendButton = (gcnew System::Windows::Forms::Button());
 			this->contactsPanel = (gcnew System::Windows::Forms::FlowLayoutPanel());
+			this->searchChatroom_field = (gcnew System::Windows::Forms::TextBox());
+			this->searchChatroom_btn = (gcnew System::Windows::Forms::Button());
 			this->addMemberPnl = (gcnew System::Windows::Forms::Panel());
 			this->addMem = (gcnew System::Windows::Forms::Button());
 			this->button11 = (gcnew System::Windows::Forms::Button());
@@ -393,7 +393,6 @@ private: System::ComponentModel::IContainer^ components;
 			this->NameLabel = (gcnew System::Windows::Forms::Label());
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->navPanel = (gcnew System::Windows::Forms::Panel());
-			this->goToSearchChat_btn = (gcnew System::Windows::Forms::Button());
 			this->button7 = (gcnew System::Windows::Forms::Button());
 			this->chatButton = (gcnew System::Windows::Forms::Button());
 			this->goToAddContact_btn = (gcnew System::Windows::Forms::Button());
@@ -432,7 +431,6 @@ private: System::ComponentModel::IContainer^ components;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->signUpBackGround))->BeginInit();
 			this->mainPanel->SuspendLayout();
-			this->searchContactPanel->SuspendLayout();
 			this->chatPnl->SuspendLayout();
 			this->currentCahtPanel->SuspendLayout();
 			this->chatsContainer->SuspendLayout();
@@ -440,6 +438,7 @@ private: System::ComponentModel::IContainer^ components;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->addMemPicBox))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chatPicture))->BeginInit();
 			this->footerContainer->SuspendLayout();
+			this->contactsPanel->SuspendLayout();
 			this->addMemberPnl->SuspendLayout();
 			this->storyPanel->SuspendLayout();
 			this->stotyHeaderPanel->SuspendLayout();
@@ -657,7 +656,6 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->mainPanel->BackColor = System::Drawing::Color::White;
 			this->mainPanel->Controls->Add(this->chatPnl);
-			this->mainPanel->Controls->Add(this->searchContactPanel);
 			this->mainPanel->Controls->Add(this->addMemberPnl);
 			this->mainPanel->Controls->Add(this->storyPanel);
 			this->mainPanel->Controls->Add(this->addGroup);
@@ -669,68 +667,6 @@ private: System::ComponentModel::IContainer^ components;
 			this->mainPanel->Name = L"mainPanel";
 			this->mainPanel->Size = System::Drawing::Size(1904, 1041);
 			this->mainPanel->TabIndex = 3;
-			// 
-			// searchContactPanel
-			// 
-			this->searchContactPanel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)),
-				static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)));
-			this->searchContactPanel->Controls->Add(this->button1);
-			this->searchContactPanel->Controls->Add(this->searchChat_field);
-			this->searchContactPanel->Controls->Add(this->showChatSearch_panel);
-			this->searchContactPanel->Controls->Add(this->searchChat_btn);
-			this->searchContactPanel->Controls->Add(this->label16);
-			this->searchContactPanel->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->searchContactPanel->Location = System::Drawing::Point(87, 0);
-			this->searchContactPanel->Name = L"searchContactPanel";
-			this->searchContactPanel->Size = System::Drawing::Size(1817, 1041);
-			this->searchContactPanel->TabIndex = 16;
-			// 
-			// button1
-			// 
-			this->button1->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button1.BackgroundImage")));
-			this->button1->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
-			this->button1->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->button1->Location = System::Drawing::Point(422, 81);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(59, 53);
-			this->button1->TabIndex = 5;
-			this->button1->UseVisualStyleBackColor = true;
-			// 
-			// searchChat_field
-			// 
-			this->searchChat_field->Location = System::Drawing::Point(513, 147);
-			this->searchChat_field->Name = L"searchChat_field";
-			this->searchChat_field->Size = System::Drawing::Size(335, 20);
-			this->searchChat_field->TabIndex = 4;
-			// 
-			// showChatSearch_panel
-			// 
-			this->showChatSearch_panel->Location = System::Drawing::Point(482, 243);
-			this->showChatSearch_panel->Name = L"showChatSearch_panel";
-			this->showChatSearch_panel->Size = System::Drawing::Size(362, 315);
-			this->showChatSearch_panel->TabIndex = 3;
-			// 
-			// searchChat_btn
-			// 
-			this->searchChat_btn->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"searchChat_btn.BackgroundImage")));
-			this->searchChat_btn->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
-			this->searchChat_btn->Location = System::Drawing::Point(847, 146);
-			this->searchChat_btn->Name = L"searchChat_btn";
-			this->searchChat_btn->Size = System::Drawing::Size(29, 23);
-			this->searchChat_btn->TabIndex = 2;
-			this->searchChat_btn->UseVisualStyleBackColor = true;
-			this->searchChat_btn->Click += gcnew System::EventHandler(this, &GuiForm::searchChat_btn_Click);
-			// 
-			// label16
-			// 
-			this->label16->AutoSize = true;
-			this->label16->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->label16->Location = System::Drawing::Point(602, 81);
-			this->label16->Name = L"label16";
-			this->label16->Size = System::Drawing::Size(172, 20);
-			this->label16->TabIndex = 0;
-			this->label16->Text = L"Search for ChatRooms";
 			// 
 			// chatPnl
 			// 
@@ -861,11 +797,31 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->contactsPanel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)),
 				static_cast<System::Int32>(static_cast<System::Byte>(45)));
+			this->contactsPanel->Controls->Add(this->searchChatroom_field);
+			this->contactsPanel->Controls->Add(this->searchChatroom_btn);
 			this->contactsPanel->Dock = System::Windows::Forms::DockStyle::Left;
 			this->contactsPanel->Location = System::Drawing::Point(0, 0);
 			this->contactsPanel->Name = L"contactsPanel";
 			this->contactsPanel->Size = System::Drawing::Size(338, 1041);
 			this->contactsPanel->TabIndex = 2;
+			// 
+			// searchChatroom_field
+			// 
+			this->searchChatroom_field->Location = System::Drawing::Point(3, 3);
+			this->searchChatroom_field->Name = L"searchChatroom_field";
+			this->searchChatroom_field->Size = System::Drawing::Size(297, 20);
+			this->searchChatroom_field->TabIndex = 0;
+			// 
+			// searchChatroom_btn
+			// 
+			this->searchChatroom_btn->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"searchChatroom_btn.BackgroundImage")));
+			this->searchChatroom_btn->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+			this->searchChatroom_btn->Location = System::Drawing::Point(306, 3);
+			this->searchChatroom_btn->Name = L"searchChatroom_btn";
+			this->searchChatroom_btn->Size = System::Drawing::Size(20, 20);
+			this->searchChatroom_btn->TabIndex = 1;
+			this->searchChatroom_btn->UseVisualStyleBackColor = true;
+			this->searchChatroom_btn->Click += gcnew System::EventHandler(this, &GuiForm::searchChatroom_btn_Click);
 			// 
 			// addMemberPnl
 			// 
@@ -1252,7 +1208,6 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->navPanel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(65)), static_cast<System::Int32>(static_cast<System::Byte>(65)),
 				static_cast<System::Int32>(static_cast<System::Byte>(65)));
-			this->navPanel->Controls->Add(this->goToSearchChat_btn);
 			this->navPanel->Controls->Add(this->button7);
 			this->navPanel->Controls->Add(this->chatButton);
 			this->navPanel->Controls->Add(this->goToAddContact_btn);
@@ -1263,17 +1218,6 @@ private: System::ComponentModel::IContainer^ components;
 			this->navPanel->Name = L"navPanel";
 			this->navPanel->Size = System::Drawing::Size(87, 1041);
 			this->navPanel->TabIndex = 5;
-			// 
-			// goToSearchChat_btn
-			// 
-			this->goToSearchChat_btn->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"goToSearchChat_btn.BackgroundImage")));
-			this->goToSearchChat_btn->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
-			this->goToSearchChat_btn->Location = System::Drawing::Point(11, 635);
-			this->goToSearchChat_btn->Name = L"goToSearchChat_btn";
-			this->goToSearchChat_btn->Size = System::Drawing::Size(63, 54);
-			this->goToSearchChat_btn->TabIndex = 6;
-			this->goToSearchChat_btn->UseVisualStyleBackColor = true;
-			this->goToSearchChat_btn->Click += gcnew System::EventHandler(this, &GuiForm::goToSearchChat_btn_Click);
 			// 
 			// button7
 			// 
@@ -1707,9 +1651,9 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
 			this->ClientSize = System::Drawing::Size(1904, 1041);
-			this->Controls->Add(this->SignINPnl);
 			this->Controls->Add(this->mainPanel);
 			this->Controls->Add(this->signUpPnl);
+			this->Controls->Add(this->SignINPnl);
 			this->Controls->Add(this->getStoryPanel);
 			this->Controls->Add(this->addStoryPanel);
 			this->Margin = System::Windows::Forms::Padding(4);
@@ -1722,8 +1666,6 @@ private: System::ComponentModel::IContainer^ components;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->signUpBackGround))->EndInit();
 			this->mainPanel->ResumeLayout(false);
-			this->searchContactPanel->ResumeLayout(false);
-			this->searchContactPanel->PerformLayout();
 			this->chatPnl->ResumeLayout(false);
 			this->currentCahtPanel->ResumeLayout(false);
 			this->chatsContainer->ResumeLayout(false);
@@ -1732,6 +1674,8 @@ private: System::ComponentModel::IContainer^ components;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->addMemPicBox))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chatPicture))->EndInit();
 			this->footerContainer->ResumeLayout(false);
+			this->contactsPanel->ResumeLayout(false);
+			this->contactsPanel->PerformLayout();
 			this->addMemberPnl->ResumeLayout(false);
 			this->addMemberPnl->PerformLayout();
 			this->storyPanel->ResumeLayout(false);
@@ -2480,31 +2424,16 @@ private: System::ComponentModel::IContainer^ components;
 			}
 
 		}
-        private: System::Void searchChat_btn_Click(System::Object^ sender, System::EventArgs^ e) {
-           string searchText = msclr::interop::marshal_as<std::string>(searchChat_field->Text);
-           searchChat_field->Text = "";
-           ChatRoom* chat = nullptr; 
-           ChatRoom result = searchChatRooms(searchText, chatRooms);
-           chat = &chatRooms[result.getChatRoomID()]; 
-
-           if (chat != nullptr) {
-               
-               MessageBox::Show("Chat room found!", "Success");
-           } else {
-			   System::Windows::Forms::Button^ newButton = gcnew System::Windows::Forms::Button();
-               newButton->Text = gcnew System::String(chat->getGroupName().c_str());
-			   newButton->Size = System::Drawing::Size(350, 30); 
-			   newButton->BackColor = System::Drawing::Color::Black; 
-			   newButton->FlatStyle = System::Windows::Forms::FlatStyle::Flat; 
-			   this->showChatSearch_panel->Controls->Add(newButton);
-           }
-		   
-        }
-		private: System::Void goToSearchChat_btn_Click(System::Object^ sender, System::EventArgs^ e) {
-			cout << "CLICKED" << endl;
-			searchContactPanel->BringToFront();
+        
+		private: System::Void searchChatroom_btn_Click(System::Object^ sender, System::EventArgs^ e) {
+			string searchText = msclr::interop::marshal_as<std::string>(searchChatroom_field->Text);
+			if (searchText == "") {
+				MessageBox::Show("Please enter a chat room name", "Error");
+			}
+			else
+				searchChatRooms(searchText, chatRooms, contactsPanel);
 		}
-	};
+};
 
 };
 

@@ -12,6 +12,7 @@ using namespace System;
 using namespace System::Windows::Forms;
 using namespace System::Drawing;
 using namespace System::Collections::Generic;
+static vector<pair<int, long long>> userChatRooms;
 
 #pragma once
 static void sortChatRooms(User currentUser, unordered_map<int, long long>& activity,
@@ -22,7 +23,7 @@ static void sortChatRooms(User currentUser, unordered_map<int, long long>& activ
 
 	cout << "called - map size: " << activity.size() << endl;
 
-	vector<pair<int, long long>> userChatRooms;
+	
 
 
 	for (const auto& room : chatRooms) {

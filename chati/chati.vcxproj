@@ -142,7 +142,6 @@
     <ClCompile Include="LinkedList.cpp" />
     <ClCompile Include="Message.cpp" />
     <ClCompile Include="SaveLoadFiles.cpp" />
-    <ClCompile Include="SearchChatrooms.cpp" />
     <ClCompile Include="Signing.cpp" />
     <ClCompile Include="Story.cpp" />
     <ClCompile Include="StoryStyleHelper.cpp" />
