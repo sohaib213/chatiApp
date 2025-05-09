@@ -362,6 +362,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->searchChatPanel_protected = (gcnew System::Windows::Forms::FlowLayoutPanel());
 			this->searchChatroom_field = (gcnew System::Windows::Forms::TextBox());
 			this->searchChatroom_btn = (gcnew System::Windows::Forms::Button());
+			this->showChatroomsPanel = (gcnew System::Windows::Forms::FlowLayoutPanel());
 			this->addMemberPnl = (gcnew System::Windows::Forms::Panel());
 			this->addMem = (gcnew System::Windows::Forms::Button());
 			this->button11 = (gcnew System::Windows::Forms::Button());
@@ -430,7 +431,6 @@ private: System::ComponentModel::IContainer^ components;
 			this->signinBackGround = (gcnew System::Windows::Forms::PictureBox());
 			this->storyTimerTemp = (gcnew System::Windows::Forms::Timer(this->components));
 			this->storyProgressBarTimer = (gcnew System::Windows::Forms::Timer(this->components));
-			this->showChatroomsPanel = (gcnew System::Windows::Forms::FlowLayoutPanel());
 			this->signUpPnl->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->signUpBackGround))->BeginInit();
@@ -675,8 +675,8 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			// chatPnl
 			// 
-			this->chatPnl->Controls->Add(this->currentCahtPanel);
 			this->chatPnl->Controls->Add(this->contactsPanel);
+			this->chatPnl->Controls->Add(this->currentCahtPanel);
 			this->chatPnl->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->chatPnl->Location = System::Drawing::Point(87, 0);
 			this->chatPnl->Name = L"chatPnl";
@@ -689,9 +689,9 @@ private: System::ComponentModel::IContainer^ components;
 			this->currentCahtPanel->Controls->Add(this->chatsContainer);
 			this->currentCahtPanel->Controls->Add(this->footerContainer);
 			this->currentCahtPanel->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->currentCahtPanel->Location = System::Drawing::Point(338, 0);
+			this->currentCahtPanel->Location = System::Drawing::Point(0, 0);
 			this->currentCahtPanel->Name = L"currentCahtPanel";
-			this->currentCahtPanel->Size = System::Drawing::Size(1479, 1041);
+			this->currentCahtPanel->Size = System::Drawing::Size(1817, 1041);
 			this->currentCahtPanel->TabIndex = 7;
 			// 
 			// chatsContainer
@@ -703,7 +703,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->chatsContainer->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->chatsContainer->Location = System::Drawing::Point(0, 0);
 			this->chatsContainer->Name = L"chatsContainer";
-			this->chatsContainer->Size = System::Drawing::Size(1479, 995);
+			this->chatsContainer->Size = System::Drawing::Size(1817, 995);
 			this->chatsContainer->TabIndex = 14;
 			// 
 			// messagesFlowPanelsContainer
@@ -711,7 +711,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->messagesFlowPanelsContainer->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->messagesFlowPanelsContainer->Location = System::Drawing::Point(0, 100);
 			this->messagesFlowPanelsContainer->Name = L"messagesFlowPanelsContainer";
-			this->messagesFlowPanelsContainer->Size = System::Drawing::Size(1479, 895);
+			this->messagesFlowPanelsContainer->Size = System::Drawing::Size(1817, 895);
 			this->messagesFlowPanelsContainer->TabIndex = 1;
 			// 
 			// headerContainer
@@ -724,7 +724,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->headerContainer->Dock = System::Windows::Forms::DockStyle::Top;
 			this->headerContainer->Location = System::Drawing::Point(0, 0);
 			this->headerContainer->Name = L"headerContainer";
-			this->headerContainer->Size = System::Drawing::Size(1479, 100);
+			this->headerContainer->Size = System::Drawing::Size(1817, 100);
 			this->headerContainer->TabIndex = 0;
 			// 
 			// addMemPicBox
@@ -767,7 +767,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->footerContainer->Dock = System::Windows::Forms::DockStyle::Bottom;
 			this->footerContainer->Location = System::Drawing::Point(0, 995);
 			this->footerContainer->Name = L"footerContainer";
-			this->footerContainer->Size = System::Drawing::Size(1479, 46);
+			this->footerContainer->Size = System::Drawing::Size(1817, 46);
 			this->footerContainer->TabIndex = 13;
 			this->footerContainer->Visible = false;
 			// 
@@ -779,7 +779,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->textBox1->Location = System::Drawing::Point(0, 0);
 			this->textBox1->MaxLength = 70;
 			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(1397, 46);
+			this->textBox1->Size = System::Drawing::Size(1735, 46);
 			this->textBox1->TabIndex = 0;
 			this->textBox1->Text = L"";
 			// 
@@ -791,7 +791,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->sendButton->Dock = System::Windows::Forms::DockStyle::Right;
 			this->sendButton->FlatAppearance->BorderSize = 0;
 			this->sendButton->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->sendButton->Location = System::Drawing::Point(1397, 0);
+			this->sendButton->Location = System::Drawing::Point(1735, 0);
 			this->sendButton->Name = L"sendButton";
 			this->sendButton->Size = System::Drawing::Size(82, 46);
 			this->sendButton->TabIndex = 3;
@@ -836,6 +836,13 @@ private: System::ComponentModel::IContainer^ components;
 			this->searchChatroom_btn->TabIndex = 1;
 			this->searchChatroom_btn->UseVisualStyleBackColor = true;
 			this->searchChatroom_btn->Click += gcnew System::EventHandler(this, &GuiForm::searchChatroom_btn_Click);
+			// 
+			// showChatroomsPanel
+			// 
+			this->showChatroomsPanel->Location = System::Drawing::Point(3, 37);
+			this->showChatroomsPanel->Name = L"showChatroomsPanel";
+			this->showChatroomsPanel->Size = System::Drawing::Size(329, 1025);
+			this->showChatroomsPanel->TabIndex = 1;
 			// 
 			// addMemberPnl
 			// 
@@ -1661,19 +1668,12 @@ private: System::ComponentModel::IContainer^ components;
 			this->storyProgressBarTimer->Interval = 16;
 			this->storyProgressBarTimer->Tick += gcnew System::EventHandler(this, &GuiForm::storyProgressBarTimer_Tick);
 			// 
-			// showChatroomsPanel
-			// 
-			this->showChatroomsPanel->Location = System::Drawing::Point(3, 37);
-			this->showChatroomsPanel->Name = L"showChatroomsPanel";
-			this->showChatroomsPanel->Size = System::Drawing::Size(329, 1025);
-			this->showChatroomsPanel->TabIndex = 1;
-			// 
 			// GuiForm
 			// 
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
 			this->ClientSize = System::Drawing::Size(1904, 1041);
-			this->Controls->Add(this->mainPanel);
 			this->Controls->Add(this->SignINPnl);
+			this->Controls->Add(this->mainPanel);
 			this->Controls->Add(this->signUpPnl);
 			this->Controls->Add(this->getStoryPanel);
 			this->Controls->Add(this->addStoryPanel);
@@ -1906,7 +1906,7 @@ private: System::ComponentModel::IContainer^ components;
 				}
 
 				messagesFlowPanelsContainer->Controls->Clear();
-				contactsPanel->Controls->Clear();
+				showChatroomsPanel->Controls->Clear();
 
 				for(int chatRoom: currentUser->getChatRoomsID()){
 
