@@ -84,10 +84,10 @@ namespace chati {
 		private: System::Windows::Forms::TextBox^ groupNameTxt;
 		private: System::Windows::Forms::Label^ label7;
 		private: System::Windows::Forms::Button^ addBtn;
-		private: System::Windows::Forms::Panel^ headerContainer;
-		private: System::Windows::Forms::PictureBox^ chatPicture;
-		private: System::Windows::Forms::Label^ chatName;
-		private: System::Windows::Forms::Panel^ messagesFlowPanelsContainer;
+
+
+
+
 	private: System::Windows::Forms::Panel^ SignINPnl;
 
 
@@ -139,22 +139,49 @@ namespace chati {
 	private: System::Windows::Forms::Label^ memNumLbl;
 	private: System::Windows::Forms::Label^ memNameLbl;
 	private: System::Windows::Forms::Label^ label18;
-	private: System::Windows::Forms::PictureBox^ addMemPicBox;
+	private: System::Windows::Forms::Panel^ contactsPanelContainer;
+	private: System::Windows::Forms::FlowLayoutPanel^ contactsPanel;
+	private: System::Windows::Forms::FlowLayoutPanel^ searchContactPanel;
 	private: System::Windows::Forms::TextBox^ searchChatroom_field;
-
-
-
-
-
-
-
-
-
-
-
 	private: System::Windows::Forms::Button^ searchChatroom_btn;
-	private: System::Windows::Forms::FlowLayoutPanel^ searchChatPanel_protected;
-	private: System::Windows::Forms::FlowLayoutPanel^ showChatroomsPanel;
+	private: System::Windows::Forms::Panel^ currentCahtPanel;
+	private: System::Windows::Forms::Panel^ chatsContainer;
+	private: System::Windows::Forms::Panel^ messagesFlowPanelsContainer;
+	private: System::Windows::Forms::Panel^ headerContainer;
+	private: System::Windows::Forms::PictureBox^ addMemPicBox;
+	private: System::Windows::Forms::Label^ chatName;
+	private: System::Windows::Forms::PictureBox^ chatPicture;
+	private: System::Windows::Forms::Panel^ footerContainer;
+	private: System::Windows::Forms::RichTextBox^ textBox1;
+	private: System::Windows::Forms::Button^ sendButton;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -239,9 +266,6 @@ namespace chati {
 		private: System::Windows::Forms::Panel^ storyPanel;
 		private: System::Windows::Forms::Panel^ profilePanel;
 		private: System::Windows::Forms::Panel^ chatPnl;
-		private: System::Windows::Forms::Panel^ currentCahtPanel;
-		private: System::Windows::Forms::Panel^ chatsContainer;
-		private: System::Windows::Forms::Panel^ footerContainer;
 
 
 
@@ -249,12 +273,15 @@ namespace chati {
 
 
 
-		private: System::Windows::Forms::Button^ sendButton;
+
+
+
+
 
 
 
 		private: System::Windows::Forms::Label^ label1;
-		private: System::Windows::Forms::FlowLayoutPanel^ contactsPanel;
+
 
 		private: System::Windows::Forms::FlowLayoutPanel^ allStoriesPanel;
 		private: System::Windows::Forms::Panel^ stotyHeaderPanel;
@@ -280,7 +307,7 @@ namespace chati {
 
 
 
-		private: System::Windows::Forms::RichTextBox^ textBox1;
+
 
 
 		private: System::Windows::Forms::Button^ goToAddContact_btn;
@@ -358,11 +385,11 @@ private: System::ComponentModel::IContainer^ components;
 			this->footerContainer = (gcnew System::Windows::Forms::Panel());
 			this->textBox1 = (gcnew System::Windows::Forms::RichTextBox());
 			this->sendButton = (gcnew System::Windows::Forms::Button());
+			this->contactsPanelContainer = (gcnew System::Windows::Forms::Panel());
 			this->contactsPanel = (gcnew System::Windows::Forms::FlowLayoutPanel());
-			this->searchChatPanel_protected = (gcnew System::Windows::Forms::FlowLayoutPanel());
+			this->searchContactPanel = (gcnew System::Windows::Forms::FlowLayoutPanel());
 			this->searchChatroom_field = (gcnew System::Windows::Forms::TextBox());
 			this->searchChatroom_btn = (gcnew System::Windows::Forms::Button());
-			this->showChatroomsPanel = (gcnew System::Windows::Forms::FlowLayoutPanel());
 			this->addMemberPnl = (gcnew System::Windows::Forms::Panel());
 			this->addMem = (gcnew System::Windows::Forms::Button());
 			this->button11 = (gcnew System::Windows::Forms::Button());
@@ -442,8 +469,8 @@ private: System::ComponentModel::IContainer^ components;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->addMemPicBox))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chatPicture))->BeginInit();
 			this->footerContainer->SuspendLayout();
-			this->contactsPanel->SuspendLayout();
-			this->searchChatPanel_protected->SuspendLayout();
+			this->contactsPanelContainer->SuspendLayout();
+			this->searchContactPanel->SuspendLayout();
 			this->addMemberPnl->SuspendLayout();
 			this->storyPanel->SuspendLayout();
 			this->stotyHeaderPanel->SuspendLayout();
@@ -675,8 +702,9 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			// chatPnl
 			// 
-			this->chatPnl->Controls->Add(this->contactsPanel);
+			this->chatPnl->AllowDrop = true;
 			this->chatPnl->Controls->Add(this->currentCahtPanel);
+			this->chatPnl->Controls->Add(this->contactsPanelContainer);
 			this->chatPnl->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->chatPnl->Location = System::Drawing::Point(87, 0);
 			this->chatPnl->Name = L"chatPnl";
@@ -689,10 +717,10 @@ private: System::ComponentModel::IContainer^ components;
 			this->currentCahtPanel->Controls->Add(this->chatsContainer);
 			this->currentCahtPanel->Controls->Add(this->footerContainer);
 			this->currentCahtPanel->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->currentCahtPanel->Location = System::Drawing::Point(0, 0);
+			this->currentCahtPanel->Location = System::Drawing::Point(332, 0);
 			this->currentCahtPanel->Name = L"currentCahtPanel";
-			this->currentCahtPanel->Size = System::Drawing::Size(1817, 1041);
-			this->currentCahtPanel->TabIndex = 7;
+			this->currentCahtPanel->Size = System::Drawing::Size(1485, 1041);
+			this->currentCahtPanel->TabIndex = 9;
 			// 
 			// chatsContainer
 			// 
@@ -703,15 +731,15 @@ private: System::ComponentModel::IContainer^ components;
 			this->chatsContainer->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->chatsContainer->Location = System::Drawing::Point(0, 0);
 			this->chatsContainer->Name = L"chatsContainer";
-			this->chatsContainer->Size = System::Drawing::Size(1817, 995);
+			this->chatsContainer->Size = System::Drawing::Size(1485, 995);
 			this->chatsContainer->TabIndex = 14;
 			// 
 			// messagesFlowPanelsContainer
 			// 
 			this->messagesFlowPanelsContainer->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->messagesFlowPanelsContainer->Location = System::Drawing::Point(0, 100);
+			this->messagesFlowPanelsContainer->Location = System::Drawing::Point(0, 102);
 			this->messagesFlowPanelsContainer->Name = L"messagesFlowPanelsContainer";
-			this->messagesFlowPanelsContainer->Size = System::Drawing::Size(1817, 895);
+			this->messagesFlowPanelsContainer->Size = System::Drawing::Size(1485, 893);
 			this->messagesFlowPanelsContainer->TabIndex = 1;
 			// 
 			// headerContainer
@@ -724,7 +752,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->headerContainer->Dock = System::Windows::Forms::DockStyle::Top;
 			this->headerContainer->Location = System::Drawing::Point(0, 0);
 			this->headerContainer->Name = L"headerContainer";
-			this->headerContainer->Size = System::Drawing::Size(1817, 100);
+			this->headerContainer->Size = System::Drawing::Size(1485, 102);
 			this->headerContainer->TabIndex = 0;
 			// 
 			// addMemPicBox
@@ -736,7 +764,6 @@ private: System::ComponentModel::IContainer^ components;
 			this->addMemPicBox->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
 			this->addMemPicBox->TabIndex = 2;
 			this->addMemPicBox->TabStop = false;
-			this->addMemPicBox->Click += gcnew System::EventHandler(this, &GuiForm::addMemPicBox_Click_1);
 			// 
 			// chatName
 			// 
@@ -767,7 +794,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->footerContainer->Dock = System::Windows::Forms::DockStyle::Bottom;
 			this->footerContainer->Location = System::Drawing::Point(0, 995);
 			this->footerContainer->Name = L"footerContainer";
-			this->footerContainer->Size = System::Drawing::Size(1817, 46);
+			this->footerContainer->Size = System::Drawing::Size(1485, 46);
 			this->footerContainer->TabIndex = 13;
 			this->footerContainer->Visible = false;
 			// 
@@ -779,7 +806,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->textBox1->Location = System::Drawing::Point(0, 0);
 			this->textBox1->MaxLength = 70;
 			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(1735, 46);
+			this->textBox1->Size = System::Drawing::Size(1403, 46);
 			this->textBox1->TabIndex = 0;
 			this->textBox1->Text = L"";
 			// 
@@ -791,33 +818,40 @@ private: System::ComponentModel::IContainer^ components;
 			this->sendButton->Dock = System::Windows::Forms::DockStyle::Right;
 			this->sendButton->FlatAppearance->BorderSize = 0;
 			this->sendButton->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->sendButton->Location = System::Drawing::Point(1735, 0);
+			this->sendButton->Location = System::Drawing::Point(1403, 0);
 			this->sendButton->Name = L"sendButton";
 			this->sendButton->Size = System::Drawing::Size(82, 46);
 			this->sendButton->TabIndex = 3;
 			this->sendButton->UseVisualStyleBackColor = true;
 			this->sendButton->Click += gcnew System::EventHandler(this, &GuiForm::sendButton_Click);
 			// 
+			// contactsPanelContainer
+			// 
+			this->contactsPanelContainer->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(50)),
+				static_cast<System::Int32>(static_cast<System::Byte>(50)), static_cast<System::Int32>(static_cast<System::Byte>(50)));
+			this->contactsPanelContainer->Controls->Add(this->contactsPanel);
+			this->contactsPanelContainer->Controls->Add(this->searchContactPanel);
+			this->contactsPanelContainer->Dock = System::Windows::Forms::DockStyle::Left;
+			this->contactsPanelContainer->Location = System::Drawing::Point(0, 0);
+			this->contactsPanelContainer->Name = L"contactsPanelContainer";
+			this->contactsPanelContainer->Size = System::Drawing::Size(332, 1041);
+			this->contactsPanelContainer->TabIndex = 8;
+			// 
 			// contactsPanel
 			// 
-			this->contactsPanel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)),
-				static_cast<System::Int32>(static_cast<System::Byte>(45)));
-			this->contactsPanel->Controls->Add(this->searchChatPanel_protected);
-			this->contactsPanel->Controls->Add(this->showChatroomsPanel);
-			this->contactsPanel->Dock = System::Windows::Forms::DockStyle::Left;
-			this->contactsPanel->Location = System::Drawing::Point(0, 0);
+			this->contactsPanel->Location = System::Drawing::Point(3, 32);
 			this->contactsPanel->Name = L"contactsPanel";
-			this->contactsPanel->Size = System::Drawing::Size(338, 1041);
-			this->contactsPanel->TabIndex = 2;
+			this->contactsPanel->Size = System::Drawing::Size(326, 1006);
+			this->contactsPanel->TabIndex = 1;
 			// 
-			// searchChatPanel_protected
+			// searchContactPanel
 			// 
-			this->searchChatPanel_protected->Controls->Add(this->searchChatroom_field);
-			this->searchChatPanel_protected->Controls->Add(this->searchChatroom_btn);
-			this->searchChatPanel_protected->Location = System::Drawing::Point(3, 3);
-			this->searchChatPanel_protected->Name = L"searchChatPanel_protected";
-			this->searchChatPanel_protected->Size = System::Drawing::Size(329, 28);
-			this->searchChatPanel_protected->TabIndex = 0;
+			this->searchContactPanel->Controls->Add(this->searchChatroom_field);
+			this->searchContactPanel->Controls->Add(this->searchChatroom_btn);
+			this->searchContactPanel->Location = System::Drawing::Point(3, 3);
+			this->searchContactPanel->Name = L"searchContactPanel";
+			this->searchContactPanel->Size = System::Drawing::Size(329, 28);
+			this->searchContactPanel->TabIndex = 0;
 			// 
 			// searchChatroom_field
 			// 
@@ -835,14 +869,6 @@ private: System::ComponentModel::IContainer^ components;
 			this->searchChatroom_btn->Size = System::Drawing::Size(20, 20);
 			this->searchChatroom_btn->TabIndex = 1;
 			this->searchChatroom_btn->UseVisualStyleBackColor = true;
-			this->searchChatroom_btn->Click += gcnew System::EventHandler(this, &GuiForm::searchChatroom_btn_Click);
-			// 
-			// showChatroomsPanel
-			// 
-			this->showChatroomsPanel->Location = System::Drawing::Point(3, 37);
-			this->showChatroomsPanel->Name = L"showChatroomsPanel";
-			this->showChatroomsPanel->Size = System::Drawing::Size(329, 1025);
-			this->showChatroomsPanel->TabIndex = 1;
 			// 
 			// addMemberPnl
 			// 
@@ -1695,9 +1721,9 @@ private: System::ComponentModel::IContainer^ components;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->addMemPicBox))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chatPicture))->EndInit();
 			this->footerContainer->ResumeLayout(false);
-			this->contactsPanel->ResumeLayout(false);
-			this->searchChatPanel_protected->ResumeLayout(false);
-			this->searchChatPanel_protected->PerformLayout();
+			this->contactsPanelContainer->ResumeLayout(false);
+			this->searchContactPanel->ResumeLayout(false);
+			this->searchContactPanel->PerformLayout();
 			this->addMemberPnl->ResumeLayout(false);
 			this->addMemberPnl->PerformLayout();
 			this->storyPanel->ResumeLayout(false);
@@ -1906,7 +1932,7 @@ private: System::ComponentModel::IContainer^ components;
 				}
 
 				messagesFlowPanelsContainer->Controls->Clear();
-				showChatroomsPanel->Controls->Clear();
+				contactsPanel->Controls->Clear();
 
 				for(int chatRoom: currentUser->getChatRoomsID()){
 
@@ -1934,7 +1960,7 @@ private: System::ComponentModel::IContainer^ components;
 					}
 				}
 
-				sortChatRooms(*currentUser, Activity, chatRooms, showChatroomsPanel, messages);
+				sortChatRooms(*currentUser, Activity, chatRooms, contactsPanel, messages);
 				mainPanel->BringToFront();
 			}
 	
@@ -2230,8 +2256,8 @@ private: System::ComponentModel::IContainer^ components;
 				//	File::Copy(selectedImagePath, destinationPath, true);
 
 				string contName = msclr::interop::marshal_as<std::string>(addContName_field->Text);
-				chatRoomHandler.createRoom(currentContNum,contName,currentUser, addContName_field, addContNum_field, chatRooms, showChatroomsPanel,Activity, messagesFlowPanelsContainer, users,groupFilename,messages);
-				sortChatRooms(*currentUser, Activity, chatRooms, showChatroomsPanel, messages);
+				chatRoomHandler.createRoom(currentContNum,contName,currentUser, addContName_field, addContNum_field, chatRooms, contactsPanel,Activity, messagesFlowPanelsContainer, users,groupFilename,messages);
+				sortChatRooms(*currentUser, Activity, chatRooms, contactsPanel, messages);
 			
 			}
 		}
@@ -2318,8 +2344,8 @@ private: System::ComponentModel::IContainer^ components;
 				string groupName = msclr::interop::marshal_as<std::string>(groupNameTxt->Text);
 				groupNameTxt->Text = "";
 				chatRoomHandler.createGroup(currentUser, chatRooms, messagesFlowPanelsContainer,
-					usersListBox, users, showChatroomsPanel, groupName, Activity,filename,messages);
-				sortChatRooms(*currentUser, Activity, chatRooms, showChatroomsPanel, messages);
+					usersListBox, users, contactsPanel, groupName, Activity,filename,messages);
+				sortChatRooms(*currentUser, Activity, chatRooms, contactsPanel, messages);
 			}
 			groupImgPicBox->Image = nullptr;
 		}
@@ -2453,7 +2479,7 @@ private: System::ComponentModel::IContainer^ components;
 				MessageBox::Show("Please enter a chat room name", "Error");
 			}
 			else
-				searchChatRooms(searchText, chatRooms, showChatroomsPanel);
+				searchChatRooms(searchText, chatRooms, contactsPanel);
 		}
 };
 
