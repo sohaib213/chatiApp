@@ -1934,7 +1934,7 @@ private: System::ComponentModel::IContainer^ components;
 					}
 				}
 
-				sortChatRooms(*currentUser, Activity, chatRooms, contactsPanel, messages);
+				sortChatRooms(*currentUser, Activity, chatRooms, showChatroomsPanel, messages);
 				mainPanel->BringToFront();
 			}
 	
@@ -2230,8 +2230,8 @@ private: System::ComponentModel::IContainer^ components;
 				//	File::Copy(selectedImagePath, destinationPath, true);
 
 				string contName = msclr::interop::marshal_as<std::string>(addContName_field->Text);
-				chatRoomHandler.createRoom(currentContNum,contName,currentUser, addContName_field, addContNum_field, chatRooms, contactsPanel,Activity, messagesFlowPanelsContainer, users,groupFilename,messages);
-				sortChatRooms(*currentUser, Activity, chatRooms, contactsPanel, messages);
+				chatRoomHandler.createRoom(currentContNum,contName,currentUser, addContName_field, addContNum_field, chatRooms, showChatroomsPanel,Activity, messagesFlowPanelsContainer, users,groupFilename,messages);
+				sortChatRooms(*currentUser, Activity, chatRooms, showChatroomsPanel, messages);
 			
 			}
 		}
@@ -2318,8 +2318,8 @@ private: System::ComponentModel::IContainer^ components;
 				string groupName = msclr::interop::marshal_as<std::string>(groupNameTxt->Text);
 				groupNameTxt->Text = "";
 				chatRoomHandler.createGroup(currentUser, chatRooms, messagesFlowPanelsContainer,
-					usersListBox, users, contactsPanel, groupName, Activity,filename,messages);
-				sortChatRooms(*currentUser, Activity, chatRooms, contactsPanel, messages);
+					usersListBox, users, showChatroomsPanel, groupName, Activity,filename,messages);
+				sortChatRooms(*currentUser, Activity, chatRooms, showChatroomsPanel, messages);
 			}
 			groupImgPicBox->Image = nullptr;
 		}
