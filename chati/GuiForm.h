@@ -764,6 +764,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->addMemPicBox->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
 			this->addMemPicBox->TabIndex = 2;
 			this->addMemPicBox->TabStop = false;
+			this->addMemPicBox->Click += gcnew System::EventHandler(this, &GuiForm::addMemPicBox_Click);
 			// 
 			// chatName
 			// 
@@ -2432,10 +2433,6 @@ private: System::ComponentModel::IContainer^ components;
 	  	   // This allows the progress bar to smoothly complete to 100%
 	    }
 
-
-		private: System::Void addMemPicBox_Click_1(System::Object^ sender, System::EventArgs^ e) {
-			addMemberPnl->BringToFront();
-		}
 		private: System::Void button11_Click(System::Object^ sender, System::EventArgs^ e) {
 			string memNum = msclr::interop::marshal_as<std::string>(memPhone->Text);
 			if (memNum.size() < 11 || memNum.size() > 11) {
@@ -2480,6 +2477,9 @@ private: System::ComponentModel::IContainer^ components;
 			}
 			else
 				searchChatRooms(searchText, chatRooms, contactsPanel);
+		}
+		private: System::Void addMemPicBox_Click(System::Object^ sender, System::EventArgs^ e) {
+			addMemberPnl->BringToFront();
 		}
 };
 

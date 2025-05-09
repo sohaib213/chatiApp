@@ -1,2 +1,2 @@
-PlatformToolSet=v143:VCToolArchitecture=Native64Bit:VCToolsVersion=14.44.35128:TargetPlatformVersion=10.0.26100.0:TargetFrameworkVersion=v4.7.2::EnableManagedIncrementalBuild=true:
-Debug|x64|C:\chati\|
+PlatformToolSet=v143:VCToolArchitecture=Native64Bit:VCToolsVersion=14.43.34808:TargetPlatformVersion=10.0.22621.0:TargetFrameworkVersion=v4.7.2::EnableManagedIncrementalBuild=true:
+Debug|x64|D:\DS_project\chatiApp\|

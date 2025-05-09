@@ -19,10 +19,10 @@ static void sortChatRooms(User currentUser, unordered_map<int, long long>& activ
 	const unordered_map<int, ChatRoom>& chatRooms, FlowLayoutPanel^ chatRoomsPanel,
 	unordered_map<int, chati::Message> messages) {
 
+	userChatRooms.clear();
 
-
-	cout << "called - map size: " << activity.size() << endl;
-
+	cout << "called - activity size: " << activity.size() << endl;
+	cout << "called - chatRooms size: " << chatRooms.size() << endl;
 	
 
 
@@ -62,13 +62,13 @@ static void sortChatRooms(User currentUser, unordered_map<int, long long>& activ
 			else if (activity.find(chatRoomID) != activity.end()) {
 				lastActivity = activity[chatRoomID];
 			}
-
+			cout <<"LastActivity: " << lastActivity << endl;
 			userChatRooms.push_back({ chatRoomID, lastActivity });
 		}
 	}
 
 
-	//sort the chat rooms based on the last message ID
+	//sort the chat rooms based on the time the message was sent at 
 	for (int i = 0; i < userChatRooms.size(); ++i) {
 		for (int j = i + 1; j < userChatRooms.size(); ++j) {
 			if (userChatRooms[i].second < userChatRooms[j].second) {
@@ -85,7 +85,9 @@ static void sortChatRooms(User currentUser, unordered_map<int, long long>& activ
 	for (auto& room : userChatRooms) {
 		for each (Control ^ control in chatRoomsPanel->Controls) {
 			Button^ button = dynamic_cast<Button^>(control);
-			if (button != nullptr && button->Tag != nullptr && safe_cast<int>(button->Tag) == room.first) {
+			if (button != nullptr && button->Tag != nullptr && safe_cast<int>(button->Tag) == room.first)
+			{
+				cout << "found button: " << room.first << endl;
 				buttons->Add(button);
 				break;
 			}
