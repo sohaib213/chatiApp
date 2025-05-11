@@ -41,6 +41,7 @@ User *currentUser;
 set<int> storiesIDTemp;
 ChatRoom *currentChatRoom;
 string currentContNum,currentContName;
+int storiesShown=0;
 
 
 
@@ -374,6 +375,14 @@ private: System::ComponentModel::IContainer^ components;
 			this->signUpBackGround = (gcnew System::Windows::Forms::PictureBox());
 			this->passTxt = (gcnew System::Windows::Forms::TextBox());
 			this->mainPanel = (gcnew System::Windows::Forms::Panel());
+			this->addContactPanel = (gcnew System::Windows::Forms::Panel());
+			this->addContact_btn = (gcnew System::Windows::Forms::Button());
+			this->checkContact_btn = (gcnew System::Windows::Forms::Button());
+			this->addContName_field = (gcnew System::Windows::Forms::TextBox());
+			this->addContNum_field = (gcnew System::Windows::Forms::TextBox());
+			this->label5 = (gcnew System::Windows::Forms::Label());
+			this->NameLabel = (gcnew System::Windows::Forms::Label());
+			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->chatPnl = (gcnew System::Windows::Forms::Panel());
 			this->currentCahtPanel = (gcnew System::Windows::Forms::Panel());
 			this->chatsContainer = (gcnew System::Windows::Forms::Panel());
@@ -415,14 +424,6 @@ private: System::ComponentModel::IContainer^ components;
 			this->profilePanel = (gcnew System::Windows::Forms::Panel());
 			this->singOutButton = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->addContactPanel = (gcnew System::Windows::Forms::Panel());
-			this->addContact_btn = (gcnew System::Windows::Forms::Button());
-			this->checkContact_btn = (gcnew System::Windows::Forms::Button());
-			this->addContName_field = (gcnew System::Windows::Forms::TextBox());
-			this->addContNum_field = (gcnew System::Windows::Forms::TextBox());
-			this->label5 = (gcnew System::Windows::Forms::Label());
-			this->NameLabel = (gcnew System::Windows::Forms::Label());
-			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->navPanel = (gcnew System::Windows::Forms::Panel());
 			this->button7 = (gcnew System::Windows::Forms::Button());
 			this->chatButton = (gcnew System::Windows::Forms::Button());
@@ -462,6 +463,7 @@ private: System::ComponentModel::IContainer^ components;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->signUpBackGround))->BeginInit();
 			this->mainPanel->SuspendLayout();
+			this->addContactPanel->SuspendLayout();
 			this->chatPnl->SuspendLayout();
 			this->currentCahtPanel->SuspendLayout();
 			this->chatsContainer->SuspendLayout();
@@ -477,7 +479,6 @@ private: System::ComponentModel::IContainer^ components;
 			this->addGroup->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->groupImgPicBox))->BeginInit();
 			this->profilePanel->SuspendLayout();
-			this->addContactPanel->SuspendLayout();
 			this->navPanel->SuspendLayout();
 			this->addStoryPanel->SuspendLayout();
 			this->getStoryPanel->SuspendLayout();
@@ -687,12 +688,12 @@ private: System::ComponentModel::IContainer^ components;
 			// mainPanel
 			// 
 			this->mainPanel->BackColor = System::Drawing::Color::White;
+			this->mainPanel->Controls->Add(this->addContactPanel);
 			this->mainPanel->Controls->Add(this->chatPnl);
 			this->mainPanel->Controls->Add(this->addMemberPnl);
 			this->mainPanel->Controls->Add(this->storyPanel);
 			this->mainPanel->Controls->Add(this->addGroup);
 			this->mainPanel->Controls->Add(this->profilePanel);
-			this->mainPanel->Controls->Add(this->addContactPanel);
 			this->mainPanel->Controls->Add(this->navPanel);
 			this->mainPanel->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->mainPanel->Location = System::Drawing::Point(0, 0);
@@ -700,11 +701,98 @@ private: System::ComponentModel::IContainer^ components;
 			this->mainPanel->Size = System::Drawing::Size(1904, 1041);
 			this->mainPanel->TabIndex = 3;
 			// 
+			// addContactPanel
+			// 
+			this->addContactPanel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)),
+				static_cast<System::Int32>(static_cast<System::Byte>(45)));
+			this->addContactPanel->Controls->Add(this->addContact_btn);
+			this->addContactPanel->Controls->Add(this->checkContact_btn);
+			this->addContactPanel->Controls->Add(this->addContName_field);
+			this->addContactPanel->Controls->Add(this->addContNum_field);
+			this->addContactPanel->Controls->Add(this->label5);
+			this->addContactPanel->Controls->Add(this->NameLabel);
+			this->addContactPanel->Controls->Add(this->label3);
+			this->addContactPanel->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->addContactPanel->Location = System::Drawing::Point(87, 0);
+			this->addContactPanel->Name = L"addContactPanel";
+			this->addContactPanel->Size = System::Drawing::Size(1817, 1041);
+			this->addContactPanel->TabIndex = 14;
+			// 
+			// addContact_btn
+			// 
+			this->addContact_btn->Location = System::Drawing::Point(865, 573);
+			this->addContact_btn->Name = L"addContact_btn";
+			this->addContact_btn->Size = System::Drawing::Size(75, 23);
+			this->addContact_btn->TabIndex = 22;
+			this->addContact_btn->Text = L"Add";
+			this->addContact_btn->UseVisualStyleBackColor = true;
+			this->addContact_btn->Visible = false;
+			this->addContact_btn->Click += gcnew System::EventHandler(this, &GuiForm::addContact_btn_Click);
+			// 
+			// checkContact_btn
+			// 
+			this->checkContact_btn->Location = System::Drawing::Point(1028, 485);
+			this->checkContact_btn->Name = L"checkContact_btn";
+			this->checkContact_btn->Size = System::Drawing::Size(75, 23);
+			this->checkContact_btn->TabIndex = 21;
+			this->checkContact_btn->Text = L"Check";
+			this->checkContact_btn->UseVisualStyleBackColor = true;
+			this->checkContact_btn->Click += gcnew System::EventHandler(this, &GuiForm::checkContact_btn_Click);
+			// 
+			// addContName_field
+			// 
+			this->addContName_field->Location = System::Drawing::Point(791, 516);
+			this->addContName_field->Name = L"addContName_field";
+			this->addContName_field->Size = System::Drawing::Size(215, 20);
+			this->addContName_field->TabIndex = 18;
+			this->addContName_field->Visible = false;
+			// 
+			// addContNum_field
+			// 
+			this->addContNum_field->Location = System::Drawing::Point(791, 485);
+			this->addContNum_field->Name = L"addContNum_field";
+			this->addContNum_field->Size = System::Drawing::Size(215, 20);
+			this->addContNum_field->TabIndex = 17;
+			// 
+			// label5
+			// 
+			this->label5->AutoSize = true;
+			this->label5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label5->Location = System::Drawing::Point(713, 485);
+			this->label5->Name = L"label5";
+			this->label5->Size = System::Drawing::Size(59, 17);
+			this->label5->TabIndex = 16;
+			this->label5->Text = L"Phone:";
+			// 
+			// NameLabel
+			// 
+			this->NameLabel->AutoSize = true;
+			this->NameLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->NameLabel->Location = System::Drawing::Point(713, 516);
+			this->NameLabel->Name = L"NameLabel";
+			this->NameLabel->Size = System::Drawing::Size(54, 17);
+			this->NameLabel->TabIndex = 15;
+			this->NameLabel->Text = L"Name:";
+			this->NameLabel->Visible = false;
+			// 
+			// label3
+			// 
+			this->label3->AutoSize = true;
+			this->label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 13.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label3->Location = System::Drawing::Point(836, 437);
+			this->label3->Name = L"label3";
+			this->label3->Size = System::Drawing::Size(121, 24);
+			this->label3->TabIndex = 14;
+			this->label3->Text = L"Add contact";
+			// 
 			// chatPnl
 			// 
 			this->chatPnl->AllowDrop = true;
-			this->chatPnl->Controls->Add(this->currentCahtPanel);
 			this->chatPnl->Controls->Add(this->contactsPanelContainer);
+			this->chatPnl->Controls->Add(this->currentCahtPanel);
 			this->chatPnl->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->chatPnl->Location = System::Drawing::Point(87, 0);
 			this->chatPnl->Name = L"chatPnl";
@@ -717,9 +805,9 @@ private: System::ComponentModel::IContainer^ components;
 			this->currentCahtPanel->Controls->Add(this->chatsContainer);
 			this->currentCahtPanel->Controls->Add(this->footerContainer);
 			this->currentCahtPanel->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->currentCahtPanel->Location = System::Drawing::Point(332, 0);
+			this->currentCahtPanel->Location = System::Drawing::Point(0, 0);
 			this->currentCahtPanel->Name = L"currentCahtPanel";
-			this->currentCahtPanel->Size = System::Drawing::Size(1485, 1041);
+			this->currentCahtPanel->Size = System::Drawing::Size(1817, 1041);
 			this->currentCahtPanel->TabIndex = 9;
 			// 
 			// chatsContainer
@@ -731,7 +819,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->chatsContainer->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->chatsContainer->Location = System::Drawing::Point(0, 0);
 			this->chatsContainer->Name = L"chatsContainer";
-			this->chatsContainer->Size = System::Drawing::Size(1485, 995);
+			this->chatsContainer->Size = System::Drawing::Size(1817, 995);
 			this->chatsContainer->TabIndex = 14;
 			// 
 			// messagesFlowPanelsContainer
@@ -739,7 +827,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->messagesFlowPanelsContainer->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->messagesFlowPanelsContainer->Location = System::Drawing::Point(0, 102);
 			this->messagesFlowPanelsContainer->Name = L"messagesFlowPanelsContainer";
-			this->messagesFlowPanelsContainer->Size = System::Drawing::Size(1485, 893);
+			this->messagesFlowPanelsContainer->Size = System::Drawing::Size(1817, 893);
 			this->messagesFlowPanelsContainer->TabIndex = 1;
 			// 
 			// headerContainer
@@ -752,7 +840,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->headerContainer->Dock = System::Windows::Forms::DockStyle::Top;
 			this->headerContainer->Location = System::Drawing::Point(0, 0);
 			this->headerContainer->Name = L"headerContainer";
-			this->headerContainer->Size = System::Drawing::Size(1485, 102);
+			this->headerContainer->Size = System::Drawing::Size(1817, 102);
 			this->headerContainer->TabIndex = 0;
 			// 
 			// addMemPicBox
@@ -795,7 +883,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->footerContainer->Dock = System::Windows::Forms::DockStyle::Bottom;
 			this->footerContainer->Location = System::Drawing::Point(0, 995);
 			this->footerContainer->Name = L"footerContainer";
-			this->footerContainer->Size = System::Drawing::Size(1485, 46);
+			this->footerContainer->Size = System::Drawing::Size(1817, 46);
 			this->footerContainer->TabIndex = 13;
 			this->footerContainer->Visible = false;
 			// 
@@ -807,7 +895,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->textBox1->Location = System::Drawing::Point(0, 0);
 			this->textBox1->MaxLength = 70;
 			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(1403, 46);
+			this->textBox1->Size = System::Drawing::Size(1735, 46);
 			this->textBox1->TabIndex = 0;
 			this->textBox1->Text = L"";
 			// 
@@ -819,7 +907,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->sendButton->Dock = System::Windows::Forms::DockStyle::Right;
 			this->sendButton->FlatAppearance->BorderSize = 0;
 			this->sendButton->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->sendButton->Location = System::Drawing::Point(1403, 0);
+			this->sendButton->Location = System::Drawing::Point(1735, 0);
 			this->sendButton->Name = L"sendButton";
 			this->sendButton->Size = System::Drawing::Size(82, 46);
 			this->sendButton->TabIndex = 3;
@@ -1164,93 +1252,6 @@ private: System::ComponentModel::IContainer^ components;
 			this->label1->Size = System::Drawing::Size(167, 31);
 			this->label1->TabIndex = 0;
 			this->label1->Text = L"Profile Panel";
-			// 
-			// addContactPanel
-			// 
-			this->addContactPanel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)),
-				static_cast<System::Int32>(static_cast<System::Byte>(45)));
-			this->addContactPanel->Controls->Add(this->addContact_btn);
-			this->addContactPanel->Controls->Add(this->checkContact_btn);
-			this->addContactPanel->Controls->Add(this->addContName_field);
-			this->addContactPanel->Controls->Add(this->addContNum_field);
-			this->addContactPanel->Controls->Add(this->label5);
-			this->addContactPanel->Controls->Add(this->NameLabel);
-			this->addContactPanel->Controls->Add(this->label3);
-			this->addContactPanel->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->addContactPanel->Location = System::Drawing::Point(87, 0);
-			this->addContactPanel->Name = L"addContactPanel";
-			this->addContactPanel->Size = System::Drawing::Size(1817, 1041);
-			this->addContactPanel->TabIndex = 14;
-			// 
-			// addContact_btn
-			// 
-			this->addContact_btn->Location = System::Drawing::Point(865, 573);
-			this->addContact_btn->Name = L"addContact_btn";
-			this->addContact_btn->Size = System::Drawing::Size(75, 23);
-			this->addContact_btn->TabIndex = 22;
-			this->addContact_btn->Text = L"Add";
-			this->addContact_btn->UseVisualStyleBackColor = true;
-			this->addContact_btn->Visible = false;
-			this->addContact_btn->Click += gcnew System::EventHandler(this, &GuiForm::addContact_btn_Click);
-			// 
-			// checkContact_btn
-			// 
-			this->checkContact_btn->Location = System::Drawing::Point(1028, 485);
-			this->checkContact_btn->Name = L"checkContact_btn";
-			this->checkContact_btn->Size = System::Drawing::Size(75, 23);
-			this->checkContact_btn->TabIndex = 21;
-			this->checkContact_btn->Text = L"Check";
-			this->checkContact_btn->UseVisualStyleBackColor = true;
-			this->checkContact_btn->Click += gcnew System::EventHandler(this, &GuiForm::checkContact_btn_Click);
-			// 
-			// addContName_field
-			// 
-			this->addContName_field->Location = System::Drawing::Point(791, 516);
-			this->addContName_field->Name = L"addContName_field";
-			this->addContName_field->Size = System::Drawing::Size(215, 20);
-			this->addContName_field->TabIndex = 18;
-			this->addContName_field->Visible = false;
-			// 
-			// addContNum_field
-			// 
-			this->addContNum_field->Location = System::Drawing::Point(791, 485);
-			this->addContNum_field->Name = L"addContNum_field";
-			this->addContNum_field->Size = System::Drawing::Size(215, 20);
-			this->addContNum_field->TabIndex = 17;
-			// 
-			// label5
-			// 
-			this->label5->AutoSize = true;
-			this->label5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->label5->Location = System::Drawing::Point(713, 485);
-			this->label5->Name = L"label5";
-			this->label5->Size = System::Drawing::Size(59, 17);
-			this->label5->TabIndex = 16;
-			this->label5->Text = L"Phone:";
-			// 
-			// NameLabel
-			// 
-			this->NameLabel->AutoSize = true;
-			this->NameLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->NameLabel->Location = System::Drawing::Point(713, 516);
-			this->NameLabel->Name = L"NameLabel";
-			this->NameLabel->Size = System::Drawing::Size(54, 17);
-			this->NameLabel->TabIndex = 15;
-			this->NameLabel->Text = L"Name:";
-			this->NameLabel->Visible = false;
-			// 
-			// label3
-			// 
-			this->label3->AutoSize = true;
-			this->label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 13.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->label3->Location = System::Drawing::Point(836, 437);
-			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(121, 24);
-			this->label3->TabIndex = 14;
-			this->label3->Text = L"Add contact";
 			// 
 			// navPanel
 			// 
@@ -1699,8 +1700,8 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
 			this->ClientSize = System::Drawing::Size(1904, 1041);
-			this->Controls->Add(this->SignINPnl);
 			this->Controls->Add(this->mainPanel);
+			this->Controls->Add(this->SignINPnl);
 			this->Controls->Add(this->signUpPnl);
 			this->Controls->Add(this->getStoryPanel);
 			this->Controls->Add(this->addStoryPanel);
@@ -1714,6 +1715,8 @@ private: System::ComponentModel::IContainer^ components;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->signUpBackGround))->EndInit();
 			this->mainPanel->ResumeLayout(false);
+			this->addContactPanel->ResumeLayout(false);
+			this->addContactPanel->PerformLayout();
 			this->chatPnl->ResumeLayout(false);
 			this->currentCahtPanel->ResumeLayout(false);
 			this->chatsContainer->ResumeLayout(false);
@@ -1735,8 +1738,6 @@ private: System::ComponentModel::IContainer^ components;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->groupImgPicBox))->EndInit();
 			this->profilePanel->ResumeLayout(false);
 			this->profilePanel->PerformLayout();
-			this->addContactPanel->ResumeLayout(false);
-			this->addContactPanel->PerformLayout();
 			this->navPanel->ResumeLayout(false);
 			this->addStoryPanel->ResumeLayout(false);
 			this->addStoryPanel->PerformLayout();
@@ -1758,7 +1759,7 @@ private: System::ComponentModel::IContainer^ components;
 
 		private: System::Void GuiForm_Load(System::Object^ sender, System::EventArgs^ e) {
 			
-			loadFromFile(users, chatRooms, messages);
+			loadFromFile(users, chatRooms, messages,stories,contacts);
 
 			//cout << "messages size: " << chatRooms[1].messagesID.size() << endl;
 			//for (int i : chatRooms[1].messagesID) {
@@ -1900,7 +1901,7 @@ private: System::ComponentModel::IContainer^ components;
 			pictureBox2->Image = nullptr;
 		}
 		
-		
+		//todo signin button
 		private: System::Void button8_Click(System::Object^ sender, System::EventArgs^ e) {
 			if (passTxt->Text->Length < 6)
 			{
@@ -1926,12 +1927,24 @@ private: System::ComponentModel::IContainer^ components;
 				passTxt->Clear();
 				headerContainer->Visible = false;
 
+				//todo get the current user from the map
 				currentUser = &users[mobileNumber];
-
-				if (currentUser->getStoriesID().size() > 0) {
-					createUserStoryPanel();
+				//todo get all the stories of the user and his freinds when sign in
+				if (!storiesShown) {
+					if (currentUser->getStoriesID().size() > 0) {
+						createUserStoryPanel(*currentUser);
+					}
+					map<string, string> friendsContacts = currentUser->getContactsPhones();
+					for (auto contact : friendsContacts) {
+						User freind = users.at(contact.first);
+						if (freind.getStoriesID().size() > 0) {
+							createUserStoryPanel(freind);
+						}
+					}
+					storiesShown ++;
 				}
-
+				
+				//todo end of the point
 				messagesFlowPanelsContainer->Controls->Clear();
 				contactsPanel->Controls->Clear();
 
@@ -1963,6 +1976,16 @@ private: System::ComponentModel::IContainer^ components;
 
 				sortChatRooms(*currentUser, Activity, chatRooms, contactsPanel, messages);
 				mainPanel->BringToFront();
+
+
+
+
+
+
+
+
+
+
 			}
 	
 		}
@@ -1973,10 +1996,14 @@ private: System::ComponentModel::IContainer^ components;
 		}
 			   
 		private: System::Void GuiForm_FormClosed(System::Object^ sender, System::Windows::Forms::FormClosedEventArgs^ e) {
-			/*stories.clear();
-			currentUser->setStoriesID({});*/
-			//users[currentUser->getMobileNumber()] = *currentUser;
-			saveToFile(users, chatRooms, messages);
+		
+			/*users.clear();
+			chatRooms.clear();
+			messages.clear();
+			contacts.clear();
+			stories.clear();*/
+
+			saveToFile(users, chatRooms, messages,stories,contacts);
 		}
 			   //?/shehab
 		private: System::Void chatButton_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -2022,7 +2049,7 @@ private: System::ComponentModel::IContainer^ components;
 			}
 
 		}
-		private: System::Void createStory() {
+		private: System::Void createStory(User&currentUser) {
 			// Create story 
 			time_t publishTime = time(0);
 			std::string textStoryString = msclr::interop::marshal_as<std::string>(textStory->Text);
@@ -2034,7 +2061,7 @@ private: System::ComponentModel::IContainer^ components;
 
 			// Default font settings
 			string fontName = "Arial";
-			float fontSize = 12.0f;
+			float fontSize = 24.0f;
 			int fontStyleAsInt = 0;
 
 			// Check if fontDialog is not null before accessing its properties
@@ -2054,15 +2081,18 @@ private: System::ComponentModel::IContainer^ components;
 
 			// Create the story
 			Story* story = new Story(textStoryString, publishTime, "", fontName, fontSize, fontStyleAsInt, colorHex);
-			currentUser->getStoriesID().insert(story->getStoryID());
-			cout << "if the story added: " << bool(currentUser->addStoryID(story->getStoryID())) << endl;
+			currentUser.addStoryID(story->getStoryID());
+			cout << "if the story added: " << bool(currentUser.addStoryID(story->getStoryID())) << endl;
 			stories[story->getStoryID()] = *story;
 			cout << "the storyID in the map: " << stories[story->getStoryID()].getStoryID() << endl;
-			cout << "number of stories is: " << currentUser->getStoriesID().size() << endl << endl;
+			cout << "number of stories is: " << currentUser.getStoriesID().size() << endl << endl;
 		}
-		
-		private: System::Void createUserStoryPanel() {
+		 
+			   //todo create story panle
+		private: System::Void createUserStoryPanel(User& currentUser) {
 			//? Define the PictureBox for the user story image
+			
+
 			//PictureBox^ pictureUserStoryPic = gcnew PictureBox();
 
 			////? Load the resources
@@ -2082,7 +2112,8 @@ private: System::ComponentModel::IContainer^ components;
 			//pictureUserStoryPic->Size = System::Drawing::Size(99, 97); // Adjust size as needed
 			//pictureUserStoryPic->TabIndex = 0;
 			//pictureUserStoryPic->TabStop = false;
-
+			
+			
 			//? name story panel
 			Label^ nameUserStoryLabel = gcnew Label();
 			nameUserStoryLabel->AutoSize = true;
@@ -2096,7 +2127,7 @@ private: System::ComponentModel::IContainer^ components;
 			nameUserStoryLabel->Name = L"nameUserStoryLabel";
 			nameUserStoryLabel->Size = System::Drawing::Size(101, 37);
 			nameUserStoryLabel->TabIndex = 1;
-			std::string fullName = currentUser->getFirstName() + " " + currentUser->getLastName();
+			std::string fullName = currentUser.getFirstName() + " " + currentUser.getLastName();
 			nameUserStoryLabel->Text = gcnew System::String(fullName.c_str());
 
 
@@ -2113,7 +2144,22 @@ private: System::ComponentModel::IContainer^ components;
 			DateUserStoryLabel->Name = L"DateUserStoryLabel";
 			DateUserStoryLabel->Size = System::Drawing::Size(50, 24);
 			DateUserStoryLabel->TabIndex = 2; 
-            DateUserStoryLabel->Text = gcnew String(DateTime::Now.ToString("hh:mm tt")); // Set the date format as needed
+
+			set<int>CurrentUserStoriesID = currentUser.getStoriesID();
+			if (CurrentUserStoriesID.size() > 0) {
+				auto lastStoryIDite = --CurrentUserStoriesID.end();
+				int lastStoryID = *lastStoryIDite;
+				time_t publucshtime = stories[lastStoryID].getPublishTime();
+				string date = formatTimeToHHMM(publucshtime); //? format the date to string
+				DateUserStoryLabel->Text = gcnew String(date.c_str()); // Set the date format as needed
+			}
+			else {
+				DateUserStoryLabel->Text = DateTime::Now.ToString("HH-mm");
+				
+			}
+			
+			
+
 			// Set the date format as needed
 
 			//? Set up the user story panel
@@ -2125,7 +2171,8 @@ private: System::ComponentModel::IContainer^ components;
 			userStoryPanel->Name = L"userStoryPanel";
 			userStoryPanel->Size = System::Drawing::Size(1249, 97);
 			userStoryPanel->TabIndex = 0;
-
+			//? tag the user
+			userStoryPanel->Tag = gcnew System::String(currentUser.getMobileNumber().c_str());
 			//? Add click event handler to the user story panel
 			userStoryPanel->Click += gcnew System::EventHandler(this, &GuiForm::userStoryPanel_Click);
 
@@ -2135,13 +2182,26 @@ private: System::ComponentModel::IContainer^ components;
 
 
 			   //todo                      CURRENT POINT
+			   //todo click on the story panel to show stories 
 		private: System::Void userStoryPanel_Click(System::Object^ sender, System::EventArgs^ e) {
 			//? Handle the logic of the click event here
+			 
+			//? Cast sender to Panel
+			Panel^ clickedPanel = dynamic_cast<Panel^>(sender);
+			if (clickedPanel == nullptr) return;
+
+			//? Get the mobile number from the Tag
+			System::String^ mobileStr = dynamic_cast<System::String^>(clickedPanel->Tag);
+			if (mobileStr == nullptr) return;
+
+			std::string mobileNumber = msclr::interop::marshal_as<std::string>(mobileStr);
+			//? get the current user of the panel cliked
+			User CurrentUser = users[mobileNumber];
 
 			//? get the all info of the user (name + stories)
-			string name = currentUser->getFirstName() + " " + currentUser->getLastName();
+			string name = CurrentUser.getFirstName() + " " + CurrentUser.getLastName();
 			nameInStoryLabel->Text = gcnew System::String(name.c_str());
-			storiesIDTemp = currentUser->getStoriesID();
+			storiesIDTemp = CurrentUser.getStoriesID();
 
 			// Make sure we have stories to show
 			if (storiesIDTemp.size() == 0) {
@@ -2189,6 +2249,8 @@ private: System::ComponentModel::IContainer^ components;
 			storiesIDTemp.erase(begin);
 		}
 			   //todo				END OF THE CURRENT POINT
+
+			   //todo create story in gui > 
 		private: System::Void button4_Click(System::Object^ sender, System::EventArgs^ e) {
 			string textStoryString = msclr::interop::marshal_as<std::string>(textStory->Text);
 			if (textStoryString =="") {
@@ -2197,9 +2259,9 @@ private: System::ComponentModel::IContainer^ components;
 			}
 			cout << "the number of the stories: " << currentUser->getStoriesID().size()<<" for "<<currentUser->getFirstName() << endl;
 			if (currentUser->getStoriesID().size()==0) {
-				createUserStoryPanel();
+				createUserStoryPanel(*currentUser);
 			}
-			createStory();
+			createStory(*currentUser);
 			addStoryPanel->BringToFront();
 			mainPanel->BringToFront();
 
@@ -2242,7 +2304,7 @@ private: System::ComponentModel::IContainer^ components;
 			}
 			
 		}
-
+			   
 		private: System::Void addContact_btn_Click(System::Object^ sender, System::EventArgs^ e) {
 			string contNum = msclr::interop::marshal_as<std::string>(addContNum_field->Text);
 			addContName_field->Visible = false;
@@ -2368,13 +2430,14 @@ private: System::ComponentModel::IContainer^ components;
 		}
 
 		//? shehab
+			   //todo story timer
 		private: System::Void storyTimerTemp_Tick(System::Object^ sender, System::EventArgs^ e) {
-			// First stop the progress bar timer to prevent any further updates
+			//! First stop the progress bar timer to prevent any further updates
 			storyProgressBarTimer->Stop();
 
 			//? show the stories temporarily
 			if (storiesIDTemp.size() > 0) {
-				// Reset progress bar
+				//! Reset progress bar
 				storyProgressBar->Value = 0;
 
 				auto begin = storiesIDTemp.begin();
@@ -2399,13 +2462,13 @@ private: System::ComponentModel::IContainer^ components;
 				bodyOfTheStoryPanel->BackColor = storyColorTemp;
 				bodyOfTheStoryLabel->Font = fontStoryTemp;
 
-				// Start the progress bar timer AFTER setting up the new story
+				//! Start the progress bar timer AFTER setting up the new story
 				storyProgressBarTimer->Start();
 
 				storiesIDTemp.erase(begin);
 			}
 			else {
-				// No more stories, clean up
+				//! No more stories, clean up
 				storyTimerTemp->Stop();
 				storyProgressBar->Value = 0;
 				storyProgressBarTimer->Stop();
@@ -2424,6 +2487,7 @@ private: System::ComponentModel::IContainer^ components;
 	
 	/*private: System::Void progressBar1_Click(System::Object^ sender, System::EventArgs^ e) {
 	}*/
+		//todo story progess bar
 	    private: System::Void storyProgressBarTimer_Tick(System::Object^ sender, System::EventArgs^ e) {
 	  	   // Increment the progress bar
 	  	   if (storyProgressBar->Value < storyProgressBar->Maximum) {
