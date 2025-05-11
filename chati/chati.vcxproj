@@ -144,6 +144,7 @@
     <ClCompile Include="SaveLoadFiles.cpp" />
     <ClCompile Include="Signing.cpp" />
     <ClCompile Include="Story.cpp" />
+    <ClCompile Include="StoryHandler.cpp" />
     <ClCompile Include="StoryStyleHelper.cpp" />
     <ClCompile Include="User.cpp" />
   </ItemGroup>
