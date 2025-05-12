@@ -222,6 +222,7 @@ static void saveToFile(
 		int x;
 
 		x = m.getMessageID();
+		cout << "Message ID to write: " << x << endl;
 		out.write(reinterpret_cast<const char*>(&x), sizeof(x));
 		x = m.getChatID();
 		out.write(reinterpret_cast<const char*>(&x), sizeof(x));
@@ -235,7 +236,7 @@ static void saveToFile(
 		x = m.getSecondSent();
 		out.write(reinterpret_cast<const char*>(&x), sizeof(x));
 		x = m.getIsRead();
-		out.write(reinterpret_cast<const char*>(&x), sizeof(x));
+		out.write(reinterpret_cast<const char*>(&x), sizeof(&x));
 	}
 	out.close();
 
@@ -387,6 +388,7 @@ static void loadFromFile(
 		int x;
 
 		in.read(reinterpret_cast<char*>(&x), sizeof(x));
+		cout << "Message ID From Read: " << x << endl;
 		m.setMessageID(x);
 		in.read(reinterpret_cast<char*>(&x), sizeof(x));
 		m.setChatID(x);
@@ -398,7 +400,7 @@ static void loadFromFile(
 		in.read(reinterpret_cast<char*>(&x), sizeof(x)); m.setMinuteSent(x);
 		in.read(reinterpret_cast<char*>(&x), sizeof(x)); m.setSecondSent(x);
 		bool isRead;
-		in.read(reinterpret_cast<char*>(&isRead), sizeof(isRead));
+		in.read(reinterpret_cast<char*>(&isRead), sizeof(&isRead));
 		m.setIsRead(isRead);
 
 		messages[m.getMessageID()] = m;

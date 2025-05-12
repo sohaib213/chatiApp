@@ -102,6 +102,20 @@ void chati::LinkedList::updateMessagesSeen(unordered_map<int, Message>& messages
 	lastSeenMessage = head;
 }
 
+void chati::LinkedList::clear() {
+	Node* current = head;
+	while (current != nullptr) {
+		Node* nextNode = current->next;
+		delete current;
+		current = nextNode;
+	}
+	head = nullptr;
+	tail = nullptr;
+	lastSeenMessage = nullptr;
+	count = 0;
+}
+
+
 
 bool chati::LinkedList::empty() const {
 	return head == nullptr;

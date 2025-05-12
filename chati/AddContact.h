@@ -3,6 +3,7 @@
 #include <map>
 #include "User.h"
 #include <iostream>
+#include "ChatRoom.h"
 
 using namespace std;
 
@@ -14,5 +15,5 @@ using namespace std;
 
  bool addCont(User& user, string contactName, string contNumber);
 
-
+ bool checkMemberExist(string, ChatRoom*);
 

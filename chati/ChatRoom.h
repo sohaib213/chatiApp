@@ -50,6 +50,7 @@ public:
 	void addMessageIDInFiles(int messageID);
 	void deleteUserPhone(string userID);
 	void deleteMessageID(int messageID);
+    void clearMessages();
 
     static void incrementChatRoomsCounter();
 

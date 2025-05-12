@@ -65,3 +65,7 @@ bool ChatRoom::hasUser(string userPhone) const {
 void ChatRoom::incrementChatRoomsCounter() {
 	chatRoomCounter++; // Increment the message counter
 }
+
+void ChatRoom::clearMessages() {
+	this->messagesID.clear();
+}

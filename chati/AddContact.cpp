@@ -1,6 +1,5 @@
 #include <string>
 #include <unordered_map>
-#include "User.h"
 #include <iostream>
 #include "AddContact.h"
 
@@ -28,7 +27,15 @@ using namespace std;
 	return false;
  }
 
+
  bool addCont(User& user, string contactName,string contNumber) {
 	return user.addContactPhone(contNumber, contactName);
  }
 
+ bool checkMemberExist(string contNumber, ChatRoom* c) {
+	 for (auto userPhone : c->getUsersID()) {
+		 if (userPhone == contNumber)
+			 return true;
+	 }
+	 return false;
+ }

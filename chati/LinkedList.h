@@ -29,7 +29,8 @@ namespace chati {
 		void push_back(int);  
 		void push_front(int);  
 		void updateMessagesSeen(unordered_map<int, chati::Message>&, User*);
-		bool empty() const;  
+		bool empty() const;
+		void clear();
 
 		Node* begin() const { return head; }  
 		Node* end() const { return nullptr; }

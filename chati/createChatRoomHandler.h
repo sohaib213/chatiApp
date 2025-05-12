@@ -308,11 +308,17 @@ public:
 		PictureBox^ chatRoomPicture = dynamic_cast<PictureBox^>(headerContainer->Controls["chatPicture"]);
 		PictureBox^ addMemPic = dynamic_cast<PictureBox^>(headerContainer->Controls["addMemPicBox"]);
 		PictureBox^ removeMemPic = dynamic_cast<PictureBox^>(headerContainer->Controls["removeMemPicBox"]);
+		Label^ addMemberLabel = dynamic_cast<Label^>(headerContainer->Controls["addMemberLabel"]);
+		Label^ removeMemLabel = dynamic_cast<Label^>(headerContainer->Controls["removeMemberLabel"]);
+
+
 		Label^ chatRoomNameLabel = dynamic_cast<Label^>(headerContainer->Controls["chatName"]);
 		if (chatRoomPicture != nullptr) {
 			if ((*currentChatRoom)->getIsDual()) {
 				addMemPic->Visible = false;
 				removeMemPic->Visible = false;
+				addMemberLabel->Visible = false;
+				removeMemLabel->Visible = false;
 				User* otherUser;
 				if ((*currentChatRoom)->getUsersID()[0] == (*currentUser)->getMobileNumber()) {
 
@@ -339,6 +345,8 @@ public:
 				String^ groupPhoto = Path::Combine(imagesFolder, gcnew String((*currentChatRoom)->getGroupPhoto().c_str()));
 				addMemPic->Visible = true;
 				removeMemPic->Visible = true;
+				addMemberLabel->Visible = true;
+				removeMemLabel->Visible = true;
 				chatRoomPicture->Image = Image::FromFile(groupPhoto);
 				chatRoomNameLabel->Text = gcnew String((*currentChatRoom)->getGroupName().c_str());
 
@@ -346,6 +354,8 @@ public:
 			else {
 				addMemPic->Visible = false;
 				removeMemPic->Visible = false;
+				addMemberLabel->Visible = false;
+				removeMemLabel->Visible = false;
 				String^ groupPhoto = Path::Combine(imagesFolder, gcnew String((*currentChatRoom)->getGroupPhoto().c_str()));
 				chatRoomPicture->Image = Image::FromFile(groupPhoto);
 				chatRoomNameLabel->Text = gcnew String((*currentChatRoom)->getGroupName().c_str());
