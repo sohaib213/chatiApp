@@ -169,6 +169,19 @@ namespace chati {
 	private: System::Windows::Forms::Panel^ footerContainer;
 	private: System::Windows::Forms::RichTextBox^ textBox1;
 	private: System::Windows::Forms::Button^ sendButton;
+private: System::Windows::Forms::PictureBox^ removeMemPicBox;
+private: System::Windows::Forms::Panel^ removeMemberPnl;
+private: System::Windows::Forms::Button^ removeBtn;
+private: System::Windows::Forms::CheckedListBox^ GroupMem;
+private: System::Windows::Forms::Label^ RemoveMem;
+
+
+
+
+
+
+
+
 
 
 
@@ -390,11 +403,25 @@ private: System::ComponentModel::IContainer^ components;
 			this->signUpBackGround = (gcnew System::Windows::Forms::PictureBox());
 			this->passTxt = (gcnew System::Windows::Forms::TextBox());
 			this->mainPanel = (gcnew System::Windows::Forms::Panel());
+			this->removeMemberPnl = (gcnew System::Windows::Forms::Panel());
+			this->RemoveMem = (gcnew System::Windows::Forms::Label());
+			this->removeBtn = (gcnew System::Windows::Forms::Button());
+			this->GroupMem = (gcnew System::Windows::Forms::CheckedListBox());
+			this->addGroup = (gcnew System::Windows::Forms::Panel());
+			this->groupImgBut = (gcnew System::Windows::Forms::Button());
+			this->groupImgPicBox = (gcnew System::Windows::Forms::PictureBox());
+			this->label6 = (gcnew System::Windows::Forms::Label());
+			this->usersListBox = (gcnew System::Windows::Forms::CheckedListBox());
+			this->label8 = (gcnew System::Windows::Forms::Label());
+			this->groupNameTxt = (gcnew System::Windows::Forms::TextBox());
+			this->label7 = (gcnew System::Windows::Forms::Label());
+			this->addBtn = (gcnew System::Windows::Forms::Button());
 			this->chatPnl = (gcnew System::Windows::Forms::Panel());
 			this->currentCahtPanel = (gcnew System::Windows::Forms::Panel());
 			this->chatsContainer = (gcnew System::Windows::Forms::Panel());
 			this->messagesFlowPanelsContainer = (gcnew System::Windows::Forms::Panel());
 			this->headerContainer = (gcnew System::Windows::Forms::Panel());
+			this->removeMemPicBox = (gcnew System::Windows::Forms::PictureBox());
 			this->addMemPicBox = (gcnew System::Windows::Forms::PictureBox());
 			this->chatName = (gcnew System::Windows::Forms::Label());
 			this->chatPicture = (gcnew System::Windows::Forms::PictureBox());
@@ -430,15 +457,6 @@ private: System::ComponentModel::IContainer^ components;
 			this->memNumLbl = (gcnew System::Windows::Forms::Label());
 			this->memNameLbl = (gcnew System::Windows::Forms::Label());
 			this->label18 = (gcnew System::Windows::Forms::Label());
-			this->addGroup = (gcnew System::Windows::Forms::Panel());
-			this->groupImgBut = (gcnew System::Windows::Forms::Button());
-			this->groupImgPicBox = (gcnew System::Windows::Forms::PictureBox());
-			this->label6 = (gcnew System::Windows::Forms::Label());
-			this->usersListBox = (gcnew System::Windows::Forms::CheckedListBox());
-			this->label8 = (gcnew System::Windows::Forms::Label());
-			this->groupNameTxt = (gcnew System::Windows::Forms::TextBox());
-			this->label7 = (gcnew System::Windows::Forms::Label());
-			this->addBtn = (gcnew System::Windows::Forms::Button());
 			this->navPanel = (gcnew System::Windows::Forms::Panel());
 			this->button7 = (gcnew System::Windows::Forms::Button());
 			this->chatButton = (gcnew System::Windows::Forms::Button());
@@ -479,10 +497,14 @@ private: System::ComponentModel::IContainer^ components;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->signUpBackGround))->BeginInit();
 			this->mainPanel->SuspendLayout();
+			this->removeMemberPnl->SuspendLayout();
+			this->addGroup->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->groupImgPicBox))->BeginInit();
 			this->chatPnl->SuspendLayout();
 			this->currentCahtPanel->SuspendLayout();
 			this->chatsContainer->SuspendLayout();
 			this->headerContainer->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->removeMemPicBox))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->addMemPicBox))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chatPicture))->BeginInit();
 			this->footerContainer->SuspendLayout();
@@ -493,8 +515,6 @@ private: System::ComponentModel::IContainer^ components;
 			this->profilePanel->SuspendLayout();
 			this->addContactPanel->SuspendLayout();
 			this->addMemberPnl->SuspendLayout();
-			this->addGroup->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->groupImgPicBox))->BeginInit();
 			this->navPanel->SuspendLayout();
 			this->addStoryPanel->SuspendLayout();
 			this->getStoryPanel->SuspendLayout();
@@ -704,18 +724,181 @@ private: System::ComponentModel::IContainer^ components;
 			// mainPanel
 			// 
 			this->mainPanel->BackColor = System::Drawing::Color::White;
+			this->mainPanel->Controls->Add(this->removeMemberPnl);
+			this->mainPanel->Controls->Add(this->addGroup);
 			this->mainPanel->Controls->Add(this->chatPnl);
 			this->mainPanel->Controls->Add(this->storyPanel);
 			this->mainPanel->Controls->Add(this->profilePanel);
 			this->mainPanel->Controls->Add(this->addContactPanel);
 			this->mainPanel->Controls->Add(this->addMemberPnl);
-			this->mainPanel->Controls->Add(this->addGroup);
 			this->mainPanel->Controls->Add(this->navPanel);
 			this->mainPanel->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->mainPanel->Location = System::Drawing::Point(0, 0);
 			this->mainPanel->Name = L"mainPanel";
 			this->mainPanel->Size = System::Drawing::Size(1904, 1041);
 			this->mainPanel->TabIndex = 3;
+			// 
+			// removeMemberPnl
+			// 
+			this->removeMemberPnl->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)),
+				static_cast<System::Int32>(static_cast<System::Byte>(45)));
+			this->removeMemberPnl->Controls->Add(this->RemoveMem);
+			this->removeMemberPnl->Controls->Add(this->removeBtn);
+			this->removeMemberPnl->Controls->Add(this->GroupMem);
+			this->removeMemberPnl->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->removeMemberPnl->Location = System::Drawing::Point(87, 0);
+			this->removeMemberPnl->Name = L"removeMemberPnl";
+			this->removeMemberPnl->Size = System::Drawing::Size(1817, 1041);
+			this->removeMemberPnl->TabIndex = 18;
+			// 
+			// RemoveMem
+			// 
+			this->RemoveMem->AutoSize = true;
+			this->RemoveMem->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 27.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->RemoveMem->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(192)), static_cast<System::Int32>(static_cast<System::Byte>(0)),
+				static_cast<System::Int32>(static_cast<System::Byte>(0)));
+			this->RemoveMem->Location = System::Drawing::Point(740, 309);
+			this->RemoveMem->Name = L"RemoveMem";
+			this->RemoveMem->Size = System::Drawing::Size(332, 42);
+			this->RemoveMem->TabIndex = 14;
+			this->RemoveMem->Text = L"Removing Member";
+			// 
+			// removeBtn
+			// 
+			this->removeBtn->BackColor = System::Drawing::Color::Red;
+			this->removeBtn->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->removeBtn->ForeColor = System::Drawing::Color::White;
+			this->removeBtn->Location = System::Drawing::Point(813, 635);
+			this->removeBtn->Name = L"removeBtn";
+			this->removeBtn->Size = System::Drawing::Size(193, 55);
+			this->removeBtn->TabIndex = 13;
+			this->removeBtn->Text = L"Remove Member";
+			this->removeBtn->UseVisualStyleBackColor = false;
+			this->removeBtn->Click += gcnew System::EventHandler(this, &GuiForm::removeBtn_Click);
+			// 
+			// GroupMem
+			// 
+			this->GroupMem->BackColor = System::Drawing::SystemColors::Window;
+			this->GroupMem->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->GroupMem->FormattingEnabled = true;
+			this->GroupMem->Location = System::Drawing::Point(745, 466);
+			this->GroupMem->Name = L"GroupMem";
+			this->GroupMem->Size = System::Drawing::Size(327, 108);
+			this->GroupMem->TabIndex = 12;
+			// 
+			// addGroup
+			// 
+			this->addGroup->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)),
+				static_cast<System::Int32>(static_cast<System::Byte>(45)));
+			this->addGroup->Controls->Add(this->groupImgBut);
+			this->addGroup->Controls->Add(this->groupImgPicBox);
+			this->addGroup->Controls->Add(this->label6);
+			this->addGroup->Controls->Add(this->usersListBox);
+			this->addGroup->Controls->Add(this->label8);
+			this->addGroup->Controls->Add(this->groupNameTxt);
+			this->addGroup->Controls->Add(this->label7);
+			this->addGroup->Controls->Add(this->addBtn);
+			this->addGroup->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->addGroup->Location = System::Drawing::Point(87, 0);
+			this->addGroup->Name = L"addGroup";
+			this->addGroup->Size = System::Drawing::Size(1817, 1041);
+			this->addGroup->TabIndex = 16;
+			// 
+			// groupImgBut
+			// 
+			this->groupImgBut->BackColor = System::Drawing::Color::Cyan;
+			this->groupImgBut->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
+			this->groupImgBut->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->groupImgBut->Location = System::Drawing::Point(1330, 533);
+			this->groupImgBut->Name = L"groupImgBut";
+			this->groupImgBut->Size = System::Drawing::Size(100, 35);
+			this->groupImgBut->TabIndex = 25;
+			this->groupImgBut->Text = L"Select image";
+			this->groupImgBut->UseVisualStyleBackColor = false;
+			this->groupImgBut->Click += gcnew System::EventHandler(this, &GuiForm::groupImgBut_Click);
+			// 
+			// groupImgPicBox
+			// 
+			this->groupImgPicBox->BackColor = System::Drawing::Color::Transparent;
+			this->groupImgPicBox->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"groupImgPicBox.Image")));
+			this->groupImgPicBox->Location = System::Drawing::Point(1309, 378);
+			this->groupImgPicBox->Name = L"groupImgPicBox";
+			this->groupImgPicBox->Size = System::Drawing::Size(142, 133);
+			this->groupImgPicBox->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
+			this->groupImgPicBox->TabIndex = 24;
+			this->groupImgPicBox->TabStop = false;
+			// 
+			// label6
+			// 
+			this->label6->AutoSize = true;
+			this->label6->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label6->ForeColor = System::Drawing::SystemColors::ActiveCaption;
+			this->label6->Location = System::Drawing::Point(735, 635);
+			this->label6->Name = L"label6";
+			this->label6->Size = System::Drawing::Size(304, 20);
+			this->label6->TabIndex = 12;
+			this->label6->Text = L"You don\'t have contacts yet\? Add contact";
+			this->label6->Click += gcnew System::EventHandler(this, &GuiForm::label6_Click);
+			// 
+			// usersListBox
+			// 
+			this->usersListBox->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->usersListBox->FormattingEnabled = true;
+			this->usersListBox->Location = System::Drawing::Point(725, 437);
+			this->usersListBox->Name = L"usersListBox";
+			this->usersListBox->Size = System::Drawing::Size(327, 108);
+			this->usersListBox->TabIndex = 11;
+			// 
+			// label8
+			// 
+			this->label8->AutoSize = true;
+			this->label8->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label8->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->label8->Location = System::Drawing::Point(720, 378);
+			this->label8->Name = L"label8";
+			this->label8->Size = System::Drawing::Size(139, 25);
+			this->label8->TabIndex = 10;
+			this->label8->Text = L"Group Name:";
+			// 
+			// groupNameTxt
+			// 
+			this->groupNameTxt->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->groupNameTxt->Location = System::Drawing::Point(886, 369);
+			this->groupNameTxt->Name = L"groupNameTxt";
+			this->groupNameTxt->Size = System::Drawing::Size(166, 38);
+			this->groupNameTxt->TabIndex = 9;
+			// 
+			// label7
+			// 
+			this->label7->AutoSize = true;
+			this->label7->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 18, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label7->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->label7->Location = System::Drawing::Point(828, 321);
+			this->label7->Name = L"label7";
+			this->label7->Size = System::Drawing::Size(129, 29);
+			this->label7->TabIndex = 7;
+			this->label7->Text = L"Add Group";
+			// 
+			// addBtn
+			// 
+			this->addBtn->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->addBtn->Location = System::Drawing::Point(811, 682);
+			this->addBtn->Name = L"addBtn";
+			this->addBtn->Size = System::Drawing::Size(147, 45);
+			this->addBtn->TabIndex = 1;
+			this->addBtn->Text = L"Create group";
+			this->addBtn->UseVisualStyleBackColor = true;
+			this->addBtn->Click += gcnew System::EventHandler(this, &GuiForm::addBtn_Click);
 			// 
 			// chatPnl
 			// 
@@ -763,6 +946,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->headerContainer->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(70)), static_cast<System::Int32>(static_cast<System::Byte>(70)),
 				static_cast<System::Int32>(static_cast<System::Byte>(70)));
+			this->headerContainer->Controls->Add(this->removeMemPicBox);
 			this->headerContainer->Controls->Add(this->addMemPicBox);
 			this->headerContainer->Controls->Add(this->chatName);
 			this->headerContainer->Controls->Add(this->chatPicture);
@@ -771,6 +955,17 @@ private: System::ComponentModel::IContainer^ components;
 			this->headerContainer->Name = L"headerContainer";
 			this->headerContainer->Size = System::Drawing::Size(1485, 102);
 			this->headerContainer->TabIndex = 0;
+			// 
+			// removeMemPicBox
+			// 
+			this->removeMemPicBox->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"removeMemPicBox.Image")));
+			this->removeMemPicBox->Location = System::Drawing::Point(1249, 13);
+			this->removeMemPicBox->Name = L"removeMemPicBox";
+			this->removeMemPicBox->Size = System::Drawing::Size(85, 68);
+			this->removeMemPicBox->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
+			this->removeMemPicBox->TabIndex = 3;
+			this->removeMemPicBox->TabStop = false;
+			this->removeMemPicBox->Click += gcnew System::EventHandler(this, &GuiForm::removeMemPicBox_Click);
 			// 
 			// addMemPicBox
 			// 
@@ -1157,117 +1352,6 @@ private: System::ComponentModel::IContainer^ components;
 			this->label18->Size = System::Drawing::Size(131, 24);
 			this->label18->TabIndex = 14;
 			this->label18->Text = L"Add member";
-			// 
-			// addGroup
-			// 
-			this->addGroup->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)),
-				static_cast<System::Int32>(static_cast<System::Byte>(45)));
-			this->addGroup->Controls->Add(this->groupImgBut);
-			this->addGroup->Controls->Add(this->groupImgPicBox);
-			this->addGroup->Controls->Add(this->label6);
-			this->addGroup->Controls->Add(this->usersListBox);
-			this->addGroup->Controls->Add(this->label8);
-			this->addGroup->Controls->Add(this->groupNameTxt);
-			this->addGroup->Controls->Add(this->label7);
-			this->addGroup->Controls->Add(this->addBtn);
-			this->addGroup->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->addGroup->Location = System::Drawing::Point(87, 0);
-			this->addGroup->Name = L"addGroup";
-			this->addGroup->Size = System::Drawing::Size(1817, 1041);
-			this->addGroup->TabIndex = 16;
-			// 
-			// groupImgBut
-			// 
-			this->groupImgBut->BackColor = System::Drawing::Color::Cyan;
-			this->groupImgBut->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
-			this->groupImgBut->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->groupImgBut->Location = System::Drawing::Point(1330, 533);
-			this->groupImgBut->Name = L"groupImgBut";
-			this->groupImgBut->Size = System::Drawing::Size(100, 35);
-			this->groupImgBut->TabIndex = 25;
-			this->groupImgBut->Text = L"Select image";
-			this->groupImgBut->UseVisualStyleBackColor = false;
-			this->groupImgBut->Click += gcnew System::EventHandler(this, &GuiForm::groupImgBut_Click);
-			// 
-			// groupImgPicBox
-			// 
-			this->groupImgPicBox->BackColor = System::Drawing::Color::Transparent;
-			this->groupImgPicBox->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"groupImgPicBox.Image")));
-			this->groupImgPicBox->Location = System::Drawing::Point(1309, 378);
-			this->groupImgPicBox->Name = L"groupImgPicBox";
-			this->groupImgPicBox->Size = System::Drawing::Size(142, 133);
-			this->groupImgPicBox->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
-			this->groupImgPicBox->TabIndex = 24;
-			this->groupImgPicBox->TabStop = false;
-			// 
-			// label6
-			// 
-			this->label6->AutoSize = true;
-			this->label6->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->label6->ForeColor = System::Drawing::SystemColors::ActiveCaption;
-			this->label6->Location = System::Drawing::Point(735, 635);
-			this->label6->Name = L"label6";
-			this->label6->Size = System::Drawing::Size(304, 20);
-			this->label6->TabIndex = 12;
-			this->label6->Text = L"You don\'t have contacts yet\? Add contact";
-			this->label6->Click += gcnew System::EventHandler(this, &GuiForm::label6_Click);
-			// 
-			// usersListBox
-			// 
-			this->usersListBox->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->usersListBox->FormattingEnabled = true;
-			this->usersListBox->Location = System::Drawing::Point(725, 437);
-			this->usersListBox->Name = L"usersListBox";
-			this->usersListBox->Size = System::Drawing::Size(327, 108);
-			this->usersListBox->TabIndex = 11;
-			// 
-			// label8
-			// 
-			this->label8->AutoSize = true;
-			this->label8->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->label8->ForeColor = System::Drawing::SystemColors::ControlLightLight;
-			this->label8->Location = System::Drawing::Point(720, 378);
-			this->label8->Name = L"label8";
-			this->label8->Size = System::Drawing::Size(139, 25);
-			this->label8->TabIndex = 10;
-			this->label8->Text = L"Group Name:";
-			// 
-			// groupNameTxt
-			// 
-			this->groupNameTxt->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->groupNameTxt->Location = System::Drawing::Point(886, 369);
-			this->groupNameTxt->Name = L"groupNameTxt";
-			this->groupNameTxt->Size = System::Drawing::Size(166, 38);
-			this->groupNameTxt->TabIndex = 9;
-			// 
-			// label7
-			// 
-			this->label7->AutoSize = true;
-			this->label7->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 18, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->label7->ForeColor = System::Drawing::SystemColors::ControlLightLight;
-			this->label7->Location = System::Drawing::Point(828, 321);
-			this->label7->Name = L"label7";
-			this->label7->Size = System::Drawing::Size(129, 29);
-			this->label7->TabIndex = 7;
-			this->label7->Text = L"Add Group";
-			// 
-			// addBtn
-			// 
-			this->addBtn->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->addBtn->Location = System::Drawing::Point(811, 682);
-			this->addBtn->Name = L"addBtn";
-			this->addBtn->Size = System::Drawing::Size(147, 45);
-			this->addBtn->TabIndex = 1;
-			this->addBtn->Text = L"Create group";
-			this->addBtn->UseVisualStyleBackColor = true;
-			this->addBtn->Click += gcnew System::EventHandler(this, &GuiForm::addBtn_Click);
 			// 
 			// navPanel
 			// 
@@ -1736,11 +1820,17 @@ private: System::ComponentModel::IContainer^ components;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->signUpBackGround))->EndInit();
 			this->mainPanel->ResumeLayout(false);
+			this->removeMemberPnl->ResumeLayout(false);
+			this->removeMemberPnl->PerformLayout();
+			this->addGroup->ResumeLayout(false);
+			this->addGroup->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->groupImgPicBox))->EndInit();
 			this->chatPnl->ResumeLayout(false);
 			this->currentCahtPanel->ResumeLayout(false);
 			this->chatsContainer->ResumeLayout(false);
 			this->headerContainer->ResumeLayout(false);
 			this->headerContainer->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->removeMemPicBox))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->addMemPicBox))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chatPicture))->EndInit();
 			this->footerContainer->ResumeLayout(false);
@@ -1756,9 +1846,6 @@ private: System::ComponentModel::IContainer^ components;
 			this->addContactPanel->PerformLayout();
 			this->addMemberPnl->ResumeLayout(false);
 			this->addMemberPnl->PerformLayout();
-			this->addGroup->ResumeLayout(false);
-			this->addGroup->PerformLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->groupImgPicBox))->EndInit();
 			this->navPanel->ResumeLayout(false);
 			this->addStoryPanel->ResumeLayout(false);
 			this->addStoryPanel->PerformLayout();
@@ -2626,6 +2713,30 @@ private: System::ComponentModel::IContainer^ components;
 			deleteStoriesAfterOneDay();
 		}
 
+		private: System::Void removeMemPicBox_Click(System::Object^ sender, System::EventArgs^ e) {
+			removeMemberPnl->BringToFront();
+			GroupMem->Items->Clear();
+			for (auto& members : currentChatRoom->getUsersID()) {
+				if (members == currentUser->getMobileNumber())
+					continue;
+				String^ number = gcnew String(members.c_str());
+				string name0 = users[members].getFirstName() + " " + users[members].getLastName();
+				String^ name = gcnew String(name0.c_str());
+				GroupMem->Items->Add(number + " (" + name + ")");
+			}
+		}
+
+		private: System::Void removeBtn_Click(System::Object^ sender, System::EventArgs^ e) {
+			//check if user did not check anythibg in listbox
+			if (GroupMem->SelectedItems->Count == 0) {
+				MessageBox::Show("Please select a member to remove", "Error");
+				return;
+			}
+			else {
+				chatRoomHandler.removeMember(currentChatRoom->getChatRoomID(), users, chatRooms,GroupMem);
+				chatPnl->BringToFront();
+			}
+		}
 	};
 
 };

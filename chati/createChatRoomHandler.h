@@ -307,10 +307,12 @@ public:
 		// Fix: Correctly access the groupName and ensure proper type handling  
 		PictureBox^ chatRoomPicture = dynamic_cast<PictureBox^>(headerContainer->Controls["chatPicture"]);
 		PictureBox^ addMemPic = dynamic_cast<PictureBox^>(headerContainer->Controls["addMemPicBox"]);
+		PictureBox^ removeMemPic = dynamic_cast<PictureBox^>(headerContainer->Controls["removeMemPicBox"]);
 		Label^ chatRoomNameLabel = dynamic_cast<Label^>(headerContainer->Controls["chatName"]);
 		if (chatRoomPicture != nullptr) {
 			if ((*currentChatRoom)->getIsDual()) {
 				addMemPic->Visible = false;
+				removeMemPic->Visible = false;
 				User* otherUser;
 				if ((*currentChatRoom)->getUsersID()[0] == (*currentUser)->getMobileNumber()) {
 
@@ -336,12 +338,14 @@ public:
 
 				String^ groupPhoto = Path::Combine(imagesFolder, gcnew String((*currentChatRoom)->getGroupPhoto().c_str()));
 				addMemPic->Visible = true;
+				removeMemPic->Visible = true;
 				chatRoomPicture->Image = Image::FromFile(groupPhoto);
 				chatRoomNameLabel->Text = gcnew String((*currentChatRoom)->getGroupName().c_str());
 
 			}
 			else {
 				addMemPic->Visible = false;
+				removeMemPic->Visible = false;
 				String^ groupPhoto = Path::Combine(imagesFolder, gcnew String((*currentChatRoom)->getGroupPhoto().c_str()));
 				chatRoomPicture->Image = Image::FromFile(groupPhoto);
 				chatRoomNameLabel->Text = gcnew String((*currentChatRoom)->getGroupName().c_str());
@@ -454,6 +458,24 @@ public:
 		chatRooms[chatRoomID].addUserPhone(memNum);
 		users[memNum].addChatRoomID(chatRoomID);
 	}
+	void removeMember(int chatRoomID, unordered_map<string, User>& users, unordered_map<int, ChatRoom>& chatRooms, CheckedListBox^ usersListBox) {
+		msclr::interop::marshal_context context;
+
+		for each (String ^ item in usersListBox->CheckedItems) {
+
+			int parenIndex = item->IndexOf(" ");
+			String^ phone = parenIndex > 0 ? item->Substring(0, parenIndex) : item;
+
+			string phoneStr = context.marshal_as<std::string>(phone);
+
+			chatRooms[chatRoomID].deleteUserPhone(phoneStr);
+			users[phoneStr].removeChatRoomID(chatRoomID);
+			
+		}
+		MessageBox::Show("Member removed successfully!", "Success");
+		usersListBox->Items->Clear();
+	}
+
 	FlowLayoutPanel^ createChatRoomGUI(int chatRoomID, Panel^ chatsContainer) {
 		FlowLayoutPanel^ chatRoomPanel = gcnew FlowLayoutPanel();
 		chatRoomPanel->Name = gcnew System::String(std::to_string(chatRoomID).c_str());
