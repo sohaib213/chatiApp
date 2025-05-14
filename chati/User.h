@@ -44,7 +44,7 @@ public:
     void setLastName(const string& lname);
     void setProfilePhoto(const string& photo);
     void setAbout(const string& about);
-    void setVisible(bool vis);
+    void setVisible(const bool& vis);
     void setContactsPhones(const map<string, string>& contacts);
     void setStoriesID(const set<int>& stories);
     void setChatRoomsID(const set<int>& chatRooms);

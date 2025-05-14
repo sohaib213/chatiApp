@@ -30,7 +30,7 @@ public:
 	unordered_map<int, ChatRoom>* chatRooms;
 	Panel^ messagesFlowPanelsContainer;
 
-	User** currentUser;
+	User** currentUser, ** otherUser;
 	unordered_map<string, User>* users;
 	unordered_map<int, long long>* activity;
 	unordered_map<int, chati::Message>* messages;
@@ -54,8 +54,13 @@ public:
 				otherUser = &(*users)[chatRoom->getUsersID()[0]];
 
 			string otherUserPhone = otherUser->getMobileNumber();
-			string photoName = (*users)[otherUserPhone].getProfilePhoto();
-			imagePath = Path::Combine(imagesFolder, gcnew String(photoName.c_str()));
+			if (otherUser->getVisible() || chatRoom->getIsDual() && otherUser->getContactsPhones().count((*currentUser)->getMobileNumber()) > 0)
+			{
+				string photoName = (*users)[otherUserPhone].getProfilePhoto();
+				imagePath = Path::Combine(imagesFolder, gcnew String(photoName.c_str()));
+			}
+			else
+				imagePath = Path::Combine(imagesFolder, "User.png");
 		}
 		else {
 			// For group chat, get group image
@@ -125,7 +130,6 @@ public:
 		int chatRoomID;
 		if (s == "PictureBox")
 		{
-			cout << "Enter PictureBox" << endl;
 			PictureBox^ pictureBox = dynamic_cast<PictureBox^>(sender);
 			panelButton = dynamic_cast<Button^>(pictureBox->Parent);
 
@@ -136,7 +140,6 @@ public:
 		}
 
 		if (panelButton != nullptr) {
-			cout << "Change Color" << endl;
 			panelButton->BackColor = Color::FromArgb(80, 80, 80);
 		}
 	}
@@ -319,23 +322,23 @@ public:
 				removeMemPic->Visible = false;
 				addMemberLabel->Visible = false;
 				removeMemLabel->Visible = false;
-				User* otherUser;
+
 				if ((*currentChatRoom)->getUsersID()[0] == (*currentUser)->getMobileNumber()) {
 
-					otherUser = &(*users)[(*currentChatRoom)->getUsersID()[1]];
-					chatRoomNameLabel->Text = gcnew String((*currentUser)->getContactsPhones()[otherUser->getMobileNumber()].c_str());
+					*otherUser = &(*users)[(*currentChatRoom)->getUsersID()[1]];
+					chatRoomNameLabel->Text = gcnew String((*currentUser)->getContactsPhones()[(*otherUser)->getMobileNumber()].c_str());
 
 				}
 				else {
-					otherUser = &(*users)[(*currentChatRoom)->getUsersID()[0]];
-					chatRoomNameLabel->Text = gcnew String((otherUser->getFirstName() + ' ' + otherUser->getLastName()).c_str());
+					*otherUser = &(*users)[(*currentChatRoom)->getUsersID()[0]];
+					chatRoomNameLabel->Text = gcnew String(((*otherUser)->getFirstName() + ' ' + (*otherUser)->getLastName()).c_str());
 				}
-				String^ destinationPath = Path::Combine(imagesFolder, gcnew String(otherUser->getProfilePhoto().c_str()));
-				if (File::Exists(destinationPath)) {
+				String^ destinationPath = Path::Combine(imagesFolder, gcnew String((*otherUser)->getProfilePhoto().c_str()));
+				if ((*otherUser)->getVisible() || (*currentChatRoom)->getIsDual() && (*otherUser)->getContactsPhones().count((*currentUser)->getMobileNumber()) > 0) {
 					chatRoomPicture->Image = Image::FromFile(destinationPath);
 				}
 				else {
-					chatRoomPicture->Image = Image::FromFile(Path::Combine(projectRoot, "defaultProfile.png"));
+					chatRoomPicture->Image = Image::FromFile(Path::Combine(imagesFolder, "User.png"));
 				}
 
 
@@ -371,6 +374,15 @@ public:
 		headerContainer->Visible = true;
 
 		(*currentChatRoom)->getMessagesID().updateMessagesSeen(*messages, *currentUser);
+
+		if((*currentChatRoom)->getIsDual())
+		{
+			if ((*currentChatRoom)->getUsersID()[0] == (*currentUser)->getMobileNumber()) {
+				*otherUser = &((*users)[(*currentChatRoom)->getUsersID()[1]]);
+			}
+			else
+				*otherUser = &((*users)[(*currentChatRoom)->getUsersID()[0]]);
+		}
 	}
 
 
@@ -381,7 +393,6 @@ public:
 
 
 		addCont(*currentUser, contName, contNum);
-		addCont(users[contNum], currentUser->getFirstName() + currentUser->getLastName(), currentUser->getMobileNumber());
 		addContName_field->Clear();
 		addContNum_field->Clear();
 		MessageBox::Show("Contact added", "Success");
@@ -443,10 +454,8 @@ public:
 			string phoneStr = context.marshal_as<std::string>(phone);
 
 			if (users.find(phoneStr) != users.end()) {
-				cout << "chatRoomId:" << users[phoneStr].getChatRoomsID().size() << endl;
 				chatRoom->addUserPhone(phoneStr);
 				users[phoneStr].addChatRoomID(chatRoomID);
-				cout << "chatRoomId:" << users[phoneStr].getChatRoomsID().size() << endl;
 			}
 			else {
 				MessageBox::Show("User with phone " + phone + " not found", "Error");

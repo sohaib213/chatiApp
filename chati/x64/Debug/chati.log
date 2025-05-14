@@ -17,10 +17,10 @@ C:\Programms\chati\chati\SaveLoadFiles.cpp(118,19): warning C4267: 'initializing
 C:\Programms\chati\chati\SaveLoadFiles.cpp(161,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'GuiForm.cpp')
   
-C:\Programms\chati\chati\SaveLoadFiles.cpp(184,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Programms\chati\chati\SaveLoadFiles.cpp(185,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'GuiForm.cpp')
   
-C:\Programms\chati\chati\SaveLoadFiles.cpp(217,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Programms\chati\chati\SaveLoadFiles.cpp(218,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'GuiForm.cpp')
   
 C:\Programms\chati\chati\SaveLoadFiles.cpp(246,17): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
@@ -35,16 +35,16 @@ C:\Programms\chati\chati\SaveLoadFiles.cpp(153,6): warning C4996: 'freopen': Thi
 C:\Programms\chati\chati\SaveLoadFiles.cpp(297,2): warning C4996: 'freopen': This function or variable may be unsafe. Consider using freopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   (compiling source file 'GuiForm.cpp')
   
-C:\Programms\chati\chati\MessageHandler.h(67,26): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Programms\chati\chati\MessageHandler.h(83,26): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   (compiling source file 'GuiForm.cpp')
   
-C:\Programms\chati\chati\createChatRoomHandler.h(125,7): warning C4101: 'chatRoomID': unreferenced local variable
+C:\Programms\chati\chati\createChatRoomHandler.h(130,7): warning C4101: 'chatRoomID': unreferenced local variable
   (compiling source file 'GuiForm.cpp')
   
-C:\Programms\chati\chati\createChatRoomHandler.h(149,7): warning C4101: 'chatRoomID': unreferenced local variable
+C:\Programms\chati\chati\createChatRoomHandler.h(152,7): warning C4101: 'chatRoomID': unreferenced local variable
   (compiling source file 'GuiForm.cpp')
   
-C:\Programms\chati\chati\GuiForm.h(2754,29): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Programms\chati\chati\GuiForm.h(2795,29): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   (compiling source file 'GuiForm.cpp')
   
   LinkedList.cpp
@@ -55,8 +55,8 @@ C:\Programms\chati\chati\SaveLoadFiles.cpp(80,19): warning C4267: 'initializing'
 C:\Programms\chati\chati\SaveLoadFiles.cpp(99,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 C:\Programms\chati\chati\SaveLoadFiles.cpp(118,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 C:\Programms\chati\chati\SaveLoadFiles.cpp(161,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Programms\chati\chati\SaveLoadFiles.cpp(184,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Programms\chati\chati\SaveLoadFiles.cpp(217,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Programms\chati\chati\SaveLoadFiles.cpp(185,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Programms\chati\chati\SaveLoadFiles.cpp(218,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 C:\Programms\chati\chati\SaveLoadFiles.cpp(246,17): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 C:\Programms\chati\chati\SaveLoadFiles.cpp(275,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 C:\Programms\chati\chati\SaveLoadFiles.cpp(153,6): warning C4996: 'freopen': This function or variable may be unsafe. Consider using freopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.

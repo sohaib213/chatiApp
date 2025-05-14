@@ -17,12 +17,14 @@ Assembly System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c5619
 Class MessageHandler: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
+    std.unordered_map<std::basic_string<char\,std::char_traits<char>\,std::allocator<char> >\,User\,std::hash<std::basic_string<char\,std::char_traits<char>\,std::allocator<char> > >\,std::equal_to<std::basic_string<char\,std::char_traits<char>\,std::allocator<char> > >\,std::allocator<std::pair<std::basic_string<char\,std::char_traits<char>\,std::allocator<char> > const \,User> > >* users : Public
     std.unordered_map<int\,chati::Message\,std::hash<int>\,std::equal_to<int>\,std::allocator<std::pair<int const \,chati::Message> > >* globalMessages : Public
     ChatRoom** globalChatRoom : Public
     Int32 messageIDToDelete : Public
     System.Windows.Forms.Panel panelToDelete : Public
     System.Windows.Forms.Panel messagesContainer : Public
-    User* currentUser : Public
+    User** currentUser : Public
+    User** otherUser : Public
     System.String projectRoot : Public
     System.String iconsFolder : Public
   Methods:
@@ -33,6 +35,9 @@ Class MessageHandler: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     messageRightClick(Object, MouseEventArgs): PrivateScope, Public, HideBySig
     messageOptions(Panel, Label, FlowLayoutPanel): PrivateScope, Public, HideBySig
     deleteMessage(Object, EventArgs): PrivateScope, Public, HideBySig
+    addConfirmContact(FlowLayoutPanel): PrivateScope, Public, HideBySig
+    OkButtonClicked(Object, EventArgs): PrivateScope, Public, HideBySig
+    NoButtonClicked(Object, EventArgs): PrivateScope, Public, HideBySig
 Class createChatRoomHandler: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
@@ -41,6 +46,7 @@ Class createChatRoomHandler: AutoLayout, AnsiClass, Class, Public, BeforeFieldIn
     std.unordered_map<int\,ChatRoom\,std::hash<int>\,std::equal_to<int>\,std::allocator<std::pair<int const \,ChatRoom> > >* chatRooms : Public
     System.Windows.Forms.Panel messagesFlowPanelsContainer : Public
     User** currentUser : Public
+    User** otherUser : Public
     std.unordered_map<std::basic_string<char\,std::char_traits<char>\,std::allocator<char> >\,User\,std::hash<std::basic_string<char\,std::char_traits<char>\,std::allocator<char> > >\,std::equal_to<std::basic_string<char\,std::char_traits<char>\,std::allocator<char> > >\,std::allocator<std::pair<std::basic_string<char\,std::char_traits<char>\,std::allocator<char> > const \,User> > >* users : Public
     std.unordered_map<int\,__int64\,std::hash<int>\,std::equal_to<int>\,std::allocator<std::pair<int const \,__int64> > >* activity : Public
     std.unordered_map<int\,chati::Message\,std::hash<int>\,std::equal_to<int>\,std::allocator<std::pair<int const \,chati::Message> > >* messages : Public

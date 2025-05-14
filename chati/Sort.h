@@ -21,8 +21,8 @@ static void sortChatRooms(User currentUser, unordered_map<int, long long>& activ
 
 	userChatRooms.clear();
 
-	cout << "called - activity size: " << activity.size() << endl;
-	cout << "called - chatRooms size: " << chatRooms.size() << endl;
+	//cout << "called - activity size: " << activity.size() << endl;
+	//cout << "called - chatRooms size: " << chatRooms.size() << endl;
 	
 
 

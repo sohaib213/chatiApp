@@ -17,14 +17,16 @@ using namespace System::IO;
 public ref class MessageHandler {
 public:
 
+    unordered_map<string, User>* users;
     unordered_map<int, chati::Message>* globalMessages;
     ChatRoom** globalChatRoom;
     int messageIDToDelete;
     Panel^ panelToDelete;
     Panel^ messagesContainer;
-    User* currentUser;
+    User** currentUser, **otherUser;
     String^ projectRoot = Directory::GetParent(Application::StartupPath)->Parent->FullName;
     String^ iconsFolder = Path::Combine(projectRoot, "icons");
+    
 
     void initializeChat(ChatRoom* chatRoom, FlowLayoutPanel^ messagesContainer,
         unordered_map<int, chati::Message>& messages, User* currentUser, unordered_map<int, long long>& activity,
@@ -35,10 +37,21 @@ public:
         messagesContainer->Controls->Clear();
 
         Panel^ fillerPanel = gcnew Panel();
-        fillerPanel->Size = System::Drawing::Size(300, 750);
+        if (chatRoom->getIsDual() && currentUser->getContactsPhones().count((*otherUser)->getMobileNumber()) < 1)
+        {
+            fillerPanel->Size = System::Drawing::Size(300, 451);
+            cout << "HERE 1" << endl;
+        }
+        else
+        {
+            fillerPanel->Size = System::Drawing::Size(300, 750);
+            cout << "HERE 2" << endl;
+
+        }
+        
+
         fillerPanel->BackColor = Color::Transparent;
         messagesContainer->Controls->Add(fillerPanel);
-
 
         chati::LinkedList list1 = chatRoom->getMessagesID();
 
@@ -54,6 +67,9 @@ public:
 
             temp = item;
         }
+
+        if (chatRoom->getIsDual() && currentUser->getContactsPhones().count((*otherUser)->getMobileNumber()) < 1)
+            addConfirmContact(messagesContainer);
     }
 
     void createMessageEvent(RichTextBox^ textBox1, FlowLayoutPanel^ messagesContainer, User* currentUser, unordered_map<int, long long>& activity,
@@ -356,5 +372,108 @@ public:
         int x = messageIDToDelete;
         globalMessages->erase(x);
         messagesContainer->Controls->Remove(panelToDelete);
+    }
+
+    void addConfirmContact(FlowLayoutPanel^ messagesContainer) {
+        // confirm Panel
+        Panel^ confirmContactPanel;
+        Label^ confirmRequestMessageLabel;
+        Button^ noButton;
+        Button^ okButton;
+        confirmContactPanel = gcnew Panel();
+        confirmRequestMessageLabel = gcnew Label();
+        noButton = gcnew Button();
+        okButton = gcnew Button();
+
+        confirmContactPanel->SuspendLayout();
+        messagesContainer->Controls->Add(confirmContactPanel);
+        // confirmContactPanel
+    // 
+        confirmContactPanel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(75)),
+            static_cast<System::Int32>(static_cast<System::Byte>(75)), static_cast<System::Int32>(static_cast<System::Byte>(75)));
+        confirmContactPanel->Controls->Add(confirmRequestMessageLabel);
+        confirmContactPanel->Controls->Add(noButton);
+        confirmContactPanel->Controls->Add(okButton);
+        confirmContactPanel->Location = System::Drawing::Point(320, 277);
+        confirmContactPanel->Name = L"confirmContactPanel";
+        confirmContactPanel->Size = System::Drawing::Size(844, 339);
+        confirmContactPanel->TabIndex = 1;
+        confirmContactPanel->BorderStyle = BorderStyle::FixedSingle;
+        // 
+        // confirmRequestMessageLabel
+        // 
+        confirmRequestMessageLabel->AutoSize = true;
+        confirmRequestMessageLabel->BackColor = System::Drawing::Color::Transparent;
+        confirmRequestMessageLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F, System::Drawing::FontStyle::Regular,
+            System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+        confirmRequestMessageLabel->ForeColor = System::Drawing::Color::White;
+        confirmRequestMessageLabel->Location = System::Drawing::Point(180, 58);
+        confirmRequestMessageLabel->Name = L"confirmRequestMessageLabel";
+        confirmRequestMessageLabel->Size = System::Drawing::Size(460, 62);
+        confirmRequestMessageLabel->TabIndex = 3;
+        confirmRequestMessageLabel->Text = gcnew String(((*otherUser)->getFirstName() + ' ' + (*otherUser)->getLastName() + " Sent You Contact Request\r\n             Do You Accept Him\r\n").c_str());
+        // 
+        // noButton
+        // 
+        noButton->Cursor = System::Windows::Forms::Cursors::Hand;
+        noButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+            static_cast<System::Byte>(0)));
+        noButton->Location = System::Drawing::Point(179, 266);
+        noButton->Name = L"noButton";
+        noButton->RightToLeft = System::Windows::Forms::RightToLeft::Yes;
+        noButton->Size = System::Drawing::Size(98, 45);
+        noButton->TabIndex = 2;
+        noButton->Text = L"NO";
+        noButton->UseVisualStyleBackColor = true;
+        noButton->Click += gcnew EventHandler(this, &MessageHandler::NoButtonClicked);
+        // 
+        // okButton
+        // 
+        okButton->Cursor = System::Windows::Forms::Cursors::Hand;
+        okButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+            static_cast<System::Byte>(0)));
+        okButton->Location = System::Drawing::Point(579, 266);
+        okButton->Name = L"okButton";
+        okButton->RightToLeft = System::Windows::Forms::RightToLeft::Yes;
+        okButton->Size = System::Drawing::Size(98, 45);
+        okButton->TabIndex = 1;
+        okButton->Text = L"OK";
+        okButton->UseVisualStyleBackColor = true;
+        okButton->Click += gcnew EventHandler(this, &MessageHandler::OkButtonClicked);
+
+
+        confirmContactPanel->ResumeLayout(false);
+        messagesContainer->Controls->SetChildIndex(confirmContactPanel, 1);
+
+        confirmContactPanel->PerformLayout();
+    }
+    void OkButtonClicked(Object^ sender, EventArgs^ e) {
+
+        Button^ okButton = dynamic_cast<Button^>(sender);
+        Panel^ confirmMessagePanel = dynamic_cast<Panel^>(okButton->Parent);
+        FlowLayoutPanel^ messageContainer = dynamic_cast<FlowLayoutPanel^>(confirmMessagePanel->Parent);
+
+        // Fix: Use dynamic_cast to convert the Control^ to Panel^
+        Panel^ fillerPanel = dynamic_cast<Panel^>(messageContainer->Controls[0]);
+
+        fillerPanel->Size = Size(300, 750);
+        messageContainer->Controls->Remove(confirmMessagePanel);
+
+
+
+        cout << "Added: " << (*currentUser)->addContactPhone((*otherUser)->getMobileNumber(), (*otherUser)->getFirstName() + ' ' + (*otherUser)->getLastName()) << endl;
+    }
+    void NoButtonClicked(Object^ sender, EventArgs^ e) {
+
+        Button^ okButton = dynamic_cast<Button^>(sender);
+        Panel^ confirmMessagePanel = dynamic_cast<Panel^>(okButton->Parent);
+        FlowLayoutPanel^ messageContainer = dynamic_cast<FlowLayoutPanel^>(confirmMessagePanel->Parent);
+
+        Panel^ fillerPanel = dynamic_cast<Panel^>(messageContainer->Controls[0]);
+
+
+        fillerPanel->Size = Size(300, 750);
+        messageContainer->Controls->Remove(confirmMessagePanel);
+
     }
 };

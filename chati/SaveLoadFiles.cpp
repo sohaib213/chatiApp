@@ -169,7 +169,8 @@ static void saveToFile(
 		writeString(out, u.getMobileNumber());
 		writeString(out, u.getPassword());
 		writeString(out, u.getProfilePhoto());
-
+		bool isVisible = u.getVisible();
+		out.write(reinterpret_cast<const char*>(&isVisible), sizeof(&isVisible));
 		writeMap(out, u.getContactsPhones());
 		writeSet(out, u.getStoriesID());
 		writeSet(out, u.getChatRoomsID());
@@ -222,7 +223,6 @@ static void saveToFile(
 		int x;
 
 		x = m.getMessageID();
-		cout << "Message ID to write: " << x << endl;
 		out.write(reinterpret_cast<const char*>(&x), sizeof(x));
 		x = m.getChatID();
 		out.write(reinterpret_cast<const char*>(&x), sizeof(x));
@@ -235,8 +235,8 @@ static void saveToFile(
 		out.write(reinterpret_cast<const char*>(&x), sizeof(x));
 		x = m.getSecondSent();
 		out.write(reinterpret_cast<const char*>(&x), sizeof(x));
-		x = m.getIsRead();
-		out.write(reinterpret_cast<const char*>(&x), sizeof(&x));
+		bool isRead = m.getIsRead();
+		out.write(reinterpret_cast<const char*>(&isRead), sizeof(&isRead));
 	}
 	out.close();
 
@@ -320,6 +320,11 @@ static void loadFromFile(
 		u.setMobileNumber(readString(in));
 		u.setPassword(readString(in));
 		u.setProfilePhoto(readString(in));
+
+		bool isVisible;
+		in.read(reinterpret_cast<char*>(&isVisible), sizeof(&isVisible));
+		u.setVisible(isVisible);
+
 		u.setContactsPhones(readMap(in));
 		u.setStoriesID(readSet(in));
 		u.setChatRoomsID(readSet(in));
@@ -388,7 +393,6 @@ static void loadFromFile(
 		int x;
 
 		in.read(reinterpret_cast<char*>(&x), sizeof(x));
-		cout << "Message ID From Read: " << x << endl;
 		m.setMessageID(x);
 		in.read(reinterpret_cast<char*>(&x), sizeof(x));
 		m.setChatID(x);
