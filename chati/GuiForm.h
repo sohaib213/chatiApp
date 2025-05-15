@@ -21,6 +21,7 @@
 #include "createChatRoomHandler.h"
 #include "StoryStyleHelper.cpp"
 #include "SearchChatrooms.h"
+#include "ProfileSettings.h"
 
 
 
@@ -189,6 +190,48 @@ private: System::Windows::Forms::Label^ label1;
 
 private: System::Windows::Forms::Button^ submitVisibleButton;
 private: System::Windows::Forms::ComboBox^ visibilityComboBox;
+private: System::Windows::Forms::Button^ submitLastNameButton;
+
+private: System::Windows::Forms::TextBox^ newLastNameTextBox;
+
+
+private: System::Windows::Forms::Button^ editLastNameButton;
+private: System::Windows::Forms::Label^ label23;
+private: System::Windows::Forms::Button^ submitFirstNameButton;
+private: System::Windows::Forms::TextBox^ newFirstNameTextBox;
+
+private: System::Windows::Forms::Button^ editFirstNameButton;
+private: System::Windows::Forms::Label^ label22;
+private: System::Windows::Forms::Button^ submitPasswordButton;
+
+
+private: System::Windows::Forms::TextBox^ newPasswordTextBox;
+
+private: System::Windows::Forms::Button^ editPasswordButton;
+
+private: System::Windows::Forms::Label^ label24;
+
+private: System::Windows::Forms::Label^ lastNameLabel;
+private: System::Windows::Forms::Label^ firstNameLabel;
+private: System::Windows::Forms::Button^ submitNewAboutButton;
+private: System::Windows::Forms::Button^ editAboutButton;
+
+
+
+
+
+
+private: System::Windows::Forms::Label^ label26;
+
+private: System::Windows::Forms::Label^ aboutLabel;
+private: System::Windows::Forms::RichTextBox^ newAboutRichTextBox;
+private: System::Windows::Forms::Button^ editPhotoButton;
+private: System::Windows::Forms::PictureBox^ userPhotoPictureBox;
+private: System::Windows::Forms::Label^ phoneNumberLabel;
+
+private: System::Windows::Forms::Label^ label27;
+
+
 
 
 
@@ -377,6 +420,29 @@ private: System::ComponentModel::IContainer^ components;
 			this->passTxt = (gcnew System::Windows::Forms::TextBox());
 			this->mainPanel = (gcnew System::Windows::Forms::Panel());
 			this->profilePanel = (gcnew System::Windows::Forms::Panel());
+			this->phoneNumberLabel = (gcnew System::Windows::Forms::Label());
+			this->label27 = (gcnew System::Windows::Forms::Label());
+			this->editPhotoButton = (gcnew System::Windows::Forms::Button());
+			this->userPhotoPictureBox = (gcnew System::Windows::Forms::PictureBox());
+			this->newAboutRichTextBox = (gcnew System::Windows::Forms::RichTextBox());
+			this->aboutLabel = (gcnew System::Windows::Forms::Label());
+			this->submitNewAboutButton = (gcnew System::Windows::Forms::Button());
+			this->editAboutButton = (gcnew System::Windows::Forms::Button());
+			this->label26 = (gcnew System::Windows::Forms::Label());
+			this->lastNameLabel = (gcnew System::Windows::Forms::Label());
+			this->firstNameLabel = (gcnew System::Windows::Forms::Label());
+			this->submitPasswordButton = (gcnew System::Windows::Forms::Button());
+			this->newPasswordTextBox = (gcnew System::Windows::Forms::TextBox());
+			this->editPasswordButton = (gcnew System::Windows::Forms::Button());
+			this->label24 = (gcnew System::Windows::Forms::Label());
+			this->submitLastNameButton = (gcnew System::Windows::Forms::Button());
+			this->newLastNameTextBox = (gcnew System::Windows::Forms::TextBox());
+			this->editLastNameButton = (gcnew System::Windows::Forms::Button());
+			this->label23 = (gcnew System::Windows::Forms::Label());
+			this->submitFirstNameButton = (gcnew System::Windows::Forms::Button());
+			this->newFirstNameTextBox = (gcnew System::Windows::Forms::TextBox());
+			this->editFirstNameButton = (gcnew System::Windows::Forms::Button());
+			this->label22 = (gcnew System::Windows::Forms::Label());
 			this->visibilityComboBox = (gcnew System::Windows::Forms::ComboBox());
 			this->submitVisibleButton = (gcnew System::Windows::Forms::Button());
 			this->editVisibility = (gcnew System::Windows::Forms::Button());
@@ -482,6 +548,7 @@ private: System::ComponentModel::IContainer^ components;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->signUpBackGround))->BeginInit();
 			this->mainPanel->SuspendLayout();
 			this->profilePanel->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->userPhotoPictureBox))->BeginInit();
 			this->chatPnl->SuspendLayout();
 			this->currentCahtPanel->SuspendLayout();
 			this->chatsContainer->SuspendLayout();
@@ -589,7 +656,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->button9->TabIndex = 10;
 			this->button9->Text = L"Sign Up →";
 			this->button9->UseVisualStyleBackColor = false;
-			this->button9->Click += gcnew System::EventHandler(this, &GuiForm::button9_Click);
+			this->button9->Click += gcnew System::EventHandler(this, &GuiForm::signUpButton_Click);
 			// 
 			// label15
 			// 
@@ -730,6 +797,29 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->profilePanel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)),
 				static_cast<System::Int32>(static_cast<System::Byte>(45)));
+			this->profilePanel->Controls->Add(this->phoneNumberLabel);
+			this->profilePanel->Controls->Add(this->label27);
+			this->profilePanel->Controls->Add(this->editPhotoButton);
+			this->profilePanel->Controls->Add(this->userPhotoPictureBox);
+			this->profilePanel->Controls->Add(this->newAboutRichTextBox);
+			this->profilePanel->Controls->Add(this->aboutLabel);
+			this->profilePanel->Controls->Add(this->submitNewAboutButton);
+			this->profilePanel->Controls->Add(this->editAboutButton);
+			this->profilePanel->Controls->Add(this->label26);
+			this->profilePanel->Controls->Add(this->lastNameLabel);
+			this->profilePanel->Controls->Add(this->firstNameLabel);
+			this->profilePanel->Controls->Add(this->submitPasswordButton);
+			this->profilePanel->Controls->Add(this->newPasswordTextBox);
+			this->profilePanel->Controls->Add(this->editPasswordButton);
+			this->profilePanel->Controls->Add(this->label24);
+			this->profilePanel->Controls->Add(this->submitLastNameButton);
+			this->profilePanel->Controls->Add(this->newLastNameTextBox);
+			this->profilePanel->Controls->Add(this->editLastNameButton);
+			this->profilePanel->Controls->Add(this->label23);
+			this->profilePanel->Controls->Add(this->submitFirstNameButton);
+			this->profilePanel->Controls->Add(this->newFirstNameTextBox);
+			this->profilePanel->Controls->Add(this->editFirstNameButton);
+			this->profilePanel->Controls->Add(this->label22);
 			this->profilePanel->Controls->Add(this->visibilityComboBox);
 			this->profilePanel->Controls->Add(this->submitVisibleButton);
 			this->profilePanel->Controls->Add(this->editVisibility);
@@ -737,10 +827,286 @@ private: System::ComponentModel::IContainer^ components;
 			this->profilePanel->Controls->Add(this->label1);
 			this->profilePanel->Controls->Add(this->singOutButton);
 			this->profilePanel->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->profilePanel->ForeColor = System::Drawing::Color::Blue;
 			this->profilePanel->Location = System::Drawing::Point(87, 0);
 			this->profilePanel->Name = L"profilePanel";
 			this->profilePanel->Size = System::Drawing::Size(1817, 1041);
 			this->profilePanel->TabIndex = 10;
+			// 
+			// phoneNumberLabel
+			// 
+			this->phoneNumberLabel->AutoSize = true;
+			this->phoneNumberLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->phoneNumberLabel->ForeColor = System::Drawing::Color::Cyan;
+			this->phoneNumberLabel->Location = System::Drawing::Point(495, 309);
+			this->phoneNumberLabel->Name = L"phoneNumberLabel";
+			this->phoneNumberLabel->Size = System::Drawing::Size(0, 31);
+			this->phoneNumberLabel->TabIndex = 32;
+			// 
+			// label27
+			// 
+			this->label27->AutoSize = true;
+			this->label27->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label27->ForeColor = System::Drawing::Color::White;
+			this->label27->Location = System::Drawing::Point(286, 309);
+			this->label27->Name = L"label27";
+			this->label27->Size = System::Drawing::Size(203, 31);
+			this->label27->TabIndex = 31;
+			this->label27->Text = L"Phone Number:";
+			// 
+			// editPhotoButton
+			// 
+			this->editPhotoButton->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->editPhotoButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->editPhotoButton->Location = System::Drawing::Point(714, 164);
+			this->editPhotoButton->Name = L"editPhotoButton";
+			this->editPhotoButton->Size = System::Drawing::Size(59, 30);
+			this->editPhotoButton->TabIndex = 30;
+			this->editPhotoButton->Text = L"Edit";
+			this->editPhotoButton->UseVisualStyleBackColor = true;
+			this->editPhotoButton->Click += gcnew System::EventHandler(this, &GuiForm::editPhotoButton_Click);
+			// 
+			// userPhotoPictureBox
+			// 
+			this->userPhotoPictureBox->Location = System::Drawing::Point(280, 81);
+			this->userPhotoPictureBox->Name = L"userPhotoPictureBox";
+			this->userPhotoPictureBox->Size = System::Drawing::Size(187, 157);
+			this->userPhotoPictureBox->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
+			this->userPhotoPictureBox->TabIndex = 29;
+			this->userPhotoPictureBox->TabStop = false;
+			// 
+			// newAboutRichTextBox
+			// 
+			this->newAboutRichTextBox->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->newAboutRichTextBox->Location = System::Drawing::Point(783, 768);
+			this->newAboutRichTextBox->Name = L"newAboutRichTextBox";
+			this->newAboutRichTextBox->Size = System::Drawing::Size(384, 92);
+			this->newAboutRichTextBox->TabIndex = 28;
+			this->newAboutRichTextBox->Text = L"";
+			this->newAboutRichTextBox->Visible = false;
+			// 
+			// aboutLabel
+			// 
+			this->aboutLabel->AutoSize = true;
+			this->aboutLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->aboutLabel->ForeColor = System::Drawing::Color::Cyan;
+			this->aboutLabel->Location = System::Drawing::Point(402, 783);
+			this->aboutLabel->Name = L"aboutLabel";
+			this->aboutLabel->Size = System::Drawing::Size(0, 31);
+			this->aboutLabel->TabIndex = 27;
+			// 
+			// submitNewAboutButton
+			// 
+			this->submitNewAboutButton->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->submitNewAboutButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->submitNewAboutButton->Location = System::Drawing::Point(1173, 783);
+			this->submitNewAboutButton->Name = L"submitNewAboutButton";
+			this->submitNewAboutButton->Size = System::Drawing::Size(81, 31);
+			this->submitNewAboutButton->TabIndex = 26;
+			this->submitNewAboutButton->Text = L"Submit";
+			this->submitNewAboutButton->UseVisualStyleBackColor = true;
+			this->submitNewAboutButton->Visible = false;
+			this->submitNewAboutButton->Click += gcnew System::EventHandler(this, &GuiForm::submitNewAboutButton_Click);
+			// 
+			// editAboutButton
+			// 
+			this->editAboutButton->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->editAboutButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->editAboutButton->Location = System::Drawing::Point(715, 787);
+			this->editAboutButton->Name = L"editAboutButton";
+			this->editAboutButton->Size = System::Drawing::Size(59, 30);
+			this->editAboutButton->TabIndex = 24;
+			this->editAboutButton->Text = L"Edit";
+			this->editAboutButton->UseVisualStyleBackColor = true;
+			this->editAboutButton->Click += gcnew System::EventHandler(this, &GuiForm::editAboutButton_Click);
+			// 
+			// label26
+			// 
+			this->label26->AutoSize = true;
+			this->label26->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label26->ForeColor = System::Drawing::Color::White;
+			this->label26->Location = System::Drawing::Point(286, 780);
+			this->label26->Name = L"label26";
+			this->label26->Size = System::Drawing::Size(100, 31);
+			this->label26->TabIndex = 23;
+			this->label26->Text = L"About :";
+			// 
+			// lastNameLabel
+			// 
+			this->lastNameLabel->AutoSize = true;
+			this->lastNameLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->lastNameLabel->ForeColor = System::Drawing::Color::Cyan;
+			this->lastNameLabel->Location = System::Drawing::Point(454, 595);
+			this->lastNameLabel->Name = L"lastNameLabel";
+			this->lastNameLabel->Size = System::Drawing::Size(0, 31);
+			this->lastNameLabel->TabIndex = 21;
+			// 
+			// firstNameLabel
+			// 
+			this->firstNameLabel->AutoSize = true;
+			this->firstNameLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->firstNameLabel->ForeColor = System::Drawing::Color::Cyan;
+			this->firstNameLabel->Location = System::Drawing::Point(454, 500);
+			this->firstNameLabel->Name = L"firstNameLabel";
+			this->firstNameLabel->Size = System::Drawing::Size(0, 31);
+			this->firstNameLabel->TabIndex = 20;
+			// 
+			// submitPasswordButton
+			// 
+			this->submitPasswordButton->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->submitPasswordButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->submitPasswordButton->Location = System::Drawing::Point(1173, 692);
+			this->submitPasswordButton->Name = L"submitPasswordButton";
+			this->submitPasswordButton->Size = System::Drawing::Size(81, 31);
+			this->submitPasswordButton->TabIndex = 19;
+			this->submitPasswordButton->Text = L"Submit";
+			this->submitPasswordButton->UseVisualStyleBackColor = true;
+			this->submitPasswordButton->Visible = false;
+			this->submitPasswordButton->Click += gcnew System::EventHandler(this, &GuiForm::submitPasswordButton_Click);
+			// 
+			// newPasswordTextBox
+			// 
+			this->newPasswordTextBox->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 18, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->newPasswordTextBox->Location = System::Drawing::Point(886, 689);
+			this->newPasswordTextBox->Name = L"newPasswordTextBox";
+			this->newPasswordTextBox->Size = System::Drawing::Size(166, 35);
+			this->newPasswordTextBox->TabIndex = 18;
+			this->newPasswordTextBox->Visible = false;
+			// 
+			// editPasswordButton
+			// 
+			this->editPasswordButton->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->editPasswordButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->editPasswordButton->Location = System::Drawing::Point(714, 693);
+			this->editPasswordButton->Name = L"editPasswordButton";
+			this->editPasswordButton->Size = System::Drawing::Size(59, 30);
+			this->editPasswordButton->TabIndex = 17;
+			this->editPasswordButton->Text = L"Edit";
+			this->editPasswordButton->UseVisualStyleBackColor = true;
+			this->editPasswordButton->Click += gcnew System::EventHandler(this, &GuiForm::editPasswordButton_Click);
+			// 
+			// label24
+			// 
+			this->label24->AutoSize = true;
+			this->label24->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label24->ForeColor = System::Drawing::Color::White;
+			this->label24->Location = System::Drawing::Point(286, 689);
+			this->label24->Name = L"label24";
+			this->label24->Size = System::Drawing::Size(141, 31);
+			this->label24->TabIndex = 16;
+			this->label24->Text = L"Password ";
+			// 
+			// submitLastNameButton
+			// 
+			this->submitLastNameButton->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->submitLastNameButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->submitLastNameButton->Location = System::Drawing::Point(1173, 599);
+			this->submitLastNameButton->Name = L"submitLastNameButton";
+			this->submitLastNameButton->Size = System::Drawing::Size(81, 31);
+			this->submitLastNameButton->TabIndex = 15;
+			this->submitLastNameButton->Text = L"Submit";
+			this->submitLastNameButton->UseVisualStyleBackColor = true;
+			this->submitLastNameButton->Visible = false;
+			this->submitLastNameButton->Click += gcnew System::EventHandler(this, &GuiForm::submitLastNameButton_Click);
+			// 
+			// newLastNameTextBox
+			// 
+			this->newLastNameTextBox->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 18, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->newLastNameTextBox->Location = System::Drawing::Point(886, 596);
+			this->newLastNameTextBox->Name = L"newLastNameTextBox";
+			this->newLastNameTextBox->Size = System::Drawing::Size(166, 35);
+			this->newLastNameTextBox->TabIndex = 14;
+			this->newLastNameTextBox->Visible = false;
+			// 
+			// editLastNameButton
+			// 
+			this->editLastNameButton->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->editLastNameButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->editLastNameButton->Location = System::Drawing::Point(714, 600);
+			this->editLastNameButton->Name = L"editLastNameButton";
+			this->editLastNameButton->Size = System::Drawing::Size(59, 30);
+			this->editLastNameButton->TabIndex = 13;
+			this->editLastNameButton->Text = L"Edit";
+			this->editLastNameButton->UseVisualStyleBackColor = true;
+			this->editLastNameButton->Click += gcnew System::EventHandler(this, &GuiForm::editLastNameButton_Click);
+			// 
+			// label23
+			// 
+			this->label23->AutoSize = true;
+			this->label23->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label23->ForeColor = System::Drawing::Color::White;
+			this->label23->Location = System::Drawing::Point(286, 596);
+			this->label23->Name = L"label23";
+			this->label23->Size = System::Drawing::Size(160, 31);
+			this->label23->TabIndex = 12;
+			this->label23->Text = L"Last Name :";
+			// 
+			// submitFirstNameButton
+			// 
+			this->submitFirstNameButton->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->submitFirstNameButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->submitFirstNameButton->Location = System::Drawing::Point(1173, 500);
+			this->submitFirstNameButton->Name = L"submitFirstNameButton";
+			this->submitFirstNameButton->Size = System::Drawing::Size(81, 31);
+			this->submitFirstNameButton->TabIndex = 11;
+			this->submitFirstNameButton->Text = L"Submit";
+			this->submitFirstNameButton->UseVisualStyleBackColor = true;
+			this->submitFirstNameButton->Visible = false;
+			this->submitFirstNameButton->Click += gcnew System::EventHandler(this, &GuiForm::submitFirstNameButton_Click);
+			// 
+			// newFirstNameTextBox
+			// 
+			this->newFirstNameTextBox->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 18, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->newFirstNameTextBox->Location = System::Drawing::Point(886, 497);
+			this->newFirstNameTextBox->Name = L"newFirstNameTextBox";
+			this->newFirstNameTextBox->Size = System::Drawing::Size(166, 35);
+			this->newFirstNameTextBox->TabIndex = 10;
+			this->newFirstNameTextBox->Visible = false;
+			// 
+			// editFirstNameButton
+			// 
+			this->editFirstNameButton->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->editFirstNameButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->editFirstNameButton->Location = System::Drawing::Point(714, 501);
+			this->editFirstNameButton->Name = L"editFirstNameButton";
+			this->editFirstNameButton->Size = System::Drawing::Size(59, 30);
+			this->editFirstNameButton->TabIndex = 9;
+			this->editFirstNameButton->Text = L"Edit";
+			this->editFirstNameButton->UseVisualStyleBackColor = true;
+			this->editFirstNameButton->Click += gcnew System::EventHandler(this, &GuiForm::editFirstNameButton_Click);
+			// 
+			// label22
+			// 
+			this->label22->AutoSize = true;
+			this->label22->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label22->ForeColor = System::Drawing::Color::White;
+			this->label22->Location = System::Drawing::Point(286, 497);
+			this->label22->Name = L"label22";
+			this->label22->Size = System::Drawing::Size(162, 31);
+			this->label22->TabIndex = 8;
+			this->label22->Text = L"First Name :";
 			// 
 			// visibilityComboBox
 			// 
@@ -748,9 +1114,9 @@ private: System::ComponentModel::IContainer^ components;
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
 			this->visibilityComboBox->FormattingEnabled = true;
 			this->visibilityComboBox->Items->AddRange(gcnew cli::array< System::Object^  >(2) { L"True", L"False" });
-			this->visibilityComboBox->Location = System::Drawing::Point(392, 199);
+			this->visibilityComboBox->Location = System::Drawing::Point(886, 393);
 			this->visibilityComboBox->Name = L"visibilityComboBox";
-			this->visibilityComboBox->Size = System::Drawing::Size(94, 33);
+			this->visibilityComboBox->Size = System::Drawing::Size(162, 33);
 			this->visibilityComboBox->TabIndex = 7;
 			this->visibilityComboBox->Visible = false;
 			// 
@@ -759,7 +1125,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->submitVisibleButton->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->submitVisibleButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->submitVisibleButton->Location = System::Drawing::Point(504, 199);
+			this->submitVisibleButton->Location = System::Drawing::Point(1173, 396);
 			this->submitVisibleButton->Name = L"submitVisibleButton";
 			this->submitVisibleButton->Size = System::Drawing::Size(81, 31);
 			this->submitVisibleButton->TabIndex = 6;
@@ -773,7 +1139,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->editVisibility->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->editVisibility->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->editVisibility->Location = System::Drawing::Point(309, 200);
+			this->editVisibility->Location = System::Drawing::Point(714, 394);
 			this->editVisibility->Name = L"editVisibility";
 			this->editVisibility->Size = System::Drawing::Size(59, 30);
 			this->editVisibility->TabIndex = 4;
@@ -786,8 +1152,8 @@ private: System::ComponentModel::IContainer^ components;
 			this->visibleLabel->AutoSize = true;
 			this->visibleLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->visibleLabel->ForeColor = System::Drawing::Color::White;
-			this->visibleLabel->Location = System::Drawing::Point(219, 199);
+			this->visibleLabel->ForeColor = System::Drawing::Color::Cyan;
+			this->visibleLabel->Location = System::Drawing::Point(392, 392);
 			this->visibleLabel->Name = L"visibleLabel";
 			this->visibleLabel->Size = System::Drawing::Size(0, 31);
 			this->visibleLabel->TabIndex = 3;
@@ -798,7 +1164,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label1->ForeColor = System::Drawing::Color::White;
-			this->label1->Location = System::Drawing::Point(113, 199);
+			this->label1->Location = System::Drawing::Point(286, 392);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(109, 31);
 			this->label1->TabIndex = 2;
@@ -806,12 +1172,15 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			// singOutButton
 			// 
-			this->singOutButton->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(128)), static_cast<System::Int32>(static_cast<System::Byte>(255)),
-				static_cast<System::Int32>(static_cast<System::Byte>(255)));
+			this->singOutButton->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->singOutButton->BackColor = System::Drawing::Color::DodgerBlue;
 			this->singOutButton->Cursor = System::Windows::Forms::Cursors::Hand;
-			this->singOutButton->Location = System::Drawing::Point(39, 965);
+			this->singOutButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 18, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->singOutButton->ForeColor = System::Drawing::Color::Black;
+			this->singOutButton->Location = System::Drawing::Point(62, 929);
 			this->singOutButton->Name = L"singOutButton";
-			this->singOutButton->Size = System::Drawing::Size(212, 51);
+			this->singOutButton->Size = System::Drawing::Size(144, 51);
 			this->singOutButton->TabIndex = 1;
 			this->singOutButton->Text = L"Sign out";
 			this->singOutButton->UseVisualStyleBackColor = false;
@@ -1873,7 +2242,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->button8->TabIndex = 9;
 			this->button8->Text = L"Sign In →";
 			this->button8->UseVisualStyleBackColor = false;
-			this->button8->Click += gcnew System::EventHandler(this, &GuiForm::button8_Click);
+			this->button8->Click += gcnew System::EventHandler(this, &GuiForm::signInButton_Click);
 			// 
 			// label10
 			// 
@@ -1978,8 +2347,8 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
 			this->ClientSize = System::Drawing::Size(1904, 1041);
-			this->Controls->Add(this->SignINPnl);
 			this->Controls->Add(this->mainPanel);
+			this->Controls->Add(this->SignINPnl);
 			this->Controls->Add(this->signUpPnl);
 			this->Controls->Add(this->getStoryPanel);
 			this->Controls->Add(this->addStoryPanel);
@@ -1995,6 +2364,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->mainPanel->ResumeLayout(false);
 			this->profilePanel->ResumeLayout(false);
 			this->profilePanel->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->userPhotoPictureBox))->EndInit();
 			this->chatPnl->ResumeLayout(false);
 			this->currentCahtPanel->ResumeLayout(false);
 			this->chatsContainer->ResumeLayout(false);
@@ -2158,7 +2528,7 @@ private: System::ComponentModel::IContainer^ components;
 
 		}
 
-		private: System::Void button9_Click(System::Object^ sender, System::EventArgs^ e) {		
+		private: System::Void signUpButton_Click(System::Object^ sender, System::EventArgs^ e) {		
 			
 
 			if (numTxt->Text == "" || pasTxt->Text == "" || fnTxt->Text == "" || lnTxt->Text == "")
@@ -2209,7 +2579,7 @@ private: System::ComponentModel::IContainer^ components;
 		}
 		
 		//todo signin button
-		private: System::Void button8_Click(System::Object^ sender, System::EventArgs^ e) {
+		private: System::Void signInButton_Click(System::Object^ sender, System::EventArgs^ e) {
 			if (passTxt->Text->Length < 6)
 			{
 				MessageBox::Show("Password must be at least 6 characters", "Invalid Password");
@@ -2291,6 +2661,13 @@ private: System::ComponentModel::IContainer^ components;
 				else
 					visibleLabel->Text = "False";
 
+                firstNameLabel->Text = gcnew System::String(currentUser->getFirstName().c_str());
+				lastNameLabel->Text = gcnew System::String(currentUser->getLastName().c_str());
+				aboutLabel->Text = gcnew System::String(currentUser->getAbout().c_str());
+				phoneNumberLabel->Text = gcnew System::String(currentUser->getMobileNumber().c_str());
+
+				String^ destinationPath = Path::Combine(imagesFolder, gcnew String(currentUser->getProfilePhoto().c_str()));
+				userPhotoPictureBox->Image = Image::FromFile(destinationPath);
 			}
 	
 		}
@@ -2952,38 +3329,43 @@ private: System::ComponentModel::IContainer^ components;
 		}
 
 		private: System::Void editVisibility_Click(System::Object^ sender, System::EventArgs^ e) {
-			visibilityComboBox->Visible = true;
-			submitVisibleButton->Visible = true;
+			editClick(visibilityComboBox, submitVisibleButton);
+		}
+        private: System::Void submitVisibleButton_Click(System::Object^ sender, System::EventArgs^ e) {
+			submitVisibility(visibilityComboBox, submitVisibleButton, visibleLabel, currentUser);
+        }
+
+		private: System::Void editFirstNameButton_Click(System::Object^ sender, System::EventArgs^ e) {
+			editClick(newFirstNameTextBox, submitFirstNameButton);
+		}
+		private: System::Void submitFirstNameButton_Click(System::Object^ sender, System::EventArgs^ e) {
+			changeName(newFirstNameTextBox, submitFirstNameButton, firstNameLabel, currentUser, 1);
 		}
 
-        private: System::Void submitVisibleButton_Click(System::Object^ sender, System::EventArgs^ e) {
+		private: System::Void editLastNameButton_Click(System::Object^ sender, System::EventArgs^ e) {
+			editClick(newLastNameTextBox, submitLastNameButton);
+		}
+		private: System::Void submitLastNameButton_Click(System::Object^ sender, System::EventArgs^ e) {
+			changeName(newLastNameTextBox, submitLastNameButton, lastNameLabel, currentUser, 2);
+		}
 
-			if(visibilityComboBox->SelectedItem != nullptr)
-			{
-			visibilityComboBox->Visible = false;
-            submitVisibleButton->Visible = false;
+		private: System::Void editPasswordButton_Click(System::Object^ sender, System::EventArgs^ e) {
+			editClick(newPasswordTextBox, submitPasswordButton);
+		}
+		private: System::Void submitPasswordButton_Click(System::Object^ sender, System::EventArgs^ e) {
+			changePassword(newPasswordTextBox, submitPasswordButton, currentUser);
+		}
 
-				String^ selectedValue = visibilityComboBox->SelectedItem->ToString();
-				string response = msclr::interop::marshal_as<string>(selectedValue);
+		private: System::Void editAboutButton_Click(System::Object^ sender, System::EventArgs^ e) {
+			editClick(newAboutRichTextBox, submitNewAboutButton);
+		}
+		private: System::Void submitNewAboutButton_Click(System::Object^ sender, System::EventArgs^ e) {
+			changeAbout(newAboutRichTextBox, submitNewAboutButton, aboutLabel, currentUser);
+		}
 
-				visibleLabel->Text = visibilityComboBox->SelectedItem->ToString();
-				if (response == "True")
-				{
-					currentUser->setVisible(1);
-				}
-				else if(response == "False")
-				{
-					currentUser->setVisible(0);
-				}
-				else
-					MessageBox::Show("Enter True Or False");
-			}
-			else
-			{
-				MessageBox::Show("Enter Value To Change");
-			}
-
-        }
+		private: System::Void editPhotoButton_Click(System::Object^ sender, System::EventArgs^ e) {
+			changePhoto(userPhotoPictureBox, imagesFolder, currentUser);
+		};
 	};
 
 };

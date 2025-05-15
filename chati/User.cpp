@@ -1,8 +1,6 @@
 #include "User.h"
 #include <iostream>
 
-// Initialize the static counter
-int User::userCounter = 10;
 
 // Default Constructor
 User::User(string mobileNumber, string password, string firstName, string lastName, string profilePhoto)

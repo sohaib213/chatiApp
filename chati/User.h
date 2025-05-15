@@ -8,7 +8,6 @@
 using namespace std;
 
 class User {
-    static int userCounter; // Static variable to keep track of user IDs
     string mobileNumber;
     string password;
     string firstName;

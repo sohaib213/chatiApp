@@ -129,6 +129,7 @@
     <ClInclude Include="LinkedList.h" />
     <ClInclude Include="Message.h" />
     <ClInclude Include="MessageHandler.h" />
+    <ClInclude Include="ProfileSettings.h" />
     <ClInclude Include="SearchChatrooms.h" />
     <ClInclude Include="Sort.h" />
     <ClInclude Include="Story.h" />

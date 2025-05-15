@@ -168,6 +168,7 @@ static void saveToFile(
 		writeString(out, u.getLastName());
 		writeString(out, u.getMobileNumber());
 		writeString(out, u.getPassword());
+		writeString(out, u.getAbout());
 		writeString(out, u.getProfilePhoto());
 		bool isVisible = u.getVisible();
 		out.write(reinterpret_cast<const char*>(&isVisible), sizeof(&isVisible));
@@ -319,6 +320,7 @@ static void loadFromFile(
 		u.setLastName(readString(in));
 		u.setMobileNumber(readString(in));
 		u.setPassword(readString(in));
+		u.setAbout(readString(in));
 		u.setProfilePhoto(readString(in));
 
 		bool isVisible;

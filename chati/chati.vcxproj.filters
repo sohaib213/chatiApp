@@ -51,6 +51,9 @@
     <ClInclude Include="SearchChatrooms.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="ProfileSettings.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="User.cpp">
