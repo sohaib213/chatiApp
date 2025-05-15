@@ -62,7 +62,7 @@ static void sortChatRooms(User currentUser, unordered_map<int, long long>& activ
 			else if (activity.find(chatRoomID) != activity.end()) {
 				lastActivity = activity[chatRoomID];
 			}
-			cout <<"LastActivity: " << lastActivity << endl;
+			//cout <<"LastActivity: " << lastActivity << endl;
 			userChatRooms.push_back({ chatRoomID, lastActivity });
 		}
 	}
@@ -87,7 +87,6 @@ static void sortChatRooms(User currentUser, unordered_map<int, long long>& activ
 			Button^ button = dynamic_cast<Button^>(control);
 			if (button != nullptr && button->Tag != nullptr && safe_cast<int>(button->Tag) == room.first)
 			{
-				cout << "found button: " << room.first << endl;
 				buttons->Add(button);
 				break;
 			}

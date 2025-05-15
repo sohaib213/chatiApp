@@ -18,6 +18,7 @@ using namespace System::Collections::Generic;
 
 
 
+
 public ref class createChatRoomHandler {
 
 
@@ -40,6 +41,8 @@ public:
 	Panel^ headerContainer;
 	String^ projectRoot = Directory::GetParent(Application::StartupPath)->Parent->FullName;
 	String^ imagesFolder = Path::Combine(projectRoot, "usersImages");
+	//List<Control^>^ buttons = gcnew List<Control^>();
+	List<Control^>^ buttons;
 
 	void addChatRoomPanel(string contName, int chatRoomID, FlowLayoutPanel^ contactsPanel) {
 
@@ -119,6 +122,7 @@ public:
 		contactNameLabel->MouseDown += gcnew MouseEventHandler(this, &createChatRoomHandler::ChatRoomRightClick);
 		profilePic->MouseDown += gcnew MouseEventHandler(this, &createChatRoomHandler::ChatRoomRightClick);
 
+		buttons->Add(chatRoomButton);
 	}
 
 
@@ -237,6 +241,7 @@ public:
 			messagesFlowPanelsContainer->Controls->Remove(chatRoomsPanels[chatRoom->getChatRoomID()]);
 			chatRoomsPanels->Remove(chatRoom->getChatRoomID());
 		}
+		buttons->Remove(targetButton);
 		MessageBox::Show("Contact deleted successfully", "Success", MessageBoxButtons::OK, MessageBoxIcon::Information);
 	}
 

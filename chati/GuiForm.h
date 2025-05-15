@@ -42,6 +42,7 @@ User *currentUser, *otherUser;
 set<int> storiesIDTemp;
 ChatRoom *currentChatRoom;
 string currentContNum,currentContName;
+
 //int storiesShown=0;
 
 
@@ -80,6 +81,8 @@ namespace chati {
 	
 		String^ projectRoot = Directory::GetParent(Application::StartupPath)->Parent->FullName;
 		String^ imagesFolder = Path::Combine(projectRoot, "usersImages");
+
+		List<Control^>^ buttons = gcnew List<Control^>();
 
 		private: System::Windows::Forms::Panel^ addGroup;
 		private: System::Windows::Forms::Label^ label6;
@@ -148,7 +151,7 @@ namespace chati {
 	private: System::Windows::Forms::FlowLayoutPanel^ contactsPanel;
 	private: System::Windows::Forms::FlowLayoutPanel^ searchContactPanel;
 	private: System::Windows::Forms::TextBox^ searchChatroom_field;
-	private: System::Windows::Forms::Button^ searchChatroom_btn;
+
 
 
 
@@ -419,6 +422,24 @@ private: System::ComponentModel::IContainer^ components;
 			this->signUpBackGround = (gcnew System::Windows::Forms::PictureBox());
 			this->passTxt = (gcnew System::Windows::Forms::TextBox());
 			this->mainPanel = (gcnew System::Windows::Forms::Panel());
+			this->chatPnl = (gcnew System::Windows::Forms::Panel());
+			this->currentCahtPanel = (gcnew System::Windows::Forms::Panel());
+			this->chatsContainer = (gcnew System::Windows::Forms::Panel());
+			this->messagesFlowPanelsContainer = (gcnew System::Windows::Forms::Panel());
+			this->headerContainer = (gcnew System::Windows::Forms::Panel());
+			this->removeMemberLabel = (gcnew System::Windows::Forms::Label());
+			this->addMemberLabel = (gcnew System::Windows::Forms::Label());
+			this->removeMemPicBox = (gcnew System::Windows::Forms::PictureBox());
+			this->addMemPicBox = (gcnew System::Windows::Forms::PictureBox());
+			this->chatName = (gcnew System::Windows::Forms::Label());
+			this->chatPicture = (gcnew System::Windows::Forms::PictureBox());
+			this->footerContainer = (gcnew System::Windows::Forms::Panel());
+			this->textBox1 = (gcnew System::Windows::Forms::RichTextBox());
+			this->sendButton = (gcnew System::Windows::Forms::Button());
+			this->contactsPanelContainer = (gcnew System::Windows::Forms::Panel());
+			this->contactsPanel = (gcnew System::Windows::Forms::FlowLayoutPanel());
+			this->searchContactPanel = (gcnew System::Windows::Forms::FlowLayoutPanel());
+			this->searchChatroom_field = (gcnew System::Windows::Forms::TextBox());
 			this->profilePanel = (gcnew System::Windows::Forms::Panel());
 			this->phoneNumberLabel = (gcnew System::Windows::Forms::Label());
 			this->label27 = (gcnew System::Windows::Forms::Label());
@@ -449,25 +470,6 @@ private: System::ComponentModel::IContainer^ components;
 			this->visibleLabel = (gcnew System::Windows::Forms::Label());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->singOutButton = (gcnew System::Windows::Forms::Button());
-			this->chatPnl = (gcnew System::Windows::Forms::Panel());
-			this->currentCahtPanel = (gcnew System::Windows::Forms::Panel());
-			this->chatsContainer = (gcnew System::Windows::Forms::Panel());
-			this->messagesFlowPanelsContainer = (gcnew System::Windows::Forms::Panel());
-			this->headerContainer = (gcnew System::Windows::Forms::Panel());
-			this->removeMemberLabel = (gcnew System::Windows::Forms::Label());
-			this->addMemberLabel = (gcnew System::Windows::Forms::Label());
-			this->removeMemPicBox = (gcnew System::Windows::Forms::PictureBox());
-			this->addMemPicBox = (gcnew System::Windows::Forms::PictureBox());
-			this->chatName = (gcnew System::Windows::Forms::Label());
-			this->chatPicture = (gcnew System::Windows::Forms::PictureBox());
-			this->footerContainer = (gcnew System::Windows::Forms::Panel());
-			this->textBox1 = (gcnew System::Windows::Forms::RichTextBox());
-			this->sendButton = (gcnew System::Windows::Forms::Button());
-			this->contactsPanelContainer = (gcnew System::Windows::Forms::Panel());
-			this->contactsPanel = (gcnew System::Windows::Forms::FlowLayoutPanel());
-			this->searchContactPanel = (gcnew System::Windows::Forms::FlowLayoutPanel());
-			this->searchChatroom_field = (gcnew System::Windows::Forms::TextBox());
-			this->searchChatroom_btn = (gcnew System::Windows::Forms::Button());
 			this->addContactPanel = (gcnew System::Windows::Forms::Panel());
 			this->addContact_btn = (gcnew System::Windows::Forms::Button());
 			this->checkContact_btn = (gcnew System::Windows::Forms::Button());
@@ -547,8 +549,6 @@ private: System::ComponentModel::IContainer^ components;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->signUpBackGround))->BeginInit();
 			this->mainPanel->SuspendLayout();
-			this->profilePanel->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->userPhotoPictureBox))->BeginInit();
 			this->chatPnl->SuspendLayout();
 			this->currentCahtPanel->SuspendLayout();
 			this->chatsContainer->SuspendLayout();
@@ -559,6 +559,8 @@ private: System::ComponentModel::IContainer^ components;
 			this->footerContainer->SuspendLayout();
 			this->contactsPanelContainer->SuspendLayout();
 			this->searchContactPanel->SuspendLayout();
+			this->profilePanel->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->userPhotoPictureBox))->BeginInit();
 			this->addContactPanel->SuspendLayout();
 			this->addMemberPnl->SuspendLayout();
 			this->removeMemberPnl->SuspendLayout();
@@ -779,8 +781,8 @@ private: System::ComponentModel::IContainer^ components;
 			// mainPanel
 			// 
 			this->mainPanel->BackColor = System::Drawing::Color::White;
-			this->mainPanel->Controls->Add(this->profilePanel);
 			this->mainPanel->Controls->Add(this->chatPnl);
+			this->mainPanel->Controls->Add(this->profilePanel);
 			this->mainPanel->Controls->Add(this->addContactPanel);
 			this->mainPanel->Controls->Add(this->addMemberPnl);
 			this->mainPanel->Controls->Add(this->removeMemberPnl);
@@ -792,6 +794,209 @@ private: System::ComponentModel::IContainer^ components;
 			this->mainPanel->Name = L"mainPanel";
 			this->mainPanel->Size = System::Drawing::Size(1904, 1041);
 			this->mainPanel->TabIndex = 3;
+			// 
+			// chatPnl
+			// 
+			this->chatPnl->AllowDrop = true;
+			this->chatPnl->Controls->Add(this->currentCahtPanel);
+			this->chatPnl->Controls->Add(this->contactsPanelContainer);
+			this->chatPnl->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->chatPnl->Location = System::Drawing::Point(87, 0);
+			this->chatPnl->Name = L"chatPnl";
+			this->chatPnl->Size = System::Drawing::Size(1817, 1041);
+			this->chatPnl->TabIndex = 8;
+			// 
+			// currentCahtPanel
+			// 
+			this->currentCahtPanel->BackColor = System::Drawing::Color::RosyBrown;
+			this->currentCahtPanel->Controls->Add(this->chatsContainer);
+			this->currentCahtPanel->Controls->Add(this->footerContainer);
+			this->currentCahtPanel->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->currentCahtPanel->Location = System::Drawing::Point(332, 0);
+			this->currentCahtPanel->Name = L"currentCahtPanel";
+			this->currentCahtPanel->Size = System::Drawing::Size(1485, 1041);
+			this->currentCahtPanel->TabIndex = 10;
+			// 
+			// chatsContainer
+			// 
+			this->chatsContainer->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(60)), static_cast<System::Int32>(static_cast<System::Byte>(60)),
+				static_cast<System::Int32>(static_cast<System::Byte>(60)));
+			this->chatsContainer->Controls->Add(this->messagesFlowPanelsContainer);
+			this->chatsContainer->Controls->Add(this->headerContainer);
+			this->chatsContainer->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->chatsContainer->Location = System::Drawing::Point(0, 0);
+			this->chatsContainer->Name = L"chatsContainer";
+			this->chatsContainer->Size = System::Drawing::Size(1485, 995);
+			this->chatsContainer->TabIndex = 14;
+			// 
+			// messagesFlowPanelsContainer
+			// 
+			this->messagesFlowPanelsContainer->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->messagesFlowPanelsContainer->Location = System::Drawing::Point(0, 102);
+			this->messagesFlowPanelsContainer->Name = L"messagesFlowPanelsContainer";
+			this->messagesFlowPanelsContainer->Size = System::Drawing::Size(1485, 893);
+			this->messagesFlowPanelsContainer->TabIndex = 1;
+			// 
+			// headerContainer
+			// 
+			this->headerContainer->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(70)), static_cast<System::Int32>(static_cast<System::Byte>(70)),
+				static_cast<System::Int32>(static_cast<System::Byte>(70)));
+			this->headerContainer->Controls->Add(this->removeMemberLabel);
+			this->headerContainer->Controls->Add(this->addMemberLabel);
+			this->headerContainer->Controls->Add(this->removeMemPicBox);
+			this->headerContainer->Controls->Add(this->addMemPicBox);
+			this->headerContainer->Controls->Add(this->chatName);
+			this->headerContainer->Controls->Add(this->chatPicture);
+			this->headerContainer->Dock = System::Windows::Forms::DockStyle::Top;
+			this->headerContainer->Location = System::Drawing::Point(0, 0);
+			this->headerContainer->Name = L"headerContainer";
+			this->headerContainer->Size = System::Drawing::Size(1485, 102);
+			this->headerContainer->TabIndex = 0;
+			// 
+			// removeMemberLabel
+			// 
+			this->removeMemberLabel->AutoSize = true;
+			this->removeMemberLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->removeMemberLabel->ForeColor = System::Drawing::Color::White;
+			this->removeMemberLabel->Location = System::Drawing::Point(973, 32);
+			this->removeMemberLabel->Name = L"removeMemberLabel";
+			this->removeMemberLabel->Size = System::Drawing::Size(175, 25);
+			this->removeMemberLabel->TabIndex = 5;
+			this->removeMemberLabel->Text = L"Remove Member";
+			// 
+			// addMemberLabel
+			// 
+			this->addMemberLabel->AutoSize = true;
+			this->addMemberLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->addMemberLabel->ForeColor = System::Drawing::Color::White;
+			this->addMemberLabel->Location = System::Drawing::Point(1321, 32);
+			this->addMemberLabel->Name = L"addMemberLabel";
+			this->addMemberLabel->Size = System::Drawing::Size(134, 25);
+			this->addMemberLabel->TabIndex = 4;
+			this->addMemberLabel->Text = L"Add Member";
+			// 
+			// removeMemPicBox
+			// 
+			this->removeMemPicBox->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->removeMemPicBox->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"removeMemPicBox.Image")));
+			this->removeMemPicBox->Location = System::Drawing::Point(900, 12);
+			this->removeMemPicBox->Name = L"removeMemPicBox";
+			this->removeMemPicBox->Size = System::Drawing::Size(65, 68);
+			this->removeMemPicBox->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
+			this->removeMemPicBox->TabIndex = 3;
+			this->removeMemPicBox->TabStop = false;
+			this->removeMemPicBox->Click += gcnew System::EventHandler(this, &GuiForm::removeMemPicBox_Click);
+			// 
+			// addMemPicBox
+			// 
+			this->addMemPicBox->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->addMemPicBox->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"addMemPicBox.Image")));
+			this->addMemPicBox->Location = System::Drawing::Point(1250, 12);
+			this->addMemPicBox->Name = L"addMemPicBox";
+			this->addMemPicBox->Size = System::Drawing::Size(65, 68);
+			this->addMemPicBox->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
+			this->addMemPicBox->TabIndex = 2;
+			this->addMemPicBox->TabStop = false;
+			this->addMemPicBox->Click += gcnew System::EventHandler(this, &GuiForm::addMemPicBox_Click);
+			// 
+			// chatName
+			// 
+			this->chatName->AutoSize = true;
+			this->chatName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 18, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->chatName->ForeColor = System::Drawing::SystemColors::ButtonFace;
+			this->chatName->Location = System::Drawing::Point(167, 32);
+			this->chatName->Name = L"chatName";
+			this->chatName->Size = System::Drawing::Size(0, 29);
+			this->chatName->TabIndex = 1;
+			// 
+			// chatPicture
+			// 
+			this->chatPicture->Location = System::Drawing::Point(6, 3);
+			this->chatPicture->Name = L"chatPicture";
+			this->chatPicture->Size = System::Drawing::Size(118, 96);
+			this->chatPicture->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
+			this->chatPicture->TabIndex = 0;
+			this->chatPicture->TabStop = false;
+			// 
+			// footerContainer
+			// 
+			this->footerContainer->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(50)), static_cast<System::Int32>(static_cast<System::Byte>(50)),
+				static_cast<System::Int32>(static_cast<System::Byte>(50)));
+			this->footerContainer->Controls->Add(this->textBox1);
+			this->footerContainer->Controls->Add(this->sendButton);
+			this->footerContainer->Dock = System::Windows::Forms::DockStyle::Bottom;
+			this->footerContainer->Location = System::Drawing::Point(0, 995);
+			this->footerContainer->Name = L"footerContainer";
+			this->footerContainer->Size = System::Drawing::Size(1485, 46);
+			this->footerContainer->TabIndex = 13;
+			this->footerContainer->Visible = false;
+			// 
+			// textBox1
+			// 
+			this->textBox1->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->textBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->textBox1->Location = System::Drawing::Point(0, 0);
+			this->textBox1->MaxLength = 70;
+			this->textBox1->Name = L"textBox1";
+			this->textBox1->Size = System::Drawing::Size(1403, 46);
+			this->textBox1->TabIndex = 0;
+			this->textBox1->Text = L"";
+			// 
+			// sendButton
+			// 
+			this->sendButton->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"sendButton.BackgroundImage")));
+			this->sendButton->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+			this->sendButton->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->sendButton->Dock = System::Windows::Forms::DockStyle::Right;
+			this->sendButton->FlatAppearance->BorderSize = 0;
+			this->sendButton->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->sendButton->Location = System::Drawing::Point(1403, 0);
+			this->sendButton->Name = L"sendButton";
+			this->sendButton->Size = System::Drawing::Size(82, 46);
+			this->sendButton->TabIndex = 3;
+			this->sendButton->UseVisualStyleBackColor = true;
+			this->sendButton->Click += gcnew System::EventHandler(this, &GuiForm::sendButton_Click);
+			// 
+			// contactsPanelContainer
+			// 
+			this->contactsPanelContainer->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(50)),
+				static_cast<System::Int32>(static_cast<System::Byte>(50)), static_cast<System::Int32>(static_cast<System::Byte>(50)));
+			this->contactsPanelContainer->Controls->Add(this->contactsPanel);
+			this->contactsPanelContainer->Controls->Add(this->searchContactPanel);
+			this->contactsPanelContainer->Dock = System::Windows::Forms::DockStyle::Left;
+			this->contactsPanelContainer->Location = System::Drawing::Point(0, 0);
+			this->contactsPanelContainer->Name = L"contactsPanelContainer";
+			this->contactsPanelContainer->Size = System::Drawing::Size(332, 1041);
+			this->contactsPanelContainer->TabIndex = 8;
+			// 
+			// contactsPanel
+			// 
+			this->contactsPanel->Location = System::Drawing::Point(3, 32);
+			this->contactsPanel->Name = L"contactsPanel";
+			this->contactsPanel->Size = System::Drawing::Size(326, 1006);
+			this->contactsPanel->TabIndex = 1;
+			// 
+			// searchContactPanel
+			// 
+			this->searchContactPanel->Controls->Add(this->searchChatroom_field);
+			this->searchContactPanel->Location = System::Drawing::Point(3, 3);
+			this->searchContactPanel->Name = L"searchContactPanel";
+			this->searchContactPanel->Size = System::Drawing::Size(329, 28);
+			this->searchContactPanel->TabIndex = 0;
+			// 
+			// searchChatroom_field
+			// 
+			this->searchChatroom_field->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->searchChatroom_field->Location = System::Drawing::Point(3, 3);
+			this->searchChatroom_field->Name = L"searchChatroom_field";
+			this->searchChatroom_field->Size = System::Drawing::Size(320, 29);
+			this->searchChatroom_field->TabIndex = 0;
+			this->searchChatroom_field->TextChanged += gcnew System::EventHandler(this, &GuiForm::searchChatroom_field_TextChanged);
 			// 
 			// profilePanel
 			// 
@@ -1185,217 +1390,6 @@ private: System::ComponentModel::IContainer^ components;
 			this->singOutButton->Text = L"Sign out";
 			this->singOutButton->UseVisualStyleBackColor = false;
 			this->singOutButton->Click += gcnew System::EventHandler(this, &GuiForm::singOutButton_Click);
-			// 
-			// chatPnl
-			// 
-			this->chatPnl->AllowDrop = true;
-			this->chatPnl->Controls->Add(this->currentCahtPanel);
-			this->chatPnl->Controls->Add(this->contactsPanelContainer);
-			this->chatPnl->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->chatPnl->Location = System::Drawing::Point(87, 0);
-			this->chatPnl->Name = L"chatPnl";
-			this->chatPnl->Size = System::Drawing::Size(1817, 1041);
-			this->chatPnl->TabIndex = 8;
-			// 
-			// currentCahtPanel
-			// 
-			this->currentCahtPanel->BackColor = System::Drawing::Color::RosyBrown;
-			this->currentCahtPanel->Controls->Add(this->chatsContainer);
-			this->currentCahtPanel->Controls->Add(this->footerContainer);
-			this->currentCahtPanel->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->currentCahtPanel->Location = System::Drawing::Point(332, 0);
-			this->currentCahtPanel->Name = L"currentCahtPanel";
-			this->currentCahtPanel->Size = System::Drawing::Size(1485, 1041);
-			this->currentCahtPanel->TabIndex = 10;
-			// 
-			// chatsContainer
-			// 
-			this->chatsContainer->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(60)), static_cast<System::Int32>(static_cast<System::Byte>(60)),
-				static_cast<System::Int32>(static_cast<System::Byte>(60)));
-			this->chatsContainer->Controls->Add(this->messagesFlowPanelsContainer);
-			this->chatsContainer->Controls->Add(this->headerContainer);
-			this->chatsContainer->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->chatsContainer->Location = System::Drawing::Point(0, 0);
-			this->chatsContainer->Name = L"chatsContainer";
-			this->chatsContainer->Size = System::Drawing::Size(1485, 995);
-			this->chatsContainer->TabIndex = 14;
-			// 
-			// messagesFlowPanelsContainer
-			// 
-			this->messagesFlowPanelsContainer->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->messagesFlowPanelsContainer->Location = System::Drawing::Point(0, 102);
-			this->messagesFlowPanelsContainer->Name = L"messagesFlowPanelsContainer";
-			this->messagesFlowPanelsContainer->Size = System::Drawing::Size(1485, 893);
-			this->messagesFlowPanelsContainer->TabIndex = 1;
-			// 
-			// headerContainer
-			// 
-			this->headerContainer->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(70)), static_cast<System::Int32>(static_cast<System::Byte>(70)),
-				static_cast<System::Int32>(static_cast<System::Byte>(70)));
-			this->headerContainer->Controls->Add(this->removeMemberLabel);
-			this->headerContainer->Controls->Add(this->addMemberLabel);
-			this->headerContainer->Controls->Add(this->removeMemPicBox);
-			this->headerContainer->Controls->Add(this->addMemPicBox);
-			this->headerContainer->Controls->Add(this->chatName);
-			this->headerContainer->Controls->Add(this->chatPicture);
-			this->headerContainer->Dock = System::Windows::Forms::DockStyle::Top;
-			this->headerContainer->Location = System::Drawing::Point(0, 0);
-			this->headerContainer->Name = L"headerContainer";
-			this->headerContainer->Size = System::Drawing::Size(1485, 102);
-			this->headerContainer->TabIndex = 0;
-			// 
-			// removeMemberLabel
-			// 
-			this->removeMemberLabel->AutoSize = true;
-			this->removeMemberLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular,
-				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->removeMemberLabel->ForeColor = System::Drawing::Color::White;
-			this->removeMemberLabel->Location = System::Drawing::Point(973, 32);
-			this->removeMemberLabel->Name = L"removeMemberLabel";
-			this->removeMemberLabel->Size = System::Drawing::Size(175, 25);
-			this->removeMemberLabel->TabIndex = 5;
-			this->removeMemberLabel->Text = L"Remove Member";
-			// 
-			// addMemberLabel
-			// 
-			this->addMemberLabel->AutoSize = true;
-			this->addMemberLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->addMemberLabel->ForeColor = System::Drawing::Color::White;
-			this->addMemberLabel->Location = System::Drawing::Point(1321, 32);
-			this->addMemberLabel->Name = L"addMemberLabel";
-			this->addMemberLabel->Size = System::Drawing::Size(134, 25);
-			this->addMemberLabel->TabIndex = 4;
-			this->addMemberLabel->Text = L"Add Member";
-			// 
-			// removeMemPicBox
-			// 
-			this->removeMemPicBox->Cursor = System::Windows::Forms::Cursors::Hand;
-			this->removeMemPicBox->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"removeMemPicBox.Image")));
-			this->removeMemPicBox->Location = System::Drawing::Point(900, 12);
-			this->removeMemPicBox->Name = L"removeMemPicBox";
-			this->removeMemPicBox->Size = System::Drawing::Size(65, 68);
-			this->removeMemPicBox->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
-			this->removeMemPicBox->TabIndex = 3;
-			this->removeMemPicBox->TabStop = false;
-			this->removeMemPicBox->Click += gcnew System::EventHandler(this, &GuiForm::removeMemPicBox_Click);
-			// 
-			// addMemPicBox
-			// 
-			this->addMemPicBox->Cursor = System::Windows::Forms::Cursors::Hand;
-			this->addMemPicBox->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"addMemPicBox.Image")));
-			this->addMemPicBox->Location = System::Drawing::Point(1250, 12);
-			this->addMemPicBox->Name = L"addMemPicBox";
-			this->addMemPicBox->Size = System::Drawing::Size(65, 68);
-			this->addMemPicBox->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
-			this->addMemPicBox->TabIndex = 2;
-			this->addMemPicBox->TabStop = false;
-			this->addMemPicBox->Click += gcnew System::EventHandler(this, &GuiForm::addMemPicBox_Click);
-			// 
-			// chatName
-			// 
-			this->chatName->AutoSize = true;
-			this->chatName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 18, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->chatName->ForeColor = System::Drawing::SystemColors::ButtonFace;
-			this->chatName->Location = System::Drawing::Point(167, 32);
-			this->chatName->Name = L"chatName";
-			this->chatName->Size = System::Drawing::Size(0, 29);
-			this->chatName->TabIndex = 1;
-			// 
-			// chatPicture
-			// 
-			this->chatPicture->Location = System::Drawing::Point(6, 3);
-			this->chatPicture->Name = L"chatPicture";
-			this->chatPicture->Size = System::Drawing::Size(118, 96);
-			this->chatPicture->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
-			this->chatPicture->TabIndex = 0;
-			this->chatPicture->TabStop = false;
-			// 
-			// footerContainer
-			// 
-			this->footerContainer->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(50)), static_cast<System::Int32>(static_cast<System::Byte>(50)),
-				static_cast<System::Int32>(static_cast<System::Byte>(50)));
-			this->footerContainer->Controls->Add(this->textBox1);
-			this->footerContainer->Controls->Add(this->sendButton);
-			this->footerContainer->Dock = System::Windows::Forms::DockStyle::Bottom;
-			this->footerContainer->Location = System::Drawing::Point(0, 995);
-			this->footerContainer->Name = L"footerContainer";
-			this->footerContainer->Size = System::Drawing::Size(1485, 46);
-			this->footerContainer->TabIndex = 13;
-			this->footerContainer->Visible = false;
-			// 
-			// textBox1
-			// 
-			this->textBox1->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->textBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->textBox1->Location = System::Drawing::Point(0, 0);
-			this->textBox1->MaxLength = 70;
-			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(1403, 46);
-			this->textBox1->TabIndex = 0;
-			this->textBox1->Text = L"";
-			// 
-			// sendButton
-			// 
-			this->sendButton->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"sendButton.BackgroundImage")));
-			this->sendButton->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
-			this->sendButton->Cursor = System::Windows::Forms::Cursors::Hand;
-			this->sendButton->Dock = System::Windows::Forms::DockStyle::Right;
-			this->sendButton->FlatAppearance->BorderSize = 0;
-			this->sendButton->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->sendButton->Location = System::Drawing::Point(1403, 0);
-			this->sendButton->Name = L"sendButton";
-			this->sendButton->Size = System::Drawing::Size(82, 46);
-			this->sendButton->TabIndex = 3;
-			this->sendButton->UseVisualStyleBackColor = true;
-			this->sendButton->Click += gcnew System::EventHandler(this, &GuiForm::sendButton_Click);
-			// 
-			// contactsPanelContainer
-			// 
-			this->contactsPanelContainer->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(50)),
-				static_cast<System::Int32>(static_cast<System::Byte>(50)), static_cast<System::Int32>(static_cast<System::Byte>(50)));
-			this->contactsPanelContainer->Controls->Add(this->contactsPanel);
-			this->contactsPanelContainer->Controls->Add(this->searchContactPanel);
-			this->contactsPanelContainer->Dock = System::Windows::Forms::DockStyle::Left;
-			this->contactsPanelContainer->Location = System::Drawing::Point(0, 0);
-			this->contactsPanelContainer->Name = L"contactsPanelContainer";
-			this->contactsPanelContainer->Size = System::Drawing::Size(332, 1041);
-			this->contactsPanelContainer->TabIndex = 8;
-			// 
-			// contactsPanel
-			// 
-			this->contactsPanel->Location = System::Drawing::Point(3, 32);
-			this->contactsPanel->Name = L"contactsPanel";
-			this->contactsPanel->Size = System::Drawing::Size(326, 1006);
-			this->contactsPanel->TabIndex = 1;
-			// 
-			// searchContactPanel
-			// 
-			this->searchContactPanel->Controls->Add(this->searchChatroom_field);
-			this->searchContactPanel->Controls->Add(this->searchChatroom_btn);
-			this->searchContactPanel->Location = System::Drawing::Point(3, 3);
-			this->searchContactPanel->Name = L"searchContactPanel";
-			this->searchContactPanel->Size = System::Drawing::Size(329, 28);
-			this->searchContactPanel->TabIndex = 0;
-			// 
-			// searchChatroom_field
-			// 
-			this->searchChatroom_field->Location = System::Drawing::Point(3, 3);
-			this->searchChatroom_field->Name = L"searchChatroom_field";
-			this->searchChatroom_field->Size = System::Drawing::Size(297, 20);
-			this->searchChatroom_field->TabIndex = 0;
-			// 
-			// searchChatroom_btn
-			// 
-			this->searchChatroom_btn->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"searchChatroom_btn.BackgroundImage")));
-			this->searchChatroom_btn->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
-			this->searchChatroom_btn->Location = System::Drawing::Point(306, 3);
-			this->searchChatroom_btn->Name = L"searchChatroom_btn";
-			this->searchChatroom_btn->Size = System::Drawing::Size(20, 20);
-			this->searchChatroom_btn->TabIndex = 1;
-			this->searchChatroom_btn->UseVisualStyleBackColor = true;
 			// 
 			// addContactPanel
 			// 
@@ -2347,8 +2341,8 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
 			this->ClientSize = System::Drawing::Size(1904, 1041);
-			this->Controls->Add(this->mainPanel);
 			this->Controls->Add(this->SignINPnl);
+			this->Controls->Add(this->mainPanel);
 			this->Controls->Add(this->signUpPnl);
 			this->Controls->Add(this->getStoryPanel);
 			this->Controls->Add(this->addStoryPanel);
@@ -2362,9 +2356,6 @@ private: System::ComponentModel::IContainer^ components;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->signUpBackGround))->EndInit();
 			this->mainPanel->ResumeLayout(false);
-			this->profilePanel->ResumeLayout(false);
-			this->profilePanel->PerformLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->userPhotoPictureBox))->EndInit();
 			this->chatPnl->ResumeLayout(false);
 			this->currentCahtPanel->ResumeLayout(false);
 			this->chatsContainer->ResumeLayout(false);
@@ -2377,6 +2368,9 @@ private: System::ComponentModel::IContainer^ components;
 			this->contactsPanelContainer->ResumeLayout(false);
 			this->searchContactPanel->ResumeLayout(false);
 			this->searchContactPanel->PerformLayout();
+			this->profilePanel->ResumeLayout(false);
+			this->profilePanel->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->userPhotoPictureBox))->EndInit();
 			this->addContactPanel->ResumeLayout(false);
 			this->addContactPanel->PerformLayout();
 			this->addMemberPnl->ResumeLayout(false);
@@ -2508,6 +2502,7 @@ private: System::ComponentModel::IContainer^ components;
 			chatRoomHandler.headerContainer = headerContainer;
 			chatRoomHandler.users = &users;
 			chatRoomHandler.otherUser = &otherUser;
+			chatRoomHandler.buttons = buttons;
 
 
 			handler.globalMessages = &messages;
@@ -2613,6 +2608,7 @@ private: System::ComponentModel::IContainer^ components;
 				//todo end of the point
 				messagesFlowPanelsContainer->Controls->Clear();
 				contactsPanel->Controls->Clear();
+				buttons->Clear();
 
 				for(int chatRoom: currentUser->getChatRoomsID()){
 
@@ -3226,14 +3222,6 @@ private: System::ComponentModel::IContainer^ components;
 
 		}
         
-		private: System::Void searchChatroom_btn_Click(System::Object^ sender, System::EventArgs^ e) {
-			string searchText = msclr::interop::marshal_as<std::string>(searchChatroom_field->Text);
-			if (searchText == "") {
-				MessageBox::Show("Please enter a chat room name", "Error");
-			}
-			else
-				searchChatRooms(searchText, chatRooms, contactsPanel);
-		}
 		private: System::Void addMemPicBox_Click(System::Object^ sender, System::EventArgs^ e) {
 			addMemberPnl->BringToFront();
 		}
@@ -3366,7 +3354,18 @@ private: System::ComponentModel::IContainer^ components;
 		private: System::Void editPhotoButton_Click(System::Object^ sender, System::EventArgs^ e) {
 			changePhoto(userPhotoPictureBox, imagesFolder, currentUser);
 		};
-	};
+		
+	private: System::Void searchChatroom_field_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+		string searchText = msclr::interop::marshal_as<std::string>(searchChatroom_field->Text);
+		if (searchText == "") {
+			updateChatPanel(buttons, contactsPanel);
+		}
+		else {
+			searchChatRooms(searchText, contactsPanel,buttons);
+		}
+		sortChatRooms(*currentUser, Activity, chatRooms, contactsPanel, messages);
+	}
+};
 
 };
 

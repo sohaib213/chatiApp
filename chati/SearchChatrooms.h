@@ -4,30 +4,42 @@
 #include <vector>
 #include <algorithm>
 #include "ChatRoom.h"
-#include "Sort.h"
+#include "createChatRoomHandler.h"
 
-static void searchChatRooms(string chatname, unordered_map<int, ChatRoom> chatRooms, FlowLayoutPanel^ chatRoomsPanel) {
-	if (chatname.empty())
-		return;
-
-	List<Control^>^ buttons = gcnew List<Control^>();
-
-	// Find buttons in chatRoomsPanel that match the chatroom name
-	for (auto& room : userChatRooms) {
-		for each (Control ^ control in chatRoomsPanel->Controls) {
-			Button^ button = dynamic_cast<Button^>(control);
-			if (button != nullptr && button->Tag != nullptr && safe_cast<int>(button->Tag) == room.first && chatRooms.at(room.first).getGroupName()==chatname) {
-				buttons->Add(button);
-				break;
-			}
-		}
-	}
-
-	// Clear the chatRoomsPanel and add the new buttons
-	chatRoomsPanel->SuspendLayout();
-	chatRoomsPanel->Controls->Clear();
-	for each (Control ^ button in buttons) {
-		chatRoomsPanel->Controls->Add(button);
-	}
-	chatRoomsPanel->ResumeLayout();
+void updateChatPanel(List<Control^>^ buttons, FlowLayoutPanel^ chatRoomsPanel) {
+    // Clear the chatRoomsPanel and add the matching buttons
+    chatRoomsPanel->SuspendLayout();
+    chatRoomsPanel->Controls->Clear();
+    for each (Control ^ button in buttons) {
+        chatRoomsPanel->Controls->Add(button);
+    }
+    chatRoomsPanel->ResumeLayout();
 }
+
+static void searchChatRooms(string chatname, FlowLayoutPanel^ chatRoomsPanel, List<Control^>^ allButtons) {
+
+   List<Control^>^ buttons = gcnew List<Control^>();
+
+   for each (Button ^ button in allButtons) {
+
+       
+        Label^ label = dynamic_cast<Label^>(button->Controls[1]);
+        if (label != nullptr) {
+            bool exist = true;
+            for (int i = 0; i < chatname.size(); i++) {
+                String^ chatChar = gcnew String(chatname.substr(i, 1).c_str());
+                if (!label->Text->Contains(chatChar)) {
+                    exist = false;
+                    break;
+                }
+            }
+            if (exist) {
+                buttons->Add(button);
+            }
+            break;
+        }
+   }
+   updateChatPanel(buttons, chatRoomsPanel);
+   cout << "changed" << endl;
+}
+

@@ -55,6 +55,7 @@ Class createChatRoomHandler: AutoLayout, AnsiClass, Class, Public, BeforeFieldIn
     System.Windows.Forms.Panel headerContainer : Public
     System.String projectRoot : Public
     System.String imagesFolder : Public
+    System.Collections.Generic.List`1[System.Windows.Forms.Control] buttons : Public
   Methods:
     addChatRoomPanel(basic_string<char\,std::char_traits<char>\,std::allocator<char> >*, Int32, FlowLayoutPanel): PrivateScope, Public, HideBySig
     HoverEnter(Object, EventArgs): PrivateScope, Public, HideBySig
