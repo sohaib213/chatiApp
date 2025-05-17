@@ -267,7 +267,17 @@ static void saveToFile(
 		out.write(reinterpret_cast<const char*>(&fontStyle), sizeof(fontStyle));
 
 		writeString(out, s.getColorHex());
+
+		//? save the viwes
+		unordered_map<int, bool> views = s.getViews();
+		int viewsCount = views.size();
+		out.write(reinterpret_cast<const char*>(&viewsCount), sizeof(viewsCount));
+		for (const auto& view : views) {
+			out.write(reinterpret_cast<const char*>(&view.first), sizeof(view.first));
+			out.write(reinterpret_cast<const char*>(&view.second), sizeof(view.second));
+		}
 	}
+
 	out.close();
 
 	// Save contacts
@@ -450,6 +460,22 @@ static void loadFromFile(
 		s.setColorHex(readString(in));
 
 		stories[s.getStoryID()] = s;
+		int viewsCount = 0;
+		in.read(reinterpret_cast<char*>(&viewsCount), sizeof(viewsCount));
+		unordered_map<int, bool> views;
+
+		for (int j = 0; j < viewsCount; ++j) {
+			int viewerId;
+			bool hasViewed;
+			in.read(reinterpret_cast<char*>(&viewerId), sizeof(viewerId));
+			in.read(reinterpret_cast<char*>(&hasViewed), sizeof(hasViewed));
+			views[viewerId] = hasViewed;
+		}
+		s.setViews(views); // ضيفهم في الـ Story
+
+		// ضيف الـ story للـ map
+		stories[s.getStoryID()] = s;
+	
 	}
 	in.close();
 

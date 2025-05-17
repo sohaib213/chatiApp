@@ -1,4 +1,5 @@
 ﻿#include "Story.h"
+#include<unordered_map>
 
 // Initialize static member
 int Story::storyCounter = 0;
@@ -49,6 +50,9 @@ int Story::getFontStyle() const {
 string Story::getColorHex() const {
 	return colorHex;
 }
+unordered_map<int, bool> Story::getViews() const {
+	return views;
+}
 
 // Setters
 void Story::setStoryID(const int& id) {
@@ -66,6 +70,9 @@ void Story::setFontStyle(const int& fontStyle) {
 }
 void Story::setColorHex(const string& colorHex) {
 	this->colorHex = colorHex;
+}
+void Story::setViews(const unordered_map<int, bool>& views) {
+	this->views = views;
 }
 
 //void Story::setUserPhone(const string& userPhone) {

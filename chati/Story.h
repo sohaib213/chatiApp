@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <ctime>
+#include <unordered_map>
 
 using namespace std;
 
@@ -12,6 +13,7 @@ public:
     time_t publishTime;
     string storyPhoto;
     string storyText;
+    unordered_map<int, bool>views;
 
     // New members for font and color
     string fontName;         // Font name
@@ -35,6 +37,8 @@ public:
     float getFontSize() const;
     int getFontStyle() const;
     string getColorHex() const;
+	unordered_map<int, bool> getViews() const;
+
 
     // Setters
     void setStoryID(const int& storyId);
@@ -46,4 +50,5 @@ public:
     void setFontSize(const float& fontSize);
     void setFontStyle(const int& fontStyle);
     void setColorHex(const string& colorHex);
+	void setViews(const unordered_map<int, bool>& views);
 };

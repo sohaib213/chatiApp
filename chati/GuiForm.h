@@ -31,6 +31,7 @@ using namespace System::IO;
 using namespace System::Drawing;
 using namespace System;
 using namespace System::Globalization;
+using namespace System::Windows::Forms;
 //? Global maps for save and load from the files
 unordered_map<string, User> users;
 unordered_map<int, ChatRoom> chatRooms;
@@ -430,6 +431,11 @@ private: System::ComponentModel::IContainer^ components;
 			this->signUpBackGround = (gcnew System::Windows::Forms::PictureBox());
 			this->passTxt = (gcnew System::Windows::Forms::TextBox());
 			this->mainPanel = (gcnew System::Windows::Forms::Panel());
+			this->storyPanel = (gcnew System::Windows::Forms::Panel());
+			this->allStoriesPanel = (gcnew System::Windows::Forms::FlowLayoutPanel());
+			this->stotyHeaderPanel = (gcnew System::Windows::Forms::Panel());
+			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->chatPnl = (gcnew System::Windows::Forms::Panel());
 			this->currentCahtPanel = (gcnew System::Windows::Forms::Panel());
 			this->chatsContainer = (gcnew System::Windows::Forms::Panel());
@@ -507,11 +513,6 @@ private: System::ComponentModel::IContainer^ components;
 			this->groupNameTxt = (gcnew System::Windows::Forms::TextBox());
 			this->label7 = (gcnew System::Windows::Forms::Label());
 			this->addBtn = (gcnew System::Windows::Forms::Button());
-			this->storyPanel = (gcnew System::Windows::Forms::Panel());
-			this->allStoriesPanel = (gcnew System::Windows::Forms::FlowLayoutPanel());
-			this->stotyHeaderPanel = (gcnew System::Windows::Forms::Panel());
-			this->label2 = (gcnew System::Windows::Forms::Label());
-			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->navPanel = (gcnew System::Windows::Forms::Panel());
 			this->label21 = (gcnew System::Windows::Forms::Label());
 			this->label20 = (gcnew System::Windows::Forms::Label());
@@ -557,6 +558,8 @@ private: System::ComponentModel::IContainer^ components;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->signUpBackGround))->BeginInit();
 			this->mainPanel->SuspendLayout();
+			this->storyPanel->SuspendLayout();
+			this->stotyHeaderPanel->SuspendLayout();
 			this->chatPnl->SuspendLayout();
 			this->currentCahtPanel->SuspendLayout();
 			this->chatsContainer->SuspendLayout();
@@ -574,8 +577,6 @@ private: System::ComponentModel::IContainer^ components;
 			this->removeMemberPnl->SuspendLayout();
 			this->addGroup->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->groupImgPicBox))->BeginInit();
-			this->storyPanel->SuspendLayout();
-			this->stotyHeaderPanel->SuspendLayout();
 			this->navPanel->SuspendLayout();
 			this->addStoryPanel->SuspendLayout();
 			this->getStoryPanel->SuspendLayout();
@@ -789,19 +790,80 @@ private: System::ComponentModel::IContainer^ components;
 			// mainPanel
 			// 
 			this->mainPanel->BackColor = System::Drawing::Color::White;
+			this->mainPanel->Controls->Add(this->storyPanel);
 			this->mainPanel->Controls->Add(this->chatPnl);
 			this->mainPanel->Controls->Add(this->profilePanel);
 			this->mainPanel->Controls->Add(this->addContactPanel);
 			this->mainPanel->Controls->Add(this->addMemberPnl);
 			this->mainPanel->Controls->Add(this->removeMemberPnl);
 			this->mainPanel->Controls->Add(this->addGroup);
-			this->mainPanel->Controls->Add(this->storyPanel);
 			this->mainPanel->Controls->Add(this->navPanel);
 			this->mainPanel->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->mainPanel->Location = System::Drawing::Point(0, 0);
 			this->mainPanel->Name = L"mainPanel";
 			this->mainPanel->Size = System::Drawing::Size(1904, 1041);
 			this->mainPanel->TabIndex = 3;
+			// 
+			// storyPanel
+			// 
+			this->storyPanel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)),
+				static_cast<System::Int32>(static_cast<System::Byte>(45)));
+			this->storyPanel->Controls->Add(this->allStoriesPanel);
+			this->storyPanel->Controls->Add(this->stotyHeaderPanel);
+			this->storyPanel->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->storyPanel->Location = System::Drawing::Point(87, 0);
+			this->storyPanel->Name = L"storyPanel";
+			this->storyPanel->Size = System::Drawing::Size(1817, 1041);
+			this->storyPanel->TabIndex = 11;
+			// 
+			// allStoriesPanel
+			// 
+			this->allStoriesPanel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)),
+				static_cast<System::Int32>(static_cast<System::Byte>(45)));
+			this->allStoriesPanel->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->allStoriesPanel->FlowDirection = System::Windows::Forms::FlowDirection::TopDown;
+			this->allStoriesPanel->Location = System::Drawing::Point(0, 100);
+			this->allStoriesPanel->Name = L"allStoriesPanel";
+			this->allStoriesPanel->Size = System::Drawing::Size(1817, 941);
+			this->allStoriesPanel->TabIndex = 1;
+			// 
+			// stotyHeaderPanel
+			// 
+			this->stotyHeaderPanel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(60)), static_cast<System::Int32>(static_cast<System::Byte>(60)),
+				static_cast<System::Int32>(static_cast<System::Byte>(60)));
+			this->stotyHeaderPanel->Controls->Add(this->label2);
+			this->stotyHeaderPanel->Controls->Add(this->button2);
+			this->stotyHeaderPanel->Dock = System::Windows::Forms::DockStyle::Top;
+			this->stotyHeaderPanel->Location = System::Drawing::Point(0, 0);
+			this->stotyHeaderPanel->Name = L"stotyHeaderPanel";
+			this->stotyHeaderPanel->Size = System::Drawing::Size(1817, 100);
+			this->stotyHeaderPanel->TabIndex = 0;
+			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 19.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label2->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->label2->Location = System::Drawing::Point(33, 34);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(98, 31);
+			this->label2->TabIndex = 14;
+			this->label2->Text = L"Status";
+			// 
+			// button2
+			// 
+			this->button2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->button2->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button2.BackgroundImage")));
+			this->button2->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+			this->button2->FlatAppearance->BorderSize = 0;
+			this->button2->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->button2->Location = System::Drawing::Point(1683, 12);
+			this->button2->Name = L"button2";
+			this->button2->Size = System::Drawing::Size(75, 53);
+			this->button2->TabIndex = 12;
+			this->button2->UseVisualStyleBackColor = true;
+			this->button2->Click += gcnew System::EventHandler(this, &GuiForm::button2_Click);
 			// 
 			// chatPnl
 			// 
@@ -1767,67 +1829,6 @@ private: System::ComponentModel::IContainer^ components;
 			this->addBtn->UseVisualStyleBackColor = true;
 			this->addBtn->Click += gcnew System::EventHandler(this, &GuiForm::addBtn_Click);
 			// 
-			// storyPanel
-			// 
-			this->storyPanel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)),
-				static_cast<System::Int32>(static_cast<System::Byte>(45)));
-			this->storyPanel->Controls->Add(this->allStoriesPanel);
-			this->storyPanel->Controls->Add(this->stotyHeaderPanel);
-			this->storyPanel->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->storyPanel->Location = System::Drawing::Point(87, 0);
-			this->storyPanel->Name = L"storyPanel";
-			this->storyPanel->Size = System::Drawing::Size(1817, 1041);
-			this->storyPanel->TabIndex = 11;
-			// 
-			// allStoriesPanel
-			// 
-			this->allStoriesPanel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)),
-				static_cast<System::Int32>(static_cast<System::Byte>(45)));
-			this->allStoriesPanel->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->allStoriesPanel->FlowDirection = System::Windows::Forms::FlowDirection::TopDown;
-			this->allStoriesPanel->Location = System::Drawing::Point(0, 100);
-			this->allStoriesPanel->Name = L"allStoriesPanel";
-			this->allStoriesPanel->Size = System::Drawing::Size(1817, 941);
-			this->allStoriesPanel->TabIndex = 1;
-			// 
-			// stotyHeaderPanel
-			// 
-			this->stotyHeaderPanel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(60)), static_cast<System::Int32>(static_cast<System::Byte>(60)),
-				static_cast<System::Int32>(static_cast<System::Byte>(60)));
-			this->stotyHeaderPanel->Controls->Add(this->label2);
-			this->stotyHeaderPanel->Controls->Add(this->button2);
-			this->stotyHeaderPanel->Dock = System::Windows::Forms::DockStyle::Top;
-			this->stotyHeaderPanel->Location = System::Drawing::Point(0, 0);
-			this->stotyHeaderPanel->Name = L"stotyHeaderPanel";
-			this->stotyHeaderPanel->Size = System::Drawing::Size(1817, 100);
-			this->stotyHeaderPanel->TabIndex = 0;
-			// 
-			// label2
-			// 
-			this->label2->AutoSize = true;
-			this->label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 19.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->label2->ForeColor = System::Drawing::SystemColors::ControlLightLight;
-			this->label2->Location = System::Drawing::Point(33, 34);
-			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(98, 31);
-			this->label2->TabIndex = 14;
-			this->label2->Text = L"Status";
-			// 
-			// button2
-			// 
-			this->button2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->button2->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button2.BackgroundImage")));
-			this->button2->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
-			this->button2->FlatAppearance->BorderSize = 0;
-			this->button2->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->button2->Location = System::Drawing::Point(1683, 12);
-			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(75, 53);
-			this->button2->TabIndex = 12;
-			this->button2->UseVisualStyleBackColor = true;
-			this->button2->Click += gcnew System::EventHandler(this, &GuiForm::button2_Click);
-			// 
 			// navPanel
 			// 
 			this->navPanel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(65)), static_cast<System::Int32>(static_cast<System::Byte>(65)),
@@ -2125,18 +2126,19 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			// bodyOfTheStoryLabel
 			// 
+			this->bodyOfTheStoryLabel->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
 			this->bodyOfTheStoryLabel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)),
 				static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)));
 			this->bodyOfTheStoryLabel->BorderStyle = System::Windows::Forms::BorderStyle::None;
-			this->bodyOfTheStoryLabel->Cursor = System::Windows::Forms::Cursors::Default;
-			this->bodyOfTheStoryLabel->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->bodyOfTheStoryLabel->Cursor = System::Windows::Forms::Cursors::IBeam;
 			this->bodyOfTheStoryLabel->Location = System::Drawing::Point(0, 0);
 			this->bodyOfTheStoryLabel->Name = L"bodyOfTheStoryLabel";
 			this->bodyOfTheStoryLabel->ReadOnly = true;
 			this->bodyOfTheStoryLabel->ScrollBars = System::Windows::Forms::RichTextBoxScrollBars::Vertical;
 			this->bodyOfTheStoryLabel->Size = System::Drawing::Size(1904, 913);
 			this->bodyOfTheStoryLabel->TabIndex = 3;
-			this->bodyOfTheStoryLabel->TabStop = false;
 			this->bodyOfTheStoryLabel->Text = L"";
 			// 
 			// profileUserInStoryPanel
@@ -2370,6 +2372,9 @@ private: System::ComponentModel::IContainer^ components;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->signUpBackGround))->EndInit();
 			this->mainPanel->ResumeLayout(false);
+			this->storyPanel->ResumeLayout(false);
+			this->stotyHeaderPanel->ResumeLayout(false);
+			this->stotyHeaderPanel->PerformLayout();
 			this->chatPnl->ResumeLayout(false);
 			this->currentCahtPanel->ResumeLayout(false);
 			this->chatsContainer->ResumeLayout(false);
@@ -2394,9 +2399,6 @@ private: System::ComponentModel::IContainer^ components;
 			this->addGroup->ResumeLayout(false);
 			this->addGroup->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->groupImgPicBox))->EndInit();
-			this->storyPanel->ResumeLayout(false);
-			this->stotyHeaderPanel->ResumeLayout(false);
-			this->stotyHeaderPanel->PerformLayout();
 			this->navPanel->ResumeLayout(false);
 			this->navPanel->PerformLayout();
 			this->addStoryPanel->ResumeLayout(false);
@@ -2712,6 +2714,7 @@ private: System::ComponentModel::IContainer^ components;
 		}
 		private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
 			addStoryPanel->BringToFront();
+			textStory->Clear();
 		}
 		private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
 			addStoryPanel->BringToFront();
@@ -2786,14 +2789,6 @@ private: System::ComponentModel::IContainer^ components;
 			
 
 			PictureBox^ pictureUserStoryPic = gcnew PictureBox();
-
-			////? Load the resources
-			//System::ComponentModel::ComponentResourceManager^ resources = gcnew System::ComponentModel::ComponentResourceManager(GuiForm::typeid);
-			//cli::array<System::Byte>^ imageBytes = (cli::safe_cast<cli::array<System::Byte>^>(resources->GetObject(L"user")));
-
-			////? Convert byte array to Image using MemoryStream
-			//MemoryStream^ ms = gcnew MemoryStream(imageBytes);
-			//pictureUserStoryPic->Image = System::Drawing::Image::FromStream(ms);
 
 			//? Set the SizeMode to Zoom for the image to be zoomed correctly and fit within the PictureBox
 
@@ -3044,8 +3039,25 @@ private: System::ComponentModel::IContainer^ components;
 			mainPanel->BringToFront();
 			storyPanel->BringToFront();
 		}
+
+		//? view the story
 		private: System::Void viewerOfTheStoryBtn_Click(System::Object^ sender, System::EventArgs^ e) {
-			MessageBox::Show("Viewer of the story button clicked!");
+			//? stop the timers when he clik on the view button
+			storyProgressBarTimer->Stop();
+			storyTimerTemp->Stop();
+
+			//? get the current story
+			auto begin = storiesIDTemp.begin();
+			Story story = stories[*begin];
+			//? get the story views
+			unordered_map<int,bool> storyViews = story.getViews();
+			//? convert the size to string
+            String^ storyCounterString = storyViews.size().ToString();
+			
+			MessageBox::Show(storyCounterString, "Story Views", MessageBoxButtons::OK);
+
+			storyProgressBarTimer->Start();
+			storyTimerTemp->Start();
 		}
 		//?shehab/
 		private: System::Void singOutButton_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -3321,9 +3333,13 @@ private: System::ComponentModel::IContainer^ components;
 				map<string, string> friendsContacts = currentUser->getContactsPhones();
 				for (auto contact : friendsContacts) {
 					User freind = users.at(contact.first);
-					if (freind.getStoriesID().size() > 0) {
-						createUserStoryPanel(freind);
+					auto ContactsOfTheUserFreind =freind.getContactsPhones();
+					if (ContactsOfTheUserFreind.find(currentUser->getMobileNumber()) != ContactsOfTheUserFreind.end()) { //? that means that iam in the freind contact too
+						if (freind.getStoriesID().size() > 0) {
+							createUserStoryPanel(freind);
+						}
 					}
+					
 				}
 				/*storiesShown++;*/
 		}
