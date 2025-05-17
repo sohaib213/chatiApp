@@ -73,6 +73,43 @@ Class StoryStyleHelper: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Methods:
     LoadFontAndColor(basic_string<char\,std::char_traits<char>\,std::allocator<char> >*, Single, Int32, basic_string<char\,std::char_traits<char>\,std::allocator<char> >*, Font&, Color&): PrivateScope, Public, Static, HideBySig
+Class StoryHandler: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    User** currentUser : Public
+    System.Windows.Forms.Button viewerOfTheStoryBtn : Public
+    std.unordered_map<std::basic_string<char\,std::char_traits<char>\,std::allocator<char> >\,User\,std::hash<std::basic_string<char\,std::char_traits<char>\,std::allocator<char> > >\,std::equal_to<std::basic_string<char\,std::char_traits<char>\,std::allocator<char> > >\,std::allocator<std::pair<std::basic_string<char\,std::char_traits<char>\,std::allocator<char> > const \,User> > >* users : Public
+    System.Windows.Forms.Label nameInStoryLabel : Public
+    std.unordered_map<int\,Story\,std::hash<int>\,std::equal_to<int>\,std::allocator<std::pair<int const \,Story> > >* stories : Public
+    System.Windows.Forms.RichTextBox bodyOfTheStoryLabel : Public
+    System.Windows.Forms.Label dateInStoryLabel : Public
+    System.Windows.Forms.Panel bodyOfTheStoryPanel : Public
+    System.Windows.Forms.Panel getStoryPanel : Public
+    System.Windows.Forms.Panel addStoryPanel : Public
+    System.Windows.Forms.Panel mainPanel : Public
+    System.Windows.Forms.Panel storyPanel : Public
+    System.Windows.Forms.ProgressBar storyProgressBar : Public
+    System.Windows.Forms.Timer storyProgressBarTimer : Public
+    System.Windows.Forms.Timer storyTimerTemp : Public
+    std.set<int\,std::less<int>\,std::allocator<int> >* storiesIDTemp : Public
+    System.Windows.Forms.TextBox textStory : Public
+    System.Windows.Forms.FlowLayoutPanel allStoriesPanel : Public
+    System.Windows.Forms.FontDialog fontDialog : Public
+    System.Windows.Forms.ColorDialog colorDialog : Public
+    System.String projectRoot : Public
+    System.String imagesFolder : Public
+    System.Windows.Forms.PictureBox profileStoryPic : Public
+  Methods:
+    deleteStoriesAfterOneDay(): PrivateScope, Public, HideBySig
+    storyTimerTemp_Tick(): PrivateScope, Public, HideBySig
+    formatTimeToHHMM(basic_string<char\,std::char_traits<char>\,std::allocator<char> >*, Int64): PrivateScope, Public, HideBySig
+    viewerOfTheStoryBtn_Click(): PrivateScope, Public, HideBySig
+    button4_Click(): PrivateScope, Public, HideBySig
+    userStoryPanel_Click(Object, EventArgs): PrivateScope, Public, HideBySig
+    createUserStoryPanel(User* IsImplicitlyDereferenced): PrivateScope, Public, HideBySig
+    createStory(User* IsImplicitlyDereferenced): PrivateScope, Public, HideBySig
+    HoverEnter(Object, EventArgs): PrivateScope, Public, HideBySig
+    HoverLeave(Object, EventArgs): PrivateScope, Public, HideBySig
 Class chati.GuiForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName

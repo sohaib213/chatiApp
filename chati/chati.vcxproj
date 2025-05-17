@@ -133,6 +133,7 @@
     <ClInclude Include="SearchChatrooms.h" />
     <ClInclude Include="Sort.h" />
     <ClInclude Include="Story.h" />
+    <ClInclude Include="StoryHandler.h" />
     <ClInclude Include="User.h" />
   </ItemGroup>
   <ItemGroup>
