@@ -50,8 +50,11 @@ int Story::getFontStyle() const {
 string Story::getColorHex() const {
 	return colorHex;
 }
-unordered_map<int, bool> Story::getViews() const {
+unordered_map<string,bool> Story::getViews() const {
 	return views;
+}
+int Story::getViewsCounter() const {
+	return views.size();
 }
 
 // Setters
@@ -71,8 +74,12 @@ void Story::setFontStyle(const int& fontStyle) {
 void Story::setColorHex(const string& colorHex) {
 	this->colorHex = colorHex;
 }
-void Story::setViews(const unordered_map<int, bool>& views) {
-	this->views = views;
+void Story::setViews(const unordered_map<string, bool>& views) {  
+   this->views = views;  
+}   
+
+void Story::setViewsCounter(string mobileNumber) {
+	this->views[mobileNumber]=true;
 }
 
 //void Story::setUserPhone(const string& userPhone) {

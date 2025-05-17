@@ -13,7 +13,7 @@ public:
     time_t publishTime;
     string storyPhoto;
     string storyText;
-    unordered_map<int, bool>views;
+	unordered_map<string, bool> views; // Map to store mobile numbers and their view counts
 
     // New members for font and color
     string fontName;         // Font name
@@ -37,7 +37,8 @@ public:
     float getFontSize() const;
     int getFontStyle() const;
     string getColorHex() const;
-	unordered_map<int, bool> getViews() const;
+	unordered_map<string,bool> getViews() const;
+	int getViewsCounter() const;
 
 
     // Setters
@@ -50,5 +51,6 @@ public:
     void setFontSize(const float& fontSize);
     void setFontStyle(const int& fontStyle);
     void setColorHex(const string& colorHex);
-	void setViews(const unordered_map<int, bool>& views);
+	void setViewsCounter(const string mobileNumber);
+    void setViews(const unordered_map<string, bool>& views);
 };

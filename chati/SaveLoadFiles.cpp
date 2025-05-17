@@ -244,6 +244,7 @@ static void saveToFile(
 	// Save stories
 	out.open("stories.txt", ios::binary | ios::trunc);
 	if (!out) return;
+
 	int storyCount = stories.size();
 	out.write(reinterpret_cast<char*>(&storyCount), sizeof(storyCount));
 
@@ -268,17 +269,19 @@ static void saveToFile(
 
 		writeString(out, s.getColorHex());
 
-		//? save the viwes
-		unordered_map<int, bool> views = s.getViews();
+		//  Save the views (viewerId: string, hasViewed: bool)
+		const auto& views = s.getViews();
 		int viewsCount = views.size();
 		out.write(reinterpret_cast<const char*>(&viewsCount), sizeof(viewsCount));
+
 		for (const auto& view : views) {
-			out.write(reinterpret_cast<const char*>(&view.first), sizeof(view.first));
-			out.write(reinterpret_cast<const char*>(&view.second), sizeof(view.second));
+			writeString(out, view.first); // viewerId
+			out.write(reinterpret_cast<const char*>(&view.second), sizeof(view.second)); // hasViewed
 		}
 	}
 
 	out.close();
+
 
 	// Save contacts
 	out.open("contacts.txt", ios::binary | ios::trunc);
@@ -423,7 +426,7 @@ static void loadFromFile(
 	}
 	in.close();
 
-	// ---------------- Load Stories ----------------
+	// ----------------------Load stories-------------------------
 	in.open("stories.txt", ios::binary);
 	if (!in) {
 		cout << "Could not open stories file for reading." << endl;
@@ -459,25 +462,25 @@ static void loadFromFile(
 
 		s.setColorHex(readString(in));
 
-		stories[s.getStoryID()] = s;
+		//  Load the views
 		int viewsCount = 0;
 		in.read(reinterpret_cast<char*>(&viewsCount), sizeof(viewsCount));
-		unordered_map<int, bool> views;
 
+		unordered_map<string, bool> views;
 		for (int j = 0; j < viewsCount; ++j) {
-			int viewerId;
+			string viewerId = readString(in);
 			bool hasViewed;
-			in.read(reinterpret_cast<char*>(&viewerId), sizeof(viewerId));
 			in.read(reinterpret_cast<char*>(&hasViewed), sizeof(hasViewed));
 			views[viewerId] = hasViewed;
 		}
-		s.setViews(views); // ضيفهم في الـ Story
+		s.setViews(views);
 
-		// ضيف الـ story للـ map
+		//  Add story to the map
 		stories[s.getStoryID()] = s;
-	
 	}
+
 	in.close();
+
 
 	// ---------------- Load Contacts ----------------
 	in.open("contacts.txt", ios::binary);
