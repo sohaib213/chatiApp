@@ -16,30 +16,42 @@ void updateChatPanel(List<Control^>^ buttons, FlowLayoutPanel^ chatRoomsPanel) {
     chatRoomsPanel->ResumeLayout();
 }
 
-static void searchChatRooms(string chatname, FlowLayoutPanel^ chatRoomsPanel, List<Control^>^ allButtons) {
+
+static void searchChatRooms(string chatName, FlowLayoutPanel^ chatRoomsPanel, List<Control^>^ allButtons) {
 
    List<Control^>^ buttons = gcnew List<Control^>();
 
-   for each (Button ^ button in allButtons) {
 
-       
-        Label^ label = dynamic_cast<Label^>(button->Controls[1]);
-        if (label != nullptr) {
-            bool exist = true;
-            for (int i = 0; i < chatname.size(); i++) {
-                String^ chatChar = gcnew String(chatname.substr(i, 1).c_str());
-                if (!label->Text->Contains(chatChar)) {
-                    exist = false;
-                    break;
-                }
-            }
-            if (exist) {
-                buttons->Add(button);
-            }
-            break;
-        }
+   for (int i = 0; i < allButtons->Count; i++) {
+       Button^ button = dynamic_cast<Button^>(allButtons[i]);
+       if (button == nullptr) continue;
+
+       Label^ label = dynamic_cast<Label^>(button->Controls[1]);
+       if (label != nullptr) {
+
+           string labelText = msclr::interop::marshal_as<std::string>(label->Text);
+           int labelTextSize = labelText.size();
+
+           int existCharacter = 0, index = 0;
+
+           for (int j = 0; j < chatName.size(); j++) {
+               while (index < labelText.size()) {
+                   if (labelText[index] == chatName[j])
+                   {
+                       index++;
+                       existCharacter++;
+                       break;
+                   }
+                   else
+                       index++;
+               }
+           }
+           if (existCharacter == chatName.size()) {
+               buttons->Add(button);
+           }
+       }
    }
+
    updateChatPanel(buttons, chatRoomsPanel);
-   cout << "changed" << endl;
 }
 
