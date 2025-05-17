@@ -234,6 +234,14 @@ private: System::Windows::Forms::Label^ phoneNumberLabel;
 
 private: System::Windows::Forms::Label^ label27;
 
+private: System::Windows::Forms::Panel^ bodyOfTheStoryPanel;
+
+private: System::Windows::Forms::RichTextBox^ bodyOfTheStoryLabel;
+
+
+
+
+
 
 
 
@@ -380,8 +388,8 @@ private: System::Windows::Forms::Label^ label27;
 
 
 		private: System::Windows::Forms::Label^ nameInStoryLabel;
-		private: System::Windows::Forms::Panel^ bodyOfTheStoryPanel;
-		private: System::Windows::Forms::Label^ bodyOfTheStoryLabel;
+
+
 		private: System::Windows::Forms::Panel^ footerOfTheSroryPanel;
 		private: System::Windows::Forms::Button^ viewerOfTheStoryBtn;
 		private: System::Windows::Forms::Button^ cancelStoryBtn;
@@ -526,7 +534,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->footerOfTheSroryPanel = (gcnew System::Windows::Forms::Panel());
 			this->viewerOfTheStoryBtn = (gcnew System::Windows::Forms::Button());
 			this->bodyOfTheStoryPanel = (gcnew System::Windows::Forms::Panel());
-			this->bodyOfTheStoryLabel = (gcnew System::Windows::Forms::Label());
+			this->bodyOfTheStoryLabel = (gcnew System::Windows::Forms::RichTextBox());
 			this->profileUserInStoryPanel = (gcnew System::Windows::Forms::Panel());
 			this->storyProgressBar = (gcnew System::Windows::Forms::ProgressBar());
 			this->cancelStoryBtn = (gcnew System::Windows::Forms::Button());
@@ -1645,7 +1653,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->GroupMem->FormattingEnabled = true;
 			this->GroupMem->Location = System::Drawing::Point(725, 467);
 			this->GroupMem->Name = L"GroupMem";
-			this->GroupMem->Size = System::Drawing::Size(392, 108);
+			this->GroupMem->Size = System::Drawing::Size(392, 82);
 			this->GroupMem->TabIndex = 12;
 			// 
 			// addGroup
@@ -1711,7 +1719,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->usersListBox->FormattingEnabled = true;
 			this->usersListBox->Location = System::Drawing::Point(725, 437);
 			this->usersListBox->Name = L"usersListBox";
-			this->usersListBox->Size = System::Drawing::Size(356, 108);
+			this->usersListBox->Size = System::Drawing::Size(356, 82);
 			this->usersListBox->TabIndex = 11;
 			// 
 			// label8
@@ -2035,6 +2043,9 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			// textStory
 			// 
+			this->textStory->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
 			this->textStory->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)),
 				static_cast<System::Int32>(static_cast<System::Byte>(45)));
 			this->textStory->Font = (gcnew System::Drawing::Font(L"Sans Serif Collection", 16.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
@@ -2045,6 +2056,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->textStory->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
 			this->textStory->Size = System::Drawing::Size(1901, 864);
 			this->textStory->TabIndex = 1;
+			this->textStory->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			// 
 			// button3
 			// 
@@ -2113,17 +2125,19 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			// bodyOfTheStoryLabel
 			// 
-			this->bodyOfTheStoryLabel->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
-				| System::Windows::Forms::AnchorStyles::Left)
-				| System::Windows::Forms::AnchorStyles::Right));
-			this->bodyOfTheStoryLabel->AutoSize = true;
-			this->bodyOfTheStoryLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20.25F, System::Drawing::FontStyle::Bold,
-				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->bodyOfTheStoryLabel->ForeColor = System::Drawing::SystemColors::ButtonHighlight;
-			this->bodyOfTheStoryLabel->Location = System::Drawing::Point(842, 292);
+			this->bodyOfTheStoryLabel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)),
+				static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)));
+			this->bodyOfTheStoryLabel->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->bodyOfTheStoryLabel->Cursor = System::Windows::Forms::Cursors::Default;
+			this->bodyOfTheStoryLabel->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->bodyOfTheStoryLabel->Location = System::Drawing::Point(0, 0);
 			this->bodyOfTheStoryLabel->Name = L"bodyOfTheStoryLabel";
-			this->bodyOfTheStoryLabel->Size = System::Drawing::Size(0, 31);
-			this->bodyOfTheStoryLabel->TabIndex = 1;
+			this->bodyOfTheStoryLabel->ReadOnly = true;
+			this->bodyOfTheStoryLabel->ScrollBars = System::Windows::Forms::RichTextBoxScrollBars::Vertical;
+			this->bodyOfTheStoryLabel->Size = System::Drawing::Size(1904, 913);
+			this->bodyOfTheStoryLabel->TabIndex = 3;
+			this->bodyOfTheStoryLabel->TabStop = false;
+			this->bodyOfTheStoryLabel->Text = L"";
 			// 
 			// profileUserInStoryPanel
 			// 
@@ -2334,7 +2348,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			// deleteStoryTimer
 			// 
-			this->deleteStoryTimer->Interval = 60000;
+			this->deleteStoryTimer->Interval = 30000;
 			this->deleteStoryTimer->Tick += gcnew System::EventHandler(this, &GuiForm::deleteStoryTimer_Tick);
 			// 
 			// GuiForm
@@ -2342,10 +2356,10 @@ private: System::ComponentModel::IContainer^ components;
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
 			this->ClientSize = System::Drawing::Size(1904, 1041);
 			this->Controls->Add(this->SignINPnl);
-			this->Controls->Add(this->mainPanel);
-			this->Controls->Add(this->signUpPnl);
 			this->Controls->Add(this->getStoryPanel);
 			this->Controls->Add(this->addStoryPanel);
+			this->Controls->Add(this->mainPanel);
+			this->Controls->Add(this->signUpPnl);
 			this->Margin = System::Windows::Forms::Padding(4);
 			this->Name = L"GuiForm";
 			this->Text = L"chatApp";
@@ -2390,7 +2404,6 @@ private: System::ComponentModel::IContainer^ components;
 			this->getStoryPanel->ResumeLayout(false);
 			this->footerOfTheSroryPanel->ResumeLayout(false);
 			this->bodyOfTheStoryPanel->ResumeLayout(false);
-			this->bodyOfTheStoryPanel->PerformLayout();
 			this->profileUserInStoryPanel->ResumeLayout(false);
 			this->profileUserInStoryPanel->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->profileStoryPic))->EndInit();
@@ -2599,7 +2612,7 @@ private: System::ComponentModel::IContainer^ components;
 				passTxt->Clear();
 				headerContainer->Visible = false;
 				//? delete the stories expired after one day
-				//delteStoriesAfterOneDay();
+				deleteStoriesAfterOneDay();
 				deleteStoryTimer->Start();
 
 				//? load the stories 
@@ -2691,7 +2704,7 @@ private: System::ComponentModel::IContainer^ components;
 			chatPnl->BringToFront();
 		}
 		private: System::Void statusButton_Click(System::Object^ sender, System::EventArgs^ e) {
-			//delteStoriesAfterOneDay();
+			deleteStoriesAfterOneDay();
 			storyPanel->BringToFront();
 		}
 		private: System::Void profileButton_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -2910,9 +2923,21 @@ private: System::ComponentModel::IContainer^ components;
 			);
 			Color storyColorTemp = ColorTranslator::FromHtml(gcnew System::String(currentStory.getColorHex().c_str()));
 
+
 			//? set the font and the color to the label
 			bodyOfTheStoryPanel->BackColor = storyColorTemp;
 			bodyOfTheStoryLabel->Font = fontStoryTemp;
+			bool endsWithNewLine = bodyOfTheStoryLabel->Text->EndsWith("\n");
+			if (!endsWithNewLine) {
+				bodyOfTheStoryLabel->AppendText("\n");
+			}
+
+			bodyOfTheStoryLabel->BackColor = storyColorTemp;
+			bodyOfTheStoryLabel->SelectAll();
+			bodyOfTheStoryLabel->SelectionBackColor = storyColorTemp;
+			bodyOfTheStoryLabel->SelectionAlignment = System::Windows::Forms::HorizontalAlignment::Center;
+			bodyOfTheStoryLabel->DeselectAll();
+			
 			//? show the panel of the user story
 			getStoryPanel->BringToFront();
 
@@ -3130,13 +3155,17 @@ private: System::ComponentModel::IContainer^ components;
 
 				auto begin = storiesIDTemp.begin();
 				Story currentStory = stories[*begin];
-				string textShown = currentStory.getStoryText();
 				//? initilize the label with the text of the story
+				string textShown = currentStory.getStoryText();
 				bodyOfTheStoryLabel->Text = gcnew System::String(textShown.c_str());
+				
 				string date = formatTimeToHHMM(currentStory.getPublishTime());
 				//? initilize the label with the date of the story
+
 				dateInStoryLabel->Text = gcnew System::String(date.c_str());
+
 				//? declare the font and the color we will use
+
 				System::String^ fontName = gcnew System::String(currentStory.getFontName().c_str());
 				System::Drawing::Font^ fontStoryTemp = gcnew System::Drawing::Font(
 					fontName,
@@ -3149,6 +3178,19 @@ private: System::ComponentModel::IContainer^ components;
 				//? set the font and the color to the label
 				bodyOfTheStoryPanel->BackColor = storyColorTemp;
 				bodyOfTheStoryLabel->Font = fontStoryTemp;
+
+				// 
+				bool endsWithNewLine = bodyOfTheStoryLabel ->Text->EndsWith("\n");
+				if (!endsWithNewLine) {
+					bodyOfTheStoryLabel->AppendText("\n");
+				}
+
+				bodyOfTheStoryLabel->BackColor = storyColorTemp;
+				bodyOfTheStoryLabel->SelectAll();
+				bodyOfTheStoryLabel->SelectionBackColor = storyColorTemp;
+				bodyOfTheStoryLabel->SelectionAlignment = System::Windows::Forms::HorizontalAlignment::Center;
+				bodyOfTheStoryLabel->DeselectAll();
+
 
 				//! Start the progress bar timer AFTER setting up the new story
 				storyProgressBarTimer->Start();
@@ -3227,7 +3269,7 @@ private: System::ComponentModel::IContainer^ components;
 		}
 
 
-		private: System::Void deleteStoriesAfterOneDay() {
+		void deleteStoriesAfterOneDay() {
 			time_t now = time(0);
 
 			//? نجهز قائمة بالـ Panels اللي هنحذفها
