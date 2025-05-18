@@ -138,6 +138,29 @@ static map<string, string> readMap(ifstream& in) {
 	return map;
 }
 
+static void writeUnOrderedMap(ofstream& out, const unordered_map<string, string>& c) {
+	int contactCount = c.size();
+	out.write(reinterpret_cast<char*>(&contactCount), sizeof(contactCount));
+	for (const auto& i : c) {
+
+		writeString(out, i.first);
+		writeString(out, i.second);
+	}
+}
+static unordered_map<string, string> readUnOrderedMap(ifstream& in) {
+	unordered_map<string, string> map;
+
+	int contactCount;
+	in.read(reinterpret_cast<char*>(&contactCount), sizeof(contactCount));
+
+	for (int j = 0; j < contactCount; ++j) {
+
+		string temp = readString(in);
+		string s = readString(in);
+		map[temp] = s;
+	}
+	return map;
+}
 
 
 
@@ -172,9 +195,9 @@ static void saveToFile(
 		writeString(out, u.getProfilePhoto());
 		bool isVisible = u.getVisible();
 		out.write(reinterpret_cast<const char*>(&isVisible), sizeof(&isVisible));
-		writeMap(out, u.getContactsPhones());
+		writeUnOrderedMap(out, u.getContactsPhones());
 		writeSet(out, u.getStoriesID());
-		writeSet(out, u.getChatRoomsID());
+		writeUnOrderedSet(out, u.getChatRoomsID());
 	}
 	out.close();
 
@@ -340,9 +363,9 @@ static void loadFromFile(
 		in.read(reinterpret_cast<char*>(&isVisible), sizeof(&isVisible));
 		u.setVisible(isVisible);
 
-		u.setContactsPhones(readMap(in));
+		u.setContactsPhones(readUnOrderedMap(in));
 		u.setStoriesID(readSet(in));
-		u.setChatRoomsID(readSet(in));
+		u.setChatRoomsID(readUnOrderedSet(in));
 
 		users[u.getMobileNumber()] = u;
 	}

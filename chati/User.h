@@ -4,6 +4,7 @@
 #include <set>
 #include <vector>
 #include <map>
+#include <unordered_map>
 
 using namespace std;
 
@@ -15,9 +16,9 @@ class User {
     string profilePhoto;
     string about;
     bool visible; // for the user profile description
-	map<string, string> contactsPhone; // phone number as key and name as value
+	unordered_map<string, string> contactsPhone; // phone number as key and name as value
     set<int> storiesID; // set to store story IDs
-    set<int> chatRoomsID; // set to store chat room IDs
+    unordered_set<int> chatRoomsID; // set to store chat room IDs
 
 public:
     // Constructors
@@ -32,9 +33,9 @@ public:
     string getProfilePhoto() const;
     string getAbout() const;
     bool getVisible() const;
-    map<string, string> getContactsPhones() const;
+    unordered_map<string, string> getContactsPhones() const;
     set<int> getStoriesID() const;
-    set<int> getChatRoomsID() const;
+    unordered_set<int> getChatRoomsID() const;
 
     // Setters
     void setMobileNumber(const string& mobile);
@@ -44,9 +45,9 @@ public:
     void setProfilePhoto(const string& photo);
     void setAbout(const string& about);
     void setVisible(const bool& vis);
-    void setContactsPhones(const map<string, string>& contacts);
+    void setContactsPhones(const unordered_map<string, string>& contacts);
     void setStoriesID(const set<int>& stories);
-    void setChatRoomsID(const set<int>& chatRooms);
+    void setChatRoomsID(const unordered_set<int>& chatRooms);
 
     // Add/Remove methods
     bool addContactPhone(string contactID,string contactName);

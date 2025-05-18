@@ -19,9 +19,9 @@ string User::getLastName() const { return lastName; }
 string User::getProfilePhoto() const { return profilePhoto; }
 string User::getAbout() const { return about; }
 bool User::getVisible() const { return visible; }
-map<string, string> User::getContactsPhones() const { return contactsPhone; }
+unordered_map<string, string> User::getContactsPhones() const { return contactsPhone; }
 set<int> User::getStoriesID() const { return storiesID; }
-set<int> User::getChatRoomsID() const { return chatRoomsID; }
+unordered_set<int> User::getChatRoomsID() const { return chatRoomsID; }
 
 // Setters
 void User::setMobileNumber(const string& mobile) { mobileNumber = mobile; }
@@ -31,9 +31,9 @@ void User::setLastName(const string& lname) { lastName = lname; }
 void User::setProfilePhoto(const string& photo) { profilePhoto = photo; }
 void User::setAbout(const string& about) { this->about = about; }
 void User::setVisible(const bool& vis) { visible = vis; }
-void User::setContactsPhones(const map<string, string>& contactsPhone) { this->contactsPhone = contactsPhone; }
+void User::setContactsPhones(const unordered_map<string, string>& contactsPhone) { this->contactsPhone = contactsPhone; }
 void User::setStoriesID(const set<int>& stories) { storiesID = stories; }
-void User::setChatRoomsID(const set<int>& chatRooms) { chatRoomsID = chatRooms; }
+void User::setChatRoomsID(const unordered_set<int>& chatRooms) { chatRoomsID = chatRooms; }
 
 // Add/Remove Methods
 bool User::addContactPhone(string contactPhone,string contactName) {
