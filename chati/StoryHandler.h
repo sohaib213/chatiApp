@@ -586,5 +586,25 @@ public:
 			}
 		}
 	}
+	void loadStories(string mobileNumber) {
+
+		//! get all the stories of the user and his freinds when sign in
+
+		if ((*currentUser)->getStoriesID().size() > 0) {
+			createUserStoryPanel(**currentUser);
+		}
+		map<string, string> friendsContacts = (*currentUser)->getContactsPhones();
+		for (auto contact : friendsContacts) {
+			User freind = users->at(contact.first);
+			auto ContactsOfTheUserFreind = freind.getContactsPhones();
+			if (ContactsOfTheUserFreind.find((*currentUser)->getMobileNumber()) != ContactsOfTheUserFreind.end()) { //? that means that iam in the freind contact too
+				if (freind.getStoriesID().size() > 0) {
+					createUserStoryPanel(freind);
+				}
+			}
+
+		}
+
+	}
 
 };
