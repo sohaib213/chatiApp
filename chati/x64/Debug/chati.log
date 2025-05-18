@@ -50,16 +50,16 @@ C:\chati\chati\createChatRoomHandler.h(156,7): warning C4101: 'chatRoomID': unre
 C:\chati\chati\SearchChatrooms.h(33,30): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'GuiForm.cpp')
   
-C:\chati\chati\StoryHandler.h(156,28): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\chati\chati\StoryHandler.h(171,28): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   (compiling source file 'GuiForm.cpp')
   
-C:\chati\chati\StoryHandler.h(217,7): warning C4101: 'chatRoomID': unreferenced local variable
+C:\chati\chati\StoryHandler.h(232,7): warning C4101: 'chatRoomID': unreferenced local variable
   (compiling source file 'GuiForm.cpp')
   
-C:\chati\chati\StoryHandler.h(474,7): warning C4101: 'chatRoomID': unreferenced local variable
+C:\chati\chati\StoryHandler.h(493,7): warning C4101: 'chatRoomID': unreferenced local variable
   (compiling source file 'GuiForm.cpp')
   
-C:\chati\chati\StoryHandler.h(496,7): warning C4101: 'chatRoomID': unreferenced local variable
+C:\chati\chati\StoryHandler.h(515,7): warning C4101: 'chatRoomID': unreferenced local variable
   (compiling source file 'GuiForm.cpp')
   
   AddContact.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
