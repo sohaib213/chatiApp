@@ -27,6 +27,8 @@ public ref class StoryHandler {
 public:
 
 	User** currentUser;
+	int storyIDOfBegin;
+	String^ mobileNumber;
 	Button^ viewerOfTheStoryBtn;
 	unordered_map<string, User>* users;
 	Label^ nameInStoryLabel;
@@ -45,7 +47,19 @@ public:
 	String^ imagesFolder = Path::Combine(projectRoot, "usersImages");
 	PictureBox^ profileStoryPic;
 
+	void setStoryIDOfBegin(int id) {
+		storyIDOfBegin = id;
+	}
 
+	int getStoryIDOfBegin() {
+		return storyIDOfBegin;
+	}
+	void setMobileNumberOfClickedStory(String^ mobileNumber) {
+		this->mobileNumber = mobileNumber;
+	}
+	String^ getMobileNumberOfClickedStory() {
+		return this->mobileNumber;
+	}
 	void deleteStoriesAfterOneDay() {
 		//! the current time to compare 
 		time_t now = time(0);
@@ -88,13 +102,13 @@ public:
 	void storyTimerTemp_Tick() {
 		//! First stop the progress bar timer to prevent any further updates
 		storyProgressBarTimer->Stop();
-
+		/*auto begin = storiesIDTemp->begin();*/
 		//? show the stories temporarily
-		if (storiesIDTemp->size() > 0) {
+		if (storiesIDTemp->size()>0) {
 			//! Reset progress bar
 			storyProgressBar->Value = 0;
-
 			auto begin = storiesIDTemp->begin();
+			/*auto begin = storiesIDTemp->begin();*/
 			Story currentStory = (*stories)[*begin];
 			currentStory.setViewsCounter((*currentUser)->getMobileNumber());
 			(*stories)[currentStory.getStoryID()] = currentStory;
@@ -138,8 +152,8 @@ public:
 
 			//! Start the progress bar timer AFTER setting up the new story
 			storyProgressBarTimer->Start();
-
-			storiesIDTemp->erase(begin);
+			setStoryIDOfBegin(*begin);
+			storiesIDTemp->erase(begin); //? erase the first story since we're showing it now
 		}
 		else {
 			//! No more stories, clean up
@@ -150,6 +164,7 @@ public:
 			mainPanel->BringToFront();
 		}
 	}
+	
 
 	string formatTimeToHHMM(time_t t_time) {
 		std::tm* timeInfo = std::localtime(&t_time); // تحويل time_t إلى tm
@@ -165,8 +180,8 @@ public:
 
 		//? get the current story
 		if (!storiesIDTemp->empty()) {
-			auto begin = storiesIDTemp->begin();
-			Story story = (*stories)[*begin];
+			int storyID = getStoryIDOfBegin();
+			Story story = (*stories)[storyID];
 
 			String^ storyCounterString = gcnew System::String(story.getViewsCounter().ToString());
 
@@ -235,7 +250,9 @@ public:
 		System::String^ mobileStr = dynamic_cast<System::String^>(clickedPanel->Tag);
 		if (mobileStr == nullptr) return;
 
+		//todoooooooooooooooooooooooooooooooooooooooooooo
 		std::string mobileNumber = msclr::interop::marshal_as<std::string>(mobileStr);
+		setMobileNumberOfClickedStory(mobileStr);
 		//? make the viewer button invisible for the non-owner user
 		if ((*currentUser)->getMobileNumber() != mobileNumber) {
 			viewerOfTheStoryBtn->Visible = false;
@@ -262,36 +279,42 @@ public:
 		//stories[*storiesIDTemp.begin()].setViewsCounter(currentUser->getMobileNumber());
 
 		auto begin = (*storiesIDTemp).begin();
-		Story currentStory = (*stories)[*begin];
+
+		displayStoryManual(*begin);
+
+		//? erase the first story since we're showing it now
+		storiesIDTemp->erase(begin);
+
+		getStoryPanel->BringToFront();
+
+
+	}
+	void displayStoryManual(int storyID) {
+		if (stories->find(storyID) == stories->end()) return;
+
+		Story& currentStory = (*stories)[storyID];
+
+		// views of the story
 		currentStory.setViewsCounter((*currentUser)->getMobileNumber());
-		(*stories)[currentStory.getStoryID()] = currentStory;
-		//? get the story text
-		string textShown = currentStory.getStoryText();
-		bodyOfTheStoryLabel->Text = gcnew System::String(textShown.c_str());
-		//? format the date to string
-		string date = formatTimeToHHMM(currentStory.getPublishTime());
-		dateInStoryLabel->Text = gcnew System::String(date.c_str());
-		//? handle the color and the font
-		System::String^ fontName = gcnew System::String(currentStory.getFontName().c_str());
+
+		// text and date
+		bodyOfTheStoryLabel->Text = gcnew String(currentStory.getStoryText().c_str());
+		dateInStoryLabel->Text = gcnew String(formatTimeToHHMM(currentStory.getPublishTime()).c_str());
+
+		// color and font
+		System::String^ fontName = gcnew String(currentStory.getFontName().c_str());
 		System::Drawing::Font^ fontStoryTemp = gcnew System::Drawing::Font(
 			fontName,
 			currentStory.getFontSize(),
 			(System::Drawing::FontStyle)currentStory.getFontStyle()
 		);
-		Color storyColorTemp = ColorTranslator::FromHtml(gcnew System::String(currentStory.getColorHex().c_str()));
+		Color storyColorTemp = ColorTranslator::FromHtml(gcnew String(currentStory.getColorHex().c_str()));
 
-
-
-		//? set the font and the color to the label
 		bodyOfTheStoryLabel->Font = fontStoryTemp;
 		bool endsWithNewLine = bodyOfTheStoryLabel->Text->EndsWith("\n");
 		if (!endsWithNewLine) {
 			bodyOfTheStoryLabel->AppendText("\n");
 		}
-
-		cout << "Color Of Story 2: " << currentStory.getColorHex() << endl;
-
-
 
 		bodyOfTheStoryLabel->BackColor = storyColorTemp;
 		bodyOfTheStoryLabel->SelectAll();
@@ -299,30 +322,23 @@ public:
 		bodyOfTheStoryLabel->SelectionAlignment = System::Windows::Forms::HorizontalAlignment::Center;
 		bodyOfTheStoryLabel->DeselectAll();
 
-		
+		// profile pic
+		String^ mobileStr = getMobileNumberOfClickedStory();
+		std::string mobileNumber = msclr::interop::marshal_as<std::string>(mobileStr);
 		String^ imagePath = Path::Combine(imagesFolder, gcnew String((*users)[mobileNumber].getProfilePhoto().c_str()));
-
 		profileStoryPic->Image = Image::FromFile(imagePath);
-		//? show the panel of the user story
-		getStoryPanel->BringToFront();
 
-		//? ProgressBar logic - ensure it's reset and started
+		// Progress bar
 		storyProgressBar->Value = 0;
-
-		// Stop any existing timers first
 		storyProgressBarTimer->Stop();
 		storyTimerTemp->Stop();
-
-		// Start the progress bar timer
 		storyProgressBarTimer->Start();
-
-		// Start the story timer
 		storyTimerTemp->Start();
 
-		//? erase the first story since we're showing it now
-		storiesIDTemp->erase(begin);
-
+		// save the id
+		setStoryIDOfBegin(storyID);
 	}
+
 
 	void createUserStoryPanel(User& currentUser) {
 
@@ -508,4 +524,67 @@ public:
 			panelButton->BackColor = Color::FromArgb(60, 60, 60);
 		}
 	}
+	void moreButton_Click() {
+		// Pause timers temporarily
+		storyTimerTemp->Enabled = false;
+		storyProgressBarTimer->Enabled = false;
+
+		// Show confirmation dialog
+		auto result = MessageBox::Show("Do you want to delete the current story?", "Delete Story", MessageBoxButtons::YesNo);
+
+		if (result == DialogResult::Yes) {
+			// Delete the story if it exists
+			int storyID = getStoryIDOfBegin();
+			if (stories->find(storyID) != stories->end()) {
+				stories->erase(storyID);
+			}
+
+			// Remove from user's list
+			if (currentUser && *currentUser) {
+				(*currentUser)->removeStory(storyID);
+			}
+
+			// Reset progress bar since story is deleted
+			storyProgressBar->Value = 0;
+
+			//! Show next story or hide story view if none left
+			if (storiesIDTemp->size() > 0) {
+				auto begin = storiesIDTemp->begin();
+				displayStoryManual(*begin);
+				storiesIDTemp->erase(begin); //? erase the first story since we're showing it now
+			}
+			else {
+				// No more stories, clean up
+				storyProgressBar->Value = 0;
+				storyTimerTemp->Stop();
+				storyProgressBarTimer->Stop();
+				//deleteStoriesAfterOneDay();
+				removeUserPanelIfNoStories();
+				storyPanel->BringToFront();
+				mainPanel->BringToFront();
+			}
+
+			// Resume timers either way
+			storyTimerTemp->Enabled = true;
+			storyProgressBarTimer->Enabled = true;
+		}
+
+	}
+	void removeUserPanelIfNoStories() {
+		if (currentUser && *currentUser && (*currentUser)->getStoriesID().size() == 0) {
+			System::String^ mobileStr = gcnew System::String((*currentUser)->getMobileNumber().c_str());
+
+			for each (Control ^ control in allStoriesPanel->Controls) {
+				Panel^ userStoryPanel = dynamic_cast<Panel^>(control);
+				if (userStoryPanel != nullptr && userStoryPanel->Tag != nullptr) {
+					System::String^ panelMobileStr = dynamic_cast<System::String^>(userStoryPanel->Tag);
+					if (panelMobileStr != nullptr && panelMobileStr == mobileStr) {
+						allStoriesPanel->Controls->Remove(userStoryPanel);
+						break;
+					}
+				}
+			}
+		}
+	}
+
 };

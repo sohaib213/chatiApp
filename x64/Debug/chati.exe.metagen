@@ -77,6 +77,8 @@ Class StoryHandler: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
     User** currentUser : Public
+    Int32 storyIDOfBegin : Public
+    System.String mobileNumber : Public
     System.Windows.Forms.Button viewerOfTheStoryBtn : Public
     std.unordered_map<std::basic_string<char\,std::char_traits<char>\,std::allocator<char> >\,User\,std::hash<std::basic_string<char\,std::char_traits<char>\,std::allocator<char> > >\,std::equal_to<std::basic_string<char\,std::char_traits<char>\,std::allocator<char> > >\,std::allocator<std::pair<std::basic_string<char\,std::char_traits<char>\,std::allocator<char> > const \,User> > >* users : Public
     System.Windows.Forms.Label nameInStoryLabel : Public
@@ -100,16 +102,22 @@ Class StoryHandler: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     System.String imagesFolder : Public
     System.Windows.Forms.PictureBox profileStoryPic : Public
   Methods:
+    setStoryIDOfBegin(Int32): PrivateScope, Public, HideBySig
+    getStoryIDOfBegin(): PrivateScope, Public, HideBySig
+    setMobileNumberOfClickedStory(String): PrivateScope, Public, HideBySig
+    getMobileNumberOfClickedStory(): PrivateScope, Public, HideBySig
     deleteStoriesAfterOneDay(): PrivateScope, Public, HideBySig
     storyTimerTemp_Tick(): PrivateScope, Public, HideBySig
     formatTimeToHHMM(basic_string<char\,std::char_traits<char>\,std::allocator<char> >*, Int64): PrivateScope, Public, HideBySig
     viewerOfTheStoryBtn_Click(): PrivateScope, Public, HideBySig
     button4_Click(): PrivateScope, Public, HideBySig
     userStoryPanel_Click(Object, EventArgs): PrivateScope, Public, HideBySig
+    displayStoryManual(Int32): PrivateScope, Public, HideBySig
     createUserStoryPanel(User* IsImplicitlyDereferenced): PrivateScope, Public, HideBySig
     createStory(User* IsImplicitlyDereferenced): PrivateScope, Public, HideBySig
     HoverEnter(Object, EventArgs): PrivateScope, Public, HideBySig
     HoverLeave(Object, EventArgs): PrivateScope, Public, HideBySig
+    moreButton_Click(): PrivateScope, Public, HideBySig
 Class chati.GuiForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName

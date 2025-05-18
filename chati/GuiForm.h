@@ -44,6 +44,7 @@ User *currentUser, *otherUser;
 set<int> storiesIDTemp;
 ChatRoom *currentChatRoom;
 string currentContNum,currentContName;
+int storyIDOfBegin;
 
 //int storiesShown=0;
 
@@ -241,6 +242,8 @@ private: System::Windows::Forms::Label^ label27;
 private: System::Windows::Forms::Panel^ bodyOfTheStoryPanel;
 
 private: System::Windows::Forms::RichTextBox^ bodyOfTheStoryLabel;
+private: System::Windows::Forms::Button^ moreButton;
+
 
 
 
@@ -557,6 +560,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->storyTimerTemp = (gcnew System::Windows::Forms::Timer(this->components));
 			this->storyProgressBarTimer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->deleteStoryTimer = (gcnew System::Windows::Forms::Timer(this->components));
+			this->moreButton = (gcnew System::Windows::Forms::Button());
 			this->signUpPnl->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->signUpBackGround))->BeginInit();
@@ -2147,6 +2151,7 @@ private: System::ComponentModel::IContainer^ components;
 			// 
 			// profileUserInStoryPanel
 			// 
+			this->profileUserInStoryPanel->Controls->Add(this->moreButton);
 			this->profileUserInStoryPanel->Controls->Add(this->storyProgressBar);
 			this->profileUserInStoryPanel->Controls->Add(this->cancelStoryBtn);
 			this->profileUserInStoryPanel->Controls->Add(this->dateInStoryLabel);
@@ -2181,7 +2186,7 @@ private: System::ComponentModel::IContainer^ components;
 			this->cancelStoryBtn->FlatAppearance->BorderSize = 0;
 			this->cancelStoryBtn->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->cancelStoryBtn->ForeColor = System::Drawing::Color::DarkCyan;
-			this->cancelStoryBtn->Location = System::Drawing::Point(1799, 13);
+			this->cancelStoryBtn->Location = System::Drawing::Point(1799, 3);
 			this->cancelStoryBtn->Name = L"cancelStoryBtn";
 			this->cancelStoryBtn->Size = System::Drawing::Size(93, 52);
 			this->cancelStoryBtn->TabIndex = 1;
@@ -2358,13 +2363,28 @@ private: System::ComponentModel::IContainer^ components;
 			this->deleteStoryTimer->Interval = 30000;
 			this->deleteStoryTimer->Tick += gcnew System::EventHandler(this, &GuiForm::deleteStoryTimer_Tick);
 			// 
+			// moreButton
+			// 
+			this->moreButton->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->moreButton->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"moreButton.BackgroundImage")));
+			this->moreButton->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+			this->moreButton->FlatAppearance->BorderSize = 0;
+			this->moreButton->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->moreButton->ForeColor = System::Drawing::Color::DarkCyan;
+			this->moreButton->Location = System::Drawing::Point(1799, 61);
+			this->moreButton->Name = L"moreButton";
+			this->moreButton->Size = System::Drawing::Size(93, 52);
+			this->moreButton->TabIndex = 4;
+			this->moreButton->UseVisualStyleBackColor = true;
+			this->moreButton->Click += gcnew System::EventHandler(this, &GuiForm::moreButton_Click);
+			// 
 			// GuiForm
 			// 
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
 			this->ClientSize = System::Drawing::Size(1904, 1041);
+			this->Controls->Add(this->getStoryPanel);
 			this->Controls->Add(this->SignINPnl);
 			this->Controls->Add(this->addStoryPanel);
-			this->Controls->Add(this->getStoryPanel);
 			this->Controls->Add(this->mainPanel);
 			this->Controls->Add(this->signUpPnl);
 			this->Margin = System::Windows::Forms::Padding(4);
@@ -3148,7 +3168,10 @@ private: System::ComponentModel::IContainer^ components;
 			storyHandler.createStory(currentUser);
 		}
 
-	};
+		private: System::Void moreButton_Click(System::Object^ sender, System::EventArgs^ e) {
+			storyHandler.moreButton_Click();
+		}
+};
 
 };
 
